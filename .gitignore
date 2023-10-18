@@ -1,3 +1,4 @@
+# deltarune folder is left in src so ignoring everything except relevant files
 /src/*
 !/src/*.csx
 !/src/mod
