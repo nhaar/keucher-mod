@@ -15,6 +15,11 @@ ReplacePageItemTexture("PageItem 3158", "kris_room.png");
 ReplacePageItemTexture("PageItem 75", "dark_kris_room.png");
 ReplacePageItemTexture("PageItem 3159", "dark_kris_room.png");
 
+// creating sprite with empty collision for its mask_index
+var emptySprite = new UndertaleSprite();
+emptySprite.Name = Data.Strings.MakeString("spr_i_am_the_joker");
+Data.Sprites.Add(emptySprite);
+
 // creating custom objects
 Dictionary<string, UndertaleGameObject> objects =
 (new string[]
