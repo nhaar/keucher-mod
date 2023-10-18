@@ -32,7 +32,7 @@ string[] files = Directory.GetFiles(modDir);
 
 foreach (string file in files)
 {
-    ImportGMLFile(file.ToString());
+    ImportGMLFile(file);
 }
 
 // setting up the battle room for chapter 1
