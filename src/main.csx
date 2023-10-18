@@ -28,7 +28,7 @@ Dictionary<string, UndertaleGameObject> objects =
 objects["obj_IGT"].Persistent = true;
 
 // importing all code
-string[] files = Directory.GetFiles(modDir);
+string[] files = Directory.GetFiles(modDir, "*.gml", SearchOption.AllDirectories);
 
 foreach (string file in files)
 {
