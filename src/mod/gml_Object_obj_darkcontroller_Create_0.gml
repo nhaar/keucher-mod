@@ -1,9 +1,3 @@
-// keeps track of the total number of different turns the current boss has
-maxturn = 69
-
-// a type of "alarm" timer for when the explanative text for what the turn is should appear
-turntext = 0
-
 // keeps track of the party members, using an arbitrary party ID system (check the switch statement)
 partystate = -1
 
@@ -41,14 +35,6 @@ if (global.char[2] != 0)
 {
     berdlynumber++
     starwalkernumber++
-}
-
-// initialize TP values
-// TO-DO check if this couldn't be placed anywhere else
-for (i = 0; i < 20; i++)
-{
-    grazeOriginal[i] = 0
-    TPstart[i] = 0
 }
 
 cur_jewel = 0

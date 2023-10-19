@@ -26,7 +26,8 @@ Dictionary<string, UndertaleGameObject> objects =
 {
     "obj_IGT",
     "obj_battletester_ch1",
-    "obj_debug_gui_ch1"
+    "obj_debug_gui_ch1",
+    "obj_boss_practice"
 }).ToDictionary(x => x, x => CreateGMSObject(x));
 
 // setup objects
