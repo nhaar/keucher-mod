@@ -36,14 +36,6 @@ AddObjectToRoom(battleroomCh1, "obj_darkcontroller_ch1", 0, 0);
 AddObjectToRoom(battleroomCh1, "obj_chaseenemy_ch1", 480, 320);
 AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
 
-// add obj_IGT initialization via Append because otherwise the compiler can't handle the file
-UMPAppendGML("gml_Object_obj_CHAPTER_SELECT_Create_0", @"
-if (!instance_exists(obj_IGT))
-    instance_create(0, 0, obj_IGT);
-
-set_constants()
-");
-
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
 {
     room.GameObjects.Add(new UndertaleRoom.GameObject()
