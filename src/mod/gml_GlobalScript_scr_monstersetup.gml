@@ -636,6 +636,8 @@ function scr_monstersetup() //gml_Script_scr_monstersetup
     if (global.monstertype[myself] == 30)
     {
         global.monstername[myself] = stringsetloc("Ambyu-Lance", "scr_monstersetup_slash_scr_monstersetup_gml_760_0")
+
+        // make enemy unkillable in practice mode
         if (global.ambyu_practice == 1)
         {
             global.monstermaxhp[myself] = 30000000
@@ -646,6 +648,7 @@ function scr_monstersetup() //gml_Script_scr_monstersetup
             global.monstermaxhp[myself] = 300
             global.monsterhp[myself] = 300
         }
+        
         global.monsterat[myself] = 8
         global.monsterdf[myself] = 0
         global.monsterexp[myself] = 0

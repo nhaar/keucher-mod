@@ -1,4 +1,4 @@
-function scr_mnendturn() //gml_Script_scr_mnendturn
+function scr_mnendturn_ch1() //gml_Script_scr_mnendturn_ch1
 {
     if (global.char[0] == 2)
         sus = 0
@@ -7,62 +7,34 @@ function scr_mnendturn() //gml_Script_scr_mnendturn
     if (global.char[2] == 2)
         sus = 2
     techwon = false
-    if (scr_monsterpop() == 0)
+    if (scr_monsterpop_ch1() == 0)
         techwon = true
-    if (global.flag[39] == 1)
-        techwon = true
-    if (techwon == true)
-        scr_wincombat()
     if (techwon == false)
     {
-        with (obj_battlecontroller)
-        {
-            messagepriority = -1
-            attackpriority = -1
-        }
-        scr_battlecursor_memory_reset()
+        scr_battlecursor_memory_reset_ch1()
         global.mnfight = 0
         global.myfight = 0
         global.bmenuno = 0
         global.charturn = 0
 
-        // updating crit practice stats at the end of the turn
-        if (global.ambyu_practice == 1)
-        {
-            // player got all crits, last statement ensures this only counts once
-            if (global.thisdamage == global.maxdamage && global.maxdamage != 0)
-            {
-                global.streak += 1
-                global.success += 1
-            }
-            else
-                global.streak = 0
+        update_end_turn_crit_stats()
 
-            if (global.maxstreak < global.streak)
-                global.maxstreak = global.streak
-
-            global.thisdamage = 0
-            global.maxdamage = 0
-            global.attackse += 1
-        }
-        
         skip = false
         for (i = 0; i < 3; i += 1)
         {
-            global.hittarget[i] = 0
             with (global.charinstance[i])
                 tu = 0
             hptarget = global.char[i]
             if (global.char[i] != 0 && global.hp[hptarget] <= 0)
             {
                 healamt = ceil((global.maxhp[hptarget] / 8))
-                dmgwr = instance_create(global.charinstance[i].x, ((global.charinstance[i].y + global.charinstance[i].myheight) - 24), obj_dmgwriter)
+                dmgwr = instance_create_ch1(global.charinstance[i].x, ((global.charinstance[i].y + global.charinstance[i].myheight) - 24), obj_dmgwriter_ch1)
                 with (dmgwr)
                 {
                     delay = 1
                     type = 3
                 }
-                dmgwr.damage = scr_heal(i, healamt)
+                dmgwr.damage = scr_heal_ch1(i, healamt)
                 if (global.hp[hptarget] >= 1)
                 {
                     with (dmgwr)
@@ -85,25 +57,17 @@ function scr_mnendturn() //gml_Script_scr_mnendturn
         for (i = 0; i < 3; i += 1)
         {
             global.acting[i] = false
-            global.actingsingle[i] = false
-            global.actingsimul[i] = false
-            global.actingtarget[i] = 0
             global.temptension[i] = global.tension
             global.charspecial[i] = 0
             global.targeted[i] = false
             global.charaction[i] = 0
             global.faceaction[i] = 0
-            global.monsterattackname[i] = " "
         }
-        global.currentactingchar = 0
-        with (obj_monsterparent)
+        with (obj_monsterparent_ch1)
         {
             attacked = false
             talked = false
             acting = false
-            actingsus = false
-            actingral = false
-            actingnoe = false
         }
         if (skip == true)
         {
@@ -112,7 +76,7 @@ function scr_mnendturn() //gml_Script_scr_mnendturn
                 global.acting[0] = true
                 global.myfight = 3
             }
-            scr_endturn()
+            scr_endturn_ch1()
         }
         for (i = 0; i < 12; i += 1)
         {
@@ -120,5 +84,7 @@ function scr_mnendturn() //gml_Script_scr_mnendturn
                 tempitem[i][j] = global.item[i]
         }
     }
+    else
+        scr_wincombat_ch1()
 }
 

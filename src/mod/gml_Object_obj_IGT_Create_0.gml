@@ -1,3 +1,6 @@
+// initialize variable
+global.chapter = 0
+
 for (i = 0; i < 20; i += 1)
     global.splitDisplay[i] = -2
 global.startSplit = -1
@@ -9,7 +12,10 @@ global.roomPrevious = 0
 global.attemptCount = 0
 global.timeInRoom = 0
 global.timerReset = 0
+
+// should be `0` if crit practice is off, and `1` if it's on
 global.ambyu_practice = 0
+
 for (i = 0; i < 20; i += 1)
 {
     splittext[i] = ""

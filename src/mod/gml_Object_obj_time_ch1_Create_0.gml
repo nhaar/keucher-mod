@@ -54,7 +54,6 @@ else
     }
     scr_enable_screen_border_ch1(global.is_console)
 }
-global.ambyu_practice = 0
 global.thisdamage = 0
 global.maxdamage = 0
 global.streak = 0

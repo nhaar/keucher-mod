@@ -2,6 +2,7 @@ if (global.monster[myself] == true)
 {
     if (global.mnfight == 1 && talked == false)
     {
+        // end turn short if in practice mode
         if (global.ambyu_practice == 1)
             global.myfight = 5
         else

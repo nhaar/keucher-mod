@@ -18,15 +18,8 @@ if (cancelattack == false)
     else
     {
         damage = round((((global.battleat[myself] * points) / 20) - (global.monsterdf[global.chartarget[myself]] * 3)))
-        if (global.ambyu_practice == 1)
-        {
-            global.thisdamage += damage
-            maxdamage = round((((global.battleat[myself] * 150) / 20) - (global.monsterdf[global.chartarget[myself]] * 3)))
-            global.maxdamage += maxdamage
-            global.single_hits += 1
-            if (damage == maxdamage)
-                global.individual_success += 1
-        }
+        
+        count_individual_attack_damage()
     }
     if (global.monstertype[global.chartarget[myself]] == 19)
         damage = ceil((damage * 0.3))

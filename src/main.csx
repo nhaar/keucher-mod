@@ -27,7 +27,8 @@ Dictionary<string, UndertaleGameObject> objects =
     "obj_IGT",
     "obj_battletester_ch1",
     "obj_debug_gui_ch1",
-    "obj_boss_practice"
+    "obj_boss_practice",
+    "obj_crit_practice"
 }).ToDictionary(x => x, x => CreateGMSObject(x));
 
 // setup objects
@@ -91,4 +92,9 @@ void ReplacePageItemTexture (string itemName, string textureName)
     (
         Image.FromFile(Path.Combine(spritesDir, textureName))
     );
+}
+
+void AppendGML (string codeName, string code)
+{
+    Data.Code.ByName(codeName).AppendGML(code, Data);
 }
