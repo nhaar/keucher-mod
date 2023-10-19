@@ -12,7 +12,7 @@ global.startSplit = -1
 // variable keeps track of the IGT timer mode
 global.timerVersion = 0
 
-// should be `0` if the timer is invisible, `1` if it is visible
+// should be `1` if the timer is invisible, `0` if it is visible
 global.timerToggle = 0
 
 // the time the timer started
