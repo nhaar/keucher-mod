@@ -1,12 +1,5 @@
 cur_jewel = 0
-maxturn = 69
-turntext = 0
 partystate = -1
-for (i = 0; i < 20; i++)
-{
-    grazeOriginal[i] = 0
-    TPstart[i] = 0
-}
 thisTurn = 0
 lastTurn = 0
 alarm[0] = 1

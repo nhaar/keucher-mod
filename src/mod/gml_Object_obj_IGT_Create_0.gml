@@ -46,7 +46,6 @@ captured = 0
 escaped = 0
 kingdefeat = 0
 exception = 0
-maxturn = 69
 turntext = 0
 partystate = -1
 for (i = 0; i < 20; i++)
