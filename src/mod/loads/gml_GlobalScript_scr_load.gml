@@ -1,23 +1,31 @@
-function scr_load_chapter1() //gml_Script_scr_load_chapter1
+function scr_load() //gml_Script_scr_load
 {
     snd_free_all()
+
+    // reset segment time upon loading
     global.timeInRoom = 0
+
     filechoicebk = global.filechoice
     scr_gamestart()
     global.filechoice = filechoicebk
+
+    // check if savestate load or file load
+    var savestate
+    var _ssslot
     if keyboard_check_pressed(ord("E"))
     {
         savestate = "ss_"
-        var _ssslot = ""
+        _ssslot = ""
         with (obj_IGT)
-            _ssslot = ("_" + string(currentSlotSelected))
+            _ssslot = "_" + string(currentSlotSelected)
     }
     else
     {
         savestate = ""
         _ssslot = ""
     }
-    file = (((string(savestate) + "filech1_") + string(global.filechoice)) + string(_ssslot))
+    file = string(savestate) + "filech2_" + string(global.filechoice) + string(_ssslot)
+    
     myfileid = ossafe_file_text_open_read(file)
     global.truename = ossafe_file_text_read_string(myfileid)
     ossafe_file_text_readln(myfileid)
@@ -108,7 +116,7 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
         ds_list_destroy(weaponstyle_list)
         ossafe_file_text_readln(myfileid)
     }
-    for (i = 0; i < 4; i += 1)
+    for (i = 0; i < 5; i += 1)
     {
         if (!global.is_console)
         {
@@ -151,6 +159,10 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
             ossafe_file_text_readln(myfileid)
             global.itemspecial[i][q] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
+            global.itemelement[i][q] = ossafe_file_text_read_real(myfileid)
+            ossafe_file_text_readln(myfileid)
+            global.itemelementamount[i][q] = ossafe_file_text_read_real(myfileid)
+            ossafe_file_text_readln(myfileid)
         }
         for (j = 0; j < 12; j += 1)
         {
@@ -186,6 +198,11 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
             global.armor[i] = ds_list_find_value(armor_list, i)
         ds_list_destroy(armor_list)
         ossafe_file_text_readln(myfileid)
+        var pocket_list = scr_ds_list_read(myfileid)
+        for (i = 0; i < ds_list_size(pocket_list); i += 1)
+            global.pocketitem[i] = ds_list_find_value(pocket_list, i)
+        ds_list_destroy(pocket_list)
+        ossafe_file_text_readln(myfileid)
     }
     else
     {
@@ -195,14 +212,20 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
             ossafe_file_text_readln(myfileid)
             global.keyitem[j] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
+        }
+        for (j = 0; j < 48; j += 1)
+        {
             global.weapon[j] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
             global.armor[j] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
         }
+        for (j = 0; j < 72; j += 1)
+        {
+            global.pocketitem[j] = ossafe_file_text_read_real(myfileid)
+            ossafe_file_text_readln(myfileid)
+        }
     }
-    global.weapon[12] = 0
-    global.armor[12] = 0
     global.tension = ossafe_file_text_read_real(myfileid)
     ossafe_file_text_readln(myfileid)
     global.maxtension = ossafe_file_text_read_real(myfileid)
@@ -256,7 +279,7 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
             global.phone[i] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
         }
-        for (i = 0; i < 9999; i += 1)
+        for (i = 0; i < 2500; i += 1)
         {
             global.flag[i] = ossafe_file_text_read_real(myfileid)
             ossafe_file_text_readln(myfileid)
@@ -271,12 +294,26 @@ function scr_load_chapter1() //gml_Script_scr_load_chapter1
     ossafe_file_text_close(myfileid)
     global.lastsavedtime = global.time
     global.lastsavedlv = global.lv
-    scr_gamestart_chapter_override()
-    if (global.is_console && global.game_won == true)
-        global.darkzone = false
-    scr_tempsave()
     audio_group_set_gain(1, global.flag[15], 0)
     audio_set_master_gain(0, global.flag[17])
-    global.invc = 1
+    var room_id = global.currentroom
+    if (room_id < 10000)
+    {
+        room_id += (global.chapter * 10000)
+        global.currentroom = room_id
+        if (global.filechoice != 9)
+        {
+            var valid_room_index = scr_get_valid_room(global.chapter, global.currentroom)
+            global.currentroom = scr_get_id_by_room_index(valid_room_index)
+            if (global.currentroom == scr_get_id_by_room_index(71) && global.plot >= 11)
+                global.currentroom = scr_get_id_by_room_index(72)
+        }
+    }
+    __loadedroom = scr_get_room_by_id(global.currentroom)
+    if scr_dogcheck()
+        __loadedroom = choose(233, 1)
+    room_goto(__loadedroom)
+    var is_valid = scr_tempsave()
+    return is_valid;
 }
 

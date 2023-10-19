@@ -29,6 +29,9 @@ function scr_makecaterpillar(argument0, argument1, argument2, argument3) //gml_S
             dsprite = spr_noelle_walk_down_dw
             rsprite = spr_noelle_walk_right_dw
             lsprite = spr_noelle_walk_left_dw
+
+            // make noelle blush with noelle
+            // NOTE: might be redundant to have any checks other than the last one
             if ((global.chapter == 2 && global.plot == 95) || global.lesbians == 1)
             {
                 dsprite = spr_noelle_walk_down_blush_dw

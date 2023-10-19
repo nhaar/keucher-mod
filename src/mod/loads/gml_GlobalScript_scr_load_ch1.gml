@@ -1,30 +1,41 @@
 function scr_load_ch1() //gml_Script_scr_load_ch1
 {
     snd_free_all_ch1()
+    
+    // this IGT block seems unused
+    // TO-DO: Check
     with (obj_IGT)
     {
         if (exception == 0)
             exception = 1
     }
+
+    // Reset segment time upon loading
     global.timeInRoom = 0
+    
     filechoicebk = 0
     if variable_global_exists("filechoice")
         filechoicebk = global.filechoice
     scr_gamestart_ch1()
     global.filechoice = filechoicebk
+
+    // check if savestate load or file load
+    var savestate
+    var _ssslot
     if keyboard_check_pressed(ord("E"))
     {
         savestate = "ss_"
-        var _ssslot = ""
+        _ssslot = ""
         with (obj_IGT)
-            _ssslot = ("_" + string(currentSlotSelected))
+            _ssslot = "_" + string(currentSlotSelected)
     }
     else
     {
         savestate = ""
         _ssslot = ""
     }
-    file = (((string(savestate) + "filech1_") + string(global.filechoice)) + string(_ssslot))
+    file = string(savestate) + "filech1_" + string(global.filechoice) + string(_ssslot)
+
     myfileid = ossafe_file_text_open_read_ch1(file)
     if instance_exists(obj_loadscreen_ch1)
         obj_loadscreen_ch1.save_loaded = true

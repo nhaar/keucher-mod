@@ -16,8 +16,11 @@ function scr_mnendturn_ch1() //gml_Script_scr_mnendturn_ch1
         global.myfight = 0
         global.bmenuno = 0
         global.charturn = 0
+
+        // updating crit practice stats at the end of the turn
         if (global.ambyu_practice == 1)
         {
+            // player got all crits, last statement ensures this only counts once
             if (global.thisdamage == global.maxdamage && global.maxdamage != 0)
             {
                 global.streak += 1
@@ -25,12 +28,15 @@ function scr_mnendturn_ch1() //gml_Script_scr_mnendturn_ch1
             }
             else
                 global.streak = 0
+
             if (global.maxstreak < global.streak)
                 global.maxstreak = global.streak
+
             global.thisdamage = 0
             global.maxdamage = 0
             global.attackse += 1
         }
+
         skip = false
         for (i = 0; i < 3; i += 1)
         {
