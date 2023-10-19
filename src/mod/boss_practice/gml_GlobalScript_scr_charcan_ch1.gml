@@ -1,7 +1,7 @@
 function scr_charcan_ch1(argument0) //gml_Script_scr_charcan_ch1
 {
-    // to skip the turn if is not Kris
-    if (global.bossPractice == 1 && (i_ex(obj_joker_ch1) || i_ex(obj_king_boss_ch1)))
+    // to skip the turn if is not Kris in boss practice
+    if (global.bossPractice == 1 && i_ex(obj_boss_practice))
         return allow_only_kris(argument0);
         
     charcan = true
