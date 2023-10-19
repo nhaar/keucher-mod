@@ -33,6 +33,12 @@ Dictionary<string, UndertaleGameObject> objects =
 // setup objects
 objects["obj_IGT"].Persistent = true;
 
+// add obj_IGT initialization via Append because otherwise the compiler can't handle the file
+AppendGML("gml_Object_obj_CHAPTER_SELECT_Create_0", @"
+if (!instance_exists(obj_IGT))
+    instance_create(0, 0, obj_IGT);
+");
+
 // importing all code
 string[] files = Directory.GetFiles(modDir, "*.gml", SearchOption.AllDirectories);
 string[] functionFiles = files.Where(x => x.Contains("functions\\")).ToArray();
