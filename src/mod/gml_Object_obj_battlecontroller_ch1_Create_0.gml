@@ -17,7 +17,10 @@ global.fc = 0
 global.typer = 4
 global.battletyper = 4
 global.myfight = 0
+
+// speeds up the battle
 myfightreturntimer = 1
+
 global.mnfight = 0
 global.bmenuno = 0
 global.attacking = false

@@ -701,6 +701,8 @@ if (global.mnfight == 2 && timeron == true)
             alarm[2] = 15
     }
 }
+
+// what is this part for?
 if (global.myfight == 5)
 {
     myfightreturntimer--
@@ -730,6 +732,8 @@ if (global.myfight == 5)
         }
     }
 }
+
+// adding ch1 healing and other combat debug keys
 if scr_debug_ch1()
 {
     if keyboard_check_pressed(vk_f2)

@@ -118,7 +118,7 @@ attacked[1] = false
 attacked[2] = false
 bolttotal = ((charbolt[0] + charbolt[1]) + charbolt[2])
 boltxoff = 0
-mymethod = 1
+my_method = 1
 boltnum = 1
 boltuse[0] = 0
 boltuse[1] = 0
@@ -128,7 +128,7 @@ boltchar[0] = -1
 diff = 10
 if (global.flag[13] == 0)
     diff += 2
-if (mymethod == 1)
+if (my_method == 1)
 {
     for (i = 0; i < bolttotal; i += 1)
     {
@@ -163,7 +163,10 @@ if (mymethod == 1)
         else
             lastbolt = choose(diff, (diff * 1.5))
     }
-    if (global.random_pattern == 0 && bolttotal != 1)
+
+    // bolttotal is the number of cursors
+    // if 1, always the same
+    if (!global.random_pattern && bolttotal != 1)
     {
         pattern_array = bolttotal == 2 ? global.double_patterns : global.triple_patterns
         for (i = 0; i < bolttotal; i += 1)
@@ -171,7 +174,7 @@ if (mymethod == 1)
             boltframe[i] = pattern_array[global.triple_pattern][i]
     }
 }
-if (mymethod == 2)
+if (my_method == 2)
 {
     for (c = 0; c < 3; c += 1)
     {
