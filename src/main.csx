@@ -35,8 +35,15 @@ objects["obj_IGT"].Persistent = true;
 
 // importing all code
 string[] files = Directory.GetFiles(modDir, "*.gml", SearchOption.AllDirectories);
+string[] functionFiles = files.Where(x => x.Contains("functions\\")).ToArray();
+string[] notFunctionFiles = files.Where(x => !x.Contains("functions\\")).ToArray();
 
-foreach (string file in files)
+// functions first otherwise it will lead to issues when an undefined function is called
+foreach (string file in functionFiles)
+{
+    ImportGMLFile(file);
+}
+foreach (string file in notFunctionFiles)
 {
     ImportGMLFile(file);
 }
