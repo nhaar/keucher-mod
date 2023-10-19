@@ -206,7 +206,7 @@ if keyboard_check_pressed(vk_f6)
     textText = ""
     roomText = ""
     warpText = ""
-    UNUSED(1)
+    set_igt_splits_info(1)
     textTimer = timerValue
 }
 if (textTimer == 0 || global.ambyu_practice == 1)

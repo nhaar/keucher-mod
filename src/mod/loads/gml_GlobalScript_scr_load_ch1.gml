@@ -1,15 +1,6 @@
 function scr_load_ch1() //gml_Script_scr_load_ch1
 {
-    snd_free_all_ch1()
-    
-    // this IGT block seems unused
-    // TO-DO: Check
-    with (obj_IGT)
-    {
-        if (exception == 0)
-            exception = 1
-    }
-    
+    snd_free_all_ch1()   
     filechoicebk = 0
     if variable_global_exists("filechoice")
         filechoicebk = global.filechoice
