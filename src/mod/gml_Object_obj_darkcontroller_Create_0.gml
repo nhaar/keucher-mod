@@ -1,10 +1,21 @@
-cur_jewel = 0
+// keeps track of the total number of different turns the current boss has
 maxturn = 69
+
+// a type of "alarm" timer for when the explanative text for what the turn is should appear
 turntext = 0
+
+// keeps track of the party members, using an arbitrary party ID system (check the switch statement)
 partystate = -1
+
+// keeps track of how many times the party members have been changed
 presscount = 0
+
+// keeps track of whether susie is in the party
 havesusie = 0
+
+// keeps track of whether noelle is in the party
 havenoelle = 0
+
 for (i = 0; i < 3; i++)
 {
     if (global.char[i] == 2)
@@ -16,6 +27,9 @@ if (havesusie == 1 && havenoelle == 1)
     global.lesbians = 1
 else
     global.lesbians = 0
+
+// I can't find the logic behind these two variables, and the whole logic that increments them
+// TO-DO check with Keucher wtf this is
 berdlynumber = (global.krerdlyMode - 1)
 starwalkernumber = (global.theOriginal - 1)
 if (global.char[1] != 0)
@@ -28,11 +42,16 @@ if (global.char[2] != 0)
     berdlynumber++
     starwalkernumber++
 }
+
+// initialize TP values
+// TO-DO check if this couldn't be placed anywhere else
 for (i = 0; i < 20; i++)
 {
     grazeOriginal[i] = 0
     TPstart[i] = 0
 }
+
+cur_jewel = 0
 alarm[0] = 1
 charcon = 0
 chartimer = 0
@@ -140,6 +159,7 @@ for (i = 0; i < 3; i += 1)
                 dsprite = spr_noelle_walk_down_dw
                 rsprite = spr_noelle_walk_right_dw
                 lsprite = spr_noelle_walk_left_dw
+                // meme change, make noelle blush if she's in the party with susie
                 if (global.lesbians == 1)
                 {
                     dsprite = spr_noelle_walk_down_blush_dw
@@ -150,6 +170,8 @@ for (i = 0; i < 3; i += 1)
         }
     }
 }
+// this part here is truly a mystery and I couldn't find a way to trigger this so I'm not sure it's even possible
+// TO-DO ask Keucher wtf this is
 if (berdlynumber == 3 || starwalkernumber == 3)
 {
     berdlynumber++
@@ -157,10 +179,12 @@ if (berdlynumber == 3 || starwalkernumber == 3)
     global.lesbians = 1
     scr_makecaterpillar((obj_mainchara.x - 4), (obj_mainchara.y - 20), 4, 2)
 }
+// add respective characters to party if they were previously added
 if (global.krerdlyMode > 0)
     scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 6), 5, berdlynumber)
 if (global.theOriginal > 0)
     scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y, 6, starwalkernumber)
+
 global.charinstance[0] = obj_mainchara
 global.charinstance[1] = global.cinstance[0]
 global.charinstance[2] = global.cinstance[1]
