@@ -1,3 +1,5 @@
+#load "ump\ump.csx"
+
 using System.Linq;
 using System.Drawing;
 
@@ -20,34 +22,8 @@ var emptySprite = new UndertaleSprite();
 emptySprite.Name = Data.Strings.MakeString("spr_i_am_the_joker");
 Data.Sprites.Add(emptySprite);
 
-// creating custom objects
-Dictionary<string, UndertaleGameObject> objects =
-(new string[]
-{
-    "obj_IGT",
-    "obj_battletester_ch1",
-    "obj_debug_gui_ch1",
-    "obj_boss_practice",
-    "obj_crit_practice"
-}).ToDictionary(x => x, x => CreateGMSObject(x));
-
 // setup objects
-objects["obj_IGT"].Persistent = true;
-
-// importing all code
-string[] files = Directory.GetFiles(modDir, "*.gml", SearchOption.AllDirectories);
-string[] functionFiles = files.Where(x => x.Contains("functions\\")).ToArray();
-string[] notFunctionFiles = files.Where(x => !x.Contains("functions\\")).ToArray();
-
-// functions first otherwise it will lead to issues when an undefined function is called
-foreach (string file in functionFiles)
-{
-    ImportGMLFile(file);
-}
-foreach (string file in notFunctionFiles)
-{
-    ImportGMLFile(file);
-}
+Data.GameObjects.ByName("obj_IGT").Persistent = true;
 
 // setting up the battle room for chapter 1
 var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");
@@ -61,21 +37,12 @@ AddObjectToRoom(battleroomCh1, "obj_chaseenemy_ch1", 480, 320);
 AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
 
 // add obj_IGT initialization via Append because otherwise the compiler can't handle the file
-AppendGML("gml_Object_obj_CHAPTER_SELECT_Create_0", @"
+UMPAppendGML("gml_Object_obj_CHAPTER_SELECT_Create_0", @"
 if (!instance_exists(obj_IGT))
     instance_create(0, 0, obj_IGT);
 
 set_constants()
 ");
-
-UndertaleGameObject CreateGMSObject (string objectName)
-{
-    var obj = new UndertaleGameObject();
-    obj.Name = Data.Strings.MakeString(objectName);
-    Data.GameObjects.Add(obj);
-
-    return obj;
-}
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
 {
@@ -94,9 +61,4 @@ void ReplacePageItemTexture (string itemName, string textureName)
     (
         Image.FromFile(Path.Combine(spritesDir, textureName))
     );
-}
-
-void AppendGML (string codeName, string code)
-{
-    Data.Code.ByName(codeName).AppendGML(code, Data);
 }
