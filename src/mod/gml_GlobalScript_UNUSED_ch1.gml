@@ -1,77 +1,22 @@
 function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
 {
     var __warp = argument0
+    // give player movement
     global.interact = 0
+
+    // set dark world mode
     global.darkzone = true
+    
     if (global.chapter == 1)
     {
-        switch argument0
+        switch __warp
         {
             case 0:
                 global.flag[100] = 0
                 global.flag[201] = 0
                 global.flag[203] = 0
                 global.flag[206] = 0
-            case 1:
-                global.flag[101] = 0
-                global.flag[102] = 0
-                global.flag[103] = 0
-                global.flag[104] = 0
-                global.flag[209] = 0
-                global.flag[210] = 0
-                global.flag[211] = 0
-                global.flag[212] = 0
-                global.flag[500] = 0
-            case 2:
-                global.flag[214] = 0
-                global.flag[502] = 0
-            case 3:
-                global.flag[107] = 0
-                global.flag[108] = 0
-                global.flag[109] = 0
-                global.flag[110] = 0
-                global.flag[111] = 0
-                global.flag[234] = 0
-                global.flag[237] = 0
-                global.flag[249] = 0
-                global.flag[250] = 0
-                global.flag[254] = 0
-                global.flag[290] = 0
-                global.flag[291] = 0
-                global.flag[505] = 0
-                global.flag[506] = 0
-            case 4:
-                global.flag[105] = 0
-                global.flag[106] = 0
-                global.flag[229] = 0
-                global.flag[231] = 0
-            case 5:
-                global.flag[112] = 0
-                global.flag[113] = 0
-                global.flag[114] = 0
-                global.flag[217] = 0
-                global.flag[218] = 0
-                global.flag[239] = 0
-                global.flag[241] = 0
-                global.flag[242] = 0
-                global.flag[503] = 0
-                global.flag[504] = 0
-                global.flag[507] = 0
-                global.flag[508] = 0
-                global.flag[911] = 0
-            case 6:
-                global.flag[29] = 0
-                global.flag[207] = 0
-                global.flag[220] = 2
-                global.flag[221] = 0
-                global.flag[222] = 0
-                global.flag[247] = 0
-                global.flag[277] = 0
-        }
 
-        switch __warp
-        {
-            case 0:
                 global.flag[30] = 1
                 global.flag[226] = 0
                 global.char[0] = 1
@@ -89,6 +34,16 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_dark1_ch1)
                 break
             case 1:
+                global.flag[101] = 0
+                global.flag[102] = 0
+                global.flag[103] = 0
+                global.flag[104] = 0
+                global.flag[209] = 0
+                global.flag[210] = 0
+                global.flag[211] = 0
+                global.flag[212] = 0
+                global.flag[500] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 0
                 global.char[0] = 1
@@ -99,6 +54,9 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_field_start_ch1)
                 break
             case 2:
+                global.flag[214] = 0
+                global.flag[502] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 0
                 global.char[0] = 1
@@ -109,6 +67,21 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_field_checkers4_ch1)
                 break
             case 3:
+                global.flag[107] = 0
+                global.flag[108] = 0
+                global.flag[109] = 0
+                global.flag[110] = 0
+                global.flag[111] = 0
+                global.flag[234] = 0
+                global.flag[237] = 0
+                global.flag[249] = 0
+                global.flag[250] = 0
+                global.flag[254] = 0
+                global.flag[290] = 0
+                global.flag[291] = 0
+                global.flag[505] = 0
+                global.flag[506] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 0
                 global.char[0] = 1
@@ -119,6 +92,11 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_forest_savepoint1_ch1)
                 break
             case 4:
+                global.flag[105] = 0
+                global.flag[106] = 0
+                global.flag[229] = 0
+                global.flag[231] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 1
                 global.char[0] = 1
@@ -129,6 +107,20 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_forest_fightsusie_ch1)
                 break
             case 5:
+                global.flag[112] = 0
+                global.flag[113] = 0
+                global.flag[114] = 0
+                global.flag[217] = 0
+                global.flag[218] = 0
+                global.flag[239] = 0
+                global.flag[241] = 0
+                global.flag[242] = 0
+                global.flag[503] = 0
+                global.flag[504] = 0
+                global.flag[507] = 0
+                global.flag[508] = 0
+                global.flag[911] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 1
                 global.char[0] = 1
@@ -139,6 +131,14 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 room_goto(room_cc_prison_cells_ch1)
                 break
             case 6:
+                global.flag[29] = 0
+                global.flag[207] = 0
+                global.flag[220] = 2
+                global.flag[221] = 0
+                global.flag[222] = 0
+                global.flag[247] = 0
+                global.flag[277] = 0
+
                 global.flag[30] = 0
                 global.flag[226] = 1
                 global.char[0] = 1
@@ -151,11 +151,10 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
             default:
                 scr_debug_print("bro wtf did you do (plotwarp failed)")
         }
-
     }
     if (global.chapter == 2)
     {
-        switch argument0
+        switch __warp
         {
             case 0:
                 global.plot[34] = 1
@@ -168,6 +167,15 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[417] = 0
                 global.plot[527] = 0
                 global.plot[528] = 0
+
+                global.flag[309] = 0
+                global.flag[916] = 0
+                global.char[0] = 1
+                global.char[1] = 2
+                global.char[2] = 3
+                global.plot = 55
+                room_goto(room_dw_cyber_queen_boxing)
+                break
             case 1:
                 global.plot[383] = 0
                 global.plot[421] = 0
@@ -178,6 +186,15 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[531] = 0
                 global.plot[532] = 0
                 global.plot[533] = 0
+
+                global.flag[309] = 0
+                global.flag[916] = 0
+                global.char[0] = 1
+                global.char[1] = 2
+                global.char[2] = 3
+                global.plot = 64
+                room_goto(room_dw_city_intro)
+                break
             case 2:
                 global.plot[310] = 0
                 global.plot[311] = 0
@@ -191,11 +208,29 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[536] = 0
                 global.plot[537] = 0
                 global.plot[538] = 0
+
+                global.flag[309] = 0
+                global.flag[916] = 0
+                global.char[0] = 1
+                global.char[1] = 4
+                global.char[2] = 0
+                global.plot = 75
+                room_goto(room_dw_city_savepoint)
+                break
             case 3:
                 global.plot[447] = 0
                 global.plot[448] = 0
                 global.plot[465] = 0
                 global.plot[570] = 0
+
+                global.flag[309] = 0
+                global.flag[916] = 1
+                global.char[0] = 1
+                global.char[1] = 4
+                global.char[2] = 0
+                global.plot = 79
+                room_goto(room_dw_city_berdly)
+                break
             case 4:
                 global.plot[340] = 0
                 global.plot[344] = 0
@@ -219,6 +254,16 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[543] = 0
                 global.plot[544] = 0
                 global.plot[558] = 0
+
+                global.flag[309] = 1
+                global.flag[916] = 1
+                global.char[0] = 1
+                global.char[1] = 0
+                global.char[2] = 0
+                global.plot = 99
+                snd_free_all()
+                room_goto(room_dw_mansion_krisroom)
+                break
             case 5:
                 global.plot[343] = 0
                 global.plot[377] = 0
@@ -227,6 +272,15 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[435] = 0
                 global.plot[458] = 0
                 global.plot[546] = 0
+
+                global.flag[309] = 1
+                global.flag[916] = 1
+                global.char[0] = 1
+                global.char[1] = 3
+                global.char[2] = 0
+                global.plot = 139
+                room_goto(room_dw_mansion_east_3f)
+                break
             case 6:
                 global.plot[319] = 0
                 global.plot[331] = 0
@@ -250,66 +304,7 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
                 global.plot[567] = 0
                 global.plot[915] = 0
                 global.plot[924] = 0
-        }
 
-        switch __warp
-        {
-            case 0:
-                global.flag[309] = 0
-                global.flag[916] = 0
-                global.char[0] = 1
-                global.char[1] = 2
-                global.char[2] = 3
-                global.plot = 55
-                room_goto(room_dw_cyber_queen_boxing)
-                break
-            case 1:
-                global.flag[309] = 0
-                global.flag[916] = 0
-                global.char[0] = 1
-                global.char[1] = 2
-                global.char[2] = 3
-                global.plot = 64
-                room_goto(room_dw_city_intro)
-                break
-            case 2:
-                global.flag[309] = 0
-                global.flag[916] = 0
-                global.char[0] = 1
-                global.char[1] = 4
-                global.char[2] = 0
-                global.plot = 75
-                room_goto(room_dw_city_savepoint)
-                break
-            case 3:
-                global.flag[309] = 0
-                global.flag[916] = 1
-                global.char[0] = 1
-                global.char[1] = 4
-                global.char[2] = 0
-                global.plot = 79
-                room_goto(room_dw_city_berdly)
-                break
-            case 4:
-                global.flag[309] = 1
-                global.flag[916] = 1
-                global.char[0] = 1
-                global.char[1] = 0
-                global.char[2] = 0
-                global.plot = 99
-                snd_free_all()
-                room_goto(room_dw_mansion_krisroom)
-                break
-            case 5:
-                global.flag[309] = 1
-                global.flag[916] = 1
-                global.char[0] = 1
-                global.char[1] = 3
-                global.char[2] = 0
-                global.plot = 139
-                room_goto(room_dw_mansion_east_3f)
-                break
-            case 6:
                 global.flag[309] = 1
                 global.flag[916] = 1
                 global.char[0] = 1
@@ -321,7 +316,6 @@ function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
             default:
                 scr_debug_print("bro wtf did you do (plotwarp failed)")
         }
-
     }
 }
 
