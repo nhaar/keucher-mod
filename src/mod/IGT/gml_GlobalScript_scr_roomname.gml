@@ -1,10 +1,15 @@
 function scr_roomname(argument0) //gml_Script_scr_roomname
 {
+    // remove Japanese name
     roomname = stringset("Dark World?")
+
+    // custom arguments that aren't for room but specific mod uses cases
     if (argument0 == -2)
         roomname = stringset("START on Main Menu")
     if (argument0 == -1)
         roomname = stringset("YES on Naming Screen")
+
+    // below is the vanilla names + some added names that are used
     if (argument0 == 0)
         roomname = stringsetloc("---", "scr_roomname_slash_scr_roomname_gml_2_0")
     if (argument0 == 28)
