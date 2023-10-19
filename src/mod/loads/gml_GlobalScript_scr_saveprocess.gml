@@ -2,19 +2,9 @@ function scr_saveprocess(argument0) //gml_Script_scr_saveprocess
 {
     global.lastsavedtime = global.time
     global.lastsavedlv = global.lv
-    if keyboard_check_pressed(ord("Q"))
-    {
-        savestate = "ss_"
-        var _ssslot = ""
-        with (obj_IGT)
-            _ssslot = ("_" + string(currentSlotSelected))
-    }
-    else
-    {
-        savestate = ""
-        _ssslot = ""
-    }
-    file = (((((string(savestate) + "filech") + string(global.chapter)) + "_") + string(argument0)) + string(_ssslot))
+
+    keucher_mod_save()
+
     myfileid = ossafe_file_text_open_write(file)
     ossafe_file_text_write_string(myfileid, global.truename)
     ossafe_file_text_writeln(myfileid)
