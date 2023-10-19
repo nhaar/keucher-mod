@@ -2,8 +2,6 @@ function scr_gamestart() //gml_Script_scr_gamestart
 {
     global.chapter = 2
     global.darkzone = false
-    if (!i_ex(obj_IGT))
-        instance_create(0, 0, obj_IGT)
     global.filechoice = 0
     global.plot = 0
     global.truename = ""
@@ -307,6 +305,9 @@ function scr_gamestart() //gml_Script_scr_gamestart
     scr_armorinfo_mine()
     audio_set_master_gain(0, global.flag[17])
     global.cinstance[0] = 4854845464869464
+    // mysteriously this was changed relative to vanilla
+    // I have a hunch it's an automatic change by the compiler but can't be certain
+    // and don't want to break anything so leaving it for now
     global.cinstance[1] = 48548454648694640
     global.cinstance[2] = 48548454648694648
 }
