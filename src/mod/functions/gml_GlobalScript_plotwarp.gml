@@ -1,4 +1,4 @@
-function UNUSED_ch1(argument0) //gml_Script_UNUSED_ch1
+function plotwarp(argument0)
 {
     var __warp = argument0
     // give player movement

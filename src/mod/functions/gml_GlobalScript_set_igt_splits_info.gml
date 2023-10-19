@@ -1,4 +1,4 @@
-function UNUSED(argument0) //gml_Script_UNUSED
+function set_igt_splits_info(argument0) //gml_Script_UNUSED
 {
     // TO-DO: file seems to be able to organize split status a bit better. Check after sorting IGT
     /*
