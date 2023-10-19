@@ -347,8 +347,10 @@ if (MENU_NO >= 0)
     {
         draw_set_alpha(0.4)
         draw_set_color(c_white)
+
+        // add version label
         draw_set_halign(fa_right)
-        draw_text_transformed(250, 230, "DELTARUNE 1.15 (keucher mod v3.2.3), (C) Toby Fox 2018-2023", 0.5, 0.5, 0)
+        draw_text_transformed(250, 230, "DELTARUNE 1.15 (keucher mod v" + get_mod_version() + "), (C) Toby Fox 2018-2023", 0.5, 0.5, 0)
         draw_set_halign(fa_left)
     }
     else
@@ -376,13 +378,9 @@ if (MENU_NO >= 0)
         }
         if (TYPE == 1)
         {
-            with (obj_IGT)
-            {
-                if (DEVICE_MENU.MENU_NO == 11)
-                    isNGplus = 1
-                else
-                    isNGplus = 0
-            }
+            // signal
+            obj_IGT.isNGplus = DEVICE_MENU.MENU_NO == 11
+
             if (MENU_NO == 0 || MENU_NO == 1)
                 TEMPCOMMENT = stringsetloc("Please select a file.", "DEVICE_MENU_slash_Draw_0_gml_223_0")
             if (MENU_NO == 2)

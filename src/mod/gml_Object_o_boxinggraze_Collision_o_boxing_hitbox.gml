@@ -12,6 +12,8 @@ if (o_boxingcontroller.invincible == 0 && confirm == false && o_boxingcontroller
         with (o_boxingcontroller)
         {
             boxingtimer -= 4
+
+            // update
             global.grazeSubtracted += 4
         }
     }

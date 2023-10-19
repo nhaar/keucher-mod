@@ -269,8 +269,10 @@ if (MENU_NO >= 0)
     {
         draw_set_alpha(0.4)
         draw_set_color(c_white)
+
+        // add version label
         draw_set_halign(fa_right)
-        draw_text_transformed(250, 230, "DELTARUNE 1.15 (keucher mod v3.2.3), (C) Toby Fox 2018-2023", 0.5, 0.5, 0)
+        draw_text_transformed(250, 230, "DELTARUNE 1.15 (keucher mod v" + get_mod_version() + "), (C) Toby Fox 2018-2023", 0.5, 0.5, 0)
         draw_set_halign(fa_left)
     }
     else

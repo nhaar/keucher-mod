@@ -10,8 +10,10 @@ if (state == 0)
         if instance_exists(obj_bq_baseball_final_hits_boss)
         {
             snd_play(snd_explosion)
-            with (obj_IGT)
-                gigaend = 1
+            
+            // signal
+            obj_IGT.gigaend = 1
+            
             with (obj_bq_baseball_final_hits_boss)
                 instance_destroy()
             __view_set((1 << 0), 0, 0)

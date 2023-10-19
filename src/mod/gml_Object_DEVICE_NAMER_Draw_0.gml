@@ -87,8 +87,10 @@ if (EVENT == 74)
     if (global.choice == 1)
     {
         snd_free_all()
-        with (obj_IGT)
-            ch2start = 1
+
+        // signal
+        obj_IGT.ch2start = 1
+        
         snd_play(snd_dtrans_lw)
         fade = scr_fadeout(80)
         fade.depth = -1
