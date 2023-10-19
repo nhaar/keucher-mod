@@ -1,77 +1,42 @@
-function scr_roomname(argument0) //gml_Script_scr_roomname
-{
-    // remove Japanese name
-    roomname = stringset("Dark World?")
+/// PATCH
 
-    // custom arguments that aren't for room but specific mod uses cases
-    if (argument0 == -2)
-        roomname = stringset("START on Main Menu")
-    if (argument0 == -1)
-        roomname = stringset("YES on Naming Screen")
+/// REPLACE
+roomname = stringsetloc("Dark World?", "scr_roomname_slash_scr_roomname_gml_1_0")
+/// CODE
+// remove Japanese name
+roomname = stringset("Dark World?")
 
-    // below is the vanilla names + some added names that are used
-    if (argument0 == 0)
-        roomname = stringsetloc("---", "scr_roomname_slash_scr_roomname_gml_2_0")
-    if (argument0 == 28)
-        roomname = stringsetloc("Kris's Room", "scr_roomname_slash_scr_roomname_gml_3_0")
-    if (argument0 == 65)
-        roomname = stringsetloc("Castle Town", "scr_roomname_slash_scr_roomname_gml_4_0")
-    if (argument0 == 71)
-        roomname = stringsetloc("Castle Town", "scr_roomname_slash_scr_roomname_gml_5_0")
-    if (argument0 == 72)
-        roomname = stringsetloc("My Castle Town", "scr_roomname_slash_scr_roomname_gml_6_0")
-    if (argument0 == 84)
-        roomname = stringset("Cyber Field - First Room")
-    if (argument0 == 88)
-        roomname = stringsetloc("Cyber Field - Entrance", "scr_roomname_slash_scr_roomname_gml_7_0")
-    if (argument0 == 93)
-        roomname = stringsetloc("Cyber Field - Arcade Machine", "scr_roomname_slash_scr_roomname_gml_8_0")
-    if (argument0 == 99)
-        roomname = stringsetloc("Cyber Field - Music Shop", "scr_roomname_slash_scr_roomname_gml_9_0")
-    if (argument0 == 120)
-        roomname = stringset("Cyber City - Garbage Dump")
-    if (argument0 == 122)
-        roomname = stringsetloc("Cyber City - Entrance", "scr_roomname_slash_scr_roomname_gml_10_0")
-    if (argument0 == 125)
-        roomname = stringsetloc("Cyber City - First Alleyway", "scr_roomname_slash_scr_roomname_gml_11_0")
-    if (argument0 == 136)
-        roomname = stringsetloc("Cyber City - Mouse Alley", "scr_roomname_slash_scr_roomname_gml_12_0_b")
-    if (argument0 == 131)
-        roomname = stringsetloc("Cyber City - Music Shop", "scr_roomname_slash_scr_roomname_gml_12_0")
-    if (argument0 == 138)
-        roomname = stringsetloc("Cyber City - Second Alleyway", "scr_roomname_slash_scr_roomname_gml_13_0")
-    if (argument0 == 139)
-        roomname = stringset("Cyber City - Traffic After Berdly")
-    if (argument0 == 143)
-        roomname = stringsetloc("Cyber City - Heights", "scr_roomname_slash_scr_roomname_gml_16_0_b")
-    if (argument0 == 160)
-        roomname = stringset("Queen's Mansion - Kris's Room")
-    if (argument0 == 162)
-        roomname = stringsetloc("Queen's Mansion - Guest Hall", "scr_roomname_slash_scr_roomname_gml_14_0")
-    if (argument0 == 167)
-        roomname = stringsetloc("Queen's Mansion - Entrance", "scr_roomname_slash_scr_roomname_gml_15_0")
-    if (argument0 == 197)
-        roomname = stringsetloc("Queen's Mansion - 3F", "scr_roomname_slash_scr_roomname_gml_16_0")
-    if (argument0 == 200)
-        roomname = stringset("Queen's Mansion - Acid Tunnel Entrance")
-    if (argument0 == 203)
-        roomname = stringsetloc("Queen's Mansion - Acid Tunnel Exit", "scr_roomname_slash_scr_roomname_gml_17_0")
-    if (argument0 == 181)
-        roomname = stringsetloc("Queen's Mansion - Basement", "scr_roomname_slash_scr_roomname_gml_19_0")
-    if (argument0 == 206)
-        roomname = stringsetloc("Queen's Mansion - 4F", "scr_roomname_slash_scr_roomname_gml_20_0")
-    if (argument0 == 4)
-        roomname = stringsetloc("Queen's Mansion - Rooftop", "scr_roomname_slash_scr_roomname_gml_23_0")
-    if (argument0 == 330)
-        roomname = stringset("Field - Great Door")
-    if (argument0 == 346)
-        roomname = stringset("Checkerboard - First Room")
-    if (argument0 == 354)
-        roomname = stringset("Forest - Entrance")
-    if (argument0 == 379)
-        roomname = stringset("Forest - After Susie/Lancer")
-    if (argument0 == 387)
-        roomname = stringset("Castle - Cell Hallway")
-    return roomname;
-}
+// arguments that aren't used in vanilla but for specific mod uses cases
+if (argument0 == -2)
+    return "START on Main Menu";
+if (argument0 == -1)
+    return "YES on Naming Screen";
 
+// below is the vanilla names + some added names that are used in the mod
+if (argument0 == 84)
+    return "Cyber Field - First Room";
+if (argument0 == 120)
+    return "Cyber City - Garbage Dump";
+if (argument0 == 139)
+    return "Cyber City - Traffic After Berdly";
+if (argument0 == 160)
+    return "Queen's Mansion - Kris's Room";
+if (argument0 == 200)
+    return "Queen's Mansion - Acid Tunnel Entrance";
+if (argument0 == 330)
+    return "Field - Great Door";
+if (argument0 == 346)
+    return "Checkerboard - First Room";
+if (argument0 == 354)
+    return "Forest - Entrance";
+if (argument0 == 379)
+    return "Forest - After Susie/Lancer";
+if (argument0 == 387)
+    return "Castle - Cell Hallway";
+/// END
+
+/// REPLACE
+roomname = stringsetloc("Queen's Mansion - Acid Tunnel", "scr_roomname_slash_scr_roomname_gml_17_0")
+/// CODE
+return stringsetloc("Queen's Mansion - Acid Tunnel Exit", "scr_roomname_slash_scr_roomname_gml_17_0");
+/// END
