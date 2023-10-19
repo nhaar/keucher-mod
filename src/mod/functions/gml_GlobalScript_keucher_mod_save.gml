@@ -1,4 +1,4 @@
-function keucher_mod_save()
+function keucher_mod_save(argument0)
 {
     var savestate
     var _ssslot

@@ -5,7 +5,8 @@ function scr_load() //gml_Script_scr_load
     scr_gamestart()
     global.filechoice = filechoicebk
 
-    keucher_mod_load()
+    keucher_mod_load(2)
+
 
     myfileid = ossafe_file_text_open_read(file)
     global.truename = ossafe_file_text_read_string(myfileid)

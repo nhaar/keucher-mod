@@ -1,5 +1,7 @@
-function keucher_mod_load ()
+function keucher_mod_load (argument0)
 {
+    var chapter = argument0
+
     // Reset segment time upon loading
     global.timeInRoom = 0
 
@@ -18,5 +20,5 @@ function keucher_mod_load ()
         savestate = ""
         _ssslot = ""
     }
-    file = string(savestate) + "filech1_" + string(global.filechoice) + string(_ssslot)
+    file = string(savestate) + "filech" + string(chapter) + "_" + string(global.filechoice) + string(_ssslot)
 }

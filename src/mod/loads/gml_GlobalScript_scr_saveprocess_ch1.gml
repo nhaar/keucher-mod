@@ -3,7 +3,7 @@ function scr_saveprocess_ch1(argument0) //gml_Script_scr_saveprocess_ch1
     global.lastsavedtime = global.time
     global.lastsavedlv = global.lv
     
-    keucher_mod_save()
+    keucher_mod_save(argument0)
 
     myfileid = ossafe_file_text_open_write_ch1(file)
     ossafe_file_text_write_string_ch1(myfileid, global.truename)

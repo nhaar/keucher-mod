@@ -16,7 +16,7 @@ function scr_load_ch1() //gml_Script_scr_load_ch1
     scr_gamestart_ch1()
     global.filechoice = filechoicebk
 
-    keucher_mod_load()
+    keucher_mod_load(1)
 
     myfileid = ossafe_file_text_open_read_ch1(file)
     if instance_exists(obj_loadscreen_ch1)
