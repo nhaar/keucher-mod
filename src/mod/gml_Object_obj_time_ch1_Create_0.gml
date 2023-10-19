@@ -54,16 +54,4 @@ else
     }
     scr_enable_screen_border_ch1(global.is_console)
 }
-global.thisdamage = 0
-global.maxdamage = 0
-global.streak = 0
-global.maxstreak = 0
-global.attackse = 0
-global.success = 0
-global.individual_success = 0
-global.single_hits = 0
-global.crit_pattern = 0
-global.triple_pattern = 0
-global.double_pattern = 0
-global.random_pattern = 1
 global.grazeSubtracted = 0

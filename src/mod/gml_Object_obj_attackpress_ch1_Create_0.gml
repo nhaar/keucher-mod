@@ -128,36 +128,6 @@ boltchar[0] = -1
 diff = 10
 if (global.flag[13] == 0)
     diff += 2
-triple_patterns[0][0] = 29
-triple_patterns[0][1] = 41
-triple_patterns[0][2] = 41
-triple_patterns[1][0] = 29
-triple_patterns[1][1] = 47
-triple_patterns[1][2] = 47
-triple_patterns[2][0] = 29
-triple_patterns[2][1] = 29
-triple_patterns[2][2] = 47
-triple_patterns[3][0] = 29
-triple_patterns[3][1] = 29
-triple_patterns[3][2] = 41
-triple_patterns[4][0] = 29
-triple_patterns[4][1] = 41
-triple_patterns[4][2] = 53
-triple_patterns[5][0] = 29
-triple_patterns[5][1] = 47
-triple_patterns[5][2] = 59
-triple_patterns[6][0] = 29
-triple_patterns[6][1] = 41
-triple_patterns[6][2] = 59
-triple_patterns[7][0] = 29
-triple_patterns[7][1] = 47
-triple_patterns[7][2] = 65
-double_patterns[0][0] = 29
-double_patterns[0][1] = 29
-double_patterns[1][0] = 29
-double_patterns[1][1] = 41
-double_patterns[2][0] = 29
-double_patterns[2][1] = 47
 if (mymethod == 1)
 {
     for (i = 0; i < bolttotal; i += 1)
@@ -195,11 +165,9 @@ if (mymethod == 1)
     }
     if (global.random_pattern == 0 && bolttotal != 1)
     {
-        if (bolttotal == 2)
-            pattern_array = double_patterns
-        else
-            pattern_array = triple_patterns
+        pattern_array = bolttotal == 2 ? global.double_patterns : global.triple_patterns
         for (i = 0; i < bolttotal; i += 1)
+            // TO-DO: Check why triple pattern is for both?
             boltframe[i] = pattern_array[global.triple_pattern][i]
     }
 }
