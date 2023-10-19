@@ -1,20 +1,45 @@
 function UNUSED(argument0) //gml_Script_UNUSED
 {
+    // TO-DO: file seems to be able to organize split status a bit better. Check after sorting IGT
+    /*
+    0: reset timer
+    1: change IGT mode
+    2: max splits reached (automatically assigned)
+    */
+    var split_status = argument0
+
+    // temporary text that will be displayed upon changing splits options
     var __splitsText = ""
+
+    // Warp number id (mod arbitrary number defined below)
     var __warpNumber = ""
+
+    // the total number of splits in the current segment
     var __splitNumber = 0
+
+    // room id displacement constant for Chapter 1 post 1.09
     var __TOBYFOXWHYAREYOULIKETHIS = 10000
+
+    // variable to hold the true room id for each chapter, taking into account the displacement constant
     var __universalStart = 0
-    var __startroom = ""
+
+    // reset split and TP info
+    // TO-DO: Check why TP must be reset here and in boss practice
     for (i = 0; i < 20; i++)
     {
         global.splitDisplay[i] = -2
         global.turnGraze[i] = 0
         global.TPend[i] = 0
     }
+
+    // TO-DO: Check exactly what this does in IGT
     global.turnCount = -1
+
+    // Total amount of frames saved in the current turn from grazing
     global.grazeSubtracted = 0
-    if (argument0 == 0)
+    
+    // this is the option for resetting the timer
+    if (split_status == 0)
     {
         global.timerToggle = 0
         global.timeStart = get_timer()
@@ -24,25 +49,30 @@ function UNUSED(argument0) //gml_Script_UNUSED
         global.attemptCount = 0
         global.timeInRoom = 0
     }
-    if (argument0 == 1)
+    // this option is for changing the IGT mode
+    if (split_status == 1)
     {
         global.timeStart = 0
         global.timerVersion++
+        // wrap around
         if (global.timerVersion == 10)
-            global.timerVersion -= 10
+            global.timerVersion = 0
     }
     if i_ex(obj_IGT)
     {
         with (obj_IGT)
         {
+            // unsure of the utility of this section in specific and why here
             thisTurn = 0
             lastTurn = 0
+            // graze reset, once again, TO-DO: check why here
             for (i = 0; i < 20; i++)
             {
                 grazeOriginal[i] = 0
                 TPstart[i] = 0
             }
-            if (argument0 == 0)
+            // resetting "signal" variables that tell when a special event happened
+            if (split_status == 0)
             {
                 if (global.chapter == 2)
                 {
@@ -61,8 +91,10 @@ function UNUSED(argument0) //gml_Script_UNUSED
             }
         }
     }
-    if (argument0 != 2)
+    // split status 2 is the automatic call
+    if (split_status != 2)
     {
+        // updating information based on the split mode
         if (global.chapter == 1)
         {
             switch global.timerVersion
@@ -241,7 +273,7 @@ function UNUSED(argument0) //gml_Script_UNUSED
 
         }
     }
-    if (argument0 == 0)
+    if (split_status == 0)
     {
         with (obj_IGT)
         {
@@ -251,24 +283,24 @@ function UNUSED(argument0) //gml_Script_UNUSED
             textTimer = timerValue
         }
     }
-    if (argument0 == 1)
+    else if (split_status == 1)
     {
+        // fixing the room number (for chapter 1 post 1.09)
         __universalStart = global.startSplit
         if (global.chapter == 1)
             __universalStart -= __TOBYFOXWHYAREYOULIKETHIS
-        __startroom = scr_roomname(__universalStart)
         with (obj_IGT)
         {
             splitNumber = __splitNumber
-            textText = (string(__splitsText) + " splits selected")
+            textText = string(__splitsText) + " splits selected"
             if (global.timerVersion > 2)
-                roomText = ("Timer will start in " + string(__startroom))
+                roomText = "Timer will start in " + scr_roomname(__universalStart)
             if (global.timerVersion > 2 && global.timerVersion != 9)
-                warpText = (("Press D + " + string(__warpNumber)) + " to warp")
+                warpText = "Press D + " + string(__warpNumber) + " to warp"
             textTimer = timerValue
         }
     }
-    if (argument0 == 2)
+    if (split_status == 2)
     {
         with (obj_IGT)
         {
