@@ -9,9 +9,6 @@ function scr_load_ch1() //gml_Script_scr_load_ch1
         if (exception == 0)
             exception = 1
     }
-
-    // Reset segment time upon loading
-    global.timeInRoom = 0
     
     filechoicebk = 0
     if variable_global_exists("filechoice")
@@ -19,22 +16,7 @@ function scr_load_ch1() //gml_Script_scr_load_ch1
     scr_gamestart_ch1()
     global.filechoice = filechoicebk
 
-    // check if savestate load or file load
-    var savestate
-    var _ssslot
-    if keyboard_check_pressed(ord("E"))
-    {
-        savestate = "ss_"
-        _ssslot = ""
-        with (obj_IGT)
-            _ssslot = "_" + string(currentSlotSelected)
-    }
-    else
-    {
-        savestate = ""
-        _ssslot = ""
-    }
-    file = string(savestate) + "filech1_" + string(global.filechoice) + string(_ssslot)
+    keucher_mod_load()
 
     myfileid = ossafe_file_text_open_read_ch1(file)
     if instance_exists(obj_loadscreen_ch1)

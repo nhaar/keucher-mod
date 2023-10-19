@@ -1,30 +1,11 @@
 function scr_load_chapter1() //gml_Script_scr_load_chapter1
 {
     snd_free_all()
-
-    // reset segment time upon loading
-    global.timeInRoom = 0
-
     filechoicebk = global.filechoice
     scr_gamestart()
     global.filechoice = filechoicebk
     
-    // check if savestate load or file load
-    var savestate
-    var _ssslot
-    if keyboard_check_pressed(ord("E"))
-    {
-        savestate = "ss_"
-        _ssslot = ""
-        with (obj_IGT)
-            _ssslot = "_" + string(currentSlotSelected)
-    }
-    else
-    {
-        savestate = ""
-        _ssslot = ""
-    }
-    file = string(savestate) + "filech1_" + string(global.filechoice) + string(_ssslot)
+    keucher_mod_load()
 
     myfileid = ossafe_file_text_open_read(file)
     global.truename = ossafe_file_text_read_string(myfileid)
