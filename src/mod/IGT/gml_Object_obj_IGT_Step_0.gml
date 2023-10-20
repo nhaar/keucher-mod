@@ -11,7 +11,7 @@ else
 
 // debug toggle
 // TO-DO: move to a different file
-if keyboard_check_pressed(vk_f3)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_debug))
 {
     if global.debug
     {
@@ -65,7 +65,7 @@ if (keyboard_check(ord("2")) && keyboard_check(ord("D")))
 
 // clear all sounds
 // TO-DO: move to a different file
-if keyboard_check_pressed(vk_f11)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_stop_sounds))
 {
     if (global.chapter == 1)
         snd_free_all_ch1()
@@ -75,7 +75,7 @@ if keyboard_check_pressed(vk_f11)
 
 // reset tempflags
 // TO-DO: move to a different file
-if keyboard_check_pressed(vk_f12)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_reset_tempflags))
 {
     for (i = 0; i < 100; i += 1)
         global.tempflag[i] = 0

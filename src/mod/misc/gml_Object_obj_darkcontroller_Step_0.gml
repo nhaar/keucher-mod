@@ -1,10 +1,11 @@
 /// PATCH
 
-/// BEFORE
-if (keyboard_check_pressed(ord("R")) && keyboard_check(vk_backspace))
+/// AFTER
+if scr_debug()
+{
 /// CODE
 // toggiel visible
-if keyboard_check_pressed(ord("I"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_make_visible))
 {
     global.interact = 0
     with (obj_mainchara)
@@ -12,7 +13,7 @@ if keyboard_check_pressed(ord("I"))
 }
 
 // change party
-if keyboard_check_pressed(ord("H"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_change_party))
 {
     partystate++
     presscount++
@@ -183,7 +184,7 @@ if keyboard_check_pressed(ord("H"))
 }
 
 // get items
-if keyboard_check_pressed(ord("N"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_get_item))
 {
     if (global.flag[48] == 0)
     {
@@ -453,7 +454,7 @@ if keyboard_check_pressed(get_bound_key(14))
 }
 
 // toggle noclip
-if keyboard_check_pressed(ord("K"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_hitboxes))
 {
     if (obj_mainchara.mask_index != spr_i_am_the_joker)
     {
@@ -470,7 +471,7 @@ if keyboard_check_pressed(ord("K"))
 }
 
 // disabling the S/R/N-Action
-if keyboard_check_pressed(ord("J"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_side_action))
 {
     if (global.flag[34] == 0)
     {
@@ -485,7 +486,7 @@ if keyboard_check_pressed(ord("J"))
 }
 
 // snowgrave plot setting
-if keyboard_check(ord("O"))
+if keyboard_check(get_bound_key(global.KEYBINDING_snowgrave_plot))
 {
 
     if keyboard_check_pressed(ord("1"))

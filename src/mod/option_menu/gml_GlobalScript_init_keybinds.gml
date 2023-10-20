@@ -17,7 +17,7 @@ function init_keybinds()
         ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_debug, vk_f3)
         ds_map_add(global.mod_keybinds, global.KEYBINDING_stop_sounds, vk_f11)
         ds_map_add(global.mod_keybinds, global.KEYBINDING_reset_tempflags, vk_f12)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_warp_room, vk_escape)
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_warp_room, vk_escape) // not implemented?
         ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_hitboxes, ord("U"))
         ds_map_add(global.mod_keybinds, global.KEYBINDING_make_visible, ord("I"))
         ds_map_add(global.mod_keybinds, global.KEYBINDING_snowgrave_plot, ord("O"))

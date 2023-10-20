@@ -17,7 +17,7 @@
     }
 
     // changing party in Ch1
-    if keyboard_check_pressed(ord("H"))
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_change_party))
     {
         partystate++
         if (partystate == 5)
@@ -61,13 +61,13 @@
     }
 
     // adding INS and DEl warps in Ch1
-    if keyboard_check_pressed(vk_insert)
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_room))
         room_goto_next()
-    if keyboard_check_pressed(vk_delete)
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_room))
         room_goto_previous()
 
     // toggle visible in Ch1
-    if keyboard_check_pressed(ord("I"))
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_make_visible))
     {
         global.interact = 0
         with (obj_mainchara_ch1)
@@ -75,7 +75,7 @@
     }
 
     // get items in Ch1
-    if keyboard_check_pressed(ord("N"))
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_get_item))
     {
         if (global.flag[48] == 0)
         {
@@ -308,7 +308,7 @@
     }
 
     // toggle noclip in Ch1
-    if keyboard_check_pressed(ord("K"))
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_hitboxes))
     {
         if (obj_mainchara_ch1.mask_index != spr_i_am_the_joker)
         {

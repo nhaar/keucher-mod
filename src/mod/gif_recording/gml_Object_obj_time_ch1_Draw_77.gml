@@ -4,7 +4,7 @@
 /// PREPEND
 if scr_debug_ch1()
 {
-    if (keyboard_check_pressed(ord("G")) && gif_recording == false)
+    if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_gif)) && gif_recording == false)
     {
         gif_recording = true
         gif_timer = 0
@@ -13,7 +13,7 @@ if scr_debug_ch1()
     if gif_recording
     {
         var gif_release = 0
-        if keyboard_check_pressed(ord("G"))
+        if keyboard_check_pressed(get_bound_key(global.KEYBINDING_gif))
             gif_release = 1
         if (gif_timer == 0)
             gif_image = gif_open(640, 480)

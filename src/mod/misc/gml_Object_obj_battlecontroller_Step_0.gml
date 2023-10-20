@@ -12,7 +12,7 @@
     if scr_debug_keycheck(vk_f10)
         global.tension = 250
 /// CODE
-    if keyboard_check_pressed(vk_f10)
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_tp))
     {
         if (global.tension != 0)
             global.tension = 0

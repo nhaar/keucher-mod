@@ -9,7 +9,7 @@ room_speed = 150
 
 // debug toggle
 /// APPEND
-if keyboard_check_pressed(vk_f3)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_debug))
 {
     obj_debugcontroller_ch1.debug = scr_debug_ch1() ? false : true
 }

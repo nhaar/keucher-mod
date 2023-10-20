@@ -116,7 +116,7 @@ for (var i = ord("0"); i < 58; i++)
 {
     if keyboard_check_pressed(i)
     {
-        if (!keyboard_check(ord("D")) && !keyboard_check(ord("O")))
+        if (!keyboard_check(ord("D")) && !keyboard_check(get_bound_key(global.KEYBINDING_snowgrave_plot)))
         {
             slotWasSelected = i - 48
         }

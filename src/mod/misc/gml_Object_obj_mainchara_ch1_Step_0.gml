@@ -16,9 +16,9 @@
 /// CODE
         if scr_debug_ch1()
         {
-            if keyboard_check_pressed(vk_insert)
+            if keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_room))
                 room_goto_next()
-            if keyboard_check_pressed(vk_delete)
+            if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_room))
                 room_goto_previous()
         }
 /// END
