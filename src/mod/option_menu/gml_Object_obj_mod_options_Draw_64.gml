@@ -27,6 +27,7 @@ draw_rectangle(view_xport, view_yport, view_wport, view_hport, true)
 max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
 scroll_height = min(view_hport, view_hport * (view_hport / max_y))
 scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_hport) - view_hport)
+min_y = - scroll_ypos / view_hport * max_y
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_wport
@@ -75,8 +76,8 @@ draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = padding + i * (button_height + padding) - scroll_ypos
-    button_end_y = padding + button_height + i * (button_height + padding) - scroll_ypos
+    button_start_y = min_y + padding + i * (button_height + padding) - scroll_ypos
+    button_end_y = min_y + padding + button_height + i * (button_height + padding) - scroll_ypos
 
     if (button_start_y > view_hport || button_end_y < view_yport)
     {
