@@ -41,6 +41,7 @@ if setting_keybind
         setting_keybind = false
         ds_map_set(global.mod_keybinds, string(current_keybind), keyboard_key)
         get_keybind_assign_options(current_keybind)
+        save_keybinds()
     }
 }
 
