@@ -32,6 +32,18 @@ scroll_start_y = scroll_ypos
 scroll_end_x = view_wport
 scroll_end_y = scroll_ypos + scroll_height
 
+// setting new value for keybind
+if setting_keybind
+{
+    // wait until something is pressed
+    if (keyboard_key != 0)
+    {
+        setting_keybind = false
+        ds_map_set(global.mod_keybinds, string(current_keybind), keyboard_key)
+        get_keybind_assign_options(current_keybind)
+    }
+}
+
 // dragging scroll
 if (scroll_dragging)
 {
@@ -89,6 +101,16 @@ for (var i = 0; i < button_amount; i++)
                     }
                     break
                 case 1:
+                    get_keybind_assign_options(i)
+                    break
+                case 2:
+                    // setting new value
+                    if (i == 1)
+                    {
+                        setting_keybind = true
+                        // update text
+                        button_text[1] = "Press any key..."
+                    }
                     break
             }
         }
