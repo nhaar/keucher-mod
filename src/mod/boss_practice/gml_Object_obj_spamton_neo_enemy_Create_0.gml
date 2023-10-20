@@ -1,6 +1,6 @@
 /// PATCH
 
 /// PREPEND
-// start Queen boss practice
+// start Spamton NEO boss practice
 start_boss_practice()
 /// END

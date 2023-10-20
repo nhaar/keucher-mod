@@ -1,8 +1,1 @@
-if (global.debug == true)
-{
-    if i_ex(obj_debugProfiler)
-    {
-    }
-    else if (obj_debugProfiler.cutsceneshow == true)
-        debug_printline(((("Cutscene command #" + string(current_command)) + " of ") + string(maximum_command)), 3)
-}
+// yes, we're erasing the file completely

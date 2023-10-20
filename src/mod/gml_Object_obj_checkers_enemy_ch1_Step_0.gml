@@ -1,3 +1,18 @@
+/// PATCH
+
+/// REPLACE
+scr_randomtarget_ch1()
+/// CODE
+if (first_turn == 0)
+{
+    mytarget = 2
+    global.targeted[2] = true
+    first_turn = 1
+}
+else
+    scr_randomtarget_ch1()
+/// END
+
 if (global.monstertype[myself] == 21)
     secondtime = true
 if (global.monster[myself] == true)

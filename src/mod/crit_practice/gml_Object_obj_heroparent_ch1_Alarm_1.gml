@@ -1,3 +1,11 @@
+/// PATCH
+
+/// BEFORE
+if (global.monstertype[global.chartarget[myself]] == 19)
+/// CODE
+count_individual_attack_damage()
+/// END
+
 global.faceaction[myself] = 0
 scr_retarget_ch1(myself)
 if (cancelattack == false)
