@@ -116,7 +116,7 @@ for (var i = ord("0"); i < 58; i++)
 {
     if keyboard_check_pressed(i)
     {
-        if (!keyboard_check(ord("D")) && !keyboard_check(get_bound_key(global.KEYBINDING_snowgrave_plot)))
+        if (!keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)) && !keyboard_check(get_bound_key(global.KEYBINDING_snowgrave_plot)))
         {
             slotWasSelected = i - 48
         }
@@ -223,7 +223,7 @@ if (global.savestateLoad > 0)
     }
 }
 // switching timer mode
-if keyboard_check_pressed(vk_f6)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_mode))
 {
     textText = ""
     roomText = ""

@@ -20,7 +20,12 @@ enum Keybinding
     ChangeParty,
     SideAction,
     NoClip,
-    GetItem
+    GetItem,
+    PlotWarp,
+    IgtMode,
+    IgtRoom,
+    ToggleTimer,
+    ResetTimer
 }
 
 Dictionary<Keybinding, string> keyText = new()
@@ -45,7 +50,12 @@ Dictionary<Keybinding, string> keyText = new()
     { Keybinding.ChangeParty, "Change party setup" },
     { Keybinding.SideAction, "Toggle side actions" },
     { Keybinding.NoClip, "Toggle no clip" },
-    { Keybinding.GetItem, "Get items" }
+    { Keybinding.GetItem, "Get items" },
+    { Keybinding.PlotWarp, "Plot warp button" },
+    { Keybinding.IgtMode, "Change IGT mode" },
+    { Keybinding.IgtRoom, "Set timer start room" },
+    { Keybinding.ToggleTimer, "Toggle timer visibility" },
+    { Keybinding.ResetTimer, "Reset timer" }
 };
 
 var getKeybindOptions = @$"

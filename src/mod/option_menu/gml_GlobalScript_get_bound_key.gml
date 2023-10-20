@@ -6,5 +6,6 @@ function get_bound_key(argument0)
     {
         return -1;
     }
+
     return ds_map_find_value(global.mod_keybinds, string(keybind_id));
 }

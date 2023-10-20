@@ -25,6 +25,11 @@ function init_keybinds()
         ds_map_add(global.mod_keybinds, global.KEYBINDING_side_action, ord("J"))
         ds_map_add(global.mod_keybinds, global.KEYBINDING_no_clip, ord("K"))
         ds_map_add(global.mod_keybinds, global.KEYBINDING_get_item, ord("N"))
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_plot_warp, ord("D"))
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_igt_mode, vk_f6)
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_igt_room, vk_f7)
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_timer, vk_f8)
+        ds_map_add(global.mod_keybinds, global.KEYBINDING_reset_timer, vk_f9)
 
         save_keybinds()
     }

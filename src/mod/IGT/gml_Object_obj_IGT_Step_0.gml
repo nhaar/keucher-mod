@@ -44,7 +44,7 @@ if keyboard_check_pressed(vk_end)
 
 // warp to battletest room
 // TO-DO: move to a different file
-if (keyboard_check(ord("2")) && keyboard_check(ord("D")))
+if (keyboard_check(ord("2")) && keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
 {
     // free movement and set darkworld
     // TO-DO: I've seen this sort of pattern before. Group in function?
@@ -511,22 +511,22 @@ else if (global.chapter == 2)
 }
 
 // custom room timer
-if keyboard_check_pressed(vk_f7)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_room))
 {
     global.startSplit = get_integer("What room number would you like the timer to start in?", global.currentroom)
     global.attemptCount = 0
 }
 
 // hide timer
-if keyboard_check_pressed(vk_f8)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_timer))
 {
     global.timerToggle = global.timerToggle ? 0 : 1
 }
 
 // reset timer
-if keyboard_check_pressed(vk_f9)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_reset_timer))
     set_igt_splits_info(0)
-if (keyboard_check(ord("D")))
+if (keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
 {
     var plot_warp_number = 7
     var first_plot_warp = 3
