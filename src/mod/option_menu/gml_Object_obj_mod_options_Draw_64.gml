@@ -8,19 +8,67 @@ real_mouse_y = mouse_y - cameray()
 
 padding = 10
 button_height = 32
+scroll_width = 16
+
+
+
+button_start_x = view_xport + padding
+button_end_x = view_wport - padding - scroll_width
+
 
 draw_set_color(c_aqua)
 draw_rectangle(view_xport, view_yport, view_wport, view_hport, false)
 draw_set_color(c_black)
 draw_rectangle(view_xport, view_yport, view_wport, view_hport, true)
 
+
+// scroll wheel related coordinates
+// highest y value reached
+max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
+scroll_height = min(view_hport, view_hport * (view_hport / max_y))
+scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_hport) - view_hport)
+scroll_start_x = button_end_x + 5
+scroll_start_y = scroll_ypos
+scroll_end_x = view_wport
+scroll_end_y = scroll_ypos + scroll_height
+
+// dragging scroll
+if (scroll_dragging)
+{
+    if (mouse_check_button_released(mb_left))
+    {
+        scroll_dragging = false
+    }
+    else
+    {
+        scroll_ypos += mouse_y - scroll_dragging_y
+        scroll_dragging_y = mouse_y
+    }
+}
+// if can initiate dragging scroll
+if point_in_rectangle(mouse_x, mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
+{
+    if (mouse_check_button_pressed(mb_left))
+    {
+        scroll_dragging = true
+        scroll_dragging_y = mouse_y
+    }
+}
+
+// drawing the actual buttons
+
+draw_set_color(c_black)
+draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false)
+
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_x = view_xport + padding
-    button_start_y = view_yport + padding + i * (button_height + padding)
-    button_end_x = view_wport - padding
-    button_end_y = view_yport + padding + button_height + i * (button_height + padding)
-    
+    button_start_y = padding + i * (button_height + padding) - scroll_ypos
+    button_end_y = padding + button_height + i * (button_height + padding) - scroll_ypos
+
+    if (button_start_y > view_hport || button_end_y < view_yport)
+    {
+        continue
+    }
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
         button_state[i] = 1
@@ -30,7 +78,7 @@ for (var i = 0; i < button_amount; i++)
         }
         if (mouse_check_button_released(mb_left))
         {
-            switch (button_state)
+            switch (options_state)
             {
                 case 0:
                     switch (i)
@@ -45,7 +93,7 @@ for (var i = 0; i < button_amount; i++)
             }
         }
     }
-    else if (button_state[i] == 1)
+    else
     {
         button_state[i] = 0
     }
@@ -66,7 +114,7 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(c_black)
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
     draw_set_color(c_red)
-    draw_text(view_xport + padding + 5, view_yport + padding + i * (button_height + padding) + 5, button_text[i])
+    draw_text(view_xport + padding + 5, button_start_y + 5, button_text[i])
 }
 
-draw_sprite(spr_maus_cursor, 0, real_mouse_x, real_mouse_y)
+draw_sprite(spr_maus_cursor, 0, mouse_x, mouse_y)

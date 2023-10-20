@@ -12,4 +12,8 @@ button_text[100] = 0
 */
 options_state = 0
 
+scroll_ypos = 0
+scroll_dragging = false
+scroll_dragging_y = 0
+
 get_default_mod_options()
