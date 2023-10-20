@@ -43,5 +43,24 @@ function get_key_name(argument0)
         case vk_tab: return "TAB";
         case vk_pageup: return "PgUp";
         case vk_pagedown: return "PgDn";
+        case vk_space: return "Space";
+        case vk_left: return "Left";
+        case vk_up: return "Up";
+        case vk_right: return "Right";
+        case vk_down: return "Down";
+        case vk_home: return "Home";
+        case vk_end: return "End";
+        case vk_backspace: return "Backspace";
+        case vk_enter: return "Enter";
+        case vk_shift: return "Shift";
+        case vk_control: return "Ctrl";
+        case vk_alt: return "Alt";
+        case vk_pause: return "Pause";
+        case vk_lshift: return "LShift";
+        case vk_rshift: return "RShift";
+        case vk_lcontrol: return "LCtrl";
+        case vk_rcontrol: return "RCtrl";
+        case vk_lalt: return "LAlt";
+        case vk_ralt: return "RAlt";
     }
 }
