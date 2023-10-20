@@ -54,7 +54,7 @@ function get_keybind_mod_options()
     button_amount = {keyText.Keys.Count};
 ";
 
-foreach (Keybindings keybinding in keyText.Keys)
+foreach (Keybinding keybinding in keyText.Keys)
 {
     getKeybindOptions += $@"
     button_text[{(int)keybinding}] = ""{keyText[keybinding]}"";";
@@ -63,7 +63,7 @@ foreach (Keybindings keybinding in keyText.Keys)
 getKeybindOptions += " options_state = 1 }";
 
 ImportGMLString("gml_GlobalScript_get_keybind_mod_options", getKeybindOptions);
-ImportEnum<Keybindings>("keybinding");
+ImportEnum<Keybinding>("keybinding");
 
 void ImportEnum<T> (string name)
 {
