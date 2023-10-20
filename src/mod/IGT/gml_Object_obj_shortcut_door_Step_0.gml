@@ -1,5 +1,6 @@
 /// PATCH
 
+// what segment is this for?
 /// AFTER
 room_goto(door_destination)
 /// CODE

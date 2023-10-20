@@ -1,5 +1,6 @@
 /// PATCH
 
+// what is this for?
 /// REPLACE
         }
         return;
@@ -7,6 +8,7 @@
 }
 /// END
 
+// unsure of what this code is, but I imagine it's removed due to the IGT
 /// REPLACE
     if (keyboard_check_pressed(vk_f6) && quicksaved == 22)
     {
@@ -110,6 +112,7 @@
 /// CODE
 /// END
 
+// remove annoying slowdown
 /// REPLACE
 room_speed = (150 - (140 * keyboard_check(vk_control)))
 /// CODE

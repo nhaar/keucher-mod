@@ -1,5 +1,6 @@
 /// PATCH
 
+// rigging turns
 /// PREPEND
 if (global.bossPractice == 1)
 {
@@ -20,6 +21,7 @@ if (global.bossPractice == 1)
 /// BEFORE
 if scr_isphase("bullets")
 /// CODE
+// TO-DO: refactor repeating code
 if (global.bossPractice == 1)
 {
     global.tension = 0
