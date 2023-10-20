@@ -38,5 +38,10 @@ function get_key_name(argument0)
     {
         case ord("À"): return "Tilde";
         case vk_escape: return "ESC";
+        case vk_insert: return "Ins";
+        case vk_delete: return "Del";
+        case vk_tab: return "TAB";
+        case vk_pageup: return "PgUp";
+        case vk_pagedown: return "PgDn";
     }
 }
