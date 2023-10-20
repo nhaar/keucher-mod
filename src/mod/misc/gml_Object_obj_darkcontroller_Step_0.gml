@@ -295,7 +295,7 @@ if keyboard_check_pressed(ord("N"))
     }
 }
 // show hitboxes
-if keyboard_check_pressed(ord("U"))
+if keyboard_check_pressed(get_bound_key(14))
 {
     global.bboxVisible++
     if (global.bboxVisible == 3)

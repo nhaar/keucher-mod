@@ -29,13 +29,14 @@ function get_key_name(argument0)
     {
         if (key_number == i)
         {
-            return "F" + string(i - vk_f1 + 1)
+            return "F" + string(i - vk_f1 + 1);
         }
     }
 
     // check any other case
     switch (key_number)
     {
-        case "À": return "Tilde";
+        case ord("À"): return "Tilde";
+        case vk_escape: return "ESC";
     }
 }
