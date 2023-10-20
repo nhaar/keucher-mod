@@ -7,9 +7,9 @@
 /// CODE
     // change ch1 L and R keybinds
         scr_load_ch1()
-    if (keyboard_check_pressed(ord("R")) && keyboard_check(vk_backspace))
+    if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_reload)) && keyboard_check(vk_backspace))
         game_restart_true()
-    if (keyboard_check_pressed(ord("R")) && !keyboard_check(vk_backspace))
+    if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_reload)) && !keyboard_check(vk_backspace))
     {
         snd_free_all_ch1()
         room_restart()

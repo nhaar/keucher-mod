@@ -1,3 +1,4 @@
+#load "EnumImports.csx"
 #load "ump\ump.csx"
 
 using System.Linq;

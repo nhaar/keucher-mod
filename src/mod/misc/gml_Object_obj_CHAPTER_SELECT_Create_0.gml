@@ -9,5 +9,6 @@ if (!instance_exists(obj_IGT))
 set_constants()
 directory_create("keucher_mod")
 init_keybinds()
+set_enum_keybinding()
 
 /// END
