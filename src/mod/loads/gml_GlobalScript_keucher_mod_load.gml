@@ -8,7 +8,7 @@ function keucher_mod_load (argument0)
     // check if savestate load or file load
     var savestate
     var _ssslot
-    if keyboard_check_pressed(ord("E"))
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
     {
         savestate = "ss_"
         _ssslot = ""

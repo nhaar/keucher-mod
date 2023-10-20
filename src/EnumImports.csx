@@ -25,7 +25,19 @@ enum Keybinding
     IgtMode,
     IgtRoom,
     ToggleTimer,
-    ResetTimer
+    ResetTimer,
+    StoreSavestate,
+    LoadSavestate,
+    ToggleCritMode,
+    TogglePatternMode,
+    NextCritPattern,
+    PreviousCritPattern,
+    ToggleRouxls,
+    NextHousePattern,
+    PreviousHousePattern,
+    ToggleBoss,
+    NextBossAttack,
+    PreviousBossAttack
 }
 
 Dictionary<Keybinding, string> keyText = new()
@@ -55,7 +67,19 @@ Dictionary<Keybinding, string> keyText = new()
     { Keybinding.IgtMode, "Change IGT mode" },
     { Keybinding.IgtRoom, "Set timer start room" },
     { Keybinding.ToggleTimer, "Toggle timer visibility" },
-    { Keybinding.ResetTimer, "Reset timer" }
+    { Keybinding.ResetTimer, "Reset timer" },
+    { Keybinding.StoreSavestate, "Store Savestate" },
+    { Keybinding.LoadSavestate, "Load Savestate" },
+    { Keybinding.ToggleCritMode, "Toggle Crit Mode" },
+    { Keybinding.TogglePatternMode, "Toggle Pattern Mode" },
+    { Keybinding.NextCritPattern, "Next Crit Pattern" },
+    { Keybinding.PreviousCritPattern, "Previous Crit Pattern" },
+    { Keybinding.ToggleRouxls, "Toggle Rouxls Kaard" },
+    { Keybinding.NextHousePattern, "Next House Pattern" },
+    { Keybinding.PreviousHousePattern, "Previous House Pattern" },
+    { Keybinding.ToggleBoss, "Toggle Boss Practice" },
+    { Keybinding.NextBossAttack, "Next Boss Attack" },
+    { Keybinding.PreviousBossAttack, "Previous Boss Attack" }
 };
 
 var getKeybindOptions = @$"

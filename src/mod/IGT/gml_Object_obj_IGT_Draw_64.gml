@@ -130,7 +130,7 @@ if (slotWasSelected != -1)
 }
 
 // saving savestates
-if keyboard_check_pressed(ord("Q"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_store_savestate))
 {
     if (global.chapter == 2)
     {
@@ -146,7 +146,7 @@ if keyboard_check_pressed(ord("Q"))
     textText = "File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " saved"
 }
 // loading savestate
-if keyboard_check_pressed(ord("E"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
 {
     if (global.chapter == 2)
     {

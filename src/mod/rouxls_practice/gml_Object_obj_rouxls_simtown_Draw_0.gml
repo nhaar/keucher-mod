@@ -2,7 +2,7 @@
 
 /// APPEND
 // toggle practice
-if keyboard_check_pressed(ord("P"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_rouxls))
 {
     if (global.rurus_random == 0)
         global.rurus_random = 1
@@ -10,12 +10,12 @@ if keyboard_check_pressed(ord("P"))
         global.rurus_random = 0
 }
 // change pattern
-if keyboard_check_pressed(vk_pagedown)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_house_pattern))
 {
     if (global.rurus_pattern > 0)
         global.rurus_pattern -= 1
 }
-else if keyboard_check_pressed(vk_pageup)
+else if keyboard_check_pressed(keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_house_pattern)))
 {
     if (global.rurus_pattern < 6)
         global.rurus_pattern += 1

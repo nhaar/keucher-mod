@@ -5,7 +5,7 @@ if (!i_ex(obj_omawaroid_enemy) && !i_ex(obj_placeholderenemy_ch1))
 }
 
 // toggle crit practice
-if keyboard_check_pressed(ord("P"))
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_crit_mode))
 {
     if (global.ambyu_practice == 0)
     {
@@ -16,16 +16,16 @@ if keyboard_check_pressed(ord("P"))
     else
         global.ambyu_practice = 0
 }
-if keyboard_check_pressed(vk_tab)
+if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_pattern_mode))
 {
     if (global.random_pattern == 1)
         global.random_pattern = 0
     else
         global.random_pattern = 1
 }
-if (keyboard_check_pressed(vk_pageup) || keyboard_check_pressed(vk_pagedown))
+if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_crit_pattern)) || keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_crit_pattern)))
 {
-    if keyboard_check_pressed(vk_pagedown)
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_crit_pattern))
         global.crit_pattern -= 1
     else
         global.crit_pattern += 1

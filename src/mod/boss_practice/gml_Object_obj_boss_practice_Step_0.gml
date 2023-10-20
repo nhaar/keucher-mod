@@ -3,7 +3,7 @@ if (boss_obj != 0 && !i_ex(boss_obj))
     instance_destroy()
 
 // toggle practice mode
-if (keyboard_check_pressed(ord("P")))
+if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_boss)))
 {
     if (global.bossPractice == 0)
     {
@@ -42,13 +42,13 @@ if (keyboard_check_pressed(ord("P")))
 if (global.bossPractice == 1)
 {
     // changing the boss turn
-    if keyboard_check_pressed(vk_pageup)
+    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_boss_attack))
     {
         if (global.bossTurn < maxturn)
             global.bossTurn++
         turntext = 2
     }
-    else if keyboard_check_pressed(vk_pagedown)
+    else if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_boss_attack))
     {
         if (global.bossTurn != 0)
             global.bossTurn--
