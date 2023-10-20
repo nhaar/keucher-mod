@@ -6,6 +6,8 @@ sb_word_current = sb_word[random_range(0, 5)]
 {
     if (first_word == 0)
     {
+        // use words with the same number of characters
+        // as the optimal ones in each language
         if (global.lang == "en")
             sb_word_current = stringset("RATIO")
         else

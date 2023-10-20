@@ -1,5 +1,7 @@
 /// PATCH
 
+// not sure what these patches here do, somehow related to character positions in the "catterpilar"
+
 /// REPLACE
     else
         x = (remx[target] - 2)

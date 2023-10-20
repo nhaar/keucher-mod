@@ -3,12 +3,15 @@
 /// BEFORE
 if (keyboard_check_pressed(ord("R")) && keyboard_check(vk_backspace))
 /// CODE
+// toggiel visible
 if keyboard_check_pressed(ord("I"))
 {
     global.interact = 0
     with (obj_mainchara)
         visible = true
 }
+
+// change party
 if keyboard_check_pressed(ord("H"))
 {
     partystate++
@@ -20,11 +23,13 @@ if keyboard_check_pressed(ord("H"))
         if (partystate == 5)
             partystate -= 5
     }
+    // just to have a 10 press period with krerdly mode
     else if (presscount >= 30 && presscount < 40)
     {
         partystate = 5
         global.krerdlyMode = 1
     }
+    // TO-DO: refactor this character switch
     else if (presscount >= 40)
     {
         var skip1 = 0
@@ -125,21 +130,21 @@ if keyboard_check_pressed(ord("H"))
             break
         case 2:
             scr_getchar(3)
-            scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 12), 3, 0)
+            scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 12, 3, 0)
             scr_debug_print("party: kris + ralsei")
             break
         case 3:
             scr_getchar(2)
-            scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 16), 2, 0)
+            scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 16, 2, 0)
             scr_debug_print("party: kris + susie")
             break
         case 4:
             scr_getchar(4)
-            scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 18), 4, 0)
+            scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 18, 4, 0)
             scr_debug_print("party: kris + noelle")
             break
         case 5:
-            scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 6), 5, 0)
+            scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 6, 5, 0)
             scr_debug_print("party: krerdly canon")
             break
         case 6:
@@ -170,13 +175,14 @@ if keyboard_check_pressed(ord("H"))
                 ppp1 = ("+ " + string(p1))
             if (p2 != "" && skip2 == 0)
                 ppp2 = (" + " + string(p2))
-            scr_debug_print((("party: kris " + string(ppp1)) + string(ppp2)))
+            scr_debug_print("party: kris " + string(ppp1) + string(ppp2))
             break
         default:
             break
     }
-
 }
+
+// get items
 if keyboard_check_pressed(ord("N"))
 {
     if (global.flag[48] == 0)
@@ -288,6 +294,7 @@ if keyboard_check_pressed(ord("N"))
             show_message("Fine, I guess I WON'T give you anything then >:(")
     }
 }
+// show hitboxes
 if keyboard_check_pressed(ord("U"))
 {
     global.bboxVisible++
@@ -444,6 +451,8 @@ if keyboard_check_pressed(ord("U"))
         scr_debug_print("visible: doors and walls")
     }
 }
+
+// toggle noclip
 if keyboard_check_pressed(ord("K"))
 {
     if (obj_mainchara.mask_index != spr_i_am_the_joker)
@@ -459,6 +468,8 @@ if keyboard_check_pressed(ord("K"))
         scr_debug_print("noclip disabled")
     }
 }
+
+// disabling the S/R/N-Action
 if keyboard_check_pressed(ord("J"))
 {
     if (global.flag[34] == 0)
@@ -472,40 +483,46 @@ if keyboard_check_pressed(ord("J"))
         scr_debug_print("S/R/N-Action enabled")
     }
 }
-if (keyboard_check_pressed(ord("1")) && keyboard_check(ord("O")))
+
+// snowgrave plot setting
+if keyboard_check(ord("O"))
 {
-    global.flag[915] = 0
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = default state (before city)")
-}
-if (keyboard_check_pressed(ord("2")) && keyboard_check(ord("O")))
-{
-    global.flag[915] = 2
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = ready for freeze ring")
-}
-if (keyboard_check_pressed(ord("3")) && keyboard_check(ord("O")))
-{
-    global.flag[915] = 4
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = after forcefield")
-}
-if (keyboard_check_pressed(ord("4")) && keyboard_check(ord("O")))
-{
-    global.flag[915] = 6
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = berdly frozen")
-}
-if (keyboard_check_pressed(ord("5")) && keyboard_check(ord("O")))
-{
-    global.flag[915] = 8
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = after rouxls statue scene")
-}
-if (keyboard_check_pressed(ord("6")) && keyboard_check(ord("O")))
-{
-    global.flag[915] = 9
-    global.flag[916] = 0
-    scr_debug_print("snowgrave plot = before NEO")
+
+    if keyboard_check_pressed(ord("1"))
+    {
+        global.flag[915] = 0
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = default state (before city)")
+    }
+    else if keyboard_check_pressed(ord("2"))
+    {
+        global.flag[915] = 2
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = ready for freeze ring")
+    }
+    else if keyboard_check_pressed(ord("3"))
+    {
+        global.flag[915] = 4
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = after forcefield")
+    }
+    else if keyboard_check_pressed(ord("4"))
+    {
+        global.flag[915] = 6
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = berdly frozen")
+    }
+    else if keyboard_check_pressed(ord("5"))
+    {
+        global.flag[915] = 8
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = after rouxls statue scene")
+    }
+    else if keyboard_check_pressed(ord("6"))
+    {
+        global.flag[915] = 9
+        global.flag[916] = 0
+        scr_debug_print("snowgrave plot = before NEO")
+    }
 }
 /// END

@@ -5,20 +5,23 @@
     if keyboard_check_pressed(ord("R"))
         game_restart_true_ch1()
 /// CODE
+    // change ch1 L and R keybinds
         scr_load_ch1()
     if (keyboard_check_pressed(ord("R")) && keyboard_check(vk_backspace))
         game_restart_true()
-    if (keyboard_check_pressed(ord("R")) && (!keyboard_check(vk_backspace)))
+    if (keyboard_check_pressed(ord("R")) && !keyboard_check(vk_backspace))
     {
         snd_free_all_ch1()
         room_restart()
         global.interact = 0
     }
+
+    // changing party in Ch1
     if keyboard_check_pressed(ord("H"))
     {
         partystate++
         if (partystate == 5)
-            partystate -= 5
+            partystate = 0
         scr_losechar_ch1()
         if instance_exists(obj_caterpillarchara_ch1)
             instance_destroy(obj_caterpillarchara_ch1)
@@ -56,16 +59,22 @@
         }
 
     }
+
+    // adding INS and DEl warps in Ch1
     if keyboard_check_pressed(vk_insert)
         room_goto_next()
     if keyboard_check_pressed(vk_delete)
         room_goto_previous()
+
+    // toggle visible in Ch1
     if keyboard_check_pressed(ord("I"))
     {
         global.interact = 0
         with (obj_mainchara_ch1)
             visible = true
     }
+
+    // get items in Ch1
     if keyboard_check_pressed(ord("N"))
     {
         if (global.flag[48] == 0)
@@ -157,6 +166,8 @@
                 show_message("Fine, I guess I WON'T give you anything then >:(")
         }
     }
+
+    // show hitboxes in Ch1
     if keyboard_check_pressed(ord("U"))
     {
         global.bboxVisible++
@@ -295,6 +306,8 @@
             scr_debug_print("visible: doors and walls")
         }
     }
+
+    // toggle noclip in Ch1
     if keyboard_check_pressed(ord("K"))
     {
         if (obj_mainchara_ch1.mask_index != spr_i_am_the_joker)

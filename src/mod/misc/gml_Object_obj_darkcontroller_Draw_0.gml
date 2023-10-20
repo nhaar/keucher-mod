@@ -3,6 +3,8 @@
 /// BEFORE
 if (drawchar == 1)
 /// CODE
+// possibly remove reptition from ch1 code
+// + is this vanilla?
 if (global.bboxVisible > 0)
 {
     if i_ex(obj_mainchara)

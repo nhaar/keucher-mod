@@ -1,6 +1,7 @@
 /// PATCH
 
 /// APPEND
+// unsure what this does, but it's related to savestates
 if (global.savestateLoad > 0)
 {
     state = 0

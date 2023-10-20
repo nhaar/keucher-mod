@@ -3,7 +3,6 @@
 /// AFTER
 cur_jewel = 0
 /// CODE
+// id of the party member setting to be used
 partystate = -1
-thisTurn = 0
-lastTurn = 0
 /// END

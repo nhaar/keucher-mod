@@ -1,3 +1,5 @@
+// mostly copied from gml_Object_obj_battletester_Draw_64 and adapted for ch1
+
 setup_encounter = 0
 if (global.fighting == false)
 {

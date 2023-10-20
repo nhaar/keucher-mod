@@ -144,7 +144,6 @@ for (i = 0; i < 20; i++)
 }
 
 // I believe it's time in current turn
-// TO-DO: leftover in darkcontroller?
 thisTurn = 0
 lastTurn = 0
 
