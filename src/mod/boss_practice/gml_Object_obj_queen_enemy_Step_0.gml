@@ -1,5 +1,6 @@
 /// PATCH
 
+// setting queen attacks
 /// PREPEND
 if (global.bossPractice == 1)
 {
@@ -28,6 +29,7 @@ if (global.bossPractice == 1)
 /// AFTER
 scr_blconskip(-1)
 /// CODE
+// TO-DO: this code pattern repeats a lot. Refactor
 if (global.bossPractice == 1)
 {
     global.tension = 0

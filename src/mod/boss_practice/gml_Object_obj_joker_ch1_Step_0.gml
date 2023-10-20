@@ -3,6 +3,7 @@
 /// BEFORE
 global.flag[(51 + myself)] = 4
 /// CODE
+// rigging specific attacks
 if (global.bossPractice == 1)
 {
     if (global.bossTurn < 4)
@@ -19,6 +20,7 @@ if (global.bossPractice == 1)
 /// AFTER
 scr_blconskip_ch1(15)
 /// CODE
+// automatic condition reset for boss practice
 if (global.bossPractice == 1)
 {
     global.tension = 0

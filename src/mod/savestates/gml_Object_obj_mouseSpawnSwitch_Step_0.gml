@@ -1,5 +1,6 @@
 /// PATCH
 
+// not sure what this is? possibly savestate fix
 /// PREPEND
 if (global.savestateLoad > 0)
 {

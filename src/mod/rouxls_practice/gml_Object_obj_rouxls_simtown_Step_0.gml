@@ -1,5 +1,6 @@
 /// PATCH
 
+// rigging if in practice mode
 /// REPLACE
                 RandomHouseX = floor(random(15))
                 RandomHouseY = floor(random(6))
