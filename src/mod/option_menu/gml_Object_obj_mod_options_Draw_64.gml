@@ -135,7 +135,7 @@ for (var i = 0; i < button_amount; i++)
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false)
     draw_set_color(c_black)
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
-    draw_set_color(c_red)
+    draw_set_color(c_lime)
     draw_text(view_xport + padding + 5, button_start_y + 5, button_text[i])
 }
 
