@@ -17,9 +17,6 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
     // the total number of splits in the current segment
     var __splitNumber = 0
 
-    // room id displacement constant for Chapter 1 post 1.09
-    var __TOBYFOXWHYAREYOULIKETHIS = 0
-
     // variable to hold the true room id for each chapter, taking into account the displacement constant
     var __universalStart = 0
 
@@ -116,7 +113,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Intro + Castle Town"
                     __warpNumber = ""
                     __splitNumber = 2
-                    obj_IGT.segment_start_room = (282 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = PLACE_CONTACT_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     obj_IGT.split_times[2] = 0
@@ -125,7 +122,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Field"
                     __warpNumber = "4"
                     __splitNumber = 2
-                    obj_IGT.segment_start_room = (330 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = room_field_start_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     obj_IGT.split_times[2] = 0
@@ -134,7 +131,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Checkerboard"
                     __warpNumber = "5"
                     __splitNumber = 1
-                    obj_IGT.segment_start_room = (346 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = room_field_checkers4_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     break
@@ -142,7 +139,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Forest"
                     __warpNumber = "6"
                     __splitNumber = 2
-                    obj_IGT.segment_start_room = (354 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = room_forest_savepoint1_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     obj_IGT.split_times[2] = 0
@@ -151,14 +148,14 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Escape"
                     __warpNumber = "7"
                     __splitNumber = 1
-                    obj_IGT.segment_start_room = (379 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = room_forest_afterthrash2_ch1
                     obj_IGT.split_times[0] = 0
                     break
                 case 8:
                     __splitsText = "Castle + King"
                     __warpNumber = "8"
                     __splitNumber = 3
-                    obj_IGT.segment_start_room = (387 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = room_cc_prisonlancer_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     obj_IGT.split_times[2] = 0
@@ -168,7 +165,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                     __splitsText = "Full Chapter"
                     __warpNumber = ""
                     __splitNumber = 6
-                    obj_IGT.segment_start_room = (282 + __TOBYFOXWHYAREYOULIKETHIS)
+                    obj_IGT.segment_start_room = PLACE_CONTACT_ch1
                     obj_IGT.split_times[0] = 0
                     obj_IGT.split_times[1] = 0
                     obj_IGT.split_times[2] = 0
@@ -279,10 +276,6 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
     }
     else if (split_status == 1)
     {
-        // fixing the room number (for chapter 1 post 1.09)
-        __universalStart = obj_IGT.segment_start_room
-        if (global.chapter == 1)
-            __universalStart -= __TOBYFOXWHYAREYOULIKETHIS
         with (obj_IGT)
         {
             splitNumber = __splitNumber
@@ -290,7 +283,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
             var room_text = ""
             var warp_text = ""
             if (obj_IGT.igt_mode > 2)
-                room_text = "Timer will start in " + scr_roomname(__universalStart)
+                room_text = "Timer will start in " + scr_roomname(obj_IGT.segment_start_room)
             if (obj_IGT.igt_mode > 2 && obj_IGT.igt_mode != 9)
                 warp_text = "Press D + " + string(__warpNumber) + " to warp"
             show_temp_message(main_text, room_text, warp_text)

@@ -89,12 +89,12 @@ if (global.chapter == 1)
                 split_times[turn_count] = thisTurn + start_time
             break
         case 3:
-            if (room == room_dark1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_dark1_ch1)
             {
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_castle_outskirts_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_castle_outskirts_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
@@ -106,46 +106,46 @@ if (global.chapter == 1)
             }
             break
         case 4:
-            if (room == room_field_puzzle1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_field_puzzle1_ch1)
             {
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_field_shop1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_shop1_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
             }
-            else if (room == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_checkers4_ch1)
             {
                 if (split_times[2] == 0)
                     split_times[2] = get_timer()
             }
             break
         case 5:
-            if (room == room_field_checkers3_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_field_checkers3_ch1)
             {
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_savepoint1_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
             }
             break
         case 6:
-            if (room == room_forest_savepoint2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_forest_savepoint2_ch1)
             {
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_forest_maze1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_maze1_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
             }
-            else if (room == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_afterthrash2_ch1)
             {
                 if (split_times[2] == 0)
                     split_times[2] = get_timer()
@@ -164,17 +164,17 @@ if (global.chapter == 1)
             }
             break
         case 8:
-            if (room == room_cc_rurus1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_cc_rurus1_ch1)
             {
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_cc_rurus2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_rurus2_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
             }
-            else if (room == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_preroof_ch1)
             {
                 if (split_times[2] == 0)
                     split_times[2] = get_timer()
@@ -193,17 +193,17 @@ if (global.chapter == 1)
                 if (split_times[0] == 0)
                     split_times[0] = get_timer()
             }
-            else if (room == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_checkers4_ch1)
             {
                 if (split_times[1] == 0)
                     split_times[1] = get_timer()
             }
-            else if (room == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_savepoint1_ch1)
             {
                 if (split_times[2] == 0)
                     split_times[2] = get_timer()
             }
-            else if (room == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_afterthrash2_ch1)
             {
                 if (split_times[3] == 0)
                     split_times[3] = get_timer()
@@ -213,7 +213,7 @@ if (global.chapter == 1)
                 if (split_times[4] == 0)
                     split_times[4] = get_timer()
             }
-            else if (room == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_preroof_ch1)
             {
                 if (split_times[5] == 0)
                     split_times[5] = get_timer()

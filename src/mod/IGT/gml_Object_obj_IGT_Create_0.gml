@@ -96,9 +96,6 @@ slotWasSelected = -1
 // unsure exactly what
 splitNumber = 0
 
-// displacement constant. Why is it in two files? TO-DO: Refactor
-TOBYFOXWHYAREYOULIKETHIS = 0
-
 // variables that signal specific events
 // possible TO-DO: refactor this properly?
 
