@@ -64,7 +64,6 @@ function get_split_assign_options(argument0)
             split_count = 3
             break
     }
-    split_count = 5
 
     button_amount = 3
     button_text[0] = "Timer will start in " + scr_roomname(start_room)
