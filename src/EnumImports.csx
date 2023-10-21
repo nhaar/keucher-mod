@@ -177,7 +177,6 @@ Dictionary<object, string> splitText = new()
 
 ImportButtonText(defaultText, "get_default_mod_options", OptionState.Default);
 ImportButtonText(keyText, "get_keybind_mod_options", OptionState.Keybinds);
-ImportButtonText(splitText, "get_split_mod_options", OptionState.Splits);
 
 void ImportButtonText(Dictionary<object, string> buttonText, string getterName, OptionState state)
 {
