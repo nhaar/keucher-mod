@@ -25,6 +25,7 @@ Data.Sprites.Add(emptySprite);
 
 // setup objects
 Data.GameObjects.ByName("obj_IGT").Persistent = true;
+Data.GameObjects.ByName("obj_always_on").Persistent = true;
 
 // setting up the battle room for chapter 1
 var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");

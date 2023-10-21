@@ -10,5 +10,7 @@ directory_create("keucher_mod")
 init_keybinds()
 
 if (!instance_exists(obj_IGT))
-    instance_create(0, 0, obj_IGT);
+    instance_create(0, 0, obj_IGT)
+if (!instance_exists(obj_always_on))
+    instance_create(0, 0, obj_always_on)
 /// END
