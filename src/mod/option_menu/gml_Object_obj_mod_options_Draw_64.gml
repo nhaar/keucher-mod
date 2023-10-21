@@ -124,37 +124,38 @@ for (var i = 0; i < button_amount; i++)
                     // warp
                     if (i == 1)
                     {
+                        show_debug_message(selected_split)
                         switch (selected_split)
                         {
                             case global.SPLIT_field_hopes_dreams:
-                                plotwarp(3)
+                                plotwarp(1)
                                 break
                             case global.SPLIT_checkerboard:
-                                plotwarp(4)
+                                plotwarp(2)
                                 break
                             case global.SPLIT_forest:
-                                plotwarp(5)
-                                break
-                            case global.SPLIT_escape_castle:
-                                plotwarp(6)
-                                break
-                            case global.SPLIT_castle_and_king:
-                                plotwarp(7)
-                                break
-                            case global.SPLIT_city_one:
                                 plotwarp(3)
                                 break
-                            case global.SPLIT_city_heights:
+                            case global.SPLIT_escape_castle:
                                 plotwarp(4)
                                 break
-                            case global.SPLIT_mansion:
+                            case global.SPLIT_castle_and_king:
                                 plotwarp(5)
                                 break
+                            case global.SPLIT_city_one:
+                                plotwarp(1)
+                                break
+                            case global.SPLIT_city_heights:
+                                plotwarp(3)
+                                break
+                            case global.SPLIT_mansion:
+                                plotwarp(4)
+                                break
                             case global.SPLIT_acid_lake:
-                                plotwarp(6)
+                                plotwarp(5)
                                 break
                             case global.SPLIT_queen_and_giga:
-                                plotwarp(7)
+                                plotwarp(6)
                                 break
                         }
                     }
