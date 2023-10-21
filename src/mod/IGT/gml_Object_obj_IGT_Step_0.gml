@@ -75,20 +75,19 @@ if (igt_mode == 2)
         turn_started = false
     }
 }
-if (global.chapter == 1)
-{
+
     // setup splits for the chapter 1 modes
-    switch igt_mode
+if (igt_mode == 2)
+{
+    if (thisTurn != 0 && split_times[turn_count] == -2)
+        split_times[turn_count] = thisTurn + start_time
+
+}
+else if (igt_mode == 3)
+{
+    switch current_split
     {
-        case 0:
-            break
-        case 1:
-            break
-        case 2:
-            if (thisTurn != 0 && split_times[turn_count] == -2)
-                split_times[turn_count] = thisTurn + start_time
-            break
-        case 3:
+        case global.SPLIT_castle_town:
             if (room == room_dark1_ch1)
             {
                 if (split_times[0] == 0)
@@ -105,7 +104,7 @@ if (global.chapter == 1)
                     split_times[2] = get_timer()
             }
             break
-        case 4:
+        case global.SPLIT_field_hopes_dreams:
             if (room == room_field_puzzle1_ch1)
             {
                 if (split_times[0] == 0)
@@ -122,7 +121,7 @@ if (global.chapter == 1)
                     split_times[2] = get_timer()
             }
             break
-        case 5:
+        case global.SPLIT_checkerboard:
             if (room == room_field_checkers3_ch1)
             {
                 if (split_times[0] == 0)
@@ -134,7 +133,7 @@ if (global.chapter == 1)
                     split_times[1] = get_timer()
             }
             break
-        case 6:
+        case global.SPLIT_forest:
             if (room == room_forest_savepoint2_ch1)
             {
                 if (split_times[0] == 0)
@@ -151,7 +150,7 @@ if (global.chapter == 1)
                     split_times[2] = get_timer()
             }
             break
-        case 7:
+        case global.SPLIT_escape_castle:
             if (captured == 1)
             {
                 if (split_times[0] == 0)
@@ -163,7 +162,7 @@ if (global.chapter == 1)
                     split_times[1] = get_timer()
             }
             break
-        case 8:
+        case global.SPLIT_castle_and_king:
             if (room == room_cc_rurus1_ch1)
             {
                 if (split_times[0] == 0)
@@ -187,7 +186,7 @@ if (global.chapter == 1)
             break
         // TO-DO: This system as a whole could use some refactoring
         // specially to reduce this redundance in the final split
-        case 9:
+        case global.SPLIT_chapter_one:
             if (doorslam == 1)
             {
                 if (split_times[0] == 0)
@@ -223,23 +222,7 @@ if (global.chapter == 1)
                 if (split_times[6] == 0)
                     split_times[6] = get_timer()
             }
-        default:
-            break
-    }
-}
-else if (global.chapter == 2)
-{
-    // checks for the chapter 2 splits
-    switch igt_mode
-    {
-        case 0:
-            break
-        case 1:
-            break
-        case 2:
-            if (thisTurn != 0 && split_times[turn_count] == -2)
-                split_times[turn_count] = thisTurn + start_time
-        case 3:
+        case global.SPLIT_cyber_field:
             if (ch2start == 1)
             {
                 start_time = get_timer()
@@ -278,7 +261,7 @@ else if (global.chapter == 2)
                     split_times[4] = get_timer()
             }
             break
-        case 4:
+        case global.SPLIT_city_one:
             if (room == room_dw_city_big_1)
             {
                 if (split_times[0] == 0)
@@ -300,7 +283,7 @@ else if (global.chapter == 2)
                     split_times[3] = get_timer()
             }
             break
-        case 5:
+        case global.SPLIT_city_heights:
             if (room == room_dw_city_traffic_4)
             {
                 if (split_times[0] == 0)
@@ -322,7 +305,7 @@ else if (global.chapter == 2)
                     split_times[2] = get_timer()
             }
             break
-        case 6:
+        case global.SPLIT_mansion:
             if (room == room_dw_mansion_entrance)
             {
                 if (split_times[0] == 0)
@@ -344,7 +327,7 @@ else if (global.chapter == 2)
                     split_times[3] = get_timer()
             }
             break
-        case 7:
+        case global.SPLIT_acid_lake:
             if (room == room_dw_mansion_hands)
             {
                 if (split_times[0] == 0)
@@ -356,7 +339,7 @@ else if (global.chapter == 2)
                     split_times[1] = get_timer()
             }
             break
-        case 8:
+        case global.SPLIT_queen_and_giga:
             if (room == room_dw_mansion_east_4f_d)
             {
                 if (split_times[0] == 0)
@@ -373,7 +356,7 @@ else if (global.chapter == 2)
                     split_times[2] = get_timer()
             }
             break
-        case 9:
+        case global.SPLIT_chapter_two:
             if (ch2start == 1)
             {
                 start_time = get_timer()

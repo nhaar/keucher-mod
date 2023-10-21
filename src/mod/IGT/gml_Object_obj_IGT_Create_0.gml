@@ -142,3 +142,5 @@ previous_room = room
 global.timerIsRunning = 0
 
 current_split = -1
+split_start_room = 0
+segment_split_number = 0

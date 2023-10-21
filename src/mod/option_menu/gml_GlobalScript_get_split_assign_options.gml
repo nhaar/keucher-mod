@@ -4,9 +4,12 @@ function get_split_assign_options(argument0)
     selected_split = split_id
 
     start_room = 0
+    split_count = 0
     switch (split_id)
     {
         case global.SPLIT_chapter_one:
+            start_room = PLACE_CONTACT_ch1
+            break
         case global.SPLIT_castle_town:
             start_room = PLACE_CONTACT_ch1
             break
@@ -19,7 +22,7 @@ function get_split_assign_options(argument0)
         case global.SPLIT_forest:
             start_room = room_forest_savepoint1_ch1
             break
-        case global.SPLIT_escape:
+        case global.SPLIT_escape_castle:
             start_room = room_forest_afterthrash2_ch1
             break
         case global.SPLIT_castle_and_king:
@@ -45,6 +48,7 @@ function get_split_assign_options(argument0)
             start_room = room_dw_mansion_acid_tunnel_exit
             break
     }
+    split_count = 5
 
     button_amount = 3
     button_text[0] = "Timer will start in " + scr_roomname(start_room)

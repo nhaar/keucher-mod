@@ -131,6 +131,9 @@ for (var i = 0; i < button_amount; i++)
                     {
                         obj_IGT.current_split = selected_split
                         get_split_assign_options(selected_split)
+                        obj_IGT.split_start_room = start_room
+                        obj_IGT.segment_split_number = split_count
+                        update_splits()
                     }
             }
         }

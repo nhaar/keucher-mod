@@ -80,8 +80,10 @@ if (igt_mode > 1 && !hide_timer)
                 string(global.grazeSubtracted / 30) + "s (" + string(global.grazeSubtracted) + "f)"
             )
         else
-            draw_text(xx - 10, yy + 51 + splitNumber * 12, string(attempt_count))
-        
+        {
+            var height = igt_mode == 3 ? segment_split_number : 0
+            draw_text(xx - 10, yy + 51 + height * 12, string(attempt_count))
+        }
         draw_set_halign(fa_left)
     }
 }
@@ -97,6 +99,6 @@ else
 
 // switching timer mode
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_mode))
-{
+    show_debug_message(segment_split_number)
     set_igt_splits_info(1)
 }
