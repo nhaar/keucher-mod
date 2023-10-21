@@ -3,34 +3,34 @@ if (mouse_check_button_pressed(mb_right))
     instance_destroy()
 }
 
-real_mouse_x = mouse_x - camerax()
-real_mouse_y = mouse_y - cameray()
+real_mouse_x = device_mouse_x_to_gui(0)
+real_mouse_y = device_mouse_y_to_gui(0)
+
+view_width = display_get_gui_width()
+view_height = display_get_gui_height()
 
 padding = 10
 button_height = 32
 scroll_width = 16
 
-
-
-button_start_x = view_xport + padding
-button_end_x = view_wport - padding - scroll_width
+button_start_x = padding
+button_end_x = view_width - padding - scroll_width
 
 
 draw_set_color(c_aqua)
-draw_rectangle(view_xport, view_yport, view_wport, view_hport, false)
+draw_rectangle(0, 0, view_width, view_height, false)
 draw_set_color(c_black)
-draw_rectangle(view_xport, view_yport, view_wport, view_hport, true)
-
+draw_rectangle(0, 0, view_width, view_height, true)
 
 // scroll wheel related coordinates
-// highest y value reached
+// highest y value reached by the BUTTONS
 max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
-scroll_height = min(view_hport, view_hport * (view_hport / max_y))
-scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_hport) - view_hport)
-min_y = - scroll_ypos / view_hport * max_y
+scroll_height = view_height * min(1, view_height / max_y)
+scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_height) - view_height)
+min_y = - scroll_ypos / view_height * max_y
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
-scroll_end_x = view_wport
+scroll_end_x = view_width
 scroll_end_y = scroll_ypos + scroll_height
 
 // setting new value for keybind
@@ -60,7 +60,7 @@ if (scroll_dragging)
     }
 }
 // if can initiate dragging scroll
-if point_in_rectangle(mouse_x, mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
+if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
 {
     if (mouse_check_button_pressed(mb_left))
     {
@@ -200,7 +200,7 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(c_black)
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
     draw_set_color(c_lime)
-    draw_text(view_xport + padding + 5, button_start_y + 5, button_text[i])
+    draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
 }
 
-draw_sprite(spr_maus_cursor, 0, mouse_x, mouse_y)
+draw_sprite(spr_maus_cursor, 0, real_mouse_x, real_mouse_y)
