@@ -47,7 +47,12 @@ enum OptionState
     KeybindAssign
 }
 
-Dictionary<Keybinding, string> keyText = new()
+enum DefaultOption
+{
+    Keybind
+}
+
+Dictionary<object, string> keyText = new()
 {
     { Keybinding.Save, "Open Save Prompt" },
     { Keybinding.Load, "Load Save" },
@@ -89,21 +94,29 @@ Dictionary<Keybinding, string> keyText = new()
     { Keybinding.PreviousBossAttack, "Previous Boss Attack" }
 };
 
-var getKeybindOptions = @$"
-function get_keybind_mod_options()
-{{
-    button_amount = {keyText.Keys.Count};
-";
+ImportButtonText(keyText, "get_keybind_mod_options", OptionState.Keybinds);
 
-foreach (Keybinding keybinding in keyText.Keys)
+void ImportButtonText(Dictionary<object, string> buttonText, string getterName, OptionState state)
 {
-    getKeybindOptions += $@"
-    button_text[{(int)keybinding}] = ""{keyText[keybinding]}"";";
+    Console.WriteLine("udsaudusadsa");
+    var options = @$"
+    function {getterName}()
+    {{
+        button_amount = {keyText.Keys.Count};
+    ";
+
+    foreach (var keybinding in keyText.Keys)
+    {
+        options += $@"
+        button_text[{(int)keybinding}] = ""{keyText[keybinding]}"";";
+    }
+    options += $" options_state = global.OPTION_STATE{CamelToSnakeCase(state.ToString())} }}";
+
+    Console.WriteLine(options);
+    Console.WriteLine("gml_GlobalScript_" + buttonText);
+    ImportGMLString("gml_GlobalScript_" + getterName, options);
 }
 
-getKeybindOptions += " options_state = global.OPTION_STATE_keybinds }";
-
-ImportGMLString("gml_GlobalScript_get_keybind_mod_options", getKeybindOptions);
 ImportEnum<Keybinding>("keybinding");
 ImportEnum<OptionState>("option_state");
 
