@@ -85,91 +85,97 @@ for (var i = 0; i < button_amount; i++)
     }
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-        button_state[i] = global.BUTTON_STATE_hover
-        if (mouse_check_button(mb_left))
+        
+        if (mouse_check_button_pressed(mb_left))
         {
             button_state[i] = global.BUTTON_STATE_press
         }
-        if (mouse_check_button_released(mb_left))
+        else if (button_state[i] == global.BUTTON_STATE_press)
         {
-            switch (options_state)
+            if (mouse_check_button_released(mb_left))
             {
-                case global.OPTION_STATE_default:
-                    switch (i)
-                    {
-                        case global.DEFAULT_OPTION_keybind:
-                            get_keybind_mod_options()
-                            break
-                        case global.DEFAULT_OPTION_current_split:
-                            get_split_mod_options()
-                            break
-                    }
-                    break
-                case global.OPTION_STATE_keybinds:
-                    get_keybind_assign_options(i)
-                    break
-                case global.OPTION_STATE_keybind_assign:
-                    // setting new value
-                    if (i == 1)
-                    {
-                        setting_keybind = true
-                        // update text
-                        button_text[1] = "Press any key..."
-                    }
-                    break
-                case global.OPTION_STATE_splits:
-                    get_split_assign_options(i)
-                    break
-                case global.OPTION_STATE_split_assign:
-                    // warp
-                    if (i == 1)
-                    {
-                        show_debug_message(selected_split)
-                        switch (selected_split)
+                button_state[i] = global.BUTTON_STATE_hover
+                switch (options_state)
+                {
+                    case global.OPTION_STATE_default:
+                        switch (i)
                         {
-                            case global.SPLIT_field_hopes_dreams:
-                                plotwarp(1)
+                            case global.DEFAULT_OPTION_keybind:
+                                get_keybind_mod_options()
                                 break
-                            case global.SPLIT_checkerboard:
-                                plotwarp(2)
-                                break
-                            case global.SPLIT_forest:
-                                plotwarp(3)
-                                break
-                            case global.SPLIT_escape_castle:
-                                plotwarp(4)
-                                break
-                            case global.SPLIT_castle_and_king:
-                                plotwarp(5)
-                                break
-                            case global.SPLIT_city_one:
-                                plotwarp(1)
-                                break
-                            case global.SPLIT_city_heights:
-                                plotwarp(3)
-                                break
-                            case global.SPLIT_mansion:
-                                plotwarp(4)
-                                break
-                            case global.SPLIT_acid_lake:
-                                plotwarp(5)
-                                break
-                            case global.SPLIT_queen_and_giga:
-                                plotwarp(6)
+                            case global.DEFAULT_OPTION_current_split:
+                                get_split_mod_options()
                                 break
                         }
-                    }
-                    // set split
-                    else if (i == 2)
-                    {
-                        obj_IGT.current_split = selected_split
-                        get_split_assign_options(selected_split)
-                        obj_IGT.split_start_room = start_room
-                        obj_IGT.segment_split_number = split_count
-                        update_splits()
-                    }
+                        break
+                    case global.OPTION_STATE_keybinds:
+                        get_keybind_assign_options(i)
+                        break
+                    case global.OPTION_STATE_keybind_assign:
+                        // setting new value
+                        if (i == 1)
+                        {
+                            setting_keybind = true
+                            // update text
+                            button_text[1] = "Press any key..."
+                        }
+                        break
+                    case global.OPTION_STATE_splits:
+                        get_split_assign_options(i)
+                        break
+                    case global.OPTION_STATE_split_assign:
+                        // warp
+                        if (i == 1)
+                        {
+                            show_debug_message(selected_split)
+                            switch (selected_split)
+                            {
+                                case global.SPLIT_field_hopes_dreams:
+                                    plotwarp(1)
+                                    break
+                                case global.SPLIT_checkerboard:
+                                    plotwarp(2)
+                                    break
+                                case global.SPLIT_forest:
+                                    plotwarp(3)
+                                    break
+                                case global.SPLIT_escape_castle:
+                                    plotwarp(4)
+                                    break
+                                case global.SPLIT_castle_and_king:
+                                    plotwarp(5)
+                                    break
+                                case global.SPLIT_city_one:
+                                    plotwarp(1)
+                                    break
+                                case global.SPLIT_city_heights:
+                                    plotwarp(3)
+                                    break
+                                case global.SPLIT_mansion:
+                                    plotwarp(4)
+                                    break
+                                case global.SPLIT_acid_lake:
+                                    plotwarp(5)
+                                    break
+                                case global.SPLIT_queen_and_giga:
+                                    plotwarp(6)
+                                    break
+                            }
+                        }
+                        // set split
+                        else if (i == 2)
+                        {
+                            obj_IGT.current_split = selected_split
+                            get_split_assign_options(selected_split)
+                            obj_IGT.split_start_room = start_room
+                            obj_IGT.segment_split_number = split_count
+                            update_splits()
+                        }
+                }
             }
         }
+        else
+            button_state[i] = global.BUTTON_STATE_hover
     }
     else if (options_state == global.OPTION_STATE_splits && i == obj_IGT.current_split)
     {
