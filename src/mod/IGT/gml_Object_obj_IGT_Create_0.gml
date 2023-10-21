@@ -140,3 +140,5 @@ previous_room = room
 
 // boolean, for the IGT
 global.timerIsRunning = 0
+
+current_split = -1

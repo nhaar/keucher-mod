@@ -45,7 +45,8 @@ enum OptionState
     Default,
     Keybinds,
     KeybindAssign,
-    Splits
+    Splits,
+    SplitAssign
 }
 
 enum DefaultOption
@@ -60,6 +61,24 @@ enum ButtonState
     Hover,
     Press,
     Highlight
+}
+
+enum Split
+{
+    CastleTown,
+    FieldHopesDreams,
+    Checkerboard,
+    Forest,
+    EscapeCastle,
+    CastleAndKing,
+    ChapterOne,
+    CyberField,
+    CityOne,
+    CityHeights,
+    Mansion,
+    AcidLake,
+    QueenAndGiga,
+    ChapterTwo
 }
 
 Dictionary<object, string> defaultText = new()
@@ -110,8 +129,55 @@ Dictionary<object, string> keyText = new()
     { Keybinding.PreviousBossAttack, "Previous Boss Attack" }
 };
 
+Dictionary<object, string> splitText = new()
+{
+    { 
+        Split.CastleTown, "Intro + Castle Town"
+    },
+    { 
+        Split.FieldHopesDreams, "Field"
+    },
+    { 
+        Split.Checkerboard, "Checkerboard"
+    },
+    { 
+        Split.Forest, "Forest"
+    },
+    { 
+        Split.EscapeCastle, "Escape"
+    },
+    { 
+        Split.CastleAndKing, "Castle + King"
+    },
+    { 
+        Split.ChapterOne, "Full Chapter 1"
+    },
+    { 
+        Split.CyberField, "Cyber Field"
+    },
+    { 
+        Split.CityOne, "City"
+    },
+    { 
+        Split.CityHeights, "City Heights"
+    },
+    { 
+        Split.Mansion, "Mansion"
+    },
+    { 
+        Split.AcidLake, "Acid Lake"
+    },
+    { 
+        Split.QueenAndGiga, "Queen + Giga"
+    },
+    { 
+        Split.ChapterTwo, "Full Chapter Two"
+    }
+};
+
 ImportButtonText(defaultText, "get_default_mod_options", OptionState.Default);
 ImportButtonText(keyText, "get_keybind_mod_options", OptionState.Keybinds);
+ImportButtonText(splitText, "get_split_mod_options", OptionState.Splits);
 
 void ImportButtonText(Dictionary<object, string> buttonText, string getterName, OptionState state)
 {
@@ -138,6 +204,7 @@ ImportEnum<Keybinding>("keybinding");
 ImportEnum<OptionState>("option_state");
 ImportEnum<DefaultOption>("default_option");
 ImportEnum<ButtonState>("button_state");
+ImportEnum<Split>("split");
 
 void ImportEnum<T> (string name)
 {

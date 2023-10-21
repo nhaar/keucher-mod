@@ -117,8 +117,27 @@ for (var i = 0; i < button_amount; i++)
                         button_text[1] = "Press any key..."
                     }
                     break
+                case global.OPTION_STATE_splits:
+                    get_split_assign_options(i)
+                    break
+                case global.OPTION_STATE_split_assign:
+                    // warp
+                    if (i == 1)
+                    {
+                        // TO-DO
+                    }
+                    // set split
+                    else if (i == 2)
+                    {
+                        obj_IGT.current_split = selected_split
+                        get_split_assign_options(selected_split)
+                    }
             }
         }
+    }
+    else if (options_state == global.OPTION_STATE_splits && i == obj_IGT.current_split)
+    {
+        button_state[i] = global.BUTTON_STATE_highlight
     }
     else
     {
@@ -136,6 +155,10 @@ for (var i = 0; i < button_amount; i++)
     else if (button_state[i] == global.BUTTON_STATE_none)
     {
         draw_set_color(c_gray)
+    }
+    else if (button_state[i] == global.BUTTON_STATE_highlight)
+    {
+        draw_set_color(c_blue)
     }
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false)
     draw_set_color(c_black)
