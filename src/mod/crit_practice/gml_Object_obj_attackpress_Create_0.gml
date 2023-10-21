@@ -6,7 +6,7 @@
 /// CODE
 // bolttotal is the number of cursors
 // if 1, always the same
-if (!global.random_pattern && bolttotal != 1)
+if (i_ex(obj_crit_practice) && !global.random_pattern && bolttotal != 1)
 {
     pattern_array = bolttotal == 2 ? global.double_patterns : global.triple_patterns
     for (i = 0; i < bolttotal; i += 1)
