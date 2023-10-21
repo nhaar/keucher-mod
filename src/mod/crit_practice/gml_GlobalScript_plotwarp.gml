@@ -23,11 +23,11 @@ function plotwarp(argument0)
                 global.char[1] = 0
                 global.char[2] = 0
                 global.plot = 10
-                global.timerVersion = 3
-                global.startSplit = 10315
-                global.splitDisplay[0] = 0
-                global.splitDisplay[1] = 0
-                global.splitDisplay[2] = 0
+                obj_IGT.igt_mode = 3
+                obj_IGT.segment_start_room = 10315
+                obj_IGT.split_times[0] = 0
+                obj_IGT.split_times[1] = 0
+                obj_IGT.split_times[2] = 0
                 with (obj_IGT)
                     splitNumber = 2
                 snd_free_all_ch1()

@@ -135,7 +135,7 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
                 game_load("ssch2_" + string(global.filechoice) + "_" + string(currentSlotSelected))
                 global.savestateLoad = 2
             }
-            global.timeStart = 0
+            obj_IGT.start_time = 0
             global.interact = 0
         }
         else
@@ -157,7 +157,7 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
                 game_load("ssch1_" + string(global.filechoice) + "_" + string(currentSlotSelected))
                 global.savestateLoad = 2
             }
-            global.timeStart = 0
+            obj_IGT.start_time = 0
             global.interact = 0
         }
         else

@@ -3,7 +3,7 @@ function keucher_mod_load (argument0)
     var chapter = argument0
 
     // Reset segment time upon loading
-    global.timeInRoom = 0
+    obj_IGT.time_since_last_transition = 0
 
     // check if savestate load or file load
     var savestate

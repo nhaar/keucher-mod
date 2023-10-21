@@ -1,63 +1,63 @@
 // initialize vanilla variable
 global.chapter = 0
 
-// global.splitDisplay stores the times for each of the current splits
+// split_times stores the times for each of the current splits
 // by default, it's set to -2, which is the same as "not set"
 for (i = 0; i < 20; i += 1)
-    global.splitDisplay[i] = -2
+    split_times[i] = -2
 
-// store the room for the current split
-global.startSplit = -1
+// store the room that starts the current segment
+segment_start_room = -1
 
 // variable keeps track of the IGT timer mode
-global.timerVersion = 0
+igt_mode = 0
 
-// should be `1` if the timer is invisible, `0` if it is visible
-global.timerToggle = 0
+// should be `true` if the timer is invisible, `false` if it is visible
+hide_timer = false
 
 // the time the timer started
-global.timeStart = 0
+start_time = 0
 
 // the time the last transition took place
-global.timeTransition = 0
+last_transition_time = 0
 
 // the room player was in the previous frame
-global.roomPrevious = 0
+previous_room = 0
 
 // for the current splits
-global.attemptCount = 0
+attempt_count = 0
 
 // delineates time between each room
-global.timeInRoom = 0
+time_since_last_transition = 0
 
-// variable used to lock the timer if it's equal to `global.timeStart`
-global.timerReset = 0
+// variable used to lock the timer if it's equal to `start_time`
+time_lock_value = 0
 
 // should be `0` if crit practice is off, and `1` if it's on
 // TO-DO: Move unrelated variable initialization
 global.ambyu_practice = 0
 
 // splittext is an array for each split
-// global.turnGraze stores the amount grazed in each split/turn?
-// TO-DO: What exactly is `global.TPend`?
+// turn_graze stores the amount grazed in each split/turn?
+// TO-DO: What exactly is `tp_end`?
 for (i = 0; i < 20; i += 1)
 {
     splittext[i] = ""
-    global.turnGraze[i] = 0
-    global.TPend[i] = 0
+    turn_graze[i] = 0
+    tp_end[i] = 0
 }
 
 // TO-DO: Move unrelated savestate functionality to a separate file
 global.savestateLoad = 0
 
 // flag to signify whether or not the player is in a battle
-global.battleStarted = 0
+battle_started = false
 
 // flag to signify whether or not the player is in a fight turn
-global.turnStarted = 0
+turn_started = false
 
 // TO-DO: check what exactly this is
-global.turnCount = -1
+turn_count = -1
 
 // TO-DO: check what this flag does
 global.flag[48] = 0
@@ -97,7 +97,7 @@ slotWasSelected = -1
 splitNumber = 0
 
 // displacement constant. Why is it in two files? TO-DO: Refactor
-TOBYFOXWHYAREYOULIKETHIS = 10000
+TOBYFOXWHYAREYOULIKETHIS = 0
 
 // variables that signal specific events
 // possible TO-DO: refactor this properly?
@@ -139,8 +139,7 @@ thisTurn = 0
 lastTurn = 0
 
 // initialize variables used to room tracking
-global.currentroom = ROOM_INITIALIZE
-global.previousRoom = ROOM_INITIALIZE
+previous_room = room
 
 // boolean, for the IGT
 global.timerIsRunning = 0

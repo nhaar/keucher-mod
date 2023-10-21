@@ -1,10 +1,10 @@
 // warn player when max splits reached
-if (global.splitDisplay[19] != -2)
+if (split_times[19] != -2)
     set_igt_splits_info(2)
 
 // what exactly is this timer for?
-contimer = get_timer() - global.timeStart
-if global.timerToggle
+contimer = get_timer() - start_time
+if hide_timer
     conText = ""
 else
     conText = to_readable_time(contimer)
@@ -12,177 +12,177 @@ else
 // room updating
 if
 (
-    global.roomPrevious != global.currentroom &&
-    ((global.chapter == 2 && global.roomPrevious != global.currentroom - 20000) || global.chapter != 2)
+    previous_room != room &&
+    ((global.chapter == 2 && previous_room != room - 20000) || global.chapter != 2)
 )
 {
-    global.timeInRoom = get_timer() - global.timeTransition
+    time_since_last_transition = get_timer() - last_transition_time
     // start split if reached room that starts split
-    if (global.currentroom == global.startSplit && global.timerIsRunning == 0)
+    if (room == segment_start_room && global.timerIsRunning == 0)
     {
-        global.timeStart = get_timer()
-        if (global.timerVersion != 1)
-            global.attemptCount += 1
+        start_time = get_timer()
+        if (igt_mode != 1)
+            attempt_count += 1
     }
-    global.timeTransition = get_timer()
-    global.roomPrevious = global.currentroom
+    last_transition_time = get_timer()
+    previous_room = room
 }
-if (global.timerVersion == 2)
+if (igt_mode == 2)
 {
     // updating thigns related to battle
-    if (global.fighting && global.battleStarted != 1)
+    if (global.fighting && !battle_started)
     {
-        global.timeStart = get_timer()
-        global.timeTransition = global.timeStart
+        start_time = get_timer()
+        last_transition_time = start_time
         lastTurn = get_timer()
         thisTurn = 0
-        global.turnCount = -1
+        turn_count = -1
         // TO-DO: figure why here and group this pattern again
         for (i = 0; i < 20; i += 1)
         {
-            global.splitDisplay[i] = -2
-            global.turnGraze[i] = 0
-            global.TPend[i] = 0
+            split_times[i] = -2
+            turn_graze[i] = 0
+            tp_end[i] = 0
             grazeOriginal[i] = 0
             TPstart[i] = 0
         }
         global.grazeSubtracted = 0
-        global.battleStarted = 1
+        battle_started = true
     }
     // TO-DO: properly document all these cases
-    if (global.mnfight == 2 && global.turnStarted != 1)
+    if (global.mnfight == 2 && !turn_started)
     {
-        grazeOriginal[global.turnCount + 1] = global.grazeSubtracted
-        TPstart[global.turnCount + 1] = global.tension / global.maxtension * 100
-        global.turnStarted = 1
+        grazeOriginal[turn_count + 1] = global.grazeSubtracted
+        TPstart[turn_count + 1] = global.tension / global.maxtension * 100
+        turn_started = true
     }
-    if (!global.fighting && global.battleStarted == 1)
+    if (!global.fighting && battle_started)
     {
-        global.turnCount++
-        global.timeTransition = get_timer()
-        thisTurn = get_timer() - global.timeStart
-        global.battleStarted = 0
+        turn_count++
+        last_transition_time = get_timer()
+        thisTurn = get_timer() - start_time
+        battle_started = false
     }
-    if (global.mnfight != 2 && global.turnStarted == 1)
+    if (global.mnfight != 2 && turn_started)
     {
-        global.turnCount++
-        global.timeTransition = get_timer()
-        global.turnGraze[global.turnCount + 1] = floor(global.grazeSubtracted - grazeOriginal[global.turnCount])
-        global.TPend[(global.turnCount + 1)] = global.tension / global.maxtension * 100 - TPstart[global.turnCount]
+        turn_count++
+        last_transition_time = get_timer()
+        turn_graze[turn_count + 1] = floor(global.grazeSubtracted - grazeOriginal[turn_count])
+        tp_end[(turn_count + 1)] = global.tension / global.maxtension * 100 - TPstart[turn_count]
         thisTurn = get_timer() - lastTurn
         lastTurn = get_timer()
         global.grazeSubtracted = floor(global.grazeSubtracted)
-        global.turnStarted = 0
+        turn_started = false
     }
 }
 if (global.chapter == 1)
 {
     // setup splits for the chapter 1 modes
-    switch global.timerVersion
+    switch igt_mode
     {
         case 0:
             break
         case 1:
             break
         case 2:
-            if (thisTurn != 0 && global.splitDisplay[global.turnCount] == -2)
-                global.splitDisplay[global.turnCount] = thisTurn + global.timeStart
+            if (thisTurn != 0 && split_times[turn_count] == -2)
+                split_times[turn_count] = thisTurn + start_time
             break
         case 3:
-            if (global.currentroom == room_dark1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_dark1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_castle_outskirts_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_castle_outskirts_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             else if (doorslam == 1)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             break
         case 4:
-            if (global.currentroom == room_field_puzzle1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_field_puzzle1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_field_shop1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_shop1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             break
         case 5:
-            if (global.currentroom == room_field_checkers3_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_field_checkers3_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             break
         case 6:
-            if (global.currentroom == room_forest_savepoint2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_forest_savepoint2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_forest_maze1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_maze1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             break
         case 7:
             if (captured == 1)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
             else if (escaped == 1)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             break
         case 8:
-            if (global.currentroom == room_cc_rurus1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            if (room == room_cc_rurus1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_cc_rurus2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_rurus2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             else if (kingdefeat == 1)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
             break
         // TO-DO: This system as a whole could use some refactoring
@@ -190,38 +190,38 @@ if (global.chapter == 1)
         case 9:
             if (doorslam == 1)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_field_checkers4_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_savepoint1_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
-            else if (global.currentroom == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_forest_afterthrash2_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
             else if (escaped == 1)
             {
-                if (global.splitDisplay[4] == 0)
-                    global.splitDisplay[4] = get_timer()
+                if (split_times[4] == 0)
+                    split_times[4] = get_timer()
             }
-            else if (global.currentroom == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
+            else if (room == room_cc_preroof_ch1 + TOBYFOXWHYAREYOULIKETHIS)
             {
-                if (global.splitDisplay[5] == 0)
-                    global.splitDisplay[5] = get_timer()
+                if (split_times[5] == 0)
+                    split_times[5] = get_timer()
             }
             else if (kingdefeat == 1)
             {
-                if (global.splitDisplay[6] == 0)
-                    global.splitDisplay[6] = get_timer()
+                if (split_times[6] == 0)
+                    split_times[6] = get_timer()
             }
         default:
             break
@@ -230,206 +230,206 @@ if (global.chapter == 1)
 else if (global.chapter == 2)
 {
     // checks for the chapter 2 splits
-    switch global.timerVersion
+    switch igt_mode
     {
         case 0:
             break
         case 1:
             break
         case 2:
-            if (thisTurn != 0 && global.splitDisplay[global.turnCount] == -2)
-                global.splitDisplay[global.turnCount] = thisTurn + global.timeStart
+            if (thisTurn != 0 && split_times[turn_count] == -2)
+                split_times[turn_count] = thisTurn + start_time
         case 3:
             if (ch2start == 1)
             {
-                global.timeStart = get_timer()
-                global.timeTransition = global.timeStart
+                start_time = get_timer()
+                last_transition_time = start_time
                 ch2start = 0
             }
-            else if (isNGplus == 1 && global.currentroom == room_krisroom)
+            else if (isNGplus == 1 && room == room_krisroom)
             {
-                global.timeStart = get_timer()
-                global.timeTransition = global.timeStart
+                start_time = get_timer()
+                last_transition_time = start_time
                 isNGplus = 0
             }
-            else if (global.currentroom == room_dw_cyber_rhythm_slide)
+            else if (room == room_dw_cyber_rhythm_slide)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_dw_cyber_queen_boxing)
+            else if (room == room_dw_cyber_queen_boxing)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             else if (djsend == 1)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
-            else if (global.currentroom == room_dw_cyber_rollercoaster)
+            else if (room == room_dw_cyber_rollercoaster)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
             else if (cyberend == 1)
             {
-                if (global.splitDisplay[4] == 0)
-                    global.splitDisplay[4] = get_timer()
+                if (split_times[4] == 0)
+                    split_times[4] = get_timer()
             }
             break
         case 4:
-            if (global.currentroom == room_dw_city_big_1)
+            if (room == room_dw_city_big_1)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_dw_city_queen_drunk)
+            else if (room == room_dw_city_queen_drunk)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_dw_city_mice2)
+            else if (room == room_dw_city_mice2)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
-            else if (global.currentroom == room_dw_city_traffic_4)
+            else if (room == room_dw_city_traffic_4)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
             break
         case 5:
-            if (global.currentroom == room_dw_city_traffic_4)
+            if (room == room_dw_city_traffic_4)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.splitDisplay[0] == -1)
+            else if (split_times[0] == -1)
             {
-                if (global.currentroom == room_dw_city_spamton_alley)
-                    global.splitDisplay[0] = 0
+                if (room == room_dw_city_spamton_alley)
+                    split_times[0] = 0
             }
-            else if (global.currentroom == room_dw_city_postbaseball_2)
+            else if (room == room_dw_city_postbaseball_2)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             else if (city2end == 1)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             break
         case 6:
-            if (global.currentroom == room_dw_mansion_entrance)
+            if (room == room_dw_mansion_entrance)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_traffic)
+            else if (room == room_dw_mansion_traffic)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_dining3)
+            else if (room == room_dw_mansion_dining3)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_acid_tunnel)
+            else if (room == room_dw_mansion_acid_tunnel)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
             break
         case 7:
-            if (global.currentroom == room_dw_mansion_hands)
+            if (room == room_dw_mansion_hands)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_acid_tunnel_exit)
+            else if (room == room_dw_mansion_acid_tunnel_exit)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             break
         case 8:
-            if (global.currentroom == room_dw_mansion_east_4f_d)
+            if (room == room_dw_mansion_east_4f_d)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_top)
+            else if (room == room_dw_mansion_top)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
             else if (gigaend == 1)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             break
         case 9:
             if (ch2start == 1)
             {
-                global.timeStart = get_timer()
-                global.timeTransition = global.timeStart
+                start_time = get_timer()
+                last_transition_time = start_time
                 ch2start = 0
             }
-            else if (isNGplus == 1 && global.currentroom == room_krisroom)
+            else if (isNGplus == 1 && room == room_krisroom)
             {
-                global.timeStart = get_timer()
-                global.timeTransition = global.timeStart
+                start_time = get_timer()
+                last_transition_time = start_time
                 isNGplus = 0
             }
             else if (djsend == 1)
             {
-                if (global.splitDisplay[0] == 0)
-                    global.splitDisplay[0] = get_timer()
+                if (split_times[0] == 0)
+                    split_times[0] = get_timer()
             }
             else if (cyberend == 1)
             {
-                if (global.splitDisplay[1] == 0)
-                    global.splitDisplay[1] = get_timer()
+                if (split_times[1] == 0)
+                    split_times[1] = get_timer()
             }
-            else if (global.currentroom == room_dw_city_traffic_4)
+            else if (room == room_dw_city_traffic_4)
             {
-                if (global.splitDisplay[2] == 0)
-                    global.splitDisplay[2] = get_timer()
+                if (split_times[2] == 0)
+                    split_times[2] = get_timer()
             }
             else if (city2end == 1)
             {
-                if (global.splitDisplay[3] == 0)
-                    global.splitDisplay[3] = get_timer()
+                if (split_times[3] == 0)
+                    split_times[3] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_entrance)
+            else if (room == room_dw_mansion_entrance)
             {
-                if (global.splitDisplay[4] == 0)
-                    global.splitDisplay[4] = get_timer()
+                if (split_times[4] == 0)
+                    split_times[4] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_acid_tunnel)
+            else if (room == room_dw_mansion_acid_tunnel)
             {
-                if (global.splitDisplay[5] == 0)
-                    global.splitDisplay[5] = get_timer()
+                if (split_times[5] == 0)
+                    split_times[5] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_acid_tunnel_exit)
+            else if (room == room_dw_mansion_acid_tunnel_exit)
             {
-                if (global.splitDisplay[6] == 0)
-                    global.splitDisplay[6] = get_timer()
+                if (split_times[6] == 0)
+                    split_times[6] = get_timer()
             }
-            else if (global.currentroom == room_dw_mansion_top)
+            else if (room == room_dw_mansion_top)
             {
-                if (global.splitDisplay[7] == 0)
-                    global.splitDisplay[7] = get_timer()
+                if (split_times[7] == 0)
+                    split_times[7] = get_timer()
             }
             else if (gigaend == 1)
             {
-                if (global.splitDisplay[8] == 0)
-                    global.splitDisplay[8] = get_timer()
+                if (split_times[8] == 0)
+                    split_times[8] = get_timer()
             }
         default:
             break
@@ -439,14 +439,14 @@ else if (global.chapter == 2)
 // custom room timer
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_room))
 {
-    global.startSplit = get_integer("What room number would you like the timer to start in?", global.currentroom)
-    global.attemptCount = 0
+    segment_start_room = get_integer("What room number would you like the timer to start in?", room)
+    attempt_count = 0
 }
 
 // hide timer
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_timer))
 {
-    global.timerToggle = global.timerToggle ? 0 : 1
+    hide_timer = hide_timer ? false : true
 }
 
 // reset timer
