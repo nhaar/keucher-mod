@@ -11,7 +11,7 @@ button_text[100] = 0
 1 - KEYBINDS
 2 - ASSIGNING KEYBINDS
 */
-options_state = 0
+options_state = global.OPTION_STATE_default
 
 scroll_ypos = 0
 scroll_dragging = false

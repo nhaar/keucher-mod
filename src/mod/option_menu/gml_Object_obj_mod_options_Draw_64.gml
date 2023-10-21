@@ -94,7 +94,7 @@ for (var i = 0; i < button_amount; i++)
         {
             switch (options_state)
             {
-                case 0:
+                case global.OPTION_STATE_default:
                     switch (i)
                     {
                         case 0:
@@ -102,10 +102,10 @@ for (var i = 0; i < button_amount; i++)
                             break
                     }
                     break
-                case 1:
+                case global.OPTION_STATE_keybinds:
                     get_keybind_assign_options(i)
                     break
-                case 2:
+                case global.OPTION_STATE_keybind_assign:
                     // setting new value
                     if (i == 1)
                     {

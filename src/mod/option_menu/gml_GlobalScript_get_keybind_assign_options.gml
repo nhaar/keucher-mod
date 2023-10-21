@@ -8,5 +8,5 @@ function get_keybind_assign_options(argument0)
     button_text[0] = "Value: [" + get_key_name(key_id) + "]"
     button_text[1] = "Set Value"
 
-    options_state = 2
+    options_state = global.OPTION_STATE_keybind_assign
 }

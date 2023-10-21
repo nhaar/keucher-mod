@@ -40,6 +40,13 @@ enum Keybinding
     PreviousBossAttack
 }
 
+enum OptionState
+{
+    Default,
+    Keybinds,
+    KeybindAssign
+}
+
 Dictionary<Keybinding, string> keyText = new()
 {
     { Keybinding.Save, "Open Save Prompt" },
@@ -94,10 +101,11 @@ foreach (Keybinding keybinding in keyText.Keys)
     button_text[{(int)keybinding}] = ""{keyText[keybinding]}"";";
 }
 
-getKeybindOptions += " options_state = 1 }";
+getKeybindOptions += " options_state = global.OPTION_STATE_keybinds }";
 
 ImportGMLString("gml_GlobalScript_get_keybind_mod_options", getKeybindOptions);
 ImportEnum<Keybinding>("keybinding");
+ImportEnum<OptionState>("option_state");
 
 void ImportEnum<T> (string name)
 {
