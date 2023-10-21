@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Intro + Castle Town",
+        "warp": "null",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "PLACE_CONTACT_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_dark1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_castle_outskirts_ch1"
+            },
+            {
+                "type": "doorslam"
+            }
+        ] 
+    }
+]

@@ -20,6 +20,7 @@ else
 if (igt_mode > 1)
 {
     // iterating over all splits
+    var total = 0
     for (var i = 0; i < 20; i++)
     {
         // running time for the current split

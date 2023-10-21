@@ -3,3 +3,4 @@
 !/src/*.csx
 !/src/mod
 !/src/ump-config.json
+!/src/*.json

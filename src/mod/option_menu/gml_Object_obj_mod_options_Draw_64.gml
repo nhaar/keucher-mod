@@ -127,7 +127,6 @@ for (var i = 0; i < button_amount; i++)
                         // warp
                         if (i == 1)
                         {
-                            show_debug_message(selected_split)
                             switch (selected_split)
                             {
                                 case global.SPLIT_field_hopes_dreams:

@@ -2,15 +2,14 @@ using Newtonsoft.Json;
 using System.Linq;
 
 // JSON LOADING THE SPLITS
-var jsonString = File.ReadAllText(Path.Combine(Path.GetDirectoryName(ScriptPath), "test.json"));
+var jsonString = File.ReadAllText(Path.Combine(Path.GetDirectoryName(ScriptPath), "splits.json"));
 
-List<object> test = JsonConvert.DeserializeObject<List<object>>(jsonString);
-GMLStringJson test2 = new(test);
+GMLStringJson splitsString = new(JsonConvert.DeserializeObject<List<object>>(jsonString));
 
 ImportGMLString("gml_GlobalScript_set_splits_json", @$"
 function set_splits_json()
 {{
-    global.splits_json = json_decode(""{test2.ToString().Replace("\"", "\\\"")}"")    
+    global.splits_json = json_decode(""{splitsString}"")    
 }}
 ");
 
@@ -30,7 +29,7 @@ class GMLStringJson
     
     public override string ToString ()
     {
-        return Content;
+        return Content.Replace("\"", "\\\"");
     }
 
     public static string StringifyElement (object element)

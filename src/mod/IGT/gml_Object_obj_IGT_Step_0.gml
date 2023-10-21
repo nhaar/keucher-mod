@@ -1,3 +1,5 @@
+var current_frame_time = get_timer()
+
 // warn player when max splits reached
 if (split_times[19] != -2)
     set_igt_splits_info(2)
@@ -17,13 +19,6 @@ if
 )
 {
     time_since_last_transition = get_timer() - last_transition_time
-    // start split if reached room that starts split
-    if (room == segment_start_room && global.timerIsRunning == 0)
-    {
-        start_time = get_timer()
-        if (igt_mode != 1)
-            attempt_count += 1
-    }
     last_transition_time = get_timer()
     previous_room = room
 }
@@ -87,23 +82,23 @@ else if (igt_mode == 3)
 {
     switch current_split
     {
-        case global.SPLIT_castle_town:
-            if (room == room_dark1_ch1)
-            {
-                if (split_times[0] == 0)
-                    split_times[0] = get_timer()
-            }
-            else if (room == room_castle_outskirts_ch1)
-            {
-                if (split_times[1] == 0)
-                    split_times[1] = get_timer()
-            }
-            else if (doorslam == 1)
-            {
-                if (split_times[2] == 0)
-                    split_times[2] = get_timer()
-            }
-            break
+        // case global.SPLIT_castle_town:
+        //     if (room == room_dark1_ch1)
+        //     {
+        //         if (split_times[0] == 0)
+        //             split_times[0] = get_timer()
+        //     }
+        //     else if (room == room_castle_outskirts_ch1)
+        //     {
+        //         if (split_times[1] == 0)
+        //             split_times[1] = get_timer()
+        //     }
+        //     else if (doorslam == 1)
+        //     {
+        //         if (split_times[2] == 0)
+        //             split_times[2] = get_timer()
+        //     }
+        //     break
         case global.SPLIT_field_hopes_dreams:
             if (room == room_field_puzzle1_ch1)
             {
@@ -446,5 +441,49 @@ if (keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
             plotwarp(i)
             break
         }
+    }
+}
+
+if (igt_mode == 3)
+{
+    if (current_instruction <= segment_split_number)
+    {
+
+        var instruction = read_json_value(global.splits_json, current_split, "instructions", current_instruction)
+        var instruction_type = read_json_value(instruction, "type")
+        var do_split = false
+        switch (instruction_type)
+        {
+            case "reach_room":
+                var room_number = asset_get_index(read_json_value(instruction, "room"))
+                do_split = room == room_number                
+                break
+            case "doorslam":
+                if doorslam
+                {
+                    do_split = true
+                    doorslam = false
+                }
+        }
+        if (do_split)
+        {
+            if (current_instruction == 0)
+            {
+                start_time = current_frame_time
+                attempt_count++
+            }
+            else
+            {
+                split_times[current_instruction - 1] = current_frame_time
+            }
+            current_instruction++
+        }
+        // start split if reached room that starts split
+        // if (room == segment_start_room && global.timerIsRunning == 0)
+        // {
+        //     start_time = get_timer()
+        //     if (igt_mode != 1)
+        //         attempt_count += 1
+        // }
     }
 }
