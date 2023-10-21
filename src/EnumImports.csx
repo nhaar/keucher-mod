@@ -54,6 +54,14 @@ enum DefaultOption
     CurrentSplit
 }
 
+enum ButtonState
+{
+    None,
+    Hover,
+    Press,
+    Highlight
+}
+
 Dictionary<object, string> defaultText = new()
 {
     { DefaultOption.Keybind, "Set keybinds" },
@@ -129,6 +137,7 @@ void ImportButtonText(Dictionary<object, string> buttonText, string getterName, 
 ImportEnum<Keybinding>("keybinding");
 ImportEnum<OptionState>("option_state");
 ImportEnum<DefaultOption>("default_option");
+ImportEnum<ButtonState>("button_state");
 
 void ImportEnum<T> (string name)
 {

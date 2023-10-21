@@ -85,10 +85,10 @@ for (var i = 0; i < button_amount; i++)
     }
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-        button_state[i] = 1
+        button_state[i] = global.BUTTON_STATE_hover
         if (mouse_check_button(mb_left))
         {
-            button_state[i] = 2
+            button_state[i] = global.BUTTON_STATE_press
         }
         if (mouse_check_button_released(mb_left))
         {
@@ -122,18 +122,18 @@ for (var i = 0; i < button_amount; i++)
     }
     else
     {
-        button_state[i] = 0
+        button_state[i] = global.BUTTON_STATE_none
     }
 
-    if (button_state[i] == 1)
+    if (button_state[i] == global.BUTTON_STATE_hover)
     {
         draw_set_color(c_white)
     }
-    else if (button_state[i] == 2)
+    else if (button_state[i] == global.BUTTON_STATE_press)
     {
         draw_set_color(c_black)
     }
-    else if (button_state[i] == 0)
+    else if (button_state[i] == global.BUTTON_STATE_none)
     {
         draw_set_color(c_gray)
     }

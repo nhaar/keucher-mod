@@ -3,7 +3,7 @@
 1 - HOVERED
 2 - HELD DOWN
 */
-button_state[100] = 0
+button_state[100] = global.BUTTON_STATE_none
 button_text[100] = 0
 
 /*
