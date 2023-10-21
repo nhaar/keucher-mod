@@ -98,26 +98,5 @@ else
 // switching timer mode
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_mode))
 {
-    textText = ""
-    roomText = ""
-    warpText = ""
     set_igt_splits_info(1)
-    textTimer = timerValue
-}
-// ?? unsure about this one
-if (textTimer == 0 || global.ambyu_practice == 1)
-{
-    textText = ""
-    roomText = ""
-    warpText = ""
-}
-// used to display new information for a short time when switching timer mode
-if (textTimer > 0)
-{
-    draw_set_halign(fa_center)
-    draw_text(xx / 2, 10, textText)
-    draw_text(xx / 2, 24, roomText)
-    draw_text(xx / 2, 38, warpText)
-    textTimer--
-    draw_set_halign(fa_left)
 }

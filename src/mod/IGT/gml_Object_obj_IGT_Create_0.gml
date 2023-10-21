@@ -84,17 +84,8 @@ global.theOriginal = 0
 // TO-DO: Move unrelated hitbox variable initialization
 global.bboxVisible = 0
 
-// unsure exactly what
-textTimer = 0
-
 // related to savestates. Move out of this file
 currentSlotSelected = 0
-
-// unsure exactly what
-timerValue = 90
-
-// general purpose text that display misc info. Move out?
-textText = "bepis"
 
 // for plotwarps. Why is it a string?
 warpNumber = "69"

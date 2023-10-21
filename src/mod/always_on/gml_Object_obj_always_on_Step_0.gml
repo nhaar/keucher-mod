@@ -6,16 +6,12 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_debug))
     if global.debug
     {
         global.debug = false
-        obj_IGT.textText = "Debug disabled"
-        obj_IGT.roomText = ""
-        obj_IGT.textTimer = obj_IGT.timerValue
+        show_temp_message("Debug disabled")
     }
     else
     {
         global.debug = true
-        obj_IGT.textText = "Debug enabled"
-        obj_IGT.roomText = ""
-        obj_IGT.textTimer = obj_IGT.timerValue
+        show_temp_message("Debug enabled")
     }
 }
 
@@ -104,8 +100,7 @@ for (var i = ord("0"); i < 58; i++)
 if (slotWasSelected != -1)
 {
     currentSlotSelected = slotWasSelected
-    obj_IGT.textTimer = obj_IGT.timerValue
-    textText = "File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " selected"
+    show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " selected")
 }
 
 // saving savestates
@@ -121,8 +116,7 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_store_savestate))
         scr_save_ch1()
         game_save("ssch1_" + string(global.filechoice) + "_" + string(currentSlotSelected))
     }
-    obj_IGT.textTimer = obj_IGT.timerValue
-    obj_IGT.textText = "File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " saved"
+    show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " saved")
 }
 // loading savestate
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
@@ -135,20 +129,18 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
             scr_load()
             // TO-DO: check if this ord(string()) is redundant, since currentSlotSelected is apparently already a valid value
             if keyboard_check(ord(string(currentSlotSelected)))
-                textText = "File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded (savestate ignored)"
+                show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded (savestate ignored)")
             else
             {
                 game_load("ssch2_" + string(global.filechoice) + "_" + string(currentSlotSelected))
                 global.savestateLoad = 2
             }
-            obj_IGT.textTimer = obj_IGT.timerValue
             global.timeStart = 0
             global.interact = 0
         }
         else
         {
-            obj_IGT.textTimer = obj_IGT.timerValue
-            textText = "No save in file " + string(global.filechoice) + ", slot " + string(currentSlotSelected)
+            show_temp_message("No save in file " + string(global.filechoice) + ", slot " + string(currentSlotSelected))
         }
     }
     else if (global.chapter == 1)
@@ -159,20 +151,18 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
             scr_load_ch1()
             // TO-DO: same as above: redundant?
             if keyboard_check(ord(string(currentSlotSelected)))
-                textText = "File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded (savestate ignored)"
+                show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded (savestate ignored)")
             else
             {
                 game_load("ssch1_" + string(global.filechoice) + "_" + string(currentSlotSelected))
                 global.savestateLoad = 2
             }
-            obj_IGT.textTimer = obj_IGT.timerValue
             global.timeStart = 0
             global.interact = 0
         }
         else
         {
-            obj_IGT.textTimer = obj_IGT.timerValue
-            obj_IGT.textText = "No save in file " + string(global.filechoice) + ", slot " + string(currentSlotSelected)
+            show_temp_message("No save in file " + string(global.filechoice) + ", slot " + string(currentSlotSelected))
         }
     }
 }
@@ -187,7 +177,7 @@ if (global.savestateLoad > 0)
         if (global.savestateLoad == 0)
         {
             instance_create(0, 0, obj_darkcontroller)
-            textText = (((("File " + string(global.filechoice)) + ", slot ") + string(currentSlotSelected)) + " loaded")
+            show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded")
         }
     }
     else if (global.chapter == 1)
@@ -197,7 +187,7 @@ if (global.savestateLoad > 0)
         if (global.savestateLoad == 0)
         {
             instance_create_ch1(0, 0, obj_darkcontroller_ch1)
-            textText = (((("File " + string(global.filechoice)) + ", slot ") + string(currentSlotSelected)) + " loaded")
+            show_temp_message("File " + string(global.filechoice) + ", slot " + string(currentSlotSelected) + " loaded")
         }
     }
 }

@@ -12,12 +12,7 @@ if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_boss)))
         // making the player unkillable
         for (i = 0; i < 3; i++)
             global.battledf[i] = 999
-        with (obj_IGT)
-        {
-            textText = "Boss attack practice mode enabled"
-            roomText = ""
-            textTimer = timerValue
-        }
+            show_temp_message("Boss attack practice mode enabled")
     }
     else
     {
@@ -30,12 +25,7 @@ if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_boss)))
                 global.itemdf[global.char[i]][1] +
                 global.itemdf[global.char[i]][2]
             
-        with (obj_IGT)
-        {
-            textText = "Boss attack practice mode disabled"
-            roomText = ""
-            textTimer = timerValue
-        }
+        show_temp_message("Boss attack practice mode disabled")
     }
 }
 
@@ -281,12 +271,7 @@ if (global.bossPractice == 1)
                 }
             }
 
-            with (obj_IGT)
-            {
-                textText = ("Boss attack is " + string(global.bossText))
-                roomText = ""
-                textTimer = timerValue
-            }
+            show_temp_message("Boss attack is " + string(global.bossText))
         }
     }
 }

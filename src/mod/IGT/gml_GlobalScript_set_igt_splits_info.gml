@@ -275,13 +275,7 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
     }
     if (split_status == 0)
     {
-        with (obj_IGT)
-        {
-            textText = "Timer reset"
-            roomText = ""
-            warpText = ""
-            textTimer = timerValue
-        }
+        show_temp_message("Timer reset")
     }
     else if (split_status == 1)
     {
@@ -292,23 +286,19 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
         with (obj_IGT)
         {
             splitNumber = __splitNumber
-            textText = string(__splitsText) + " splits selected"
+            var main_text = string(__splitsText) + " splits selected"
+            var room_text = ""
+            var warp_text = ""
             if (global.timerVersion > 2)
-                roomText = "Timer will start in " + scr_roomname(__universalStart)
+                room_text = "Timer will start in " + scr_roomname(__universalStart)
             if (global.timerVersion > 2 && global.timerVersion != 9)
-                warpText = "Press D + " + string(__warpNumber) + " to warp"
-            textTimer = timerValue
+                warp_text = "Press D + " + string(__warpNumber) + " to warp"
+            show_temp_message(main_text, room_text, warp_text)
         }
     }
     if (split_status == 2)
     {
-        with (obj_IGT)
-        {
-            textText = "Max splits reached - splits reset"
-            roomText = ""
-            warpText = ""
-            textTimer = timerValue
-        }
+        show_temp_message("Max splits reached - splits reset")
     }
 }
 

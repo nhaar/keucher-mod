@@ -13,4 +13,6 @@ if (!instance_exists(obj_IGT))
     instance_create(0, 0, obj_IGT)
 if (!instance_exists(obj_always_on))
     instance_create(0, 0, obj_always_on)
+if (!instance_exists(obj_temp_messager))
+    instance_create(0, 0, obj_temp_messager)
 /// END
