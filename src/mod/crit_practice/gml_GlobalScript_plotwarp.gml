@@ -23,13 +23,6 @@ function plotwarp(argument0)
                 global.char[1] = 0
                 global.char[2] = 0
                 global.plot = 10
-                obj_IGT.igt_mode = 3
-                obj_IGT.segment_start_room = 10315
-                obj_IGT.split_times[0] = 0
-                obj_IGT.split_times[1] = 0
-                obj_IGT.split_times[2] = 0
-                with (obj_IGT)
-                    splitNumber = 2
                 snd_free_all_ch1()
                 room_goto(room_dark1_ch1)
                 break

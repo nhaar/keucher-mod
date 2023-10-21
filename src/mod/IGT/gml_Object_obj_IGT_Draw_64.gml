@@ -99,6 +99,4 @@ else
 
 // switching timer mode
 if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_mode))
-    show_debug_message(segment_split_number)
     set_igt_splits_info(1)
-}
