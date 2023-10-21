@@ -6,6 +6,7 @@
 
 set_enum_keybinding()
 set_enum_option_state()
+set_enum_default_option()
 set_constants()
 directory_create("keucher_mod")
 init_keybinds()

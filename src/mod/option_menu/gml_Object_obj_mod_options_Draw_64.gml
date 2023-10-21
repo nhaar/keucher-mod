@@ -97,8 +97,11 @@ for (var i = 0; i < button_amount; i++)
                 case global.OPTION_STATE_default:
                     switch (i)
                     {
-                        case 0:
+                        case global.DEFAULT_OPTION_keybind:
                             get_keybind_mod_options()
+                            break
+                        case global.DEFAULT_OPTION_current_split:
+                            get_split_mod_options()
                             break
                     }
                     break

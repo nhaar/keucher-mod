@@ -44,13 +44,21 @@ enum OptionState
 {
     Default,
     Keybinds,
-    KeybindAssign
+    KeybindAssign,
+    Splits
 }
 
 enum DefaultOption
 {
-    Keybind
+    Keybind,
+    CurrentSplit
 }
+
+Dictionary<object, string> defaultText = new()
+{
+    { DefaultOption.Keybind, "Set keybinds" },
+    { DefaultOption.CurrentSplit, "Set current split" }
+};
 
 Dictionary<object, string> keyText = new()
 {
@@ -94,6 +102,7 @@ Dictionary<object, string> keyText = new()
     { Keybinding.PreviousBossAttack, "Previous Boss Attack" }
 };
 
+ImportButtonText(defaultText, "get_default_mod_options", OptionState.Default);
 ImportButtonText(keyText, "get_keybind_mod_options", OptionState.Keybinds);
 
 void ImportButtonText(Dictionary<object, string> buttonText, string getterName, OptionState state)
@@ -102,13 +111,13 @@ void ImportButtonText(Dictionary<object, string> buttonText, string getterName, 
     var options = @$"
     function {getterName}()
     {{
-        button_amount = {keyText.Keys.Count};
+        button_amount = {buttonText.Keys.Count};
     ";
 
-    foreach (var keybinding in keyText.Keys)
+    foreach (var keybinding in buttonText.Keys)
     {
         options += $@"
-        button_text[{(int)keybinding}] = ""{keyText[keybinding]}"";";
+        button_text[{(int)keybinding}] = ""{buttonText[keybinding]}"";";
     }
     options += $" options_state = global.OPTION_STATE{CamelToSnakeCase(state.ToString())} }}";
 
@@ -119,6 +128,7 @@ void ImportButtonText(Dictionary<object, string> buttonText, string getterName, 
 
 ImportEnum<Keybinding>("keybinding");
 ImportEnum<OptionState>("option_state");
+ImportEnum<DefaultOption>("default_option");
 
 void ImportEnum<T> (string name)
 {
