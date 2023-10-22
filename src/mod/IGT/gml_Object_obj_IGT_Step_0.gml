@@ -4,6 +4,10 @@ var current_frame_time = get_timer()
 if (split_times[19] != -2)
     set_igt_splits_info(2)
 
+// not sure if this is accurate
+if (room == room_dw_mansion_fire_paintings && global.plot >= 55)
+    global.current_event = "postmauswheel"
+
 // what exactly is this timer for?
 contimer = current_frame_time - start_time
 if hide_timer

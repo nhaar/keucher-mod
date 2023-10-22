@@ -62,5 +62,106 @@
             "room_cc_preroof_ch1",
             "kingdefeat"
         ]
+    },
+    {
+        "name": "Full Chapter 1",
+        "instructions":
+        [
+            "PLACE_CONTACT_ch1",
+            "doorslam",
+            "room_field_checkers4_ch1",
+            "room_forest_savepoint1_ch1",
+            "room_forest_afterthrash2_ch1",
+            "escaped",
+            "room_cc_preroof_ch1",
+            "kingdefeat"
+        ]
+    },
+    {
+        "name": "Cyber Field",
+        "instructions":
+        [
+            "ch2start",
+            "room_dw_cyber_rhythm_slide",
+            "room_dw_cyber_queen_boxing",
+            "kingdefeat",
+            "djsend",
+            "room_dw_cyber_rollercoaster",
+            "cyberend"
+        ]
+    },
+    {
+        "name": "City",
+        "warp": "city_start",
+        "instructions":
+        [
+            "room_dw_city_intro",
+            "room_dw_city_big_1",
+            "room_dw_city_queen_drunk",
+            "room_dw_city_mice2",
+            "room_dw_city_traffic_4",
+            ""
+        ]
+    },
+    {
+        "name": "City Heights",
+        "warp": "city_post_berdly",
+        "instructions":
+        [
+            "room_dw_city_traffic_4",
+            "room_dw_city_spamton_alley",
+            "room_dw_city_postbaseball_2",
+            "city2end"
+        ]
+    },
+    {
+        "name": "Mansion",
+        "warp": "mansion_start",
+        "instructions":
+        [
+            "room_dw_mansion_krisroom",
+            "room_dw_mansion_entrance",
+            "room_dw_mansion_traffic",
+            "postmauswheel",
+            "room_dw_mansion_dining3",
+            "room_dw_mansion_acid_tunnel"
+        ]
+    },
+    {
+        "name": "Acid Lake",
+        "warp": "acid_lake_start",
+        "instructions":
+        [
+            "room_dw_mansion_acid_tunnel",
+            "room_dw_mansion_hands",
+            "room_dw_mansion_acid_tunnel_exit"
+        ]
+    },
+    {
+        "name": "Queen + Giga",
+        "warp": "acid_lake_exit",
+        "instructions":
+        [
+            "room_dw_mansion_acid_tunnel_exit",
+            "room_dw_mansion_east_4f_d",
+            "room_dw_mansion_top",
+            "gigaend"
+        ]
+    },
+    {
+        "name": "Full Chapter 2",
+        "instructions":
+        [
+            "ch2start",
+            "djsend",
+            "cyberend",
+            "room_dw_city_traffic_4",
+            "city2end",
+            "room_dw_mansion_entrance",
+            "room_dw_mansion_acid_tunnel",
+            "room_dw_mansion_acid_tunnel_exit",
+            "room_dw_mansion_top",
+            "gigaend"
+        ]
     }
 ]
