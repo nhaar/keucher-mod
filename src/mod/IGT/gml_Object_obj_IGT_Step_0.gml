@@ -92,6 +92,18 @@ else if (igt_mode == 3 && current_split >= 0)
                     do_split = true
                     doorslam = false
                 }
+            case "captured":
+                if captured
+                {
+                    do_split = true
+                    captured = false
+                }
+            case "escaped":
+                if escaped
+                {
+                    do_split = true
+                    escaped = false
+                }
             default:
                 show_debug_message("unknown instruction: " + string(instruction_type))
                 explode_pc = _error

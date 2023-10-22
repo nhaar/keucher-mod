@@ -21,7 +21,7 @@
     },
     {
         "name": "Field",
-        "warp": "1",
+        "warp": "field_start",
         "instructions": [
             {
                 "type": "reach_room",
@@ -38,6 +38,87 @@
             {
                 "type": "reach_room",
                 "room": "room_field_checkers4_ch1"   
+            }
+        ]
+    },
+    {
+        "name": "Checkerboard",
+        "warp": "checkerboard_start",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "room_field_checkers4_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_field_checkers3_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_forest_savepoint1_ch1"
+            }
+        ]
+    },
+    {
+        "name": "Forest",
+        "warp": "forest_start",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "room_forest_savepoint1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_forest_savepoint2_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_forest_maze1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_forest_afterthrash2_ch1"
+            }
+        ]
+    },
+    {
+        "name": "Escape",
+        "warp": "post_vs_lancer",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "room_forest_afterthrash2_ch1"
+            },
+            {
+                "type": "captured"
+            },
+            {
+                "type": "escaped"
+            }
+        ]
+    },
+    {
+        "name": "Castle + King",
+        "warp": "post_escape",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "room_cc_prisonlancer_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_cc_rurus1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_cc_rurus2_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_cc_preroof_ch1"
+            },
+            {
+                "type": "kingdefeat"
             }
         ]
     }
