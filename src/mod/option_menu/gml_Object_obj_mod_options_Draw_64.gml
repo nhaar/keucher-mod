@@ -174,6 +174,7 @@ for (var i = 0; i < button_amount; i++)
                             obj_IGT.segment_split_number = split_count
                             update_splits()
                         }
+                        break
                     case global.OPTION_STATE_split_creator:
                         switch (i)
                         {
