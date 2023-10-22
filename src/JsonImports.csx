@@ -6,12 +6,12 @@ var jsonString = File.ReadAllText(Path.Combine(Path.GetDirectoryName(ScriptPath)
 
 GMLStringJson splitsString = new(JsonConvert.DeserializeObject<List<object>>(jsonString));
 
-ImportGMLString("gml_GlobalScript_set_splits_json", @$"
-function set_splits_json()
-{{
-    global.splits_json = json_decode(""{splitsString}"")    
-}}
-");
+// ImportGMLString("gml_GlobalScript_set_splits_json", @$"
+// function set_splits_json()
+// {{
+//     global.splits_json = json_decode(""{splitsString}"")    
+// }}
+// ");
 
 class GMLStringJson
 {
