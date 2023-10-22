@@ -45,3 +45,5 @@ current_keybind = 0
 setting_keybind = false
 
 get_default_mod_options()
+
+global.current_created_preset = undefined

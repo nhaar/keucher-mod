@@ -46,13 +46,16 @@ enum OptionState
     Keybinds,
     KeybindAssign,
     Splits,
-    SplitAssign
+    SplitAssign,
+    SplitCreator,
+    SplitPick
 }
 
 enum DefaultOption
 {
     Keybind,
-    CurrentSplit
+    CurrentSplit,
+    CreateSplit
 }
 
 enum ButtonState
@@ -84,7 +87,8 @@ enum Split
 Dictionary<object, string> defaultText = new()
 {
     { DefaultOption.Keybind, "Set keybinds" },
-    { DefaultOption.CurrentSplit, "Set current split" }
+    { DefaultOption.CurrentSplit, "Set current split" },
+    { DefaultOption.CreateSplit, "Create a new split" }
 };
 
 Dictionary<object, string> keyText = new()

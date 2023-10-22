@@ -106,6 +106,9 @@ for (var i = 0; i < button_amount; i++)
                             case global.DEFAULT_OPTION_current_split:
                                 get_split_mod_options()
                                 break
+                            case global.DEFAULT_OPTION_create_split:
+                                get_split_create_options()
+                                break
                         }
                         break
                     case global.OPTION_STATE_keybinds:
@@ -171,6 +174,37 @@ for (var i = 0; i < button_amount; i++)
                             obj_IGT.segment_split_number = split_count
                             update_splits()
                         }
+                    case global.OPTION_STATE_split_creator:
+                        switch (i)
+                        {
+                            // reset preset
+                            case 0:
+                                global.current_created_preset = undefined
+                                get_split_create_options()
+                                break
+                            case 1:
+                                //
+                                break
+                            case 2:
+                                // apparently deprecated for non debug, but using it anyways
+                                var name = get_string("Enter name for preset", "")
+                                if (ds_map_exists(global.current_created_preset, "name"))
+                                    ds_map_replace(global.current_created_preset, "name", name)
+                                else
+                                    ds_map_add(global.current_created_preset, "name", name)
+                                get_split_create_options()
+                                break
+                            case 3:
+                                get_split_pick_options()
+                                break
+                        }
+                        break
+                    case global.OPTION_STATE_split_pick:
+                        var instructions = read_json_value(global.current_created_preset, "instructions")
+                        var length = ds_map_size(instructions)
+                        ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
+                        get_split_create_options()
+                        break
                 }
             }
         }

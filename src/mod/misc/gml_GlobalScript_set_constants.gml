@@ -34,4 +34,6 @@ function set_constants()
     global.double_patterns[1][1] = 41
     global.double_patterns[2][0] = 29
     global.double_patterns[2][1] = 47
+
+    set_all_instructions()
 }
