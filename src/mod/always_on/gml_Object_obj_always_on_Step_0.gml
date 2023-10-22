@@ -208,7 +208,7 @@ if (focus_timer > 0)
     focus_timer--
 
 // mod options!
-if (focus_timer == 0 && mouse_check_button(mb_left) && !i_ex(obj_debug_xy))
+if (focus_timer == 0 && mouse_check_button(mb_left) && !i_ex(obj_debug_xy) && !i_ex(obj_mod_options))
 {
     instance_create_depth(0, 0, -100000, obj_mod_options)
 }
