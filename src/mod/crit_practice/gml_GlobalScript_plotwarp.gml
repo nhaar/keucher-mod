@@ -11,7 +11,7 @@ function plotwarp(argument0)
     {
         switch __warp
         {
-            case 0:
+            case "ch1_wake_up":
                 global.flag[100] = 0
                 global.flag[201] = 0
                 global.flag[203] = 0
@@ -26,7 +26,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_dark1_ch1)
                 break
-            case 1:
+            case "field_start":
                 global.flag[101] = 0
                 global.flag[102] = 0
                 global.flag[103] = 0
@@ -46,7 +46,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_field_start_ch1)
                 break
-            case 2:
+            case "checkerboard_start":
                 global.flag[214] = 0
                 global.flag[502] = 0
 
@@ -59,7 +59,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_field_checkers4_ch1)
                 break
-            case 3:
+            case "forest_start":
                 global.flag[107] = 0
                 global.flag[108] = 0
                 global.flag[109] = 0
@@ -84,7 +84,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_forest_savepoint1_ch1)
                 break
-            case 4:
+            case "post_vs_lancer":
                 global.flag[105] = 0
                 global.flag[106] = 0
                 global.flag[229] = 0
@@ -99,7 +99,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_forest_fightsusie_ch1)
                 break
-            case 5:
+            case "post_escape":
                 global.flag[112] = 0
                 global.flag[113] = 0
                 global.flag[114] = 0
@@ -123,7 +123,7 @@ function plotwarp(argument0)
                 snd_free_all_ch1()
                 room_goto(room_cc_prison_cells_ch1)
                 break
-            case 6:
+            case "king":
                 global.flag[29] = 0
                 global.flag[207] = 0
                 global.flag[220] = 2
@@ -149,7 +149,7 @@ function plotwarp(argument0)
     {
         switch __warp
         {
-            case 0:
+            case "post_arcade":
                 global.plot[34] = 1
                 global.plot[333] = 0
                 global.plot[352] = 0
@@ -169,7 +169,7 @@ function plotwarp(argument0)
                 global.plot = 55
                 room_goto(room_dw_cyber_queen_boxing)
                 break
-            case 1:
+            case "city_start":
                 global.plot[383] = 0
                 global.plot[421] = 0
                 global.plot[438] = 0
@@ -188,7 +188,7 @@ function plotwarp(argument0)
                 global.plot = 64
                 room_goto(room_dw_city_intro)
                 break
-            case 2:
+            case "city_dj_save":
                 global.plot[310] = 0
                 global.plot[311] = 0
                 global.plot[360] = 0
@@ -210,7 +210,7 @@ function plotwarp(argument0)
                 global.plot = 75
                 room_goto(room_dw_city_savepoint)
                 break
-            case 3:
+            case "city_post_berdly":
                 global.plot[447] = 0
                 global.plot[448] = 0
                 global.plot[465] = 0
@@ -224,7 +224,7 @@ function plotwarp(argument0)
                 global.plot = 79
                 room_goto(room_dw_city_berdly)
                 break
-            case 4:
+            case "mansion_start":
                 global.plot[340] = 0
                 global.plot[344] = 0
                 global.plot[346] = 0
@@ -257,7 +257,7 @@ function plotwarp(argument0)
                 snd_free_all()
                 room_goto(room_dw_mansion_krisroom)
                 break
-            case 5:
+            case "acid_lake_start":
                 global.plot[343] = 0
                 global.plot[377] = 0
                 global.plot[378] = 0
@@ -274,7 +274,7 @@ function plotwarp(argument0)
                 global.plot = 139
                 room_goto(room_dw_mansion_east_3f)
                 break
-            case 6:
+            case "acid_lake_exit":
                 global.plot[319] = 0
                 global.plot[331] = 0
                 global.plot[373] = 0
