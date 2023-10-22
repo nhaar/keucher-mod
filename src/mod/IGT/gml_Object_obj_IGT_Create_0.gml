@@ -1,5 +1,7 @@
-// initialize vanilla variable
+// initialize vanilla variables to avoid crashes
 global.chapter = 0
+global.fighting = 0
+global.mnfight = 0
 
 // split_times stores the times for each of the current splits
 // by default, it's set to -2, which is the same as "not set"

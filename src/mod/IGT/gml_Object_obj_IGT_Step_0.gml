@@ -72,7 +72,7 @@ if (igt_mode == 2)
     if (thisTurn != 0 && split_times[turn_count] == -2)
         split_times[turn_count] = thisTurn + start_time
 }
-else if (igt_mode == 3)
+else if (igt_mode == 3 && current_split >= 0)
 {
     if (current_instruction <= segment_split_number)
     {
