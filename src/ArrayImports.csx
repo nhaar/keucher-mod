@@ -6,7 +6,6 @@ List<string> instructions = new()
     "room_krisroom_ch1",
     "room_dark1_ch1",
     "room_dark1a_ch1",
-    "room_field_start_ch1",
     "room_castle_outskirts_ch1",
     "doorslam",
     "room_field_start_ch1",

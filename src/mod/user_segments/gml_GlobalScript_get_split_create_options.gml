@@ -35,7 +35,11 @@ function get_split_create_options()
         for (var i = 0; i < split_count; i ++)
         {
             var instruction = read_json_value(splits, i)
-            obj_mod_options.button_text[i + 4] = get_name_from_instruction(instruction)
+            var split_text = ""
+            if (i == 0) split_text = "Start: "
+            else if (i == split_count - 1) split_text = "End: "
+            else split_text = "Split " + string(i) + ": "
+            obj_mod_options.button_text[i + 4] = split_text + get_name_from_instruction(instruction)
         }
     }
 
