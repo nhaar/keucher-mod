@@ -13,6 +13,6 @@ function get_name_from_instruction(argument0)
     }
     else
     {
-        return scr_roomname(room_index);
+        return "Reaching the room \"" + get_mod_room_name(room_index) + "\"";
     }
 }
