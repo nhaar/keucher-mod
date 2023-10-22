@@ -20,7 +20,7 @@ function get_split_create_options()
     else
     {
         global.current_created_preset = ds_map_create()
-        ds_map_add(global.current_created_preset, "instructions", ds_map_create())
+        ds_map_add_map(global.current_created_preset, "instructions", ds_map_create())
     }
 
     obj_mod_options.button_text[0] = "Reset"

@@ -182,8 +182,27 @@ for (var i = 0; i < button_amount; i++)
                                 global.current_created_preset = undefined
                                 get_split_create_options()
                                 break
+                            // creating preset
                             case 1:
-                                //
+                                var name = read_json_value(global.current_created_preset, "name")
+                                var instructions = read_json_value(global.current_created_preset, "instructions")
+                                var instruction_count = ds_map_size(instructions)
+                                if (is_undefined(name))
+                                {
+                                    show_message("You must pick a name!")
+                                }
+                                else if (instruction_count < 2)
+                                {
+                                    show_message("You must have at least 2 instructions: Start and Finish")
+                                }
+                                else
+                                {
+                                    ds_map_add(global.current_created_preset, "id", sha1_string_utf8(string(get_timer()) + name))
+                                    ds_map_add_map(global.splits_json, string(ds_map_size(global.splits_json)), global.current_created_preset)
+                                    save_json("keucher_mod/userils.json", global.splits_json)
+                                    global.current_created_preset = undefined
+                                    instance_destroy()
+                                }
                                 break
                             case 2:
                                 // apparently deprecated for non debug, but using it anyways
