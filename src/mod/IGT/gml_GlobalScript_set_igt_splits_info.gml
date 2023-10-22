@@ -37,8 +37,8 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
         obj_IGT.last_transition_time = obj_IGT.start_time
         obj_IGT.time_lock_value = obj_IGT.start_time
         obj_IGT.previous_room = 0
-        obj_IGT.attempt_count = 0
         obj_IGT.time_since_last_transition = 0
+        obj_IGT.current_instruction = 0
     }
     // this option is for changing the IGT mode
     if (split_status == 1)

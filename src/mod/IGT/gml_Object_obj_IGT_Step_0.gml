@@ -12,23 +12,20 @@ else
     conText = to_readable_time(contimer)
 
 // room updating
-if
-(
-    previous_room != room &&
-    ((global.chapter == 2 && previous_room != room - 20000) || global.chapter != 2)
-)
+if (previous_room != room)
 {
     time_since_last_transition = current_frame_time - last_transition_time
     last_transition_time = current_frame_time
     previous_room = room
 }
+// updating thigns related to battle
 if (igt_mode == 2)
 {
-    // updating thigns related to battle
+    // first: setting everything up when entering battle
     if (global.fighting && !battle_started)
     {
         start_time = current_frame_time
-        last_transition_time = start_time
+        last_transition_time = current_frame_time
         lastTurn = current_frame_time
         thisTurn = 0
         turn_count = -1
@@ -45,12 +42,14 @@ if (igt_mode == 2)
         battle_started = true
     }
     // TO-DO: properly document all these cases
+    // starting new turn?
     if (global.mnfight == 2 && !turn_started)
     {
         grazeOriginal[turn_count + 1] = global.grazeSubtracted
         TPstart[turn_count + 1] = global.tension / global.maxtension * 100
         turn_started = true
     }
+    // ending turn? or end battle?
     if (!global.fighting && battle_started)
     {
         turn_count++
@@ -58,6 +57,7 @@ if (igt_mode == 2)
         thisTurn = current_frame_time - start_time
         battle_started = false
     }
+    // ending turn?
     if (global.mnfight != 2 && turn_started)
     {
         turn_count++
@@ -69,15 +69,53 @@ if (igt_mode == 2)
         global.grazeSubtracted = floor(global.grazeSubtracted)
         turn_started = false
     }
-}
-
-    // setup splits for the chapter 1 modes
-if (igt_mode == 2)
-{
     if (thisTurn != 0 && split_times[turn_count] == -2)
         split_times[turn_count] = thisTurn + start_time
-
 }
+else if (igt_mode == 3)
+{
+    if (current_instruction <= segment_split_number)
+    {
+
+        var instruction = read_json_value(global.splits_json, current_split, "instructions", current_instruction)
+        var instruction_type = read_json_value(instruction, "type")
+        var do_split = false
+        switch (instruction_type)
+        {
+            case "reach_room":
+                var room_number = asset_get_index(read_json_value(instruction, "room"))
+                do_split = room == room_number                
+                break
+            case "doorslam":
+                if doorslam
+                {
+                    do_split = true
+                    doorslam = false
+                }
+        }
+        if (do_split)
+        {
+            if (current_instruction == 0)
+            {
+                start_time = current_frame_time
+                attempt_count++
+            }
+            else
+            {
+                split_times[current_instruction - 1] = current_frame_time
+            }
+            current_instruction++
+        }
+        // start split if reached room that starts split
+        // if (room == segment_start_room && global.timerIsRunning == 0)
+        // {
+        //     start_time = get_timer()
+        //     if (igt_mode != 1)
+        //         attempt_count += 1
+        // }
+    }
+}
+
 // else if (igt_mode == 3)
 // {
 //     switch current_split
@@ -441,49 +479,5 @@ if (keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
             plotwarp(i)
             break
         }
-    }
-}
-
-if (igt_mode == 3)
-{
-    if (current_instruction <= segment_split_number)
-    {
-
-        var instruction = read_json_value(global.splits_json, current_split, "instructions", current_instruction)
-        var instruction_type = read_json_value(instruction, "type")
-        var do_split = false
-        switch (instruction_type)
-        {
-            case "reach_room":
-                var room_number = asset_get_index(read_json_value(instruction, "room"))
-                do_split = room == room_number                
-                break
-            case "doorslam":
-                if doorslam
-                {
-                    do_split = true
-                    doorslam = false
-                }
-        }
-        if (do_split)
-        {
-            if (current_instruction == 0)
-            {
-                start_time = current_frame_time
-                attempt_count++
-            }
-            else
-            {
-                split_times[current_instruction - 1] = current_frame_time
-            }
-            current_instruction++
-        }
-        // start split if reached room that starts split
-        // if (room == segment_start_room && global.timerIsRunning == 0)
-        // {
-        //     start_time = get_timer()
-        //     if (igt_mode != 1)
-        //         attempt_count += 1
-        // }
     }
 }

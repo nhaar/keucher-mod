@@ -12,10 +12,7 @@ else
     runningtimer = last_transition_time - start_time
 
 // timer text
-if hide_timer
-    text = ""
-else
-    text = to_readable_time(runningtimer)
+text = hide_timer ? "" : to_readable_time(runningtimer)
 
 if (igt_mode > 1)
 {
