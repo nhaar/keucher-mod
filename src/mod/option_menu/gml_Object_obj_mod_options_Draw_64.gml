@@ -127,39 +127,40 @@ for (var i = 0; i < button_amount; i++)
                         // warp
                         if (i == 1)
                         {
-                            switch (selected_split)
-                            {
-                                case global.SPLIT_field_hopes_dreams:
-                                    plotwarp(1)
-                                    break
-                                case global.SPLIT_checkerboard:
-                                    plotwarp(2)
-                                    break
-                                case global.SPLIT_forest:
-                                    plotwarp(3)
-                                    break
-                                case global.SPLIT_escape_castle:
-                                    plotwarp(4)
-                                    break
-                                case global.SPLIT_castle_and_king:
-                                    plotwarp(5)
-                                    break
-                                case global.SPLIT_city_one:
-                                    plotwarp(1)
-                                    break
-                                case global.SPLIT_city_heights:
-                                    plotwarp(3)
-                                    break
-                                case global.SPLIT_mansion:
-                                    plotwarp(4)
-                                    break
-                                case global.SPLIT_acid_lake:
-                                    plotwarp(5)
-                                    break
-                                case global.SPLIT_queen_and_giga:
-                                    plotwarp(6)
-                                    break
-                            }
+                            plotwarp(real(read_json_value(global.splits_json, selected_split, "warp")))
+                            // switch (selected_split)
+                            // {
+                            //     case global.SPLIT_field_hopes_dreams:
+                            //         plotwarp(1)
+                            //         break
+                            //     case global.SPLIT_checkerboard:
+                            //         plotwarp(2)
+                            //         break
+                            //     case global.SPLIT_forest:
+                            //         plotwarp(3)
+                            //         break
+                            //     case global.SPLIT_escape_castle:
+                            //         plotwarp(4)
+                            //         break
+                            //     case global.SPLIT_castle_and_king:
+                            //         plotwarp(5)
+                            //         break
+                            //     case global.SPLIT_city_one:
+                            //         plotwarp(1)
+                            //         break
+                            //     case global.SPLIT_city_heights:
+                            //         plotwarp(3)
+                            //         break
+                            //     case global.SPLIT_mansion:
+                            //         plotwarp(4)
+                            //         break
+                            //     case global.SPLIT_acid_lake:
+                            //         plotwarp(5)
+                            //         break
+                            //     case global.SPLIT_queen_and_giga:
+                            //         plotwarp(6)
+                            //         break
+                            // }
                         }
                         // set split
                         else if (i == 2)

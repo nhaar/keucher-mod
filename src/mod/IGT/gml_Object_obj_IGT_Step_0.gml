@@ -92,6 +92,10 @@ else if (igt_mode == 3 && current_split >= 0)
                     do_split = true
                     doorslam = false
                 }
+            default:
+                show_debug_message("unknown instruction: " + string(instruction_type))
+                explode_pc = _error
+                break
         }
         if (do_split)
         {

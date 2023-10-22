@@ -1,7 +1,6 @@
 [
     {
         "name": "Intro + Castle Town",
-        "warp": "null",
         "instructions": [
             {
                 "type": "reach_room",
@@ -19,5 +18,27 @@
                 "type": "doorslam"
             }
         ] 
+    },
+    {
+        "name": "Field",
+        "warp": "1",
+        "instructions": [
+            {
+                "type": "reach_room",
+                "room": "room_field_start_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_field_puzzle1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_field_shop1_ch1"
+            },
+            {
+                "type": "reach_room",
+                "room": "room_field_checkers4_ch1"   
+            }
+        ]
     }
 ]
