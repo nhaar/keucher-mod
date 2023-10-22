@@ -98,24 +98,6 @@ slotWasSelected = -1
 // unsure exactly what
 splitNumber = 0
 
-// variables that signal specific events
-// possible TO-DO: refactor this properly?
-
-// ch1 castle town door slam
-doorslam = 0
-
-// ch1 getting captured
-captured = 0
-
-// ch1 escaping prison
-escaped = 0
-
-kingdefeat = 0
-djsend = 0
-cyberend = 0
-city2end = 0
-gigaend = 0
-
 // on the naming screen
 ch2start = 0
 
@@ -151,3 +133,5 @@ split_start_room = 0
 segment_split_number = 0
 
 current_instruction = 0
+
+global.current_event = ""

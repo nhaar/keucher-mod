@@ -78,38 +78,7 @@ else if (igt_mode == 3 && current_split >= 0)
     {
 
         var instruction = read_json_value(global.splits_json, current_split, "instructions", current_instruction)
-        var instruction_type = read_json_value(instruction, "type")
-        var do_split = false
-        switch (instruction_type)
-        {
-            case "reach_room":
-                var room_number = asset_get_index(read_json_value(instruction, "room"))
-                do_split = room == room_number                
-                break
-            case "doorslam":
-                if doorslam
-                {
-                    do_split = true
-                    doorslam = false
-                }
-            case "captured":
-                if captured
-                {
-                    do_split = true
-                    captured = false
-                }
-            case "escaped":
-                if escaped
-                {
-                    do_split = true
-                    escaped = false
-                }
-            default:
-                show_debug_message("unknown instruction: " + string(instruction_type))
-                explode_pc = _error
-                break
-        }
-        if (do_split)
+        if (instruction == room_get_name(room) || global.current_event = instruction)
         {
             if (current_instruction == 0)
             {
@@ -122,6 +91,7 @@ else if (igt_mode == 3 && current_split >= 0)
             }
             current_instruction++
         }
+        global.current_event = ""
         // start split if reached room that starts split
         // if (room == segment_start_room && global.timerIsRunning == 0)
         // {

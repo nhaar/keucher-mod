@@ -127,7 +127,7 @@ for (var i = 0; i < button_amount; i++)
                         // warp
                         if (i == 1)
                         {
-                            plotwarp(real(read_json_value(global.splits_json, selected_split, "warp")))
+                            plotwarp(read_json_value(global.splits_json, selected_split, "warp"))
                             // switch (selected_split)
                             // {
                             //     case global.SPLIT_field_hopes_dreams:

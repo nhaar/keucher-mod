@@ -3,5 +3,5 @@
 /// AFTER
 snd_play(snd_explosion)
 /// CODE
-obj_IGT.gigaend = 1
+global.current_event = "gigaend"
 /// END

@@ -66,7 +66,14 @@ function get_split_assign_options(argument0)
     // }
 
     var instructions = read_json_value(global.splits_json, split_id, "instructions")
-    start_room = asset_get_index(read_json_value(instructions, 0, "room"))
+    start_room = asset_get_index(instructions)
+    if (start_room == -1)
+    {
+        switch instructions
+        {
+            case "ch2start": start_room = -2; break
+        }
+    }
     split_count = ds_map_size(instructions) - 1
     button_amount = 3
     button_text[0] = "Timer will start in " + scr_roomname(start_room)

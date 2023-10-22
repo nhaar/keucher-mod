@@ -3,5 +3,5 @@
 /// AFTER
 global.plot = 156
 /// CODE
-obj_IGT.escaped = 1
+global.current_event = "escaped"
 /// END

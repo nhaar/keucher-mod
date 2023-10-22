@@ -1,5 +1,5 @@
 /// PATCH
 
 /// PREPEND
-obj_IGT.kingdefeat = 1
+global.current_event = "kingdefeat"
 /// END

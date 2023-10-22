@@ -59,24 +59,6 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
                 grazeOriginal[i] = 0
                 TPstart[i] = 0
             }
-            // resetting "signal" variables that tell when a special event happened
-            if (split_status == 0)
-            {
-                if (global.chapter == 2)
-                {
-                    djsend = 0
-                    cyberend = 0
-                    city2end = 0
-                    gigaend = 0
-                }
-                if (global.chapter == 1)
-                {
-                    doorslam = 0
-                    captured = 0
-                    escaped = 0
-                    kingdefeat = 0
-                }
-            }
         }
     }
     // split status 2 is the automatic call

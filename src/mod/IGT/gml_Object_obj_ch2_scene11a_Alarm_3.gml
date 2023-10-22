@@ -1,2 +1,1 @@
-with (obj_darkcontroller)
-    cyberend = 1
+global.current_event = "cyberend"
