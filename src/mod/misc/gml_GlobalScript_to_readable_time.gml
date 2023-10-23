@@ -10,7 +10,7 @@ function to_readable_time(argument0, argument1)
     var hours = floor(original_time / 3600000000)
     var minutes = floor(original_time / 60000000)
     var seconds = floor((original_time - minutes * 60000000) / 1000000)
-    var ms = string(round((original_time / 1000000) % 1 * 1000000))
+    var ms = string(round((original_time / 1000000) % 1 * power(10, precision)))
     var length = string_length(ms)
     while (length < precision)
     {
