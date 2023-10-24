@@ -3,6 +3,7 @@ using System.Linq;
 List<string> instructions = new()
 {
     "PLACE_CONTACT_ch1",
+    "ch1introend",
     "room_krisroom_ch1",
     "room_dark1_ch1",
     "room_dark1a_ch1",

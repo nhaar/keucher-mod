@@ -6,6 +6,7 @@ function get_name_from_instruction(argument0)
     {
         switch (instruction)
         {
+            case "ch1introend": return "At the end of the VESSEL CREATION";
             case "doorslam": return "When the Castle Down door is closed";
             case "captured": return "Getting captured in Chapter 1";
             case "escaped": return "Escape prison in Chapter 1";
