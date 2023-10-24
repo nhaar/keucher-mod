@@ -8,7 +8,7 @@ function keucher_mod_save(argument0)
         savestate = "ss_"
         _ssslot = ""
         with (obj_IGT)
-            _ssslot = "_" + string(currentSlotSelected)
+            _ssslot = "_" + string(global.currentSlotSelected)
     }
     else
     {

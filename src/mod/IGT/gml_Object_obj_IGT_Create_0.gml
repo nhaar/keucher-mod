@@ -87,7 +87,7 @@ global.theOriginal = 0
 global.bboxVisible = 0
 
 // related to savestates. Move out of this file
-currentSlotSelected = 0
+global.currentSlotSelected = 0
 
 // for plotwarps. Why is it a string?
 warpNumber = "69"
