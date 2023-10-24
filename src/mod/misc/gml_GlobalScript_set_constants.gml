@@ -36,4 +36,6 @@ function set_constants()
     global.double_patterns[2][1] = 47
 
     set_all_instructions()
+
+    global.precision = 2
 }

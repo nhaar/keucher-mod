@@ -1,7 +1,7 @@
-function to_readable_time(argument0, argument1)
+function to_readable_time(argument0)
 {
     var original_time = argument0
-    var precision = is_undefined(argument1) ? 2 : argument1
+    var precision = read_json_value(global.player_options, "timer-precision")
     if (precision > 6)
     {
         precision = 6

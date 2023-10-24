@@ -109,6 +109,11 @@ for (var i = 0; i < button_amount; i++)
                             case global.DEFAULT_OPTION_create_split:
                                 get_split_create_options()
                                 break
+                            case global.DEFAULT_OPTION_timer_precision:
+                                precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
+                                ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
+                                save_player_options()
+                                break
                         }
                         break
                     case global.OPTION_STATE_keybinds:

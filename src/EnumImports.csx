@@ -55,7 +55,8 @@ enum DefaultOption
 {
     Keybind,
     CurrentSplit,
-    CreateSplit
+    CreateSplit,
+    TimerPrecision
 }
 
 enum ButtonState
@@ -88,7 +89,8 @@ Dictionary<object, string> defaultText = new()
 {
     { DefaultOption.Keybind, "Set keybinds" },
     { DefaultOption.CurrentSplit, "Set current split" },
-    { DefaultOption.CreateSplit, "Create a new split" }
+    { DefaultOption.CreateSplit, "Create a new split" },
+    { DefaultOption.TimerPrecision, "Set timer precision" }
 };
 
 Dictionary<object, string> keyText = new()

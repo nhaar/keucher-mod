@@ -13,6 +13,7 @@ set_constants()
 directory_create("keucher_mod")
 init_keybinds()
 init_user_ils()
+init_player_options()
 
 if (!instance_exists(obj_IGT))
     instance_create(0, 0, obj_IGT)
