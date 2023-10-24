@@ -1,8 +1,7 @@
 /// PATCH
 
 /// APPEND
-// maybe 1 off
-max_timer = 235
+max_timer = 184
 
 // resetting
 global.skipped_waketimer = 0
