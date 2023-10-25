@@ -114,6 +114,9 @@ for (var i = 0; i < button_amount; i++)
                                 ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
                                 save_player_options()
                                 break
+                            case global.DEFAULT_OPTION_options:
+                                get_player_options()
+                                break
                         }
                         break
                     case global.OPTION_STATE_keybinds:
@@ -229,6 +232,16 @@ for (var i = 0; i < button_amount; i++)
                         var length = ds_map_size(instructions)
                         ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
                         get_split_create_options()
+                        break
+                    case global.OPTION_STATE_general_options:
+                        switch (i)
+                        {
+                            case 0:
+                                var new_value = read_player_option("display-wp-mash")
+                                ds_map_set(global.player_options, "display-wp-mash", new_value ? 0 : 1)
+                                get_player_options()
+                                break
+                        }
                         break
                 }
             }

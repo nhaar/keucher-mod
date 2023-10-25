@@ -6,7 +6,8 @@ function init_player_options()
         global.player_options = json_decode
         ("
         {
-            \"timer-precision\": 2
+            \"timer-precision\": 2,
+            \"display-wp-mash\": false
         }
         ")
         save_player_options()
