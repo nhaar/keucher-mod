@@ -25,11 +25,6 @@ var emptySprite = new UndertaleSprite();
 emptySprite.Name = Data.Strings.MakeString("spr_i_am_the_joker");
 Data.Sprites.Add(emptySprite);
 
-// setup objects
-Data.GameObjects.ByName("obj_IGT").Persistent = true;
-Data.GameObjects.ByName("obj_always_on").Persistent = true;
-Data.GameObjects.ByName("obj_temp_messager").Persistent = true;
-
 // setting up the battle room for chapter 1
 var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");
 battleroomCh1.Width = 640;
