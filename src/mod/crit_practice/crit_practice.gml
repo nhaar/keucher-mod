@@ -1,3 +1,19 @@
+/// FUNCTIONS
+
+function count_individual_attack_damage()
+{
+    if (global.ambyu_practice == 1)
+    {
+        global.thisdamage += damage
+        // recalculate damage using max points value
+        maxdamage = round((global.battleat[myself] * 150 / 20) - global.monsterdf[global.chartarget[myself]] * 3)
+        global.maxdamage += maxdamage
+        global.single_hits += 1
+        if (damage == maxdamage)
+            global.individual_success += 1
+    }
+}
+
 function plotwarp(argument0)
 {
     var __warp = argument0
@@ -312,3 +328,24 @@ function plotwarp(argument0)
     }
 }
 
+function update_end_turn_crit_stats()
+{
+    if (global.ambyu_practice == 1)
+    {
+        // player got all crits, last statement ensures this only counts once
+        if (global.thisdamage == global.maxdamage && global.maxdamage != 0)
+        {
+            global.streak += 1
+            global.success += 1
+        }
+        else
+            global.streak = 0
+
+        if (global.maxstreak < global.streak)
+            global.maxstreak = global.streak
+
+        global.thisdamage = 0
+        global.maxdamage = 0
+        global.attackse += 1
+    }
+}

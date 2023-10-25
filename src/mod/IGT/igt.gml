@@ -1,12 +1,14 @@
-function set_igt_splits_info(argument0) //gml_Script_UNUSED
+/// FUNCTIONS
+
+function set_igt_splits_info(split_status) //gml_Script_UNUSED
 {
     // TO-DO: file seems to be able to organize split status a bit better. Check after sorting IGT
     /*
+    SPLIT STATUS VALES
     0: reset timer
     1: change IGT mode
     2: max splits reached (automatically assigned)
     */
-    var split_status = argument0
 
     // temporary text that will be displayed upon changing splits options
     var __splitsText = ""
@@ -100,3 +102,15 @@ function set_igt_splits_info(argument0) //gml_Script_UNUSED
     }
 }
 
+function update_splits()
+{
+    obj_IGT.segment_start_room = obj_IGT.split_start_room
+    for (var i = 0; i < obj_IGT.segment_split_number; i++)
+    {
+        obj_IGT.split_times[i] = 0
+    }
+    for (var i = obj_IGT.segment_split_number; i < 20; i++)
+    {
+        obj_IGT.split_times[i] = -2
+    }
+}

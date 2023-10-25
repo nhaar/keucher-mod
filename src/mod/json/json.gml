@@ -1,3 +1,5 @@
+/// FUNCTIONS
+
 function read_json_value()
 {
     var ds_map = argument0
@@ -16,4 +18,13 @@ function read_json_value()
     {
         return ds_map_find_value(ds_map, string(argument1))
     }
+}
+
+function save_json(path, data)
+{
+    copy_map = ds_map_create()
+    ds_map_copy(copy_map, data)
+    var file = file_text_open_write(path)
+    file_text_write_string(file, json_encode(copy_map))
+    file_text_close(file)
 }

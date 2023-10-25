@@ -1,3 +1,5 @@
+/// FUNCTIONS
+
 function keucher_mod_save(argument0)
 {
     var savestate

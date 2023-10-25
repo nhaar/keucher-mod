@@ -1,7 +1,7 @@
-function keucher_mod_load (argument0)
-{
-    var chapter = argument0
+/// FUNCTIONS
 
+function keucher_mod_load (chapter)
+{
     // Reset segment time upon loading
     obj_IGT.time_since_last_transition = 0
 

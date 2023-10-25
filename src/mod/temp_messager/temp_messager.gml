@@ -1,3 +1,5 @@
+/// FUNCTIONS
+
 function show_temp_message(argument0, argument1, argument2)
 {
     var msg = argument0
