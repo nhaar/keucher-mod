@@ -1,3 +1,4 @@
+// NOTE: this needs to be a Draw GUI for savestates to work, for some reason
 
 // debug toggle
 // TO-DO: move to a different file

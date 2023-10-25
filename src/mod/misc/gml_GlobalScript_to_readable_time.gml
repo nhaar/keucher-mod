@@ -11,6 +11,8 @@ function to_readable_time(argument0)
     var minutes = floor(original_time / 60000000)
     var seconds = floor((original_time - minutes * 60000000) / 1000000)
     var ms = string(round((original_time / 1000000) % 1 * power(10, precision)))
+    if ((original_time / 1000000) % 1 == 1)
+        ms = ""
     var length = string_length(ms)
     while (length < precision)
     {
