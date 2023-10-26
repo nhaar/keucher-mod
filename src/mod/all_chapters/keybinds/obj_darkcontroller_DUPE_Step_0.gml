@@ -1,3 +1,4 @@
+/// IGNORE
 /// PATCH
 
 // save keybinds
@@ -15,8 +16,3 @@ ord("L")
 get_bound_key(global.KEYBINDING_load)
 /// END
 
-/// REPLACE
-ord("R")
-/// CODE
-get_bound_key(global.KEYBINDING_reload)
-/// END

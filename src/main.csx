@@ -10,6 +10,8 @@ string mainDir = Path.GetDirectoryName(FilePath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
+DupeChapter1Patches();
+
 // updating sprites
 
 // sprite for kris' room in both chapters
@@ -53,4 +55,20 @@ void ReplacePageItemTexture (string itemName, string textureName)
     (
         Image.FromFile(Path.Combine(spritesDir, textureName))
     );
+}
+
+void DupeChapter1Patches ()
+{
+    foreach (string file in UMP_MOD_FILES)
+    {
+        if (file.Contains("_DUPE"))
+        {
+            string code = File.ReadAllText(file);
+            string entryName = Path.GetFileNameWithoutExtension(file);
+            string ch1Entry = entryName.Replace("_DUPE", "_ch1");
+            string ch2Entry = entryName.Replace("_DUPE", "");
+            UMPImportGML(ch1Entry, code);
+            UMPImportGML(ch2Entry, code);
+        }
+    }
 }
