@@ -1,4 +1,3 @@
-// x and y coords but why raw numbers?
 xx = 640
 yy = 0
 

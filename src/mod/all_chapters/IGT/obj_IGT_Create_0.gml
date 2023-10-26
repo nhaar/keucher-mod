@@ -101,9 +101,6 @@ splitNumber = 0
 // on the naming screen
 ch2start = 0
 
-// flag for whether this is a NG+ run
-isNGplus = 0
-
 // unsure and why is it a number?
 turntext = 0
 

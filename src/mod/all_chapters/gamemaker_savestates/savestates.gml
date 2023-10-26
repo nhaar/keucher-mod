@@ -1,9 +1,7 @@
 /// FUNCTIONS
 
-function keucher_mod_load (chapter)
+function savestate_load_check (chapter)
 {
-    // Reset segment time upon loading
-    obj_IGT.time_since_last_transition = 0
 
     // check if savestate load or file load
     var savestate

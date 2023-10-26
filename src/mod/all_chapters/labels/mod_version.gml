@@ -2,5 +2,5 @@
 
 function get_mod_version()
 {
-    return "3.2.4"
+    return "3.2.4";
 }

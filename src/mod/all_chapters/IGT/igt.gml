@@ -1,6 +1,6 @@
 /// FUNCTIONS
 
-function set_igt_splits_info(split_status) //gml_Script_UNUSED
+function set_igt_splits_info(split_status)
 {
     // TO-DO: file seems to be able to organize split status a bit better. Check after sorting IGT
     /*
@@ -113,4 +113,10 @@ function update_splits()
     {
         obj_IGT.split_times[i] = -2
     }
+}
+
+function igt_reset_transition_time()
+{
+    // Reset segment time upon loading
+    obj_IGT.time_since_last_transition = 0
 }

@@ -3,5 +3,5 @@
 /// REPLACE
 file = ("filech1_" + string(global.filechoice))
 /// CODE
-keucher_mod_load(1)
+savestate_load_check(1)
 /// END
