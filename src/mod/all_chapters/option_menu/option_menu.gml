@@ -1,4 +1,5 @@
 /// FUNCTIONS
+/// USE ENUM KEYBINDING
 
 function get_bound_key(argument0)
 {
@@ -89,7 +90,7 @@ function get_keybind_assign_options(argument0)
     button_text[0] = "Value: [" + get_key_name(key_id) + "]"
     button_text[1] = "Set Value"
 
-    options_state = global.OPTION_STATE_keybind_assign
+    options_state = OPTION_STATE.keybind_assign
 }
 
 function get_player_options()
@@ -98,7 +99,7 @@ function get_player_options()
     button_text[0] = read_json_value(global.player_options, "display-wp-mash")
         ? "Hide Chapter 1 Wrist Protector Mash Text"
         : "Show Chapter 1 Wrist Protector Mash Text"
-    options_state = global.OPTION_STATE_general_options
+    options_state = OPTION_STATE.general_options
 }
 
 function get_split_assign_options(argument0)
@@ -176,7 +177,7 @@ function get_split_assign_options(argument0)
     button_text[1] = "Warp"
     button_text[2] = selected_split == obj_IGT.current_split ? "Split Selected" : "Set current split"
 
-    options_state = global.OPTION_STATE_split_assign
+    options_state = OPTION_STATE.split_assign
 }
 
 function get_split_mod_options()
@@ -187,7 +188,7 @@ function get_split_mod_options()
         button_text[i] = read_json_value(global.splits_json, i, "name")
     }
 
-    options_state = global.OPTION_STATE_splits
+    options_state = OPTION_STATE.splits
 }
 
 function init_keybinds()
@@ -196,44 +197,44 @@ function init_keybinds()
     global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
     if (ds_map_empty(global.mod_keybinds))
     {
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_save, ord("S"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_load, ord("L"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_reload, ord("R"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_speed, ord("À"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_gif, ord("G"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_next_room, vk_insert)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_previous_room, vk_delete)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_heal, vk_f2)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_instant_win, vk_f5)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_tp, vk_f10)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_debug, vk_f3)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_stop_sounds, vk_f11)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_reset_tempflags, vk_f12)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_warp_room, vk_escape) // not implemented?
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_hitboxes, ord("U"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_make_visible, ord("I"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_snowgrave_plot, ord("O"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_change_party, ord("H"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_side_action, ord("J"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_no_clip, ord("K"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_get_item, ord("N"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_plot_warp, ord("D"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_igt_mode, vk_f6)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_igt_room, vk_f7)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_timer, vk_f8)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_reset_timer, vk_f9)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_store_savestate, ord("Q"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_load_savestate, ord("E"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_crit_mode, ord("P"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_pattern_mode, vk_tab)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_next_crit_pattern, vk_pageup)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_previous_crit_pattern, vk_pagedown)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_rouxls, ord("P"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_next_house_pattern, vk_pageup)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_previous_house_pattern, vk_pagedown)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_toggle_boss, ord("P"))
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_next_boss_attack, vk_pageup)
-        ds_map_add(global.mod_keybinds, global.KEYBINDING_previous_boss_attack, vk_pagedown)
+        ds_map_add(global.mod_keybinds, KEYBINDING.save, ord("S"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.load, ord("L"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.reload, ord("R"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.speed, ord("À"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.gif, ord("G"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.next_room, vk_insert)
+        ds_map_add(global.mod_keybinds, KEYBINDING.previous_room, vk_delete)
+        ds_map_add(global.mod_keybinds, KEYBINDING.heal, vk_f2)
+        ds_map_add(global.mod_keybinds, KEYBINDING.instant_win, vk_f5)
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_tp, vk_f10)
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_debug, vk_f3)
+        ds_map_add(global.mod_keybinds, KEYBINDING.stop_sounds, vk_f11)
+        ds_map_add(global.mod_keybinds, KEYBINDING.reset_tempflags, vk_f12)
+        ds_map_add(global.mod_keybinds, KEYBINDING.warp_room, vk_escape) // not implemented?
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_hitboxes, ord("U"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.make_visible, ord("I"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.snowgrave_plot, ord("O"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.change_party, ord("H"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.side_action, ord("J"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.no_clip, ord("K"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.get_item, ord("N"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.plot_warp, ord("D"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.igt_mode, vk_f6)
+        ds_map_add(global.mod_keybinds, KEYBINDING.igt_room, vk_f7)
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_timer, vk_f8)
+        ds_map_add(global.mod_keybinds, KEYBINDING.reset_timer, vk_f9)
+        ds_map_add(global.mod_keybinds, KEYBINDING.store_savestate, ord("Q"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.load_savestate, ord("E"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_crit_mode, ord("P"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_pattern_mode, vk_tab)
+        ds_map_add(global.mod_keybinds, KEYBINDING.next_crit_pattern, vk_pageup)
+        ds_map_add(global.mod_keybinds, KEYBINDING.previous_crit_pattern, vk_pagedown)
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_rouxls, ord("P"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.next_house_pattern, vk_pageup)
+        ds_map_add(global.mod_keybinds, KEYBINDING.previous_house_pattern, vk_pagedown)
+        ds_map_add(global.mod_keybinds, KEYBINDING.toggle_boss, ord("P"))
+        ds_map_add(global.mod_keybinds, KEYBINDING.next_boss_attack, vk_pageup)
+        ds_map_add(global.mod_keybinds, KEYBINDING.previous_boss_attack, vk_pagedown)
         save_keybinds()
     }
 }
@@ -241,4 +242,72 @@ function init_keybinds()
 function save_keybinds()
 {
     save_json("keucher_mod/keybinds.json", global.mod_keybinds)
+}
+
+function get_default_mod_options()
+{
+    get_buttons_from_pair_array
+    (
+
+        KEYBINDING.save, "Open Save Prompt",
+        KEYBINDING.load, "Load Save",
+        KEYBINDING.reload, "Reload Room",
+        KEYBINDING.speed, "Toggle Game Speed",
+        KEYBINDING.gif, "Toggle Gif Recording",
+        KEYBINDING.next_room, "Warp to the next room",
+        KEYBINDING.previous_room, "Warp to the previous room",
+        KEYBINDING.heal, "Heal Party",
+        KEYBINDING.instant_win, "Instant Win Battle",
+        KEYBINDING.toggle_tp, "Toggle TP max or min",
+        KEYBINDING.toggle_debug, "Toggle debug mode on / off",
+        KEYBINDING.stop_sounds, "Stop all sounds being played",
+        KEYBINDING.reset_tempflags, "Reset all tempflags",
+        KEYBINDING.warp_room, "Warp to room by ID",
+        KEYBINDING.toggle_hitboxes, "Toggle boundary box visibility",
+        KEYBINDING.make_visible, "Free movement and make visible",
+        KEYBINDING.snowgrave_plot, "Snowgrave plot setter",
+        KEYBINDING.change_party, "Change party setup",
+        KEYBINDING.side_action, "Toggle side actions",
+        KEYBINDING.no_clip, "Toggle no clip",
+        KEYBINDING.get_item, "Get items",
+        KEYBINDING.plot_warp, "Plot warp button",
+        KEYBINDING.igt_mode, "Change IGT mode",
+        KEYBINDING.igt_room, "Set timer start room",
+        KEYBINDING.toggle_timer, "Toggle timer visibility",
+        KEYBINDING.reset_timer, "Reset timer",
+        KEYBINDING.store_savestate, "Store Savestate",
+        KEYBINDING.load_savestate, "Load Savestate",
+        KEYBINDING.toggle_crit_mode, "Toggle Crit Mode",
+        KEYBINDING.toggle_patternMode, "Toggle Pattern Mode",
+        KEYBINDING.next_crit_pattern, "Next Crit Pattern",
+        KEYBINDING.previous_crit_pattern, "Previous Crit Pattern",
+        KEYBINDING.toggle_rouxls, "Toggle Rouxls Kaard",
+        KEYBINDING.next_house_pattern, "Next House Pattern",
+        KEYBINDING.previous_house_pattern, "Previous House Pattern",
+        KEYBINDING.toggle_boss, "Toggle Boss Practice",
+        KEYBINDING.next_boss_attack, "Next Boss Attack",
+        KEYBINDING.previous_boss_attack, "Previous Boss Attack"
+    )
+}
+
+function get_keybind_mod_options()
+{
+    get_buttons_from_pair_array
+    (
+        DEFAULT_OPTION.keybind, "Set keybinds",
+        DEFAULT_OPTION.feature, "Configurate features",
+        DEFAULT_OPTION.current_split, "Set current split",
+        DEFAULT_OPTION.create_split, "Create a new split",
+        DEFAULT_OPTION.timer_precision, "Set timer precision",
+        DEFAULT_OPTION.options, "General Options"
+    )
+}
+
+function get_buttons_from_pair_array(array)
+{
+    button_amount = array_length(array)
+    for (var i = 0; i < button_amount; i+= 2)
+    {
+        button_text[i / 2] = array[i + 1]    
+    }
 }

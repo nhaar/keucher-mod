@@ -1,3 +1,5 @@
+/// USE ENUM KEYBINDING
+
 // NOTE: this needs to be a Draw GUI for savestates to work, for some reason
 // I believe it is because of code execution order, with Draw GUi being done after, specifically, darkcontroller code which avoids a crash
 
@@ -8,7 +10,7 @@ for (var i = ord("0"); i < 58; i++)
 {
     if keyboard_check_pressed(i)
     {
-        if (!keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)) && !keyboard_check(get_bound_key(global.KEYBINDING_snowgrave_plot)))
+        if (!keyboard_check(get_bound_key(KEYBINDING.plot_warp)) && !keyboard_check(get_bound_key(KEYBINDING.snowgrave_plot)))
         {
             slotWasSelected = i - 48
         }
@@ -21,7 +23,7 @@ if (slotWasSelected != -1)
 }
 
 // saving savestates
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_store_savestate))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.store_savestate))
 {
     if (global.chapter == 2)
     {
@@ -36,7 +38,7 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_store_savestate))
     show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " saved")
 }
 // loading savestate
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_load_savestate))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.load_savestate))
 {
     if (global.chapter == 2)
     {

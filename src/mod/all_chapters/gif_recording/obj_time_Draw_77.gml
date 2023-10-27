@@ -1,15 +1,16 @@
 /// PATCH
+/// USE ENUM KEYBINDING
 
 /// REPLACE
 if (keyboard_check_pressed(ord("G")) && (!keyboard_check(vk_control)) && gif_recording == false)
 /// CODE
-if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_gif)) && gif_recording == false)
+if (keyboard_check_pressed(get_bound_key(KEYBINDING.gif)) && gif_recording == false)
 /// END
 
 /// REPLACE
 if keyboard_check_released(ord("G"))
 /// CODE
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_gif))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.gif))
 /// END
 
 /// REPLACE

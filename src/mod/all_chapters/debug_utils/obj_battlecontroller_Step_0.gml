@@ -1,4 +1,5 @@
 /// PATCH
+/// USE ENUM KEYBINDING
 
 /// REPLACE
     if scr_debug_keycheck(vk_f3)
@@ -12,7 +13,7 @@
     if scr_debug_keycheck(vk_f10)
         global.tension = 250
 /// CODE
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_tp))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_tp))
     {
         if (global.tension != 0)
             global.tension = 0

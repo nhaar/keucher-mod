@@ -1,3 +1,5 @@
+/// USE ENUM KEYBINDING
+
 var current_frame_time = get_timer()
 
 // warn player when max splits reached
@@ -97,22 +99,22 @@ else if (igt_mode == 3 && current_split >= 0)
 
 
 // custom room timer
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_room))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.igt_room))
 {
     segment_start_room = get_integer("What room number would you like the timer to start in?", room)
     attempt_count = 0
 }
 
 // hide timer
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_timer))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_timer))
 {
     hide_timer = hide_timer ? false : true
 }
 
 // reset timer
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_reset_timer))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.reset_timer))
     set_igt_splits_info(0)
-if (keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
+if (keyboard_check(get_bound_key(KEYBINDING.plot_warp)))
 {
     var plot_warp_number = 10
     var first_plot_warp = 3

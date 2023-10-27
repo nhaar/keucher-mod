@@ -1,17 +1,14 @@
+/// USE ENUM BUTTON_STATE, OPTION_STATE
+
 /*
 0 - NOTHING
 1 - HOVERED
 2 - HELD DOWN
 */
-button_state[100] = global.BUTTON_STATE_none
+button_state[100] = BUTTON_STATE.none
 button_text[100] = 0
 
-/*
-0 - DEFAULT
-1 - KEYBINDS
-2 - ASSIGNING KEYBINDS
-*/
-options_state = global.OPTION_STATE_default
+options_state = OPTION_STATE.default
 
 scroll_ypos = 0
 scroll_dragging = false

@@ -1,5 +1,7 @@
+/// USE ENUM KEYBINDING
+
 // debug toggle
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_debug))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_debug))
 {
     if global.debug
     {
@@ -26,7 +28,7 @@ if keyboard_check_pressed(vk_end)
 }
 
 // warp to battletest room
-if (keyboard_check(ord("2")) && keyboard_check(get_bound_key(global.KEYBINDING_plot_warp)))
+if (keyboard_check(ord("2")) && keyboard_check(get_bound_key(KEYBINDING.plot_warp)))
 {
     // free movement and set darkworld
     // TO-DO: I've seen this sort of pattern before. Group in function?
@@ -46,7 +48,7 @@ if (keyboard_check(ord("2")) && keyboard_check(get_bound_key(global.KEYBINDING_p
 }
 
 // clear all sounds
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_stop_sounds))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.stop_sounds))
 {
     if (global.chapter == 1)
         snd_free_all_ch1()
@@ -55,7 +57,7 @@ if keyboard_check_pressed(get_bound_key(global.KEYBINDING_stop_sounds))
 }
 
 // reset tempflags
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_reset_tempflags))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.reset_tempflags))
 {
     for (i = 0; i < 100; i += 1)
         global.tempflag[i] = 0

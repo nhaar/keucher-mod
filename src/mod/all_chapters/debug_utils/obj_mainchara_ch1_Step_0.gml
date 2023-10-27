@@ -1,4 +1,5 @@
 /// PATCH
+/// USE ENUM KEYBINDING
 
 // DANGER ZONE: this file has compilation issues
 
@@ -7,9 +8,9 @@
 /// APPEND
 if scr_debug_ch1()
 {
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_room))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.next_room))
         room_goto_next()
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_room))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.previous_room))
         room_goto_previous()
 }
 /// END

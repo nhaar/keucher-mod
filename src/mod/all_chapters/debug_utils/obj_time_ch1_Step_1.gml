@@ -1,4 +1,5 @@
 /// PATCH
+/// USE ENUM KEYBINDING
 
 // remove annoying slow down
 /// REPLACE
@@ -9,7 +10,7 @@ room_speed = 150
 
 // debug toggle
 /// APPEND
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_debug))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_debug))
 {
     obj_debugcontroller_ch1.debug = scr_debug_ch1() ? false : true
 }

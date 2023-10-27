@@ -71,8 +71,6 @@ class GMLStringJson
         foreach (string key in jsonObject.Keys)
         {
             var keyValue = "";
-            Console.WriteLine(key);
-            Console.WriteLine(jsonObject[key].GetType());
             keyValue += $"\"{key}\": {StringifyElement(jsonObject[key])}";
             keyValues.Add(keyValue);
         }

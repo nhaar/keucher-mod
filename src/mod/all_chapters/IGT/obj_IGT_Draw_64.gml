@@ -1,3 +1,5 @@
+/// USE ENUM KEYBINDING
+
 xx = 640
 yy = 0
 
@@ -95,5 +97,5 @@ else
 }
 
 // switching timer mode
-if keyboard_check_pressed(get_bound_key(global.KEYBINDING_igt_mode))
+if keyboard_check_pressed(get_bound_key(KEYBINDING.igt_mode))
     set_igt_splits_info(1)

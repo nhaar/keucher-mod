@@ -1,4 +1,5 @@
 /// PATCH
+/// USE ENUM KEYBINDING
 
 /// REPLACE
         ossafe_savedata_load_ch1()
@@ -7,9 +8,9 @@
 /// CODE
     // change ch1 L and R keybinds
         scr_load_ch1()
-    if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_reload)) && keyboard_check(vk_backspace))
+    if (keyboard_check_pressed(get_bound_key(KEYBINDING.reload)) && keyboard_check(vk_backspace))
         game_restart_true()
-    if (keyboard_check_pressed(get_bound_key(global.KEYBINDING_reload)) && !keyboard_check(vk_backspace))
+    if (keyboard_check_pressed(get_bound_key(KEYBINDING.reload)) && !keyboard_check(vk_backspace))
     {
         snd_free_all_ch1()
         room_restart()
@@ -17,7 +18,7 @@
     }
 
     // changing party in Ch1
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_change_party))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.change_party))
     {
         partystate++
         if (partystate == 5)
@@ -61,13 +62,13 @@
     }
 
     // adding INS and DEl warps in Ch1
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_next_room))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.next_room))
         room_goto_next()
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_previous_room))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.previous_room))
         room_goto_previous()
 
     // toggle visible in Ch1
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_make_visible))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.make_visible))
     {
         global.interact = 0
         with (obj_mainchara_ch1)
@@ -75,7 +76,7 @@
     }
 
     // get items in Ch1
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_get_item))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.get_item))
     {
         if (global.flag[48] == 0)
         {
@@ -308,7 +309,7 @@
     }
 
     // toggle noclip in Ch1
-    if keyboard_check_pressed(get_bound_key(global.KEYBINDING_toggle_hitboxes))
+    if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_hitboxes))
     {
         if (obj_mainchara_ch1.mask_index != spr_i_am_the_joker)
         {

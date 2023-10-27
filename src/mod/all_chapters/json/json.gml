@@ -28,3 +28,17 @@ function save_json(path, data)
     file_text_write_string(file, json_encode(copy_map))
     file_text_close(file)
 }
+
+function create_json_with_pairs()
+{
+    var map = ds_map_create()
+    if (argument_count % 2 == 1)
+    {
+        e += "create_json_with_pairs: argument count must be even"
+    }
+    for (var i = 0; i < argument_count; i += 2)
+    {
+        ds_map_add(map, string(argument[i]), argument[i + 1])
+    }
+    return map
+}

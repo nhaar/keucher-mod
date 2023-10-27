@@ -4,11 +4,6 @@
 // add obj_IGT initialization and constants
 // NOTE: do NOT use any other UMP methods since compiling this code entry is not supported by UTMT currently
 
-set_enum_keybinding()
-set_enum_option_state()
-set_enum_default_option()
-set_enum_button_state()
-set_enum_split()
 set_constants()
 directory_create("keucher_mod")
 init_keybinds()

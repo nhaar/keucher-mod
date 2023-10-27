@@ -1,3 +1,5 @@
+/// USE ENUM BUTTON_STATE, OPTION_STATE
+
 if (mouse_check_button_pressed(mb_right))
 {
     instance_destroy()
@@ -88,41 +90,44 @@ for (var i = 0; i < button_amount; i++)
         
         if (mouse_check_button_pressed(mb_left))
         {
-            button_state[i] = global.BUTTON_STATE_press
+            button_state[i] = BUTTON_STATE.press
         }
-        else if (button_state[i] == global.BUTTON_STATE_press)
+        else if (button_state[i] == BUTTON_STATE.press)
         {
             if (mouse_check_button_released(mb_left))
             {
-                button_state[i] = global.BUTTON_STATE_hover
+                button_state[i] = BUTTON_STATE.hover
                 switch (options_state)
                 {
-                    case global.OPTION_STATE_default:
+                    case OPTION_STATE.default:
                         switch (i)
                         {
-                            case global.DEFAULT_OPTION_keybind:
+                            case DEFAULT_OPTION.keybind:
                                 get_keybind_mod_options()
                                 break
-                            case global.DEFAULT_OPTION_current_split:
+                            case DEFAULT_OPTION.current_split:
                                 get_split_mod_options()
                                 break
-                            case global.DEFAULT_OPTION_create_split:
+                            case DEFAULT_OPTION.create_split:
                                 get_split_create_options()
                                 break
-                            case global.DEFAULT_OPTION_timer_precision:
+                            case DEFAULT_OPTION.timer_precision:
                                 precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
                                 ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
                                 save_player_options()
                                 break
-                            case global.DEFAULT_OPTION_options:
+                            case DEFAULT_OPTION.options:
                                 get_player_options()
+                                break
+                            case DEFAULT_OPTION.feature:
+                                // get_feature_options()
                                 break
                         }
                         break
-                    case global.OPTION_STATE_keybinds:
+                    case OPTION_STATE.keybinds:
                         get_keybind_assign_options(i)
                         break
-                    case global.OPTION_STATE_keybind_assign:
+                    case OPTION_STATE.keybind_assign:
                         // setting new value
                         if (i == 1)
                         {
@@ -131,10 +136,10 @@ for (var i = 0; i < button_amount; i++)
                             button_text[1] = "Press any key..."
                         }
                         break
-                    case global.OPTION_STATE_splits:
+                    case OPTION_STATE.splits:
                         get_split_assign_options(i)
                         break
-                    case global.OPTION_STATE_split_assign:
+                    case OPTION_STATE.split_assign:
                         // warp
                         if (i == 1)
                         {
@@ -183,7 +188,7 @@ for (var i = 0; i < button_amount; i++)
                             update_splits()
                         }
                         break
-                    case global.OPTION_STATE_split_creator:
+                    case OPTION_STATE.split_creator:
                         switch (i)
                         {
                             // reset preset
@@ -227,13 +232,13 @@ for (var i = 0; i < button_amount; i++)
                                 break
                         }
                         break
-                    case global.OPTION_STATE_split_pick:
+                    case OPTION_STATE.split_pick:
                         var instructions = read_json_value(global.current_created_preset, "instructions")
                         var length = ds_map_size(instructions)
                         ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
                         get_split_create_options()
                         break
-                    case global.OPTION_STATE_general_options:
+                    case OPTION_STATE.general_options:
                         switch (i)
                         {
                             case 0:
@@ -247,30 +252,30 @@ for (var i = 0; i < button_amount; i++)
             }
         }
         else
-            button_state[i] = global.BUTTON_STATE_hover
+            button_state[i] = BUTTON_STATE.hover
     }
-    else if (options_state == global.OPTION_STATE_splits && i == obj_IGT.current_split)
+    else if (options_state == OPTION_STATE.splits && i == obj_IGT.current_split)
     {
-        button_state[i] = global.BUTTON_STATE_highlight
+        button_state[i] = BUTTON_STATE.highlight
     }
     else
     {
-        button_state[i] = global.BUTTON_STATE_none
+        button_state[i] = BUTTON_STATE.none
     }
 
-    if (button_state[i] == global.BUTTON_STATE_hover)
+    if (button_state[i] == BUTTON_STATE.hover)
     {
         draw_set_color(c_white)
     }
-    else if (button_state[i] == global.BUTTON_STATE_press)
+    else if (button_state[i] == BUTTON_STATE.press)
     {
         draw_set_color(c_black)
     }
-    else if (button_state[i] == global.BUTTON_STATE_none)
+    else if (button_state[i] == BUTTON_STATE.none)
     {
         draw_set_color(c_gray)
     }
-    else if (button_state[i] == global.BUTTON_STATE_highlight)
+    else if (button_state[i] == BUTTON_STATE.highlight)
     {
         draw_set_color(c_blue)
     }
