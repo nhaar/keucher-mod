@@ -1,4 +1,4 @@
-/// USE ENUM BUTTON_STATE, OPTION_STATE, DEFAULT_OPTION
+/// USE ENUM BUTTON_STATE, OPTION_STATE, DEFAULT_OPTION, FEATURE_STATE
 
 if (mouse_check_button_pressed(mb_right))
 {
@@ -120,7 +120,7 @@ for (var i = 0; i < button_amount; i++)
                                 get_player_options()
                                 break
                             case DEFAULT_OPTION.feature:
-                                // get_feature_options()
+                                get_feature_options()
                                 break
                         }
                         break
@@ -247,6 +247,26 @@ for (var i = 0; i < button_amount; i++)
                                 get_player_options()
                                 break
                         }
+                        break
+                    case OPTION_STATE.features:
+                        var feature_map = read_json_value(global.player_options, "feature-options")
+                        var feature_name = global.feature_info[i * 3]
+                        var current_value = read_json_value(feature_map, feature_name)
+                        if (current_value == FEATURE_STATE.never)
+                        {
+                            current_value = FEATURE_STATE.debug
+                        }
+                        else if (current_value == FEATURE_STATE.debug)
+                        {
+                            current_value = FEATURE_STATE.always
+                        }
+                        else if (current_value == FEATURE_STATE.always)
+                        {
+                            current_value = FEATURE_STATE.never
+                        }
+                        ds_map_set(feature_map, feature_name, current_value)
+                        save_player_options()
+                        get_feature_options()
                         break
                 }
             }
