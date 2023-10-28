@@ -7,7 +7,7 @@ if (!i_ex(obj_omawaroid_enemy) && !i_ex(obj_placeholderenemy_ch1))
 }
 
 // toggle crit practice
-if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_crit_mode))
+if pressed_active_feature_key(KEYBINDING.toggle_crit_mode, "crit-practice")
 {
     if (global.ambyu_practice == 0)
     {

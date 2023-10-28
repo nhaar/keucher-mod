@@ -1,10 +1,4 @@
 /// USE ENUM BUTTON_STATE, OPTION_STATE, DEFAULT_OPTION, FEATURE_STATE
-
-if (mouse_check_button_pressed(mb_right))
-{
-    instance_destroy()
-}
-
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 

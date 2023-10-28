@@ -33,8 +33,9 @@ function set_feature_info()
     // string id for id, the button text and the default state
     return create_array
     (
-        "save-load", "Opening save menu", FEATURE_STATE.debug,
-        "room-restart", "Restarting the room", FEATURE_STATE.debug,
+        "save-file", "Opening save menu", FEATURE_STATE.debug,
+        "save-load", "Loading save file", FEATURE_STATE.debug,
+        "restart", "Restarting the room", FEATURE_STATE.debug,
         "ch1-battle-percentage", "Show health/mercy percentages in Chapter 1", FEATURE_STATE.always,
         "enemy-hp", "Display current and max HP of enemies", FEATURE_STATE.always,
         "doorwarp-square", "Show doorwarp indicator", FEATURE_STATE.always,
@@ -63,6 +64,34 @@ function set_feature_info()
         "change-party", "Enable party changer", FEATURE_STATE.debug,
         "side-action", "Enable toggle for S/R/N actions", FEATURE_STATE.debug,
         "toggle-noclip", "Enable toggle noclip", FEATURE_STATE.debug,
-        "get-weapons", "Enable key for getting all weapons", FEATURE_STATE.debug
+        "get-item", "Enable key for getting all weapons", FEATURE_STATE.debug
     );
+}
+
+function is_feature_active(feature_id)
+{
+    var feature_value = read_json_value(global.player_options, "feature-options", feature_id)
+    switch (feature_value)
+    {
+        case FEATURE_STATE.always:
+            return true
+        case FEATURE_STATE.never:
+            return false
+        case FEATURE_STATE.debug:
+            if (global.chapter == 1)
+            {
+                return scr_debug_ch1();
+            }
+            return global.debug;
+    }
+}
+
+function pressed_active_feature_key(key, feature)
+{
+    return keyboard_check_pressed(get_bound_key(key)) && is_feature_active(feature)
+}
+
+function detected_active_feature_key(key, feature)
+{
+    return keyboard_check(get_bound_key(key)) && is_feature_active(feature)
 }

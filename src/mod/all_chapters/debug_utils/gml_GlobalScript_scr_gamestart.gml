@@ -3,7 +3,7 @@
 /// REPLACE
 global.debug = false
 /// CODE
-global.debug = true
+global.debug = read_json_value(global.player_options, "debug")
 /// END
 
 /// REPLACE

@@ -7,7 +7,7 @@ function savestate_load_check (chapter)
     // check if savestate load or file load
     var savestate
     var _ssslot
-    if keyboard_check_pressed(get_bound_key(KEYBINDING.load_savestate))
+    if pressed_active_feature_key(KEYBINDING.load_savestate, "gamemaker-savestate")
     {
         savestate = "ss_"
         _ssslot = ""
@@ -27,7 +27,7 @@ function savestate_save_check(argument0)
     var savestate
     var _ssslot
     // check if saving savestate or saving file
-    if keyboard_check_pressed(get_bound_key(KEYBINDING.store_savestate))
+    if pressed_active_feature_key(KEYBINDING.store_savestate, "gamemaker-savestate")
     {
         savestate = "ss_"
         _ssslot = ""

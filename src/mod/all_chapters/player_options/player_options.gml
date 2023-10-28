@@ -26,7 +26,8 @@ function init_player_options()
             \"feature-options\":
             {
                 " + feature_json + "
-            }
+            },
+            \"debug\": true
         }
         ")
         save_player_options()

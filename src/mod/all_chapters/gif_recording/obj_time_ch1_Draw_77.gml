@@ -3,7 +3,7 @@
 
 // adding it to ch1?
 /// PREPEND
-if scr_debug_ch1()
+if is_feature_active("gif")
 {
     if (keyboard_check_pressed(get_bound_key(KEYBINDING.gif)) && gif_recording == false)
     {
@@ -14,7 +14,7 @@ if scr_debug_ch1()
     if gif_recording
     {
         var gif_release = 0
-        if keyboard_check_pressed(get_bound_key(KEYBINDING.gif))
+        if keyboard_check_released(get_bound_key(KEYBINDING.gif))
             gif_release = 1
         if (gif_timer == 0)
             gif_image = gif_open(640, 480)

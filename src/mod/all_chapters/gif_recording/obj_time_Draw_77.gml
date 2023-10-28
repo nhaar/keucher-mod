@@ -2,6 +2,12 @@
 /// USE ENUM KEYBINDING
 
 /// REPLACE
+if scr_debug()
+/// CODE
+if is_feature_active("gif")
+/// END
+
+/// REPLACE
 if (keyboard_check_pressed(ord("G")) && (!keyboard_check(vk_control)) && gif_recording == false)
 /// CODE
 if (keyboard_check_pressed(get_bound_key(KEYBINDING.gif)) && gif_recording == false)
@@ -10,7 +16,7 @@ if (keyboard_check_pressed(get_bound_key(KEYBINDING.gif)) && gif_recording == fa
 /// REPLACE
 if keyboard_check_released(ord("G"))
 /// CODE
-if keyboard_check_pressed(get_bound_key(KEYBINDING.gif))
+if keyboard_check_released(get_bound_key(KEYBINDING.gif))
 /// END
 
 /// REPLACE

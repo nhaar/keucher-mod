@@ -2,7 +2,7 @@
 /// USE ENUM KEYBINDING
 
 /// REPLACE
-ord("R")
+if (scr_debug() && keyboard_check_pressed(ord("R")))
 /// CODE
-get_bound_key(KEYBINDING.reload)
+if pressed_active_feature_key(KEYBINDING.reload, "restart")
 /// END

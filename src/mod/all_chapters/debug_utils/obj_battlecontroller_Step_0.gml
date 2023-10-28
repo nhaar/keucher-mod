@@ -13,11 +13,14 @@
     if scr_debug_keycheck(vk_f10)
         global.tension = 250
 /// CODE
-    if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_tp))
-    {
-        if (global.tension != 0)
-            global.tension = 0
-        else
-            global.tension = 250
-    }
+/// END
+
+/// APPEND
+if pressed_active_feature_key(KEYBINDING.toggle_tp, "tp-toggle")
+{
+    if (global.tension != 0)
+        global.tension = 0
+    else
+        global.tension = 250
+}
 /// END

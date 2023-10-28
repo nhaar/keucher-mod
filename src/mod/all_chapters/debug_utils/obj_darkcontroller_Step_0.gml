@@ -1,12 +1,38 @@
 /// PATCH
 /// USE ENUM KEYBINDING
 
-/// AFTER
+/// REPLACE
 if scr_debug()
 {
+    if keyboard_check_pressed(ord("S"))
+        instance_create(0, 0, obj_savemenu)
+    if keyboard_check_pressed(ord("L"))
+        scr_load()
+    if (keyboard_check_pressed(ord("R")) && keyboard_check(vk_backspace))
+        game_restart_true()
+    if (keyboard_check_pressed(ord("R")) && (!keyboard_check(vk_backspace)))
+    {
+        snd_free_all()
+        room_restart()
+        global.interact = 0
+    }
+}
 /// CODE
+if pressed_active_feature_key(KEYBINDING.save, "save-file")
+    instance_create(0, 0, obj_savemenu)
+if pressed_active_feature_key(KEYBINDING.load, "save-load")
+    scr_load()
+if (pressed_active_feature_key(KEYBINDING.reload, "restart") && keyboard_check(vk_backspace))
+    game_restart_true()
+if (pressed_active_feature_key(KEYBINDING.reload, "restart") && (!keyboard_check(vk_backspace)))
+{
+    snd_free_all()
+    room_restart()
+    global.interact = 0
+}
+
 // toggiel visible
-if keyboard_check_pressed(get_bound_key(KEYBINDING.make_visible))
+if pressed_active_feature_key(KEYBINDING.make_visible, "visible")
 {
     global.interact = 0
     with (obj_mainchara)
@@ -14,7 +40,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.make_visible))
 }
 
 // change party
-if keyboard_check_pressed(get_bound_key(KEYBINDING.change_party))
+if pressed_active_feature_key(KEYBINDING.change_party, "change-party")
 {
     partystate++
     presscount++
@@ -185,7 +211,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.change_party))
 }
 
 // get items
-if keyboard_check_pressed(get_bound_key(KEYBINDING.get_item))
+if pressed_active_feature_key(KEYBINDING.get_item, "get-item")
 {
     if (global.flag[48] == 0)
     {
@@ -297,7 +323,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.get_item))
     }
 }
 // show hitboxes
-if keyboard_check_pressed(get_bound_key(14))
+if pressed_active_feature_key(KEYBINDING.toggle_hitboxes, "boundary-box")
 {
     global.bboxVisible++
     if (global.bboxVisible == 3)
@@ -455,7 +481,7 @@ if keyboard_check_pressed(get_bound_key(14))
 }
 
 // toggle noclip
-if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_hitboxes))
+if pressed_active_feature_key(KEYBINDING.no_clip, "toggle-noclip")
 {
     if (obj_mainchara.mask_index != spr_i_am_the_joker)
     {
@@ -472,7 +498,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_hitboxes))
 }
 
 // disabling the S/R/N-Action
-if keyboard_check_pressed(get_bound_key(KEYBINDING.side_action))
+if pressed_active_feature_key(KEYBINDING.side_action, "side-action")
 {
     if (global.flag[34] == 0)
     {
@@ -487,7 +513,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.side_action))
 }
 
 // snowgrave plot setting
-if keyboard_check(get_bound_key(KEYBINDING.snowgrave_plot))
+if detected_active_feature_key(KEYBINDING.snowgrave_plot, "snowgrave-plot")
 {
 
     if keyboard_check_pressed(ord("1"))

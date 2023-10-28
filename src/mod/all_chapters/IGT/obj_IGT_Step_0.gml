@@ -1,3 +1,6 @@
+if (!is_feature_active("timer"))
+    return;
+
 /// USE ENUM KEYBINDING
 
 var current_frame_time = get_timer()
@@ -114,7 +117,7 @@ if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_timer))
 // reset timer
 if keyboard_check_pressed(get_bound_key(KEYBINDING.reset_timer))
     set_igt_splits_info(0)
-if (keyboard_check(get_bound_key(KEYBINDING.plot_warp)))
+if (detected_active_feature_key(KEYBINDING.plot_warp, "plotwarp"))
 {
     var plot_warp_number = 10
     var first_plot_warp = 3

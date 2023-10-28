@@ -1,4 +1,6 @@
 /// USE ENUM KEYBINDING
+if (!is_feature_active("timer"))
+    return;
 
 xx = 640
 yy = 0

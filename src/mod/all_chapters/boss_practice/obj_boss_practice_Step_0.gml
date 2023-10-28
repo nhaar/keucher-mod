@@ -5,7 +5,7 @@ if (boss_obj != 0 && !i_ex(boss_obj))
     instance_destroy()
 
 // toggle practice mode
-if (keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_boss)))
+if pressed_active_feature_key(KEYBINDING.toggle_boss, "boss-practice")
 {
     if (global.bossPractice == 0)
     {

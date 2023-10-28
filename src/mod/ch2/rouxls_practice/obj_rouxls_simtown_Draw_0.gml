@@ -3,7 +3,7 @@
 
 /// APPEND
 // toggle practice
-if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_rouxls))
+if pressed_active_feature_key(KEYBINDING.toggle_rouxls, "rouxls-practice")
 {
     if (global.rurus_random == 0)
         global.rurus_random = 1
