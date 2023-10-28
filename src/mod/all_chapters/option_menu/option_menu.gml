@@ -278,7 +278,7 @@ function get_default_mod_options()
         KEYBINDING.store_savestate, "Store Savestate",
         KEYBINDING.load_savestate, "Load Savestate",
         KEYBINDING.toggle_crit_mode, "Toggle Crit Mode",
-        KEYBINDING.toggle_patternMode, "Toggle Pattern Mode",
+        KEYBINDING.toggle_pattern_mode, "Toggle Pattern Mode",
         KEYBINDING.next_crit_pattern, "Next Crit Pattern",
         KEYBINDING.previous_crit_pattern, "Previous Crit Pattern",
         KEYBINDING.toggle_rouxls, "Toggle Rouxls Kaard",
