@@ -1,10 +1,6 @@
 /// USE ENUM BUTTON_STATE, OPTION_STATE
 
-/*
-0 - NOTHING
-1 - HOVERED
-2 - HELD DOWN
-*/
+button_amount = 0
 button_state[100] = BUTTON_STATE.none
 button_text[100] = 0
 

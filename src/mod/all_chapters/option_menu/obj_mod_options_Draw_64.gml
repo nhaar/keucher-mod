@@ -1,4 +1,4 @@
-/// USE ENUM BUTTON_STATE, OPTION_STATE
+/// USE ENUM BUTTON_STATE, OPTION_STATE, DEFAULT_OPTION
 
 if (mouse_check_button_pressed(mb_right))
 {

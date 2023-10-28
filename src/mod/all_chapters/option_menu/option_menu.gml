@@ -1,5 +1,5 @@
 /// FUNCTIONS
-/// USE ENUM KEYBINDING
+/// USE ENUM KEYBINDING, DEFAULT_OPTION, OPTION_STATE
 
 function get_bound_key(argument0)
 {
@@ -248,7 +248,20 @@ function get_default_mod_options()
 {
     get_buttons_from_pair_array
     (
+        DEFAULT_OPTION.keybind, "Set keybinds",
+        DEFAULT_OPTION.feature, "Configurate features",
+        DEFAULT_OPTION.current_split, "Set current split",
+        DEFAULT_OPTION.create_split, "Create a new split",
+        DEFAULT_OPTION.timer_precision, "Set timer precision",
+        DEFAULT_OPTION.options, "General Options"
+    )
+    
+}
 
+function get_keybind_mod_options()
+{
+    get_buttons_from_pair_array
+    (
         KEYBINDING.save, "Open Save Prompt",
         KEYBINDING.load, "Load Save",
         KEYBINDING.reload, "Reload Room",
@@ -290,24 +303,11 @@ function get_default_mod_options()
     )
 }
 
-function get_keybind_mod_options()
+function get_buttons_from_pair_array()
 {
-    get_buttons_from_pair_array
-    (
-        DEFAULT_OPTION.keybind, "Set keybinds",
-        DEFAULT_OPTION.feature, "Configurate features",
-        DEFAULT_OPTION.current_split, "Set current split",
-        DEFAULT_OPTION.create_split, "Create a new split",
-        DEFAULT_OPTION.timer_precision, "Set timer precision",
-        DEFAULT_OPTION.options, "General Options"
-    )
-}
-
-function get_buttons_from_pair_array(array)
-{
-    button_amount = array_length(array)
-    for (var i = 0; i < button_amount; i+= 2)
+    button_amount = argument_count / 2
+    for (var i = 0; i < argument_count; i+= 2)
     {
-        button_text[i / 2] = array[i + 1]    
+        button_text[argument[i]] = argument[i + 1]    
     }
 }

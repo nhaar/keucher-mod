@@ -1,4 +1,5 @@
 /// FUNCTIONS
+/// USE ENUM OPTION_STATE
 
 function get_mod_room_name(room_id)
 {
