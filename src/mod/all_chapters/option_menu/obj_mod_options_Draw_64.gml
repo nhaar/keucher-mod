@@ -1,4 +1,5 @@
-/// USE ENUM BUTTON_STATE, OPTION_STATE, DEFAULT_OPTION, FEATURE_STATE
+/// IMPORT
+
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 
@@ -84,44 +85,44 @@ for (var i = 0; i < button_amount; i++)
         
         if (mouse_check_button_pressed(mb_left))
         {
-            button_state[i] = BUTTON_STATE.press
+            button_state[i] = #BUTTON_STATE.press
         }
-        else if (button_state[i] == BUTTON_STATE.press)
+        else if (button_state[i] == #BUTTON_STATE.press)
         {
             if (mouse_check_button_released(mb_left))
             {
-                button_state[i] = BUTTON_STATE.hover
+                button_state[i] = #BUTTON_STATE.hover
                 switch (options_state)
                 {
-                    case OPTION_STATE.default:
+                    case #OPTION_STATE.default:
                         switch (i)
                         {
-                            case DEFAULT_OPTION.keybind:
+                            case #DEFAULT_OPTION.keybind:
                                 get_keybind_mod_options()
                                 break
-                            case DEFAULT_OPTION.current_split:
+                            case #DEFAULT_OPTION.current_split:
                                 get_split_mod_options()
                                 break
-                            case DEFAULT_OPTION.create_split:
+                            case #DEFAULT_OPTION.create_split:
                                 get_split_create_options()
                                 break
-                            case DEFAULT_OPTION.timer_precision:
+                            case #DEFAULT_OPTION.timer_precision:
                                 precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
                                 ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
                                 save_player_options()
                                 break
-                            case DEFAULT_OPTION.options:
+                            case #DEFAULT_OPTION.options:
                                 get_player_options()
                                 break
-                            case DEFAULT_OPTION.feature:
+                            case #DEFAULT_OPTION.feature:
                                 get_feature_options()
                                 break
                         }
                         break
-                    case OPTION_STATE.keybinds:
+                    case #OPTION_STATE.keybinds:
                         get_keybind_assign_options(i)
                         break
-                    case OPTION_STATE.keybind_assign:
+                    case #OPTION_STATE.keybind_assign:
                         // setting new value
                         if (i == 1)
                         {
@@ -130,10 +131,10 @@ for (var i = 0; i < button_amount; i++)
                             button_text[1] = "Press any key..."
                         }
                         break
-                    case OPTION_STATE.splits:
+                    case #OPTION_STATE.splits:
                         get_split_assign_options(i)
                         break
-                    case OPTION_STATE.split_assign:
+                    case #OPTION_STATE.split_assign:
                         // warp
                         if (i == 1)
                         {
@@ -182,7 +183,7 @@ for (var i = 0; i < button_amount; i++)
                             update_splits()
                         }
                         break
-                    case OPTION_STATE.split_creator:
+                    case #OPTION_STATE.split_creator:
                         switch (i)
                         {
                             // reset preset
@@ -226,13 +227,13 @@ for (var i = 0; i < button_amount; i++)
                                 break
                         }
                         break
-                    case OPTION_STATE.split_pick:
+                    case #OPTION_STATE.split_pick:
                         var instructions = read_json_value(global.current_created_preset, "instructions")
                         var length = ds_map_size(instructions)
                         ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
                         get_split_create_options()
                         break
-                    case OPTION_STATE.general_options:
+                    case #OPTION_STATE.general_options:
                         switch (i)
                         {
                             case 0:
@@ -242,21 +243,21 @@ for (var i = 0; i < button_amount; i++)
                                 break
                         }
                         break
-                    case OPTION_STATE.features:
+                    case #OPTION_STATE.features:
                         var feature_map = read_json_value(global.player_options, "feature-options")
                         var feature_name = global.feature_info[i * 3]
                         var current_value = read_json_value(feature_map, feature_name)
-                        if (current_value == FEATURE_STATE.never)
+                        if (current_value == #FEATURE_STATE.never)
                         {
-                            current_value = FEATURE_STATE.debug
+                            current_value = #FEATURE_STATE.debug
                         }
-                        else if (current_value == FEATURE_STATE.debug)
+                        else if (current_value == #FEATURE_STATE.debug)
                         {
-                            current_value = FEATURE_STATE.always
+                            current_value = #FEATURE_STATE.always
                         }
-                        else if (current_value == FEATURE_STATE.always)
+                        else if (current_value == #FEATURE_STATE.always)
                         {
-                            current_value = FEATURE_STATE.never
+                            current_value = #FEATURE_STATE.never
                         }
                         ds_map_set(feature_map, feature_name, current_value)
                         save_player_options()
@@ -266,30 +267,30 @@ for (var i = 0; i < button_amount; i++)
             }
         }
         else
-            button_state[i] = BUTTON_STATE.hover
+            button_state[i] = #BUTTON_STATE.hover
     }
-    else if (options_state == OPTION_STATE.splits && i == obj_IGT.current_split)
+    else if (options_state == #OPTION_STATE.splits && i == obj_IGT.current_split)
     {
-        button_state[i] = BUTTON_STATE.highlight
+        button_state[i] = #BUTTON_STATE.highlight
     }
     else
     {
-        button_state[i] = BUTTON_STATE.none
+        button_state[i] = #BUTTON_STATE.none
     }
 
-    if (button_state[i] == BUTTON_STATE.hover)
+    if (button_state[i] == #BUTTON_STATE.hover)
     {
         draw_set_color(c_white)
     }
-    else if (button_state[i] == BUTTON_STATE.press)
+    else if (button_state[i] == #BUTTON_STATE.press)
     {
         draw_set_color(c_black)
     }
-    else if (button_state[i] == BUTTON_STATE.none)
+    else if (button_state[i] == #BUTTON_STATE.none)
     {
         draw_set_color(c_gray)
     }
-    else if (button_state[i] == BUTTON_STATE.highlight)
+    else if (button_state[i] == #BUTTON_STATE.highlight)
     {
         draw_set_color(c_blue)
     }

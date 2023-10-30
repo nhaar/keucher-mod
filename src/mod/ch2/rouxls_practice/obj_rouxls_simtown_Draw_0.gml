@@ -1,9 +1,8 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 /// APPEND
 // toggle practice
-if pressed_active_feature_key(KEYBINDING.toggle_rouxls, "rouxls-practice")
+if pressed_active_feature_key(#KEYBINDING.toggle_rouxls, "rouxls-practice")
 {
     if (global.rurus_random == 0)
         global.rurus_random = 1
@@ -11,12 +10,12 @@ if pressed_active_feature_key(KEYBINDING.toggle_rouxls, "rouxls-practice")
         global.rurus_random = 0
 }
 // change pattern
-if keyboard_check_pressed(get_bound_key(KEYBINDING.previous_house_pattern))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_house_pattern))
 {
     if (global.rurus_pattern > 0)
         global.rurus_pattern -= 1
 }
-else if keyboard_check_pressed(keyboard_check_pressed(get_bound_key(KEYBINDING.next_house_pattern)))
+else if keyboard_check_pressed(keyboard_check_pressed(get_bound_key(#KEYBINDING.next_house_pattern)))
 {
     if (global.rurus_pattern < 6)
         global.rurus_pattern += 1

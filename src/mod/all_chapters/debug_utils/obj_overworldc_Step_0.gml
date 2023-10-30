@@ -1,5 +1,4 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 /// REPLACE
 if scr_debug()
@@ -19,11 +18,11 @@ if scr_debug()
     }
 }
 /// CODE
-if pressed_active_feature_key(KEYBINDING.save, "save-file")
+if pressed_active_feature_key(#KEYBINDING.save, "save-file")
     instance_create(0, 0, obj_savemenu)
-if pressed_active_feature_key(KEYBINDING.load, "save-load")
+if pressed_active_feature_key(#KEYBINDING.load, "save-load")
     scr_load()
-if pressed_active_feature_key(KEYBINDING.reload, "restart")
+if pressed_active_feature_key(#KEYBINDING.reload, "restart")
 {
     if keyboard_check(vk_backspace)
     {

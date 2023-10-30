@@ -1,5 +1,4 @@
-/// IGNORE
-/// PATCH
+/// PATCH .ignore
 
 /// APPEND
 grazesub1 = 0

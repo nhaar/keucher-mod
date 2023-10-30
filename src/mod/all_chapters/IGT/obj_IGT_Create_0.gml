@@ -1,3 +1,5 @@
+/// IMPORT
+
 // initialize vanilla variables to avoid crashes
 global.chapter = 0
 global.fighting = 0

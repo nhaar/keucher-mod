@@ -1,5 +1,4 @@
 /// FUNCTIONS
-/// USE ENUM KEYBINDING
 
 function savestate_load_check (chapter)
 {
@@ -7,7 +6,7 @@ function savestate_load_check (chapter)
     // check if savestate load or file load
     var savestate
     var _ssslot
-    if pressed_active_feature_key(KEYBINDING.load_savestate, "gamemaker-savestate")
+    if pressed_active_feature_key(#KEYBINDING.load_savestate, "gamemaker-savestate")
     {
         savestate = "ss_"
         _ssslot = ""
@@ -27,7 +26,7 @@ function savestate_save_check(argument0)
     var savestate
     var _ssslot
     // check if saving savestate or saving file
-    if pressed_active_feature_key(KEYBINDING.store_savestate, "gamemaker-savestate")
+    if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate")
     {
         savestate = "ss_"
         _ssslot = ""

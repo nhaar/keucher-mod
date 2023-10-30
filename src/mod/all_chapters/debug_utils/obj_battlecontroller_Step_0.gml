@@ -1,5 +1,4 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 /// REPLACE
     if scr_debug_keycheck(vk_f3)
@@ -16,7 +15,7 @@
 /// END
 
 /// APPEND
-if pressed_active_feature_key(KEYBINDING.toggle_tp, "tp-toggle")
+if pressed_active_feature_key(#KEYBINDING.toggle_tp, "tp-toggle")
 {
     if (global.tension != 0)
         global.tension = 0

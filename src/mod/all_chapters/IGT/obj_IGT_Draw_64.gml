@@ -1,4 +1,5 @@
-/// USE ENUM KEYBINDING
+/// IMPORT
+
 if (!is_feature_active("timer"))
     return;
 
@@ -99,5 +100,5 @@ else
 }
 
 // switching timer mode
-if keyboard_check_pressed(get_bound_key(KEYBINDING.igt_mode))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.igt_mode))
     set_igt_splits_info(1)

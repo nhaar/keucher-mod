@@ -1,3 +1,5 @@
+/// IMPORT
+
 xx = 320
 // used to display new information for a short time
 if (message_timer > 0)

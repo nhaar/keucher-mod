@@ -1,3 +1,5 @@
+/// IMPORT
+
 // time in frames the messages will be on the screen
 display_time = 90
 

@@ -1,9 +1,8 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 // debug toggle
 /// APPEND
-if pressed_active_feature_key(KEYBINDING.toggle_debug, "debug-toggle")
+if pressed_active_feature_key(#KEYBINDING.toggle_debug, "debug-toggle")
 {
     if scr_debug_ch1()
     {

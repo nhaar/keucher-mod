@@ -1,5 +1,4 @@
-/// IGNORE
-/// PATCH
+/// PATCH .ignore
 
 /// AFTER
 global.charturn = 0

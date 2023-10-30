@@ -1,37 +1,26 @@
-#load "AssemblyFix.csx"
-#load "SpriteImports.csx"
 #load "ump\ump.csx"
+#load "Enums.csx"
 
 using System.Linq;
 using System.Drawing;
 
+// paths
 string mainDir = Path.GetDirectoryName(FilePath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
-DupeChapter1Patches();
+Main();
 
-// updating sprites
+void Main ()
+{
+    CreateNoClipSprite();
 
-// sprite for kris' room in both chapters
-ReplacePageItemTexture("PageItem 74", "kris_room.png");
-ReplacePageItemTexture("PageItem 3158", "kris_room.png");
+    LoadCodeFiles("mod/");
 
-// sprite for kris' room at night in both chapters
-ReplacePageItemTexture("PageItem 75", "dark_kris_room.png");
-ReplacePageItemTexture("PageItem 3159", "dark_kris_room.png");
+    DupeChapter1Patches();
 
-
-// setting up the battle room for chapter 1
-var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");
-battleroomCh1.Width = 640;
-battleroomCh1.Height = 480;
-// changes the color from the unbearable pink to black
-battleroomCh1.Layers[1].BackgroundData.Color = 0xFF000000;
-AddObjectToRoom(battleroomCh1, "obj_mainchara_ch1", 280, 320);
-AddObjectToRoom(battleroomCh1, "obj_darkcontroller_ch1", 0, 0);
-AddObjectToRoom(battleroomCh1, "obj_chaseenemy_ch1", 480, 320);
-AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
+    SetupChapterOneBattleRoom();
+}
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
 {
@@ -54,16 +43,83 @@ void ReplacePageItemTexture (string itemName, string textureName)
 
 void DupeChapter1Patches ()
 {
-    foreach (string file in UMP_MOD_FILES)
+    string[] files = Directory.GetFiles(modDir, "*_DUPE*", SearchOption.AllDirectories);
+    foreach (string file in files)
     {
-        if (file.Contains("_DUPE"))
-        {
-            string code = File.ReadAllText(file);
-            string entryName = Path.GetFileNameWithoutExtension(file);
-            string ch1Entry = entryName.Replace("_DUPE", "_ch1");
-            string ch2Entry = entryName.Replace("_DUPE", "");
-            UMPImportGML(ch1Entry, code);
-            UMPImportGML(ch2Entry, code);
-        }
+        string code = File.ReadAllText(file);
+        string entryName = Path.GetFileNameWithoutExtension(file);
+        string ch1Entry = entryName.Replace("_DUPE", "_ch1");
+        string ch2Entry = entryName.Replace("_DUPE", "");
+        LoadCodeString(ch1Entry, code);
+        LoadCodeString(ch2Entry, code);
     }
+}
+
+void CreateNoClipSprite ()
+{
+    // creating sprite with empty collision for its mask_index
+    var emptySprite = new UndertaleSprite();
+    emptySprite.Name = Data.Strings.MakeString("spr_i_am_the_joker");
+    Data.Sprites.Add(emptySprite);
+}
+
+void UpdateKrisRoom ()
+{
+    // sprite for kris' room in both chapters
+    ReplacePageItemTexture("PageItem 74", "kris_room.png");
+    ReplacePageItemTexture("PageItem 3158", "kris_room.png");
+
+    // sprite for kris' room at night in both chapters
+    ReplacePageItemTexture("PageItem 75", "dark_kris_room.png");
+    ReplacePageItemTexture("PageItem 3159", "dark_kris_room.png");
+}
+
+void SetupChapterOneBattleRoom ()
+{
+    // setting up the battle room for chapter 1
+    var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");
+    battleroomCh1.Width = 640;
+    battleroomCh1.Height = 480;
+    // changes the color from the unbearable pink to black
+    battleroomCh1.Layers[1].BackgroundData.Color = 0xFF000000;
+    AddObjectToRoom(battleroomCh1, "obj_mainchara_ch1", 280, 320);
+    AddObjectToRoom(battleroomCh1, "obj_darkcontroller_ch1", 0, 0);
+    AddObjectToRoom(battleroomCh1, "obj_chaseenemy_ch1", 480, 320);
+    AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
+}
+
+void LoadCodeFiles (string codePath)
+{
+    LoadCode(codePath: codePath);
+}
+
+void LoadCodeString (string codeName, string code)
+{
+    LoadCode(codeName: codeName, code: code);
+}
+
+void LoadCode (string codePath = null, string codeName = null, string code = null)
+{
+    UMPLoad
+    (
+        modPath: codePath,
+        codeNameWithExtension: codeName,
+        codeString: code,
+        enums: new Type[]
+        {
+            typeof(FeatureState),
+            typeof(Keybinding),
+            typeof(OptionState),
+            typeof(DefaultOption),
+            typeof(ButtonState),
+        },
+        convertCase: true,
+        enumNameCase: UMPCaseConverter.NameCase.ScreamingSnakeCase,
+        enumMemberCase: UMPCaseConverter.NameCase.SnakeCase,
+        objectPrefixes: new string[]
+        {
+            "obj_",
+            "o_"
+        }
+    );
 }

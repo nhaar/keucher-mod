@@ -1,3 +1,5 @@
+/// IMPORT
+
 if global.ambyu_practice
 {
     xx = __view_get(13 << 0, 0) - 5

@@ -1,3 +1,5 @@
+/// IMPORT
+
 // keeps track of the total number of different turns the current boss has
 maxturn = 69
 

@@ -1,10 +1,10 @@
-/// USE ENUM BUTTON_STATE, OPTION_STATE
+/// IMPORT
 
 button_amount = 0
-button_state[100] = BUTTON_STATE.none
+button_state[100] = #BUTTON_STATE.none
 button_text[100] = 0
 
-options_state = OPTION_STATE.default
+options_state = #OPTION_STATE.default
 
 scroll_ypos = 0
 scroll_dragging = false

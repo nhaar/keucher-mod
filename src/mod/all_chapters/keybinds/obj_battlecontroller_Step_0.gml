@@ -1,5 +1,4 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 // removing originally debug only keybindings
 /// REPLACE
@@ -25,9 +24,9 @@
 /// END
 
 /// APPEND
-if pressed_active_feature_key(KEYBINDING.heal, "party-heal")
+if pressed_active_feature_key(#KEYBINDING.heal, "party-heal")
     scr_debug_fullheal()
-if pressed_active_feature_key(KEYBINDING.instant_win, "win-battle")
+if pressed_active_feature_key(#KEYBINDING.instant_win, "win-battle")
 {
     if (global.chapter == 2 && instance_exists(o_boxingqueen))
     {

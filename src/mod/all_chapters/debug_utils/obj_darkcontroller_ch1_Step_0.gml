@@ -1,5 +1,4 @@
 /// PATCH
-/// USE ENUM KEYBINDING
 
 /// REPLACE
 if scr_debug_ch1()
@@ -13,13 +12,13 @@ if scr_debug_ch1()
 }
 /// CODE
 // change ch1 L and R keybinds
-if pressed_active_feature_key(KEYBINDING.save, "save-file")
+if pressed_active_feature_key(#KEYBINDING.save, "save-file")
     instance_create_ch1(0, 0, obj_savemenu_ch1)
-if pressed_active_feature_key(KEYBINDING.load, "save-load")
+if pressed_active_feature_key(#KEYBINDING.load, "save-load")
     scr_load_ch1()
-if (pressed_active_feature_key(KEYBINDING.reload, "restart") && keyboard_check(vk_backspace))
+if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && keyboard_check(vk_backspace))
     game_restart_true()
-if (pressed_active_feature_key(KEYBINDING.reload, "restart") && !keyboard_check(vk_backspace))
+if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && !keyboard_check(vk_backspace))
 {
     snd_free_all_ch1()
     room_restart()
@@ -27,7 +26,7 @@ if (pressed_active_feature_key(KEYBINDING.reload, "restart") && !keyboard_check(
 }
 
 // changing party in Ch1
-if pressed_active_feature_key(KEYBINDING.change_party, "change-party")
+if pressed_active_feature_key(#KEYBINDING.change_party, "change-party")
 {
     partystate++
     if (partystate == 5)
@@ -71,13 +70,13 @@ if pressed_active_feature_key(KEYBINDING.change_party, "change-party")
 }
 
 // adding INS and DEl warps in Ch1
-if pressed_active_feature_key(KEYBINDING.next_room, "room-warp")
+if pressed_active_feature_key(#KEYBINDING.next_room, "room-warp")
     room_goto_next()
-if pressed_active_feature_key(KEYBINDING.previous_room, "room-warp")
+if pressed_active_feature_key(#KEYBINDING.previous_room, "room-warp")
     room_goto_previous()
 
 // toggle visible in Ch1
-if pressed_active_feature_key(KEYBINDING.make_visible, "visible")
+if pressed_active_feature_key(#KEYBINDING.make_visible, "visible")
 {
     global.interact = 0
     with (obj_mainchara_ch1)
@@ -85,7 +84,7 @@ if pressed_active_feature_key(KEYBINDING.make_visible, "visible")
 }
 
 // get items in Ch1
-if pressed_active_feature_key(KEYBINDING.get_item, "get-item")
+if pressed_active_feature_key(#KEYBINDING.get_item, "get-item")
 {
     if (global.flag[48] == 0)
     {
@@ -178,7 +177,7 @@ if pressed_active_feature_key(KEYBINDING.get_item, "get-item")
 }
 
 // show hitboxes in Ch1
-if pressed_active_feature_key(KEYBINDING.toggle_hitboxes, "boundary-box")
+if pressed_active_feature_key(#KEYBINDING.toggle_hitboxes, "boundary-box")
 {
     global.bboxVisible++
     if (global.bboxVisible == 3)
@@ -318,7 +317,7 @@ if pressed_active_feature_key(KEYBINDING.toggle_hitboxes, "boundary-box")
 }
 
 // toggle noclip in Ch1
-if pressed_active_feature_key(KEYBINDING.no_clip, "toggle-noclip")
+if pressed_active_feature_key(#KEYBINDING.no_clip, "toggle-noclip")
 {
     if (obj_mainchara_ch1.mask_index != spr_i_am_the_joker)
     {

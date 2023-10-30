@@ -1,7 +1,5 @@
-/// PATCH
+/// IMPORT
 
-
-/// APPEND
 if (is_feature_active("doorwarp-square"))
 {
     // this is when door overflow is ready to be done
@@ -12,4 +10,3 @@ if (is_feature_active("doorwarp-square"))
         
     draw_rectangle(0, 0, 30, 30, false)
 }
-/// END

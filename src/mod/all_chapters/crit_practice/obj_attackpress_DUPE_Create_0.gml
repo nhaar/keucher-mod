@@ -1,5 +1,4 @@
-/// IGNORE
-/// PATCH
+/// PATCH .ignore
 
 /// AFTER
             lastbolt = choose(diff, (diff * 1.5))

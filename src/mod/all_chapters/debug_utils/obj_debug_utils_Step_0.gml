@@ -1,7 +1,7 @@
-/// USE ENUM KEYBINDING
+/// IMPORT
 
 // debug toggle
-if (global.chapter == 2 && pressed_active_feature_key(KEYBINDING.toggle_debug, "debug-toggle"))
+if (global.chapter == 2 && pressed_active_feature_key(#KEYBINDING.toggle_debug, "debug-toggle"))
 {
     if global.debug
     {
@@ -18,7 +18,7 @@ if (global.chapter == 2 && pressed_active_feature_key(KEYBINDING.toggle_debug, "
 }
 
 // room warper
-if pressed_active_feature_key(KEYBINDING.warp_room, "choose-room")
+if pressed_active_feature_key(#KEYBINDING.warp_room, "choose-room")
 {
     var warp = get_integer("Enter the ID of the room to warp to.", "")
     global.interact = 0
@@ -30,7 +30,7 @@ if pressed_active_feature_key(KEYBINDING.warp_room, "choose-room")
 }
 
 // warp to battletest room
-if (keyboard_check(ord("2")) && detected_active_feature_key(KEYBINDING.plot_warp, "plotwarp"))
+if (keyboard_check(ord("2")) && detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
 {
     // free movement and set darkworld
     // TO-DO: I've seen this sort of pattern before. Group in function?
@@ -50,7 +50,7 @@ if (keyboard_check(ord("2")) && detected_active_feature_key(KEYBINDING.plot_warp
 }
 
 // clear all sounds
-if pressed_active_feature_key(KEYBINDING.stop_sounds, "stop-sounds")
+if pressed_active_feature_key(#KEYBINDING.stop_sounds, "stop-sounds")
 {
     if (global.chapter == 1)
         snd_free_all_ch1()
@@ -59,7 +59,7 @@ if pressed_active_feature_key(KEYBINDING.stop_sounds, "stop-sounds")
 }
 
 // reset tempflags
-if pressed_active_feature_key(KEYBINDING.reset_tempflags, "reset-flags")
+if pressed_active_feature_key(#KEYBINDING.reset_tempflags, "reset-flags")
 {
     for (i = 0; i < 100; i += 1)
         global.tempflag[i] = 0

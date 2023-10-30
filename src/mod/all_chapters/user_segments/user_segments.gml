@@ -1,5 +1,4 @@
 /// FUNCTIONS
-/// USE ENUM OPTION_STATE
 
 function get_mod_room_name(room_id)
 {
@@ -115,7 +114,7 @@ function get_split_create_options()
         }
     }
 
-    obj_mod_options.options_state = OPTION_STATE.split_creator
+    obj_mod_options.options_state = #OPTION_STATE.split_creator
 
     
 }
@@ -127,7 +126,7 @@ function get_split_pick_options()
     {
         button_text[i] = get_name_from_instruction(global.ALL_INSTRUCTIONS[i])
     }
-    options_state = OPTION_STATE.split_pick
+    options_state = #OPTION_STATE.split_pick
 }
 
 function init_user_ils()

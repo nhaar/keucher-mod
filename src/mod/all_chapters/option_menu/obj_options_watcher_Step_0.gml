@@ -1,3 +1,5 @@
+/// IMPORT
+
 // mod options!
 if (mouse_check_button_pressed(mb_right) && !i_ex(obj_debug_xy))
 {

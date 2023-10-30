@@ -1,3 +1,5 @@
+/// IMPORT
+
 // the streak of total successful full team attacks
 global.streak = 0
 

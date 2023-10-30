@@ -1,6 +1,4 @@
-/// IGNORE
-/// PATCH
-/// USE ENUM KEYBINDING
+/// PATCH .ignore
 
 /// REPLACE
     if keyboard_check_pressed(ord("À"))
@@ -14,7 +12,7 @@
 /// END
 
 /// APPEND
-if (keyboard_check_pressed(get_bound_key(KEYBINDING.speed)))
+if (keyboard_check_pressed(get_bound_key(#KEYBINDING.speed)))
 {
     if (room_speed == 30)
     {

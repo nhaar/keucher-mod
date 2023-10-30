@@ -1,11 +1,11 @@
-/// USE ENUM KEYBINDING
+/// IMPORT
 
 // 0 is just the initial value, this might get called before it gets initialized
 if (boss_obj != 0 && !i_ex(boss_obj))
-    instance_destroy()
+    instance_destroy();
 
 // toggle practice mode
-if pressed_active_feature_key(KEYBINDING.toggle_boss, "boss-practice")
+if pressed_active_feature_key(#KEYBINDING.toggle_boss, "boss-practice")
 {
     if (global.bossPractice == 0)
     {
@@ -34,13 +34,13 @@ if pressed_active_feature_key(KEYBINDING.toggle_boss, "boss-practice")
 if (global.bossPractice == 1)
 {
     // changing the boss turn
-    if keyboard_check_pressed(get_bound_key(KEYBINDING.next_boss_attack))
+    if keyboard_check_pressed(get_bound_key(#KEYBINDING.next_boss_attack))
     {
         if (global.bossTurn < maxturn)
             global.bossTurn++
         turntext = 2
     }
-    else if keyboard_check_pressed(get_bound_key(KEYBINDING.previous_boss_attack))
+    else if keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_boss_attack))
     {
         if (global.bossTurn != 0)
             global.bossTurn--

@@ -1,7 +1,8 @@
+/// IMPORT
+
 if (!is_feature_active("timer"))
     return;
 
-/// USE ENUM KEYBINDING
 
 var current_frame_time = get_timer()
 
@@ -102,22 +103,22 @@ else if (igt_mode == 3 && current_split >= 0)
 
 
 // custom room timer
-if keyboard_check_pressed(get_bound_key(KEYBINDING.igt_room))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.igt_room))
 {
     segment_start_room = get_integer("What room number would you like the timer to start in?", room)
     attempt_count = 0
 }
 
 // hide timer
-if keyboard_check_pressed(get_bound_key(KEYBINDING.toggle_timer))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.toggle_timer))
 {
     hide_timer = hide_timer ? false : true
 }
 
 // reset timer
-if keyboard_check_pressed(get_bound_key(KEYBINDING.reset_timer))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.reset_timer))
     set_igt_splits_info(0)
-if (detected_active_feature_key(KEYBINDING.plot_warp, "plotwarp"))
+if (detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
 {
     var plot_warp_number = 10
     var first_plot_warp = 3
