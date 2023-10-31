@@ -10,3 +10,27 @@ function create_array()
     }
     return new_array;
 }
+
+/*
+Keep a value in a range wrapping around the bounds
+
+value (Real): The value to wrap
+lower_bound (Real): The lower bound of the range
+upper_bound (Real): The upper bound of the range
+returns (Real): The wrapped value
+*/
+function wrap_around(value, lower_bound, upper_bound)
+{
+    if (value < lower_bound)
+    {
+        return upper_bound
+    }
+    else if (value > upper_bound)
+    {
+        return lower_bound
+    }
+    else
+    {
+        return value
+    }
+}

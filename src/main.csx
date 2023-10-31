@@ -17,6 +17,8 @@ void Main ()
 
     LoadCodeFiles("mod/");
 
+    InitiateBossPractice();
+
     DupeChapter1Patches();
 
     SetupChapterOneBattleRoom();
@@ -90,9 +92,9 @@ void SetupChapterOneBattleRoom ()
     AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
 }
 
-void LoadCodeFiles (string codePath, bool useIgnore = true)
+Dictionary<string, string> LoadCodeFiles (string codePath, bool useIgnore = true)
 {
-    LoadCode(codePath: codePath, useIgnore: useIgnore);
+    return LoadCode(codePath: codePath, useIgnore: useIgnore);
 }
 
 void LoadCodeString (string codeName, string code, bool useIgnore = false)
@@ -100,9 +102,9 @@ void LoadCodeString (string codeName, string code, bool useIgnore = false)
     LoadCode(codeName: codeName, code: code, useIgnore: useIgnore);
 }
 
-void LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true)
+Dictionary<string, string> LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true)
 {
-    UMPLoad
+    return UMPLoad
     (
         modPath: codePath,
         codeNameWithExtension: codeName,
@@ -125,4 +127,19 @@ void LoadCode (string codePath = null, string codeName = null, string code = nul
         },
         useIgnore: useIgnore
     );
+}
+
+void InitiateBossPractice ()
+{
+    string code = GetCode("boss_init.gml");
+    string[] objects = new[] { "king_boss_ch1", "joker_ch1", "queen_enemy", "spamton_neo_enemy" };
+    foreach (string obj in objects)
+    {
+        LoadCodeString($"obj_{obj}_Create_0.gml", code);
+    }
+}
+
+string GetCode (string fileName)
+{
+    return File.ReadAllText(Directory.GetFiles(modDir, "*" + fileName, SearchOption.AllDirectories)[0]);
 }
