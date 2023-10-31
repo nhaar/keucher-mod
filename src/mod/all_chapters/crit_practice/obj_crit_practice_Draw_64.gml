@@ -1,9 +1,10 @@
 /// IMPORT
 
+// drawing crit stats
 if global.ambyu_practice
 {
-    xx = __view_get(13 << 0, 0) - 5
-    yy = __view_get(14 << 0, 0) - 28
+    xx = view_wport - 5
+    yy = view_hport - 28
     draw_set_font(fnt_main)
     draw_set_color(c_yellow)
     if global.random_pattern

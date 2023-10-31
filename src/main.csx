@@ -19,6 +19,8 @@ void Main ()
 
     InitiateBossPractice();
 
+    InitiateCritPractice();
+
     DupeChapter1Patches();
 
     SetupChapterOneBattleRoom();
@@ -130,14 +132,22 @@ Dictionary<string, string> LoadCode (string codePath = null, string codeName = n
     );
 }
 
-void InitiateBossPractice ()
+void AddToObjectsCreate (string[] objects, string file)
 {
-    string code = GetCode("boss_init.gml");
-    string[] objects = new[] { "king_boss_ch1", "joker_ch1", "queen_enemy", "spamton_neo_enemy" };
     foreach (string obj in objects)
     {
-        LoadCodeString($"obj_{obj}_Create_0.gml", code);
+        LoadCodeString($"obj_{obj}_Create_0.gml", GetCode(file));
     }
+}
+
+void InitiateBossPractice ()
+{
+    AddToObjectsCreate(new[] { "king_boss_ch1", "joker_ch1", "queen_enemy", "spamton_neo_enemy" }, "boss_init.gml");
+}
+
+void InitiateCritPractice ()
+{
+    AddToObjectsCreate(new[] { "omawaroid_enemy", "placeholderenemy_ch1" }, "crit_practice_init.gml");
 }
 
 string GetCode (string fileName)

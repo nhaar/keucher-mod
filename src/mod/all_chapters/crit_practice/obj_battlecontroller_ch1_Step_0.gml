@@ -3,6 +3,7 @@
 /// APPEND
 // this is a workaround solution to make the same thing done in ch2
 // work in ch1. possibly refactor?
+// copied from ch2 vanilla code with adaptations
 if (global.myfight == 5)
 {
     myfightreturntimer--

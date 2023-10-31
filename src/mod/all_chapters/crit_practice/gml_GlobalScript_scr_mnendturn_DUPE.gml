@@ -1,5 +1,6 @@
 /// PATCH .ignore
 
+// update at the end of turns
 /// AFTER
 global.charturn = 0
 /// CODE

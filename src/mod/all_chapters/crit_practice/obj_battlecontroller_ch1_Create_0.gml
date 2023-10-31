@@ -1,8 +1,8 @@
 /// PATCH
 
+// init needed since variable doesnt exist normally in ch1
 /// AFTER
 global.myfight = 0
 /// CODE
-// init
 myfightreturntimer = 1
 /// END

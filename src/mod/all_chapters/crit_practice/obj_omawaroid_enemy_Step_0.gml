@@ -1,5 +1,6 @@
 /// PATCH
 
+// skipping turns
 /// REPLACE
     {
         scr_randomtarget()
@@ -53,8 +54,10 @@
     }
 /// CODE
     {
-        if (global.ambyu_practice == 1)
+        if (global.ambyu_practice)
+        {
             global.myfight = 5
+        }
         else
         {
             scr_randomtarget()

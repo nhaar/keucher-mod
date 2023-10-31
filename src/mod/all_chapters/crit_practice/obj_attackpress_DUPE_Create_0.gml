@@ -1,5 +1,6 @@
 /// PATCH .ignore
 
+// rigging attacks
 /// AFTER
             lastbolt = choose(diff, (diff * 1.5))
     }
