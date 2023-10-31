@@ -1,8 +1,0 @@
-{
-    "mod-path": "mod/",
-    "object-prefixes": ["obj_", "o_"],
-    "enum-file": "enums.csx",
-    "case-converter": true,
-    "enum-name-case": "screaming-snake-case",
-    "enum-member-case": "snake-case"
-}
