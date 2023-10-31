@@ -77,3 +77,22 @@ enum ButtonState
     Press,
     Highlight
 }
+
+/// <summary>
+/// The state of the boundary box visibility
+/// </summary>
+enum BoundaryBoxState
+{
+    /// <summary>
+    /// No boundary boxes are visible
+    /// </summary>
+    None,
+    /// <summary>
+    /// Only the boundary boxes of the doors are visible
+    /// </summary>
+    Doors,
+    /// <summary>
+    /// All boundary boxes are visible
+    /// </summary>
+    DoorsAndWalls
+}

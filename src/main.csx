@@ -116,6 +116,7 @@ Dictionary<string, string> LoadCode (string codePath = null, string codeName = n
             typeof(OptionState),
             typeof(DefaultOption),
             typeof(ButtonState),
+            typeof(BoundaryBoxState)
         },
         convertCase: true,
         enumNameCase: UMPCaseConverter.NameCase.ScreamingSnakeCase,
