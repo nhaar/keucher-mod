@@ -1,5 +1,6 @@
 /// PATCH
 
+// lightworld vanilla keybinds for ch1
 /// REPLACE
 if scr_debug_ch1()
 {

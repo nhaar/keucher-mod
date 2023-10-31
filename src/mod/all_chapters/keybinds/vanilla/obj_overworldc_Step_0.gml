@@ -1,5 +1,6 @@
 /// PATCH
 
+// lightworld replacements for ch2
 /// REPLACE
 if scr_debug()
 {
