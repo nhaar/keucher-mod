@@ -5,7 +5,7 @@ using System.Linq;
 using System.Drawing;
 
 // paths
-string mainDir = Path.GetDirectoryName(FilePath);
+string mainDir = Path.GetDirectoryName(ScriptPath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
