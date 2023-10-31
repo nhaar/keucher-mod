@@ -34,24 +34,10 @@ function draw_boundary_boxes()
 {
     if (global.bboxVisible > 0)
     {
-        var mainchara
-        var chaseenemy
-        var interactable_object
-        var solid_block
-        if (global.chapter == 1)
-        {
-            mainchara = obj_mainchara_ch1
-            chaseenemy = obj_chaseenemy_ch1
-            interactable_object = obj_interactable_ch1
-            solid_block = obj_solidblock_ch1
-        }
-        else
-        {
-            solid_block = obj_solidblock
-            mainchara = obj_mainchara
-            chaseenemy = obj_chaseenemy
-            interactable_object = obj_interactable
-        }
+        var mainchara = get_object_implicit_chapter("obj_mainchara")
+        var chaseenemy = get_object_implicit_chapter("obj_chaseenemy")
+        var interactable_object = get_object_implicit_chapter("obj_interactable")
+        var solid_block = get_object_implicit_chapter("obj_solidblock")
         if i_ex(mainchara)
         {
             if (global.chapter == 2 && mainchara.roomenterfreezeend == 0)
@@ -98,24 +84,24 @@ function draw_boundary_boxes()
                 for (var i = 0; i < block_number; i++)
                 {
                     sblock = instance_find(solid_block, i)
-                    var do_draw = false;
-                    if (global.chapter == 1)
+                    var forbidden_objects = create_array
+                    (
+                        get_object_implicit_chapter("obj_sur_dark"),
+                        get_object_implicit_chapter("obj_sur"),
+                        get_object_implicit_chapter("obj_sul"),
+                        get_object_implicit_chapter("obj_sdr"),
+                        get_object_implicit_chapter("obj_sdl_dark"),
+                        get_object_implicit_chapter("obj_sdl")
+                    )
+                    var do_draw = false
+                    var forbidden_length = array_length(forbidden_objects)
+                    for (var i = 0; i < forbidden_length; i++)
                     {
-                        do_draw = sblock.object_index != obj_sur_dark_ch1 &&
-                            sblock.object_index != obj_sur_ch1 &&
-                            sblock.object_index != obj_sul_ch1 &&
-                            sblock.object_index != obj_sdr_ch1 &&
-                            sblock.object_index != obj_sdl_dark_ch1 &&
-                            sblock.object_index != obj_sdl_ch1
-                    }
-                    else
-                    {
-                        do_draw = sblock.object_index != obj_sur_dark &&
-                            sblock.object_index != obj_sur &&
-                            sblock.object_index != obj_sul &&
-                            sblock.object_index != obj_sdr &&
-                            sblock.object_index != obj_sdl_dark &&
-                            sblock.object_index != obj_sdl
+                        if (sblock.object_index == forbidden_objects[i])
+                        {
+                            do_draw = false
+                            break
+                        }
                     }
                     if do_draw
                     {

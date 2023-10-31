@@ -1,5 +1,27 @@
 /// FUNCTIONS
 
+function warp_to_battleroom()
+{    
+    if (keyboard_check(ord("2")) && detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
+    {
+        // free movement and set darkworld
+        // TO-DO: I've seen this sort of pattern before. Group in function?
+        global.darkzone = true
+        global.interact = 0
+        if (global.chapter == 1)
+        {
+            // TO-DO: group room_goto and snd_free_all in function
+            snd_free_all_ch1()
+            room_goto(room_battletest_ch1)
+        }
+        else if (global.chapter == 2)
+        {
+            snd_free_all()
+            room_goto(room_battletest)
+        }
+    }
+}
+
 function plotwarp(__warp)
 {
     // give player movement
