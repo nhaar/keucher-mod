@@ -47,11 +47,13 @@ void DupeChapter1Patches ()
     foreach (string file in files)
     {
         string code = File.ReadAllText(file);
-        string entryName = Path.GetFileNameWithoutExtension(file);
-        string ch1Entry = entryName.Replace("_DUPE", "_ch1");
-        string ch2Entry = entryName.Replace("_DUPE", "");
-        LoadCodeString(ch1Entry, code);
-        LoadCodeString(ch2Entry, code);
+        string entryName = Path.GetFileName(file);
+        string[] sufixes = new[] { "_ch1", "" };
+        foreach (string sufix in sufixes)
+        {
+            string entry = entryName.Replace("_DUPE", sufix);
+            LoadCodeString(entry, code);
+        }
     }
 }
 
@@ -88,17 +90,17 @@ void SetupChapterOneBattleRoom ()
     AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
 }
 
-void LoadCodeFiles (string codePath)
+void LoadCodeFiles (string codePath, bool useIgnore = true)
 {
-    LoadCode(codePath: codePath);
+    LoadCode(codePath: codePath, useIgnore: useIgnore);
 }
 
-void LoadCodeString (string codeName, string code)
+void LoadCodeString (string codeName, string code, bool useIgnore = false)
 {
-    LoadCode(codeName: codeName, code: code);
+    LoadCode(codeName: codeName, code: code, useIgnore: useIgnore);
 }
 
-void LoadCode (string codePath = null, string codeName = null, string code = null)
+void LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true)
 {
     UMPLoad
     (
@@ -120,6 +122,7 @@ void LoadCode (string codePath = null, string codeName = null, string code = nul
         {
             "obj_",
             "o_"
-        }
+        },
+        useIgnore: useIgnore
     );
 }
