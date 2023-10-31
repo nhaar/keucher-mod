@@ -143,7 +143,7 @@ function plotwarp(__warp)
                 room_goto(room_cc_kingbattle_ch1)
                 break
             default:
-                scr_debug_print("bro wtf did you do (plotwarp failed)")
+                show_temp_message("bro wtf did you do (plotwarp failed)")
         }
     }
     if (global.chapter == 2)
@@ -308,7 +308,7 @@ function plotwarp(__warp)
                 room_goto(room_dw_mansion_acid_tunnel_exit)
                 break
             default:
-                scr_debug_print("bro wtf did you do (plotwarp failed)")
+                show_temp_message("bro wtf did you do (plotwarp failed)")
         }
     }
 }

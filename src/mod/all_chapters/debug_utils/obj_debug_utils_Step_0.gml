@@ -63,8 +63,7 @@ if pressed_active_feature_key(#KEYBINDING.reset_tempflags, "reset-flags")
 {
     for (i = 0; i < 100; i += 1)
         global.tempflag[i] = 0
-    scr_debug_print("tempflags reset (if you're in a room with a cutscene")
-    scr_debug_print("that uses a tempflag, reload the room for it to work)")
+    show_temp_message("tempflags reset (if you're in a room with a cutscene\nthat uses a tempflag, reload the room for it to work)")
 }
 
 // to signal when door overflow can be done

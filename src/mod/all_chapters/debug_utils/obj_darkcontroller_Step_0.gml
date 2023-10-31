@@ -150,29 +150,29 @@ if pressed_active_feature_key(#KEYBINDING.change_party, "change-party")
             scr_getchar(3)
             scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 16), 2, 0)
             scr_makecaterpillar(obj_mainchara.x, (obj_mainchara.y - 12), 3, 1)
-            scr_debug_print("party: kris + susie + ralsei")
+            show_temp_message("party: kris + susie + ralsei")
             break
         case 1:
-            scr_debug_print("party: kris only")
+            show_temp_message("party: kris only")
             break
         case 2:
             scr_getchar(3)
             scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 12, 3, 0)
-            scr_debug_print("party: kris + ralsei")
+            show_temp_message("party: kris + ralsei")
             break
         case 3:
             scr_getchar(2)
             scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 16, 2, 0)
-            scr_debug_print("party: kris + susie")
+            show_temp_message("party: kris + susie")
             break
         case 4:
             scr_getchar(4)
             scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 18, 4, 0)
-            scr_debug_print("party: kris + noelle")
+            show_temp_message("party: kris + noelle")
             break
         case 5:
             scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - 6, 5, 0)
-            scr_debug_print("party: krerdly canon")
+            show_temp_message("party: krerdly canon")
             break
         case 6:
             if (pp1 < 5)
@@ -202,7 +202,7 @@ if pressed_active_feature_key(#KEYBINDING.change_party, "change-party")
                 ppp1 = ("+ " + string(p1))
             if (p2 != "" && skip2 == 0)
                 ppp2 = (" + " + string(p2))
-            scr_debug_print("party: kris " + string(ppp1) + string(ppp2))
+            show_temp_message("party: kris " + string(ppp1) + string(ppp2))
             break
         default:
             break
@@ -243,7 +243,7 @@ if pressed_active_feature_key(#KEYBINDING.get_item, "get-item")
         scr_weaponget(21)
         scr_weaponget(22)
         global.flag[48] = 1
-        scr_debug_print("items given")
+        show_temp_message("items given")
     }
     else
     {
@@ -329,13 +329,13 @@ if pressed_active_feature_key(#KEYBINDING.no_clip, "toggle-noclip")
     {
         with (obj_mainchara)
             mask_index = spr_i_am_the_joker
-        scr_debug_print("noclip enabled")
+        show_temp_message("noclip enabled")
     }
     else
     {
         with (obj_mainchara)
             mask_index = -1
-        scr_debug_print("noclip disabled")
+        show_temp_message("noclip disabled")
     }
 }
 
@@ -345,12 +345,12 @@ if pressed_active_feature_key(#KEYBINDING.side_action, "side-action")
     if (global.flag[34] == 0)
     {
         global.flag[34] = 1
-        scr_debug_print("S/R/N-Action disabled")
+        show_temp_message("S/R/N-Action disabled")
     }
     else if (global.flag[34] == 1)
     {
         global.flag[34] = 0
-        scr_debug_print("S/R/N-Action enabled")
+        show_temp_message("S/R/N-Action enabled")
     }
 }
 
@@ -362,37 +362,37 @@ if detected_active_feature_key(#KEYBINDING.snowgrave_plot, "snowgrave-plot")
     {
         global.flag[915] = 0
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = default state (before city)")
+        show_temp_message("snowgrave plot = default state (before city)")
     }
     else if keyboard_check_pressed(ord("2"))
     {
         global.flag[915] = 2
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = ready for freeze ring")
+        show_temp_message("snowgrave plot = ready for freeze ring")
     }
     else if keyboard_check_pressed(ord("3"))
     {
         global.flag[915] = 4
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = after forcefield")
+        show_temp_message("snowgrave plot = after forcefield")
     }
     else if keyboard_check_pressed(ord("4"))
     {
         global.flag[915] = 6
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = berdly frozen")
+        show_temp_message("snowgrave plot = berdly frozen")
     }
     else if keyboard_check_pressed(ord("5"))
     {
         global.flag[915] = 8
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = after rouxls statue scene")
+        show_temp_message("snowgrave plot = after rouxls statue scene")
     }
     else if keyboard_check_pressed(ord("6"))
     {
         global.flag[915] = 9
         global.flag[916] = 0
-        scr_debug_print("snowgrave plot = before NEO")
+        show_temp_message("snowgrave plot = before NEO")
     }
 }
 /// END

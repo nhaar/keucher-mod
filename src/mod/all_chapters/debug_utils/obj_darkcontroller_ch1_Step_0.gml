@@ -41,27 +41,27 @@ if pressed_active_feature_key(#KEYBINDING.change_party, "change-party")
             scr_getchar_ch1(3)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 16), 2, 0)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 12), 3, 1)
-            scr_debug_print("party: kris + susie + ralsei")
+            show_temp_message("party: kris + susie + ralsei")
             break
         case 1:
             scr_getchar_ch1(3)
             scr_getchar_ch1(2)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 12), 3, 0)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 16), 2, 1)
-            scr_debug_print("party: kris + ralsei + susie")
+            show_temp_message("party: kris + ralsei + susie")
             break
         case 2:
-            scr_debug_print("party: kris only")
+            show_temp_message("party: kris only")
             break
         case 3:
             scr_getchar_ch1(3)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 12), 3, 0)
-            scr_debug_print("party: kris + ralsei")
+            show_temp_message("party: kris + ralsei")
             break
         case 4:
             scr_getchar_ch1(2)
             scr_makecaterpillar_ch1(obj_mainchara_ch1.x, (obj_mainchara_ch1.y - 16), 2, 0)
-            scr_debug_print("party: kris + susie")
+            show_temp_message("party: kris + susie")
             break
         default:
             break
@@ -97,7 +97,7 @@ if pressed_active_feature_key(#KEYBINDING.get_item, "get-item")
         scr_weaponget_ch1(7)
         scr_weaponget_ch1(9)
         global.flag[48] = 1
-        scr_debug_print("items given")
+        show_temp_message("items given")
     }
     else
     {
@@ -183,13 +183,13 @@ if pressed_active_feature_key(#KEYBINDING.no_clip, "toggle-noclip")
     {
         with (obj_mainchara_ch1)
             mask_index = spr_i_am_the_joker
-        scr_debug_print("noclip enabled")
+        show_temp_message("noclip enabled")
     }
     else
     {
         with (obj_mainchara_ch1)
             mask_index = -1
-        scr_debug_print("noclip disabled")
+        show_temp_message("noclip disabled")
     }
 }
 /// END

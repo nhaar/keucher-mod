@@ -12,16 +12,16 @@ function toggle_boundary_boxes()
         {
             update_doors_visibility(false)
             update_walls_visibility(false)
-            scr_debug_print("visible: none")
+            show_temp_message("visible: none")
         }
         else
         {
             update_doors_visibility(true)
-            scr_debug_print("visible: doors")
+            show_temp_message("visible: doors")
             if (global.bboxVisible == #BOUNDARY_BOX_STATE.doors_and_walls)
             {
                 update_walls_visibility(true)
-                scr_debug_print("visible: doors and walls")
+                show_temp_message("visible: doors and walls")
             }
         }
     }
