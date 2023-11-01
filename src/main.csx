@@ -9,21 +9,43 @@ string mainDir = Path.GetDirectoryName(ScriptPath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
-Main();
-
-void Main ()
+void BuildMod (DeltaruneVersion version)
 {
     CreateNoClipSprite();
 
-    LoadCodeFiles("mod/");
+    LoadCodeFiles("mod/", symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
 
-    InitiateBossPractice();
+    InitiateBossPractice(version);
 
-    InitiateCritPractice();
+    InitiateCritPractice(version);
 
-    DupeChapter1Patches();
+    DupeChapter1Patches(version);
 
-    SetupChapterOneBattleRoom();
+    LoadSPCode(version);
+
+    SetupChapterOneBattleRoom(version);
+
+    UpdateKrisRoom(version);
+}
+
+bool GetUseFunctions (DeltaruneVersion version)
+{
+    return version switch
+    {
+        DeltaruneVersion.SurveyProgram => false,
+        DeltaruneVersion.Demo => true,
+        _ => throw new NotImplementedException()
+    };
+}
+
+string[] GetSymbols (DeltaruneVersion version)
+{
+    return version switch
+    {
+        DeltaruneVersion.SurveyProgram => new[] { "SURVEY_PROGRAM" },
+        DeltaruneVersion.Demo => new[] { "DEMO" },
+        _ => throw new NotImplementedException()
+    };
 }
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
@@ -45,18 +67,42 @@ void ReplacePageItemTexture (string itemName, string textureName)
     );
 }
 
-void DupeChapter1Patches ()
+void LoadSPCode (DeltaruneVersion version)
+{
+    string[] files = Directory.GetFiles(modDir, "*_SP*", SearchOption.AllDirectories);
+    foreach (string file in files)
+    {
+        string code = File.ReadAllText(file);
+        string entryName = Path.GetFileName(file);
+        string replacement = version switch 
+        {
+            DeltaruneVersion.SurveyProgram => "",
+            DeltaruneVersion.Demo => "_ch1",
+            _ => throw new NotImplementedException()
+        };
+        entryName = entryName.Replace("_SP", replacement);
+        LoadCodeString(entryName, code, symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
+    }
+}
+
+void DupeChapter1Patches (DeltaruneVersion version)
 {
     string[] files = Directory.GetFiles(modDir, "*_DUPE*", SearchOption.AllDirectories);
     foreach (string file in files)
     {
         string code = File.ReadAllText(file);
         string entryName = Path.GetFileName(file);
-        string[] sufixes = new[] { "_ch1", "" };
+        string[] sufixes = version switch 
+        {
+            DeltaruneVersion.SurveyProgram => new[] { "" },
+            DeltaruneVersion.Demo => new[] { "_ch1", "" },
+            _ => throw new NotImplementedException()
+        }; 
+        
         foreach (string sufix in sufixes)
         {
             string entry = entryName.Replace("_DUPE", sufix);
-            LoadCodeString(entry, code);
+            LoadCodeString(entry, code, symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
         }
     }
 }
@@ -69,42 +115,76 @@ void CreateNoClipSprite ()
     Data.Sprites.Add(emptySprite);
 }
 
-void UpdateKrisRoom ()
+void UpdateKrisRoom (DeltaruneVersion version)
 {
-    // sprite for kris' room in both chapters
-    ReplacePageItemTexture("PageItem 74", "kris_room.png");
-    ReplacePageItemTexture("PageItem 3158", "kris_room.png");
+    // sprite for kris' room in both chapter
+    int[] dayTextures = version switch
+    {
+        DeltaruneVersion.SurveyProgram => new[] { 85 },
+        DeltaruneVersion.Demo => new[] { 74, 3158 },
+        _ => throw new NotImplementedException()
+    };
+    int[] nightTextures = version switch
+    {
+        DeltaruneVersion.SurveyProgram => new[] { 86 },
+        DeltaruneVersion.Demo => new[] { 75, 3159 },
+        _ => throw new NotImplementedException()
+    };
+    foreach (int texture in dayTextures)
+    {
+        ReplacePageItemTexture($"PageItem {texture}", "kris_room.png");
+    }
+    foreach (int texture in nightTextures)
+    {
+        // sprite for kris' room at night in both chapters
+        ReplacePageItemTexture($"PageItem {texture}", "dark_kris_room.png");
+    }
 
-    // sprite for kris' room at night in both chapters
-    ReplacePageItemTexture("PageItem 75", "dark_kris_room.png");
-    ReplacePageItemTexture("PageItem 3159", "dark_kris_room.png");
 }
 
-void SetupChapterOneBattleRoom ()
+void SetupChapterOneBattleRoom (DeltaruneVersion version)
 {
     // setting up the battle room for chapter 1
-    var battleroomCh1 = Data.Rooms.ByName("room_battletest_ch1");
+    var roomName = version switch
+    {
+        DeltaruneVersion.SurveyProgram => "room_battletest",
+        DeltaruneVersion.Demo => "room_battletest_ch1",
+        _ => throw new NotImplementedException()
+    };
+    var battleroomCh1 = Data.Rooms.ByName(roomName);
     battleroomCh1.Width = 640;
     battleroomCh1.Height = 480;
     // changes the color from the unbearable pink to black
     battleroomCh1.Layers[1].BackgroundData.Color = 0xFF000000;
-    AddObjectToRoom(battleroomCh1, "obj_mainchara_ch1", 280, 320);
-    AddObjectToRoom(battleroomCh1, "obj_darkcontroller_ch1", 0, 0);
-    AddObjectToRoom(battleroomCh1, "obj_chaseenemy_ch1", 480, 320);
-    AddObjectToRoom(battleroomCh1, "obj_battletester_ch1", 360, 160);
+    object[] objects = new object[]
+    {
+        "obj_mainchara", 280, 320,
+        "obj_darkcontroller", 0, 0,
+        "obj_chaseenemy", 480, 320,
+        "obj_battletester", 360, 160
+    };
+    for (int i = 0; i < objects.Length; i+= 3)
+    {
+        string objectName = (string)objects[i];
+        if (version == DeltaruneVersion.Demo)
+        {
+            objectName += "_ch1";
+        }
+        AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
+    }
 }
 
-Dictionary<string, string> LoadCodeFiles (string codePath, bool useIgnore = true)
+Dictionary<string, string> LoadCodeFiles (string codePath, bool useIgnore = true, string[] symbols = null, bool useFunctions = true)
 {
-    return LoadCode(codePath: codePath, useIgnore: useIgnore);
+    return LoadCode(codePath: codePath, useIgnore: useIgnore, symbols: symbols, useFunctions: useFunctions);
 }
 
-void LoadCodeString (string codeName, string code, bool useIgnore = false)
+void LoadCodeString (string codeName, string code, bool useIgnore = false, string[] symbols = null, bool useFunctions = true)
 {
-    LoadCode(codeName: codeName, code: code, useIgnore: useIgnore);
+    LoadCode(codeName: codeName, code: code, useIgnore: useIgnore, symbols: symbols, useFunctions: useFunctions);
 }
 
-Dictionary<string, string> LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true)
+Dictionary<string, string> LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true, string[] symbols = null, bool useFunctions = true)
 {
     return UMPLoad
     (
@@ -128,26 +208,42 @@ Dictionary<string, string> LoadCode (string codePath = null, string codeName = n
             "obj_",
             "o_"
         },
-        useIgnore: useIgnore
+        useIgnore: useIgnore,
+        symbols: symbols,
+        useFunctions: useFunctions
     );
 }
 
-void AddToObjectsCreate (string[] objects, string file)
+void AddToObjectsCreate (string[] objects, string file, DeltaruneVersion version)
 {
     foreach (string obj in objects)
     {
-        LoadCodeString($"obj_{obj}_Create_0.gml", GetCode(file));
+        LoadCodeString($"obj_{obj}_Create_0.gml", GetCode(file), symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
     }
 }
 
-void InitiateBossPractice ()
+string[] FilterObjectsFromVersion(DeltaruneVersion version, string[] ch1Objects, string[] ch2Objects)
 {
-    AddToObjectsCreate(new[] { "king_boss_ch1", "joker_ch1", "queen_enemy", "spamton_neo_enemy" }, "boss_init.gml");
+    string[] objects = null;
+    if (version == DeltaruneVersion.Demo)
+    {
+        objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
+    }
+    else if (version == DeltaruneVersion.SurveyProgram)
+    {
+        objects = ch1Objects;
+    }
+    return objects;
 }
 
-void InitiateCritPractice ()
+void InitiateBossPractice (DeltaruneVersion version)
 {
-    AddToObjectsCreate(new[] { "omawaroid_enemy", "placeholderenemy_ch1" }, "crit_practice_init.gml");
+    AddToObjectsCreate(FilterObjectsFromVersion(version, new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }), "boss_init.gml", version);
+}
+
+void InitiateCritPractice (DeltaruneVersion version)
+{
+    AddToObjectsCreate(FilterObjectsFromVersion(version, new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }), "crit_practice_init.gml", version);
 }
 
 string GetCode (string fileName)

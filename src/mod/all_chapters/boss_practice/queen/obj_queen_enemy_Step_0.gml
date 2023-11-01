@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if SURVEY_PROGRAM
 
 // setting queen attacks
 /// PREPEND

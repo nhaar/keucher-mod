@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore
 
 // rigging king attacks
 /// PREPEND
@@ -20,7 +20,12 @@ if (!global.bossPractice)
 
 // resetting stats between turns
 /// AFTER
+#if DEMO
 scr_blconskip_ch1(-1)
+#endif
+#if SURVEY_PROGRAM
+scr_blconskip(-1)
+#endif
 /// CODE
 reset_graze_condition()
 /// END

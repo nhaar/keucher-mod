@@ -96,3 +96,9 @@ enum BoundaryBoxState
     /// </summary>
     DoorsAndWalls
 }
+
+enum DeltaruneVersion
+{
+    SurveyProgram,
+    Demo
+}

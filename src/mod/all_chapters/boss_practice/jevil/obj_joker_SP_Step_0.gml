@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore
 
 // rigging attacks
 /// BEFORE
@@ -14,7 +14,12 @@ if (global.bossPractice == 1)
 
 // resetting between turns
 /// AFTER
+#if DEMO
 scr_blconskip_ch1(15)
+#endif
+#if SURVEY_PROGRAM
+scr_blconskip(15)
+#endif
 /// CODE
 reset_graze_condition()
 /// END

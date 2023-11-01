@@ -25,7 +25,12 @@ function start_boss_practice()
 
     switch (object_index)
     {
+#if DEMO
         case obj_king_boss_ch1:
+#endif
+#if SURVEY_PROGRAM
+        case obj_king_boss:
+#endif
         {
             obj_boss_practice.turn_text[0] = "Spades (Turn 1)"
             obj_boss_practice.turn_text[1] = "Wave Chain (Turn 2)"
@@ -40,7 +45,12 @@ function start_boss_practice()
             obj_boss_practice.turn_text[10] = "Chain Box 2 (Turn 11)"
             break
         }
+#if DEMO
         case obj_joker_ch1:
+#endif
+#if SURVEY_PROGRAM
+        case obj_joker:
+#endif
         {
             obj_boss_practice.turn_text[0] = "OPE! (Turn 1)"
             obj_boss_practice.turn_text[1] = "Spade Circle (Turn 2)"
@@ -60,6 +70,7 @@ function start_boss_practice()
             obj_boss_practice.turn_text[15] = "Ultimate Attack (Turn 16)"   
             break
         }
+#if DEMO
         case obj_spamton_neo_enemy:
         {
             obj_boss_practice.turn_text[0] = "Floating Heads"
@@ -98,6 +109,7 @@ function start_boss_practice()
             obj_boss_practice.turn_text[15] = "Ultimate Attack"
             break
         }
+#endif
     }
 
     obj_boss_practice.maxturn = array_length(obj_boss_practice.turn_text) - 1

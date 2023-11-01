@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if SURVEY_PROGRAM
 
 // rigging turns
 /// PREPEND
