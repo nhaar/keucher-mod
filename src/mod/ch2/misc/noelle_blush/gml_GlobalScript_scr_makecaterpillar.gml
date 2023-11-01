@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // make noelle blush with noelle
 /// REPLACE

@@ -40,14 +40,18 @@ function draw_boundary_boxes()
         var solid_block = get_object_implicit_chapter("obj_solidblock")
         if i_ex(mainchara)
         {
+#if DEMO
             if (global.chapter == 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
             else
             {
+#endif
                 draw_set_color(c_aqua)
+#if DEMO
             }
+#endif
             draw_rectangle_in_instance(mainchara)
             // change color of rectangle on the speed status
             // running
@@ -163,8 +167,10 @@ is_visible (Boolean): the visibility to set
 */
 function update_doors_visibility(is_visible)
 {
-    var doors = global.chapter == 1
-        ? create_array
+    var doors =
+#if DEMO
+    global.chapter == 1 ?
+        create_array
         (
             obj_doorA_ch1,
             obj_doorB_ch1,
@@ -180,8 +186,9 @@ function update_doors_visibility(is_visible)
             obj_doorW_ch1,
             obj_doorX_musfade_ch1,
             obj_doorw_musfade_ch1
-        )
-        : create_array
+        ) :
+#endif
+        create_array
         (
             obj_doorA,
             obj_doorB,
@@ -208,8 +215,10 @@ is_visible (Boolean): the visibility to set
 */
 function update_walls_visibility(is_visible)
 {
-    var walls = global.chapter == 1
-        ? create_array
+    var walls =
+#if DEMO
+    global.chapter == 1 ?
+        create_array
         (
             obj_sur_dark_ch1,
             obj_sur_ch1,
@@ -217,8 +226,9 @@ function update_walls_visibility(is_visible)
             obj_sdr_ch1,
             obj_sdl_dark_ch1,
             obj_sdl_ch1
-        )
-        : create_array
+        ) :
+#endif
+        create_array
         (
             obj_sur_dark,
             obj_sur,

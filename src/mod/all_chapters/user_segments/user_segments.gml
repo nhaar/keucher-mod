@@ -2,32 +2,40 @@
 
 function get_mod_room_name(room_id)
 {
+#if DEMO
+    var suffix = "_ch1"
+#endif
+#if SURVEY_PROGRAM
+    var suffix = ""
+#endif
+
+    var ch1_room_descs = create_array
+    (
+        "PLACE_CONTACT", "Start Chapter 1",
+        "room_krisroom_ch1", "Chapter 1 - Kris' Room",
+        "room_dark1_ch1", "Chapter 1 Dark World - First Room",
+        "room_dark1a_ch1", "Chapter 1 Dark World - First Savepoint",
+        "room_castle_outskirts_ch1", "Chapter 1 - Get up after cliff",
+        "room_field_start_ch1", "Field - Great Door",
+        "room_field_puzzle1_ch1", "Field - First Puzzle",
+        "room_field_shop1_ch1", "Field - Outside Shop",
+        "room_field_checkers4_ch1", "Checkerboard - First Room",
+        "room_forest_savepoint1_ch1", "Forest - Entrance",
+        "room_forest_afterthrash2_ch1", "Forest - After Susie/Lancer",
+        "room_cc_prisonlancer_ch1", "Castle - Cell Hallway"
+    )
+    var ch1_room_descs_size = array_length(ch1_room_descs)
+    for (var i = 0; i < ch1_room_descs_size; i += 2)
+    {
+        if (asset_get_index(ch1_room_descs[i] + suffix) == room_id)
+        {
+            return ch1_room_descs[i + 1]
+        }
+    }
+
+#if DEMO
     switch (room_id)
     {
-        case PLACE_CONTACT_ch1:
-            return "Start Chapter 1";
-        case room_krisroom_ch1:
-            return "Chapter 1 - Kris' Room";
-        case room_dark1_ch1:
-            return "Chapter 1 Dark World - First Room";
-        case room_dark1a_ch1:
-            return "Chapter 1 Dark World - First Savepoint"
-        case room_castle_outskirts_ch1:
-            return "Chapter 1 - Get up after cliff";
-        case room_field_start_ch1:
-            return "Field - Great Door";
-        case room_field_puzzle1_ch1:
-            return "Field - First Puzzle";
-        case room_field_shop1_ch1:
-            return "Field - Outside Shop";
-        case room_field_checkers4_ch1:
-            return "Checkerboard - First Room";
-        case room_forest_savepoint1_ch1:
-            return "Forest - Entrance";
-        case room_forest_afterthrash2_ch1:
-            return "Forest - After Susie/Lancer";
-        case room_cc_prisonlancer_ch1:
-            return "Castle - Cell Hallway";
         case room_dw_cyber_intro_1:
             return "Cyber Field - First Room";
         case room_dw_city_intro:
@@ -41,6 +49,7 @@ function get_mod_room_name(room_id)
         case room_dw_mansion_acid_tunnel_exit:
             return "Queen's Mansion - Acid Tunnel Exit"
     }
+#endif
 }
 
 function get_name_from_instruction(instruction)

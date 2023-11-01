@@ -72,6 +72,10 @@ void LoadSPCode (DeltaruneVersion version)
     string[] files = Directory.GetFiles(modDir, "*_SP*", SearchOption.AllDirectories);
     foreach (string file in files)
     {
+        if (!Regex.IsMatch(file, @"_SP"))
+        {
+            continue;
+        }
         string code = File.ReadAllText(file);
         string entryName = Path.GetFileName(file);
         string replacement = version switch 

@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// AFTER
 var _grazetimefactor = grazetimefactor

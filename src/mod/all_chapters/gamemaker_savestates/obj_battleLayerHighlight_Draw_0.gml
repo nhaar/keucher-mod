@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // I believe this is a savestate crash fix
 /// PREPEND

@@ -1,4 +1,4 @@
-/// PATCH .ignore if SURVEY_PROGRAM
+/// PATCH .ignore ifndef DEMO
 
 // rigging turns
 /// PREPEND

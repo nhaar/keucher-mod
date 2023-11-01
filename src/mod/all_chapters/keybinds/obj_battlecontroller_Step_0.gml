@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // removing originally debug only keybindings
 /// REPLACE

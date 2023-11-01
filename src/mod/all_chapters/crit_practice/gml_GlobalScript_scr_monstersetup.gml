@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if SURVEY_PROGRAM
 
 
 // make enemy unkillable in practice mode (ambyu-lance)

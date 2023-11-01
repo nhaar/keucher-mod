@@ -77,11 +77,16 @@ function is_feature_active(feature_id)
         case #FEATURE_STATE.never:
             return false
         case #FEATURE_STATE.debug:
+#if DEMO
             if (global.chapter == 1)
             {
                 return scr_debug_ch1();
             }
             return global.debug;
+#endif
+#if SURVEY_PROGRAM
+            return scr_debug()
+#endif
     }
 }
 

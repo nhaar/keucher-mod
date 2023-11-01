@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // no idea what this replace is for
 /// REPLACE

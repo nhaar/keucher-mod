@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // not sure why these patches are here, but they change default position from a reference slightly
 // to-do: ask about this

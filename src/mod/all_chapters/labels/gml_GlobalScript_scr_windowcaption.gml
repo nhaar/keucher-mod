@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore ifndef DEMO
 
 function scr_windowcaption(argument0)
 {

@@ -8,6 +8,7 @@ function warp_to_battleroom()
         // TO-DO: I've seen this sort of pattern before. Group in function?
         global.darkzone = true
         global.interact = 0
+#if DEMO
         if (global.chapter == 1)
         {
             // TO-DO: group room_goto and snd_free_all in function
@@ -16,9 +17,12 @@ function warp_to_battleroom()
         }
         else if (global.chapter == 2)
         {
+#endif
             snd_free_all()
             room_goto(room_battletest)
+#if DEMO
         }
+#endif
     }
 }
 
@@ -30,8 +34,10 @@ function plotwarp(__warp)
     // set dark world mode
     global.darkzone = true
     
+#if DEMO
     if (global.chapter == 1)
     {
+#endif
         switch __warp
         {
             case "ch1_wake_up":
@@ -46,8 +52,14 @@ function plotwarp(__warp)
                 global.char[1] = 0
                 global.char[2] = 0
                 global.plot = 10
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_dark1_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_dark1)
+#endif
                 break
             case "field_start":
                 global.flag[101] = 0
@@ -66,8 +78,14 @@ function plotwarp(__warp)
                 global.char[1] = 3
                 global.char[2] = 0
                 global.plot = 33
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_field_start_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_field_start)
+#endif
                 break
             case "checkerboard_start":
                 global.flag[214] = 0
@@ -79,8 +97,14 @@ function plotwarp(__warp)
                 global.char[1] = 3
                 global.char[2] = 2
                 global.plot = 50
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_field_checkers4_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_field_checkers4)
+#endif
                 break
             case "forest_start":
                 global.flag[107] = 0
@@ -104,8 +128,14 @@ function plotwarp(__warp)
                 global.char[1] = 3
                 global.char[2] = 0
                 global.plot = 60
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_forest_savepoint1_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_forest_savepoint1)
+#endif
                 break
             case "post_vs_lancer":
                 global.flag[105] = 0
@@ -119,8 +149,14 @@ function plotwarp(__warp)
                 global.char[1] = 3
                 global.char[2] = 2
                 global.plot = 130
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_forest_fightsusie_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_forest_fightsusie)
+#endif
                 break
             case "post_escape":
                 global.flag[112] = 0
@@ -143,8 +179,14 @@ function plotwarp(__warp)
                 global.char[1] = 3
                 global.char[2] = 2
                 global.plot = 154
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_cc_prison_cells_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_cc_prison_cells)
+#endif
                 break
             case "king":
                 global.flag[29] = 0
@@ -161,12 +203,19 @@ function plotwarp(__warp)
                 global.char[1] = 2
                 global.char[2] = 3
                 global.plot = 175
+#if DEMO
                 snd_free_all_ch1()
                 room_goto(room_cc_kingbattle_ch1)
+#endif
+#if SURVEY_PROGRAM
+                snd_free_all()
+                room_goto(room_cc_kingbattle)
+#endif
                 break
             default:
                 show_temp_message("bro wtf did you do (plotwarp failed)")
         }
+#if DEMO
     }
     if (global.chapter == 2)
     {
@@ -333,4 +382,5 @@ function plotwarp(__warp)
                 show_temp_message("bro wtf did you do (plotwarp failed)")
         }
     }
+#endif
 }

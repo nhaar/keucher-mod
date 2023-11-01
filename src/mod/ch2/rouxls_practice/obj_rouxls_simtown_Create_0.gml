@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// APPEND
 // array with rouxls patterns, first index is the pattern number

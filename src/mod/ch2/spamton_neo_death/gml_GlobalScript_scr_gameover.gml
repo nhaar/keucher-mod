@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // set a limit to the flag so that spamton NEO attacks don't change with too many deaths
 /// REPLACE

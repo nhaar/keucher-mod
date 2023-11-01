@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore ifndef DEMO
 
 if (is_feature_active("doorwarp-square"))
 {

@@ -37,9 +37,11 @@ function wrap_around(value, lower_bound, upper_bound)
 
 function get_object_implicit_chapter (object)
 {
+#if DEMO
     if (global.chapter == 1)
     {
         object += "_ch1"
     }
+#endif
     return asset_get_index(object)
 }

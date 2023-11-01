@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// BEFORE
 for (i = 0; i < 20; i++)

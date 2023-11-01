@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// REPLACE
 file = ("filech2_" + string(global.filechoice))

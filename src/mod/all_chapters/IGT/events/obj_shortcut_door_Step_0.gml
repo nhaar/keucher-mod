@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // for splitting only AFTER mauswheel
 /// AFTER

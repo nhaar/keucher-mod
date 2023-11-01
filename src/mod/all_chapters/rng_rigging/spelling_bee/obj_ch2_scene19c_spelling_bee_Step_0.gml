@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// REPLACE
 sb_word_current = sb_word[random_range(0, 5)]

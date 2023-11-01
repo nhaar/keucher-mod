@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // count damage of attacks in ch2
 /// REPLACE

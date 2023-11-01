@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// PREPEND
 var _grazesub1 = grazesub1

@@ -125,23 +125,52 @@ function set_all_instructions()
 {
     global.ALL_INSTRUCTIONS = create_array
     (
+#if DEMO
         "PLACE_CONTACT_ch1",
+#endif
+#if SURVEY_PROGRAM
+        "PLACE_CONTACT",
+#endif
         "ch1introend",
+#if DEMO
         "room_krisroom_ch1",
         "room_dark1_ch1",
         "room_dark1a_ch1",
         "room_castle_outskirts_ch1",
+#endif
+#if SURVEY_PROGRAM
+        "room_castle_outskirts",
+        "room_dark1_ch1",
+        "room_dark1a_ch1",
+        "room_castle_outskirts_ch1",
+#endif
         "doorslam",
+#if DEMO
         "room_field_start_ch1",
         "room_field_puzzle1_ch1",
         "room_field_shop1_ch1",
         "room_field_checkers4_ch1",
         "room_forest_savepoint1_ch1",
         "room_forest_afterthrash2_ch1",
+#endif
+#if SURVEY_PROGRAM
+        "room_field_start",
+        "room_field_puzzle1",
+        "room_field_shop1",
+        "room_field_checkers4",
+        "room_forest_savepoint1",
+        "room_forest_afterthrash2",
+#endif
         "captured",
         "escaped",
+#if DEMO
         "room_cc_prisonlancer_ch1",
+#endif
+#if SURVEY_PROGRAM
+        "room_cc_prisonlancer",
+#endif
         "kingdefeat",
+#if DEMO
         "ch2start",
         "room_dw_cyber_intro_1",
         "djsend",
@@ -153,5 +182,6 @@ function set_all_instructions()
         "room_dw_mansion_acid_tunnel",
         "room_dw_mansion_acid_tunnel_exit",
         "gigaend"
+#endif
     )
 }

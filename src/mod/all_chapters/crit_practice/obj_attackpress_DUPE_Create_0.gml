@@ -2,8 +2,8 @@
 
 // rigging attacks
 /// AFTER
-            lastbolt = choose(diff, (diff * 1.5))
-    }
+                    lastbolt = choose(diff, (diff * 1.5))
+            }
 /// CODE
 // bolttotal is the number of cursors
 // if 1, always the same

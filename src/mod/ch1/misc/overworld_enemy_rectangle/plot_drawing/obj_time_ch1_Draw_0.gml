@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // removing not very useful plot drawing
 /// REPLACE

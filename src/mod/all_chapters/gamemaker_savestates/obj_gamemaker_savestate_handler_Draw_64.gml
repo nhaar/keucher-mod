@@ -25,6 +25,7 @@ if (slotWasSelected != -1)
 // saving savestates
 if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate")
 {
+#if DEMO
     if (global.chapter == 2)
     {
         scr_save()
@@ -33,13 +34,20 @@ if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate"
     else if (global.chapter == 1)
     {
         scr_save_ch1()
+#endif
+#if SURVEY_PROGRAM
+        scr_save()
+#endif
         game_save("ssch1_" + string(global.filechoice) + "_" + string(global.currentSlotSelected))
+#if DEMO
     }
+#endif
     show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " saved")
 }
 // loading savestate
 if pressed_active_feature_key(#KEYBINDING.load_savestate, "gamemaker-savestate")
 {
+#if DEMO
     if (global.chapter == 2)
     {
         if file_exists("ss_filech2_" + string(global.filechoice) + "_" + string(global.currentSlotSelected))
@@ -64,10 +72,17 @@ if pressed_active_feature_key(#KEYBINDING.load_savestate, "gamemaker-savestate")
     }
     else if (global.chapter == 1)
     {
+#endif
         if file_exists("ss_filech1_" + string(global.filechoice) + "_" + string(global.currentSlotSelected))
         {
+#if DEMO
             snd_stop_all_ch1()
             scr_load_ch1()
+#endif
+#if SURVEY_PROGRAM
+            snd_stop_all()
+            scr_load()
+#endif
             // TO-DO: same as above: redundant?
             if keyboard_check(ord(string(global.currentSlotSelected)))
                 show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " loaded (savestate ignored)")
@@ -83,12 +98,15 @@ if pressed_active_feature_key(#KEYBINDING.load_savestate, "gamemaker-savestate")
         {
             show_temp_message("No save in file " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected))
         }
+#if DEMO
     }
+#endif
 }
 // savestate specific stuff to check exactly what is later
 if (global.savestateLoad > 0)
 {
     global.savestateLoad--
+#if DEMO
     if (global.chapter == 2)
     {
         instance_destroy(obj_darkcontroller)
@@ -103,10 +121,22 @@ if (global.savestateLoad > 0)
     {
         instance_destroy(obj_darkcontroller_ch1)
         instance_destroy(obj_caterpillarchara_ch1)
+#endif
+#if SURVEY_PROGRAM
+        instance_destroy(obj_darkcontroller)
+        instance_destroy(obj_caterpillarchara)
+#endif
         if (global.savestateLoad == 0)
         {
+#if DEMO
             instance_create_ch1(0, 0, obj_darkcontroller_ch1)
+#endif
+#if SURVEY_PROGRAM
+            instance_create(0, 0, obj_darkcontroller)
+#endif
             show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " loaded")
         }
+#if DEMO
     }
+#endif
 }

@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // lightworld replacements for ch2
 /// REPLACE

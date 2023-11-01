@@ -2,7 +2,6 @@
 
 function savestate_load_check (chapter)
 {
-
     // check if savestate load or file load
     var savestate
     var _ssslot

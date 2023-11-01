@@ -6,6 +6,7 @@ function get_items()
     {
         if (global.flag[48] == 0)
         {
+#if DEMO
             if (global.chapter == 1)
             {
                 scr_itemget_ch1(6)
@@ -48,7 +49,17 @@ function get_items()
                 scr_weaponget(21)
                 scr_weaponget(22)
             }
-    
+#endif
+#if SURVEY_PROGRAM
+            scr_itemget(6)
+            scr_armorget(4)
+            scr_armorget(5)
+            scr_armorget(7)
+            scr_weaponget(5)
+            scr_weaponget(6)
+            scr_weaponget(7)
+            scr_weaponget(9)
+#endif
             global.flag[48] = 1
             show_temp_message("items given")
         }
@@ -97,8 +108,10 @@ function get_items()
                     else
                     {
                         max_id = 0
+#if DEMO
                         if (global.chapter == 1)
                         {
+#endif
                             switch itemType
                             {
                                 case "item":
@@ -122,6 +135,7 @@ function get_items()
                                     break
                                 }
                             }
+#if DEMO
                         }
                         else
                         {
@@ -149,33 +163,67 @@ function get_items()
                                 }
                             }
                         }
+ #endif
                         if (user_input > 0)
                         {
                             if (user_input <= max_id || (user_input == 13 && itemType == "key" && global.chapter == 1))
                             {
-                                switch itemType
+#if DEMO
+                                if (global.chapter == 1)
                                 {
-                                    case "item":
+                                    switch itemType
                                     {
-                                        scr_itemget_ch1(user_input)
-                                        break
-                                    }
-                                    case "armor":
-                                    {
-                                        scr_armorget_ch1(user_input)
-                                        break
-                                    }
-                                    case "weapon":
-                                    {
-                                        scr_weaponget_ch1(user_input)
-                                        break
-                                    }
-                                    case "key":
-                                    {
-                                        scr_keyitemget_ch1(user_input)
-                                        break
+                                        case "item":
+                                        {
+                                            scr_itemget_ch1(user_input)
+                                            break
+                                        }
+                                        case "armor":
+                                        {
+                                            scr_armorget_ch1(user_input)
+                                            break
+                                        }
+                                        case "weapon":
+                                        {
+                                            scr_weaponget_ch1(user_input)
+                                            break
+                                        }
+                                        case "key":
+                                        {
+                                            scr_keyitemget_ch1(user_input)
+                                            break
+                                        }
                                     }
                                 }
+                                else
+                                {
+#endif
+                                    switch itemType
+                                    {
+                                        case "item":
+                                        {
+                                            scr_itemget(user_input)
+                                            break
+                                        }
+                                        case "armor":
+                                        {
+                                            scr_armorget(user_input)
+                                            break
+                                        }
+                                        case "weapon":
+                                        {
+                                            scr_weaponget(user_input)
+                                            break
+                                        }
+                                        case "key":
+                                        {
+                                            scr_keyitemget(user_input)
+                                            break
+                                        }
+                                    }
+#if DEMO
+                                }
+#endif
                             }
                             else
                             {

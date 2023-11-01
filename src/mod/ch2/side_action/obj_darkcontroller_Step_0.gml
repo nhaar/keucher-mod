@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // disabling the S/R/N-Action
 /// APPEND

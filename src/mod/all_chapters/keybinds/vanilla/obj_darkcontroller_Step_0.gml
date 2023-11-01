@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // overwrite vanilla keybinds with the mod ones in ch2
 /// REPLACE

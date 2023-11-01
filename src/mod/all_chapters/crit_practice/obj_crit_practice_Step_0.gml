@@ -1,7 +1,12 @@
 /// IMPORT
 
 // destroy whenever practice enemy is not present
+#if DEMO
 if (!i_ex(obj_omawaroid_enemy) && !i_ex(obj_placeholderenemy_ch1))
+#endif
+#if SURVEY_PROGRAM
+if (!i_ex(obj_placeholderenemy))
+#endif
 {
     global.ambyu_practice = false
     instance_destroy()

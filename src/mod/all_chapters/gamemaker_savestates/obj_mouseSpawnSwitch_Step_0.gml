@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // not sure what this is? possibly savestate fix
 /// PREPEND

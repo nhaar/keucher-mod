@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// REPLACE
 file = ((("filech" + string(global.chapter)) + "_") + string(argument0))

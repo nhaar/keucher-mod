@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // unsure what this does, but it's related to savestates
 /// APPEND

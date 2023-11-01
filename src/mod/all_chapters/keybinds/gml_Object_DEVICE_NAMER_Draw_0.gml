@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 /// REPLACE
 if (scr_debug() && keyboard_check_pressed(ord("R")))
