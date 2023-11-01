@@ -300,5 +300,11 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(c_lime)
     draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
 }
-
-draw_sprite(spr_maus_cursor, 0, real_mouse_x, real_mouse_y)
+draw_sprite(
+#if DEMO
+    spr_maus_cursor
+#endif
+#if SURVEY_PROGRAM
+    spr_face_sans0
+#endif
+, 0, real_mouse_x, real_mouse_y)
