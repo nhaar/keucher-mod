@@ -10,39 +10,19 @@ function toggle_debug()
         if (global.chapter == 1)
         {
             if scr_debug_ch1()
-#endif
-#if SURVEY_PROGRAM
-            if scr_debug()
-#endif
             {
-#if DEMO
                 obj_debugcontroller_ch1.debug = false
-#endif
-#if SURVEY_PROGRAM
-                obj_debugcontroller.debug = false
-#endif
                 show_temp_message("Debug disabled")
             }
             else
             {
-#if DEMO
                 obj_debugcontroller_ch1.debug = true
-#endif
-#if SURVEY_PROGRAM
-                obj_debugcontroller.debug = true
-#endif
                 show_temp_message("Debug enabled")
             }
-#if DEMO
             debug = scr_debug_ch1()
-#endif
-#if SURVEY_PROGRAM
-            debug = scr_debug()
-#endif
-#if DEMO
-        }
         else
         {
+#endif DEMO
             if global.debug
             {
                 global.debug = false
@@ -54,6 +34,7 @@ function toggle_debug()
                 show_temp_message("Debug enabled")
             }
             debug = global.debug
+#if DEMO
         }
 #endif
         ds_map_set(global.player_options, "debug", debug)
