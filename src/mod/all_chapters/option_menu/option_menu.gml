@@ -255,6 +255,7 @@ function get_default_mod_options()
         #DEFAULT_OPTION.options, "General Options"
     )
     
+    options_state = #OPTION_STATE.default_state
 }
 
 function get_keybind_mod_options()
@@ -300,6 +301,8 @@ function get_keybind_mod_options()
         #KEYBINDING.next_boss_attack, "Next Boss Attack",
         #KEYBINDING.previous_boss_attack, "Previous Boss Attack"
     )
+
+    options_state = #OPTION_STATE.keybinds
 }
 
 function get_buttons_from_pair_array()

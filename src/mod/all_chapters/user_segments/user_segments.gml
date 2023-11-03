@@ -12,17 +12,17 @@ function get_mod_room_name(room_id)
     var ch1_room_descs = create_array
     (
         "PLACE_CONTACT", "Start Chapter 1",
-        "room_krisroom_ch1", "Chapter 1 - Kris' Room",
-        "room_dark1_ch1", "Chapter 1 Dark World - First Room",
-        "room_dark1a_ch1", "Chapter 1 Dark World - First Savepoint",
-        "room_castle_outskirts_ch1", "Chapter 1 - Get up after cliff",
-        "room_field_start_ch1", "Field - Great Door",
-        "room_field_puzzle1_ch1", "Field - First Puzzle",
-        "room_field_shop1_ch1", "Field - Outside Shop",
-        "room_field_checkers4_ch1", "Checkerboard - First Room",
-        "room_forest_savepoint1_ch1", "Forest - Entrance",
-        "room_forest_afterthrash2_ch1", "Forest - After Susie/Lancer",
-        "room_cc_prisonlancer_ch1", "Castle - Cell Hallway"
+        "room_krisroom", "Chapter 1 - Kris' Room",
+        "room_dark1", "Chapter 1 Dark World - First Room",
+        "room_dark1a", "Chapter 1 Dark World - First Savepoint",
+        "room_castle_outskirts", "Chapter 1 - Get up after cliff",
+        "room_field_start", "Field - Great Door",
+        "room_field_puzzle1", "Field - First Puzzle",
+        "room_field_shop1", "Field - Outside Shop",
+        "room_field_checkers4", "Checkerboard - First Room",
+        "room_forest_savepoint1", "Forest - Entrance",
+        "room_forest_afterthrash2", "Forest - After Susie/Lancer",
+        "room_cc_prisonlancer", "Castle - Cell Hallway"
     )
     var ch1_room_descs_size = array_length(ch1_room_descs)
     for (var i = 0; i < ch1_room_descs_size; i += 2)
