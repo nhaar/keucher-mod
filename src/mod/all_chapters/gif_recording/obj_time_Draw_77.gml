@@ -1,4 +1,4 @@
-/// IMPORT .ignore ifndef DEMO
+/// PATCH .ignore ifndef DEMO
 
 /// REPLACE
 if scr_debug()

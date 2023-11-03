@@ -1,3 +1,2 @@
-/// IMPORT .ignore
-
+/// IMPORT
 event_inherited()

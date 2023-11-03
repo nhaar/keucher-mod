@@ -20,6 +20,7 @@ function toggle_debug()
                 show_temp_message("Debug enabled")
             }
             debug = scr_debug_ch1()
+        }
         else
         {
 #endif DEMO

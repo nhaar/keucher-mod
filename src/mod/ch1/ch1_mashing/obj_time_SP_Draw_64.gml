@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// APPEND
 if (read_player_option("display-wp-mash"))
 {

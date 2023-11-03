@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// PREPEND
 var is_auto_mashed = false
 var has_wrist_protector = global.flag[10] == 1

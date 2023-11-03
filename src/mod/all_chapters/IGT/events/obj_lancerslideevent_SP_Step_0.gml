@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// BEFORE
 room_goto_next()
 /// CODE

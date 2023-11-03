@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// BEFORE
 #if DEMO
 snd_play_ch1(snd_hurt1_ch1)

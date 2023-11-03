@@ -1,5 +1,4 @@
-/// IMPORT .ignore
-
+/// IMPORT
 #if DEMO
 function scr_windowcaption_ch1(argument0)
 #endif

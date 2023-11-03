@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // adding ch1 battle debug keys
 /// APPEND
 if pressed_active_feature_key(#KEYBINDING.heal, "party-heal")

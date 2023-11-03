@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // lightworld vanilla keybinds for ch1
 #if DEMO
 /// REPLACE

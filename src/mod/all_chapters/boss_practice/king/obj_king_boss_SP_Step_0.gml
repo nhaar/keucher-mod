@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // rigging king attacks
 /// PREPEND
 if (global.bossPractice)

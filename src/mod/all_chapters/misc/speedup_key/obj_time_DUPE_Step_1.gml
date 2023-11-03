@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // replaces vanilla speedup key with mod ones
 
 /// REPLACE

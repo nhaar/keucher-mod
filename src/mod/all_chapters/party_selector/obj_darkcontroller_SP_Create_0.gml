@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// AFTER
 cur_jewel = 0
 /// CODE

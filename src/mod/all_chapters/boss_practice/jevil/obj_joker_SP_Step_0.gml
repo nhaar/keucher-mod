@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // rigging attacks
 /// BEFORE
 global.flag[(51 + myself)] = 4

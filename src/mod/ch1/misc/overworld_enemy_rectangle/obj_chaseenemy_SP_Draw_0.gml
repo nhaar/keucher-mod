@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // removing rectangle near the chasing enemies
 /// REPLACE
 #if DEMO

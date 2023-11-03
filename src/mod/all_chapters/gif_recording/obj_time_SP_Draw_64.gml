@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// PREPEND
 if pressed_active_feature_key(#KEYBINDING.gif, "gif")
 {

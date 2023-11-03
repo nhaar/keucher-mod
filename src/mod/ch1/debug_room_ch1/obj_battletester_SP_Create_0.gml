@@ -1,5 +1,4 @@
-/// IMPORT .ignore
-
+/// IMPORT
 // min and max values for encounter counter
 encountermin = 1
 encountermax = 50

@@ -9,19 +9,197 @@ string mainDir = Path.GetDirectoryName(ScriptPath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
+class KeucherModLoader : UMPLoader
+{
+    public override string CodePath => "mod/";
+
+    public override bool UseGlobalScripts => Version == DeltaruneVersion.Demo;
+
+    public override string[] Symbols => Version == DeltaruneVersion.Demo ? new[] { "DEMO" } : new[] { "SURVEY_PROGRAM" };
+
+    public override string[] GetCodeNames (string filePath)
+    {
+        List<string> names = new List<string>();
+        string fileName = Path.GetFileNameWithoutExtension(filePath);
+        
+        // legal object prefixes
+        if (Regex.IsMatch(fileName, @"^(obj_|o_)"))
+        {
+            fileName = $"gml_Object_{fileName}";
+        }
+
+        // dupe files are ones that should be in both chapters if in DEMO
+        // in survey program as well but remove the _ch1 one
+        if (Regex.IsMatch(filePath, "_DUPE"))
+        {
+            names.Add(fileName.Replace("_DUPE", ""));
+            if (Version == DeltaruneVersion.Demo)
+            {
+                names.Add(fileName.Replace("_DUPE", "_ch1"));
+            }
+        }
+        // sp files are ones that you should replace _SP with either nothing (in SP) or _ch1 (In DEMO)
+        else if (Regex.IsMatch(filePath, "_SP"))
+        {
+            if (Version == DeltaruneVersion.SurveyProgram)
+            {
+                names.Add(fileName.Replace("_SP", ""));
+
+            }
+            else if (Version == DeltaruneVersion.Demo)
+            {
+                names.Add(fileName.Replace("_SP", "_ch1"));
+            }
+        }
+
+        else if (fileName == "boss_init")
+        {
+            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }));
+        }
+        else if (fileName == "crit_practice_init")
+        {
+            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }));
+        }
+        else
+        {
+            names.Add(fileName);
+        }
+    
+        return names.ToArray();
+    }
+    public KeucherModLoader (UMPWrapper wrapper, DeltaruneVersion version)
+    : base (wrapper)
+    {
+        Version = version;
+    }
+
+
+    public DeltaruneVersion Version { get; set; }
+
+    List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects)
+    {
+        string[] objects = null;
+        if (Version == DeltaruneVersion.Demo)
+        {
+            objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
+        }
+        else if (Version == DeltaruneVersion.SurveyProgram)
+        {
+            objects = ch1Objects;
+        }
+        return objects.Select(s => $"gml_Object_obj_{s}_Create_0").ToList();
+    }
+
+    // convention: UMP enums use screaming snake case for enum names and snake case for enum values
+
+    public enum FEATURE_STATE
+    {
+        never,
+        always,
+        debug
+    }
+
+    public enum KEYBINDING
+    {
+        save,
+        load,
+        reload,
+        speed,
+        gif,
+        next_room,
+        previous_room,
+        heal,
+        instant_win,
+        toggle_tp,
+        toggle_debug,
+        stop_sounds,
+        reset_tempflags,
+        warp_room,
+        toggle_hitboxes,
+        make_visible,
+        snowgrave_plot,
+        change_party,
+        side_action,
+        no_clip,
+        get_item,
+        plot_warp,
+        igt_mode,
+        igt_room,
+        toggle_timer,
+        reset_timer,
+        store_savestate,
+        load_savestate,
+        toggle_crit_mode,
+        toggle_pattern_mode,
+        next_crit_pattern,
+        previous_crit_pattern,
+        toggle_rouxls,
+        next_house_pattern,
+        previous_house_pattern,
+        toggle_boss,
+        next_boss_attack,
+        previous_boss_attack
+    }
+
+    public enum OPTION_STATE
+    {
+        default_state,
+        features,
+        keybinds,
+        keybind_assign,
+        splits,
+        split_assign,
+        split_creator,
+        split_pick,
+        general_options
+    }
+
+    public enum DEFAULT_OPTION
+    {
+        feature,
+        keybind,
+        current_split,
+        create_split,
+        timer_precision,
+        options
+    }
+
+    public enum BUTTON_STATE
+    {
+        none,
+        hover,
+        press,
+        highlight
+    }
+
+    /// <summary>
+    /// The state of the boundary box visibility
+    /// </summary>
+    public enum BOUNDARY_BOX_STATE
+    {
+        /// <summary>
+        /// No boundary boxes are visible
+        /// </summary>
+        none,
+        /// <summary>
+        /// Only the boundary boxes of the doors are visible
+        /// </summary>
+        doors,
+        /// <summary>
+        /// All boundary boxes are visible
+        /// </summary>
+        doors_and_walls
+    }
+
+}
+
 void BuildMod (DeltaruneVersion version)
 {
     CreateNoClipSprite();
 
-    LoadCodeFiles("mod/", symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
+    KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
 
-    InitiateBossPractice(version);
-
-    InitiateCritPractice(version);
-
-    DupeChapter1Patches(version);
-
-    LoadSPCode(version);
+    loader.Load();
 
     SetupChapterOneBattleRoom(version);
 
@@ -65,50 +243,6 @@ void ReplacePageItemTexture (string itemName, string textureName)
     (
         Image.FromFile(Path.Combine(spritesDir, textureName))
     );
-}
-
-void LoadSPCode (DeltaruneVersion version)
-{
-    string[] files = Directory.GetFiles(modDir, "*_SP*", SearchOption.AllDirectories);
-    foreach (string file in files)
-    {
-        if (!Regex.IsMatch(file, @"_SP"))
-        {
-            continue;
-        }
-        string code = File.ReadAllText(file);
-        string entryName = Path.GetFileName(file);
-        string replacement = version switch 
-        {
-            DeltaruneVersion.SurveyProgram => "",
-            DeltaruneVersion.Demo => "_ch1",
-            _ => throw new NotImplementedException()
-        };
-        entryName = entryName.Replace("_SP", replacement);
-        LoadCodeString(entryName, code, symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
-    }
-}
-
-void DupeChapter1Patches (DeltaruneVersion version)
-{
-    string[] files = Directory.GetFiles(modDir, "*_DUPE*", SearchOption.AllDirectories);
-    foreach (string file in files)
-    {
-        string code = File.ReadAllText(file);
-        string entryName = Path.GetFileName(file);
-        string[] sufixes = version switch 
-        {
-            DeltaruneVersion.SurveyProgram => new[] { "" },
-            DeltaruneVersion.Demo => new[] { "_ch1", "" },
-            _ => throw new NotImplementedException()
-        }; 
-        
-        foreach (string sufix in sufixes)
-        {
-            string entry = entryName.Replace("_DUPE", sufix);
-            LoadCodeString(entry, code, symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
-        }
-    }
 }
 
 void CreateNoClipSprite ()
@@ -176,81 +310,4 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
         }
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
-}
-
-Dictionary<string, string> LoadCodeFiles (string codePath, bool useIgnore = true, string[] symbols = null, bool useFunctions = true)
-{
-    return LoadCode(codePath: codePath, useIgnore: useIgnore, symbols: symbols, useFunctions: useFunctions);
-}
-
-void LoadCodeString (string codeName, string code, bool useIgnore = false, string[] symbols = null, bool useFunctions = true)
-{
-    LoadCode(codeName: codeName, code: code, useIgnore: useIgnore, symbols: symbols, useFunctions: useFunctions);
-}
-
-Dictionary<string, string> LoadCode (string codePath = null, string codeName = null, string code = null, bool useIgnore = true, string[] symbols = null, bool useFunctions = true)
-{
-    return UMPLoad
-    (
-        modPath: codePath,
-        codeNameWithExtension: codeName,
-        codeString: code,
-        enums: new Type[]
-        {
-            typeof(FeatureState),
-            typeof(Keybinding),
-            typeof(OptionState),
-            typeof(DefaultOption),
-            typeof(ButtonState),
-            typeof(BoundaryBoxState)
-        },
-        convertCase: true,
-        enumNameCase: UMPCaseConverter.NameCase.ScreamingSnakeCase,
-        enumMemberCase: UMPCaseConverter.NameCase.SnakeCase,
-        objectPrefixes: new string[]
-        {
-            "obj_",
-            "o_"
-        },
-        useIgnore: useIgnore,
-        symbols: symbols,
-        useFunctions: useFunctions
-    );
-}
-
-void AddToObjectsCreate (string[] objects, string file, DeltaruneVersion version)
-{
-    foreach (string obj in objects)
-    {
-        LoadCodeString($"obj_{obj}_Create_0.gml", GetCode(file), symbols: GetSymbols(version), useFunctions: GetUseFunctions(version));
-    }
-}
-
-string[] FilterObjectsFromVersion(DeltaruneVersion version, string[] ch1Objects, string[] ch2Objects)
-{
-    string[] objects = null;
-    if (version == DeltaruneVersion.Demo)
-    {
-        objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
-    }
-    else if (version == DeltaruneVersion.SurveyProgram)
-    {
-        objects = ch1Objects;
-    }
-    return objects;
-}
-
-void InitiateBossPractice (DeltaruneVersion version)
-{
-    AddToObjectsCreate(FilterObjectsFromVersion(version, new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }), "boss_init.gml", version);
-}
-
-void InitiateCritPractice (DeltaruneVersion version)
-{
-    AddToObjectsCreate(FilterObjectsFromVersion(version, new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }), "crit_practice_init.gml", version);
-}
-
-string GetCode (string fileName)
-{
-    return File.ReadAllText(Directory.GetFiles(modDir, "*" + fileName, SearchOption.AllDirectories)[0]);
 }

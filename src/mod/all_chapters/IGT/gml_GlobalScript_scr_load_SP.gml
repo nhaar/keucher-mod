@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // make loading act as a transition
 
 #if DEMO

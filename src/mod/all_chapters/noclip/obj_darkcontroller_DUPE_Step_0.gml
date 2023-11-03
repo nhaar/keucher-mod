@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// APPEND
 toggle_noclip()
 /// END

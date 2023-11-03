@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// APPEND
 max_timer = 184
 

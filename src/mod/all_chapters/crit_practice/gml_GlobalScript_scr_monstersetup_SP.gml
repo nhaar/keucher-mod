@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // first message of the placeholder enemy
 /// REPLACE
 #if DEMO

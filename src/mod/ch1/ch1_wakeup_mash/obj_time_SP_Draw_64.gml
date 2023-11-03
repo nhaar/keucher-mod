@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// APPEND
 #if DEMO
 if (scr_debug_ch1() && room == room_dark1_ch1)

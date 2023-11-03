@@ -94,7 +94,7 @@ for (var i = 0; i < button_amount; i++)
                 button_state[i] = #BUTTON_STATE.hover
                 switch (options_state)
                 {
-                    case #OPTION_STATE.default:
+                    case #OPTION_STATE.default_state:
                         switch (i)
                         {
                             case #DEFAULT_OPTION.keybind:

@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // change position HP is drawn because the mercy bar is being added
 /// REPLACE
 draw_rectangle((xx + 510), ((yy + 380) + (i * 30)), (xx + 590), (((yy + 380) + (i * 30)) + 15), false)

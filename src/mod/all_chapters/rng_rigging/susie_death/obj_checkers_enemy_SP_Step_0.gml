@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// REPLACE
 #if DEMO
 scr_randomtarget_ch1()

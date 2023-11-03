@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 #if DEMO
 /// AFTER
 function scr_load() //gml_Script_scr_load

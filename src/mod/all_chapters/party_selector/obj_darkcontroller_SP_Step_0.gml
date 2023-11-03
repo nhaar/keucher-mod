@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 // changing party in Ch1
 /// APPEND
 if pressed_active_feature_key(#KEYBINDING.change_party, "change-party")

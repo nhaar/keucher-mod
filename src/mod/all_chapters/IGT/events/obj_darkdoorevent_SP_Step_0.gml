@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// AFTER
 image_index = 1
 /// CODE

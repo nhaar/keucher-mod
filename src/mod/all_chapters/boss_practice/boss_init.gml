@@ -1,4 +1,4 @@
-/// PATCH .ignore
+/// PATCH
 
 // this will be added to each boss's create event
 /// PREPEND

@@ -1,5 +1,4 @@
-/// PATCH .ignore
-
+/// PATCH
 /// REPLACE
 file = ("filech1_" + string(argument0))
 /// CODE
