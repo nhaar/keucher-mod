@@ -1,5 +1,6 @@
-/// IMPORT .ignore ifndef DEMO
+/// PATCH .ignore ifndef DEMO
 
+/// APPEND
 // add fps drawing to ch2
 if scr_debug()
 {
@@ -8,3 +9,4 @@ if scr_debug()
     draw_text(0, 0, fps)
     draw_set_color(c_white)
 }
+/// END

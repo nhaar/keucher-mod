@@ -1,6 +1,8 @@
 /// PATCH .ignore ifndef DEMO
 
-// adding it to ch1?
+// gif_open and others just dont exist in SP's GMS version!
+
+// adding it to ch1
 /// PREPEND
 if is_feature_active("gif")
 {
@@ -13,7 +15,7 @@ if is_feature_active("gif")
     if gif_recording
     {
         var gif_release = 0
-        if keyboard_check_released(get_bound_key(#KEYBINDING.gif))
+        if keyboard_check_pressed(get_bound_key(#KEYBINDING.gif))
             gif_release = 1
         if (gif_timer == 0)
             gif_image = gif_open(640, 480)

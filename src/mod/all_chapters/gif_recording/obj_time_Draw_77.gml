@@ -15,7 +15,7 @@ if (keyboard_check_pressed(get_bound_key(#KEYBINDING.gif)) && gif_recording == f
 /// REPLACE
 if keyboard_check_released(ord("G"))
 /// CODE
-if keyboard_check_released(get_bound_key(#KEYBINDING.gif))
+if keyboard_check_pressed(get_bound_key(#KEYBINDING.gif))
 /// END
 
 /// REPLACE
