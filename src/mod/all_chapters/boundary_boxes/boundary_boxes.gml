@@ -97,11 +97,11 @@ function draw_boundary_boxes()
                         get_object_implicit_chapter("obj_sdl_dark"),
                         get_object_implicit_chapter("obj_sdl")
                     )
-                    var do_draw = false
+                    var do_draw = true
                     var forbidden_length = array_length(forbidden_objects)
-                    for (var i = 0; i < forbidden_length; i++)
+                    for (var j = 0; j < forbidden_length; j++)
                     {
-                        if (sblock.object_index == forbidden_objects[i])
+                        if (sblock.object_index == forbidden_objects[j])
                         {
                             do_draw = false
                             break
@@ -153,6 +153,7 @@ function update_objects_visibility(objects, is_visible)
     for (var i = 0; i < total; i++)
     {
         var object = objects[i]
+        object_set_visible(object, is_visible)
         if i_ex(object)
         {
             object.visible = is_visible
@@ -167,44 +168,39 @@ is_visible (Boolean): the visibility to set
 */
 function update_doors_visibility(is_visible)
 {
-    var doors =
+    var doors = create_array
+    (
 #if DEMO
-    global.chapter == 1 ?
-        create_array
-        (
-            obj_doorA_ch1,
-            obj_doorB_ch1,
-            obj_doorC_ch1,
-            obj_doorD_ch1,
-            obj_doorA_musfade_ch1,
-            obj_doorB_musfade_ch1,
-            obj_doorC_musfade_ch1,
-            obj_doorD_musfade_ch1,
-            obj_doorE_ch1,
-            obj_doorF_ch1,
-            obj_doorX_ch1,
-            obj_doorW_ch1,
-            obj_doorX_musfade_ch1,
-            obj_doorw_musfade_ch1
-        ) :
+        obj_doorA_ch1,
+        obj_doorB_ch1,
+        obj_doorC_ch1,
+        obj_doorD_ch1,
+        obj_doorA_musfade_ch1,
+        obj_doorB_musfade_ch1,
+        obj_doorC_musfade_ch1,
+        obj_doorD_musfade_ch1,
+        obj_doorE_ch1,
+        obj_doorF_ch1,
+        obj_doorX_ch1,
+        obj_doorW_ch1,
+        obj_doorX_musfade_ch1,
+        obj_doorw_musfade_ch1,
 #endif
-        create_array
-        (
-            obj_doorA,
-            obj_doorB,
-            obj_doorC,
-            obj_doorD,
-            obj_doorA_musfade,
-            obj_doorB_musfade,
-            obj_doorC_musfade,
-            obj_doorD_musfade,
-            obj_doorE,
-            obj_doorF,
-            obj_doorX,
-            obj_doorW,
-            obj_doorX_musfade,
-            obj_doorw_musfade
-        )
+        obj_doorA,
+        obj_doorB,
+        obj_doorC,
+        obj_doorD,
+        obj_doorA_musfade,
+        obj_doorB_musfade,
+        obj_doorC_musfade,
+        obj_doorD_musfade,
+        obj_doorE,
+        obj_doorF,
+        obj_doorX,
+        obj_doorW,
+        obj_doorX_musfade,
+        obj_doorw_musfade
+    )
     update_objects_visibility(doors, is_visible)
 }
 
@@ -215,27 +211,22 @@ is_visible (Boolean): the visibility to set
 */
 function update_walls_visibility(is_visible)
 {
-    var walls =
+    var walls = create_array
+    (
 #if DEMO
-    global.chapter == 1 ?
-        create_array
-        (
-            obj_sur_dark_ch1,
-            obj_sur_ch1,
-            obj_sul_ch1,
-            obj_sdr_ch1,
-            obj_sdl_dark_ch1,
-            obj_sdl_ch1
-        ) :
+        obj_sur_dark_ch1,
+        obj_sur_ch1,
+        obj_sul_ch1,
+        obj_sdr_ch1,
+        obj_sdl_dark_ch1,
+        obj_sdl_ch1,
 #endif
-        create_array
-        (
-            obj_sur_dark,
-            obj_sur,
-            obj_sul,
-            obj_sdr,
-            obj_sdl_dark,
-            obj_sdl
-        )
+        obj_sur_dark,
+        obj_sur,
+        obj_sul,
+        obj_sdr,
+        obj_sdl_dark,
+        obj_sdl
+    )
     update_objects_visibility(walls, is_visible)   
 }
