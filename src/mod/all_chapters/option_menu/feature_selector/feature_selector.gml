@@ -35,7 +35,7 @@ function set_feature_info()
         "save-file", "Opening save menu", #FEATURE_STATE.debug,
         "save-load", "Loading save file", #FEATURE_STATE.debug,
         "restart", "Restarting the room", #FEATURE_STATE.debug,
-        "ch1-battle-percentage", "Show health/mercy percentages in Chapter 1", #FEATURE_STATE.always,
+        "ch1-mercy-percentage", "Show mercy percentages in Chapter 1", #FEATURE_STATE.always,
         "enemy-hp", "Display current and max HP of enemies", #FEATURE_STATE.always,
         "doorwarp-square", "Show doorwarp indicator", #FEATURE_STATE.always,
         "susie-death", "Always target Susie in K. Round", #FEATURE_STATE.always,

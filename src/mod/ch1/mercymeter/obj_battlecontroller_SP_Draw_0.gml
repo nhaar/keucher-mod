@@ -2,7 +2,7 @@
 /// AFTER
 mercyamt = 100
 /// CODE
-if (is_feature_active("ch1-battle-percentage"))
+if (is_feature_active("ch1-mercy-percentage"))
 {
 #if DEMO
     var joker = obj_joker_ch1
