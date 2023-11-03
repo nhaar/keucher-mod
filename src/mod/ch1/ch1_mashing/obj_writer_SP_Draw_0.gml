@@ -4,6 +4,14 @@ var is_auto_mashed = false
 var has_wrist_protector = global.flag[10] == 1
 /// END
 
+#if DEMO
+/// AFTER
+        if (automash_timer == 0)
+        {
+/// CODE
+is_auto_mashed = has_wrist_protector
+/// END
+#elsif SURVEY_PROGRAM
 /// REPLACE
         if (automash_timer == 0)
             button1 = 1
@@ -14,7 +22,8 @@ if (automash_timer == 0)
     is_auto_mashed = has_wrist_protector
 }
 /// END
-
+#endif
+            
 /// AFTER
 if (halt != false && button1 == 1 && siner > 0)
 {
