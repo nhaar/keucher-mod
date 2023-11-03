@@ -5,6 +5,7 @@ xx = 320
 if (message_timer > 0)
 {
     draw_set_halign(fa_center)
+    draw_set_color(c_white)
     draw_text(xx, 10, message_content)
     draw_text(xx, 24, room_text)
     draw_text(xx, 38, warp_text)
