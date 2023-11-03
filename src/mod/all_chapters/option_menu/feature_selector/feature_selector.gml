@@ -63,7 +63,8 @@ function set_feature_info()
         "change-party", "Enable party changer", #FEATURE_STATE.debug,
         "side-action", "Enable toggle for S/R/N actions", #FEATURE_STATE.debug,
         "toggle-noclip", "Enable toggle noclip", #FEATURE_STATE.debug,
-        "get-item", "Enable key for getting all weapons", #FEATURE_STATE.debug
+        "get-item", "Enable key for getting all weapons", #FEATURE_STATE.debug,
+        "show-wp-mash", "Display mash stats for the Wrist Protector", #FEATURE_STATE.debug
     );
 }
 

@@ -234,14 +234,7 @@ for (var i = 0; i < button_amount; i++)
                         get_split_create_options()
                         break
                     case #OPTION_STATE.general_options:
-                        switch (i)
-                        {
-                            case 0:
-                                var new_value = read_player_option("display-wp-mash")
-                                ds_map_set(global.player_options, "display-wp-mash", new_value ? 0 : 1)
-                                get_player_options()
-                                break
-                        }
+                        // to do?
                         break
                     case #OPTION_STATE.features:
                         var feature_map = read_json_value(global.player_options, "feature-options")

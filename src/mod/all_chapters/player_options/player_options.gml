@@ -22,7 +22,6 @@ function init_player_options()
         ("
         {
             \"timer-precision\": 2,
-            \"display-wp-mash\": false,
             \"feature-options\":
             {
                 " + feature_json + "

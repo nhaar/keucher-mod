@@ -94,10 +94,7 @@ function get_keybind_assign_options(argument0)
 
 function get_player_options()
 {
-    button_amount = 1
-    button_text[0] = read_json_value(global.player_options, "display-wp-mash")
-        ? "Hide Chapter 1 Wrist Protector Mash Text"
-        : "Show Chapter 1 Wrist Protector Mash Text"
+    button_amount = 0
     options_state = #OPTION_STATE.general_options
 }
 
