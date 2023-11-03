@@ -1,11 +1,12 @@
 /// PATCH
 /// APPEND
+if (is_feature_active("show-wake-mash") && room ==
 #if DEMO
-if (scr_debug_ch1() && room == room_dark1_ch1)
+    room_dark1_ch1
+#elsif SURVEY_PROGRAM
+    room_dark1
 #endif
-#if SURVEY_PROGRAM
-if (scr_debug() && room == room_dark1)
-#endif
+)
 {
 #if DEMO
     var darkawake = obj_darkwakeevent_ch1
