@@ -92,10 +92,97 @@ function get_keybind_assign_options(argument0)
     options_state = #OPTION_STATE.keybind_assign
 }
 
+/*
+Get general player options
+*/
 function get_player_options()
 {
-    button_amount = 0
+    get_buttons_from_pair_array
+    (
+        #GENERAL_OPTION.ui_colors, "UI Colors"
+    )
+
     options_state = #OPTION_STATE.general_options
+}
+
+/*
+Get options for which UI element to set the color
+*/
+function get_ui_colors_options()
+{
+    get_buttons_from_pair_array
+    (
+        #UI_ELEMENT.background, "Background Color",
+        #UI_ELEMENT.text, "Text Color",
+        #UI_ELEMENT.button, "Button Color",
+        #UI_ELEMENT.border, "Border Color",
+        #UI_ELEMENT.button_hover, "Button Hover Color",
+        #UI_ELEMENT.button_press, "Button Press Color",
+        #UI_ELEMENT.button_highlight, "Button Highlight Color"
+    )
+
+    options_state = #OPTION_STATE.ui_colors
+}
+
+/*
+Get options for picking a color
+*/
+function get_color_picker_options()
+{
+    get_buttons_from_pair_array
+    (
+        #COLOR_PICKER_OPTION.rgb, "Get color from RGB",
+        #COLOR_PICKER_OPTION.hex, "Get color from HEX value"
+    )
+
+    options_state = #OPTION_STATE.color_picker
+}
+
+/*
+Check if a color input is valid RGB
+
+color: the value to check
+returns (Boolean): Whether the color is valid or not
+*/
+function validate_rgb_color(color)
+{
+    if (!is_real(color))
+    {
+        show_message("Color was not a number!")
+        return false
+    }
+    if (color < 0 || color > 255)
+    {
+        show_message("Color was not between 0 and 255!")
+        return false
+    }
+    return true
+}
+
+/*
+Check if a color input is valid HEX
+
+color: the value to check
+returns (Boolean): Whether the color is valid or not
+*/
+function validate_hex_color(color)
+{
+    length = string_length(color)
+    if (length != 6)
+    {
+        show_message("Hex color was not 6 characters long!")
+        return false
+    }
+    for (var i = 0; i < length; i++)
+    {
+        var char = string_char_at(color, i)
+        if (string_pos(char, "0123456789ABCDEF") == 0)
+        {
+            show_message("Hex color contained an invalid character!")
+            return false
+        }
+    }
+    return true
 }
 
 function get_split_assign_options(argument0)

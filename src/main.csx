@@ -151,7 +151,9 @@ class KeucherModLoader : UMPLoader
         split_assign,
         split_creator,
         split_pick,
-        general_options
+        general_options,
+        ui_colors,
+        color_picker
     }
 
     public enum DEFAULT_OPTION
@@ -191,6 +193,27 @@ class KeucherModLoader : UMPLoader
         doors_and_walls
     }
 
+    public enum GENERAL_OPTION
+    {
+        ui_colors
+    }
+
+    public enum UI_ELEMENT
+    {
+        background,
+        button,
+        text,
+        border,
+        button_hover,
+        button_press,
+        button_highlight
+    }
+
+    public enum COLOR_PICKER_OPTION
+    {
+        rgb,
+        hex
+    }
 }
 
 void BuildMod (DeltaruneVersion version)

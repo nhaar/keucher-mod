@@ -13,10 +13,9 @@ scroll_width = 16
 button_start_x = padding
 button_end_x = view_width - padding - scroll_width
 
-
-draw_set_color(c_aqua)
+draw_set_color(read_ui_color("background"))
 draw_rectangle(0, 0, view_width, view_height, false)
-draw_set_color(c_black)
+draw_set_color(read_ui_color("border"))
 draw_rectangle(0, 0, view_width, view_height, true)
 
 // scroll wheel related coordinates
@@ -68,7 +67,7 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
 
 // drawing the actual buttons
 
-draw_set_color(c_black)
+draw_set_color(read_ui_color("button"))
 draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false)
 
 for (var i = 0; i < button_amount; i++)
@@ -234,7 +233,12 @@ for (var i = 0; i < button_amount; i++)
                         get_split_create_options()
                         break
                     case #OPTION_STATE.general_options:
-                        // to do?
+                        switch (i)
+                        {
+                            case #GENERAL_OPTION.ui_colors:
+                                get_ui_colors_options()
+                                break
+                        }
                         break
                     case #OPTION_STATE.features:
                         var feature_map = read_json_value(global.player_options, "feature-options")
@@ -256,6 +260,41 @@ for (var i = 0; i < button_amount; i++)
                         save_player_options()
                         get_feature_options()
                         break
+                    case #OPTION_STATE.ui_colors:
+                        current_ui_element = i
+                        get_color_picker_options()
+                        break
+                    case #OPTION_STATE.color_picker:
+                        switch (i)
+                        {
+                            case #COLOR_PICKER_OPTION.rgb:
+                                red = get_integer("Enter red value (0 - 255)", "")
+                                if (!validate_rgb_color(red))
+                                {
+                                    break
+                                }
+                                green = get_integer("Enter green value (0 - 255)", "")
+                                if (!validate_rgb_color(green))
+                                {
+                                    break
+                                }
+                                blue = get_integer("Enter blue value (0 - 255)", "")
+                                if (!validate_rgb_color(blue))
+                                {
+                                    break
+                                }
+                                set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
+                                break
+                            case #COLOR_PICKER_OPTION.hex:
+                                hex = get_string("Enter hex value (000000 - FFFFFF)", "")
+                                if (validate_hex_color(hex))
+                                {
+                                    decimal = hex_to_decimal(hex)
+                                    set_ui_color(current_ui_element, decimal)
+                                }
+                                break
+
+                        }
                 }
             }
         }
@@ -273,24 +312,24 @@ for (var i = 0; i < button_amount; i++)
 
     if (button_state[i] == #BUTTON_STATE.hover)
     {
-        draw_set_color(c_white)
+        draw_set_color(read_ui_color("button-hover"))
     }
     else if (button_state[i] == #BUTTON_STATE.press)
     {
-        draw_set_color(c_black)
+        draw_set_color(read_ui_color("button-press"))
     }
     else if (button_state[i] == #BUTTON_STATE.none)
     {
-        draw_set_color(c_gray)
+        draw_set_color(read_ui_color("button"))
     }
     else if (button_state[i] == #BUTTON_STATE.highlight)
     {
-        draw_set_color(c_blue)
+        draw_set_color(read_ui_color("button-highlight"))
     }
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false)
-    draw_set_color(c_black)
+    draw_set_color(read_ui_color("button-press"))
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
-    draw_set_color(c_lime)
+    draw_set_color(read_ui_color("text"))
     draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
 }
 draw_sprite(

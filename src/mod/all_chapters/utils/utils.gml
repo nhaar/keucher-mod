@@ -45,3 +45,34 @@ function get_object_implicit_chapter (object)
 #endif
     return asset_get_index(object)
 }
+
+/*
+Converts from a hex string to a decimal number
+*/
+function hex_to_decimal(hex)
+{
+    var decimal = 0;
+    var hex_length = string_length(hex);
+    for (var i = 0; i < hex_length; i++)
+    {
+        var digit = string_char_at(hex, i);
+        if (digit >= "0" && digit <= "9")
+        {
+            digit = ord(digit) - 48;
+        }
+        else if (digit >= "A" && digit <= "F")
+        {
+            digit = ord(digit) - 55;
+        }
+        else if (digit >= "a" && digit <= "f")
+        {
+            digit = ord(digit) - 87;
+        }
+        else
+        {
+            digit = 0;
+        }
+        decimal += digit * power(16, hex_length - i - 1);
+    }
+    return decimal;
+}
