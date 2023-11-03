@@ -27,12 +27,11 @@ if pressed_active_feature_key(#KEYBINDING.toggle_boss, "boss-practice")
         // iterate chars
         for (var i = 0; i < 3; i++)
         {
-            global.battledf[i] = global.df[global.char[i]]
-            // iterate items
-            for (var j = 0; i < 3; j++)
-            {
-                global.battledef[i] += global.itemdf[global.char[i]][j]
-            }
+            global.battledf[i] =
+                global.df[global.char[i]] +
+                global.itemdf[global.char[i]][0] +
+                global.itemdf[global.char[i]][1] +
+                global.itemdf[global.char[i]][2]
         }
         show_temp_message("Boss attack practice mode disabled")
     }
