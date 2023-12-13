@@ -55,18 +55,18 @@ function hex_to_decimal(hex)
     var hex_length = string_length(hex);
     for (var i = 0; i < hex_length; i++)
     {
-        var digit = string_char_at(hex, i);
+        var digit = string_char_at(hex, i + 1);
         if (digit >= "0" && digit <= "9")
         {
             digit = ord(digit) - 48;
         }
         else if (digit >= "A" && digit <= "F")
         {
-            digit = ord(digit) - 55;
+            digit = ord(digit) - ord("A") + 10;
         }
         else if (digit >= "a" && digit <= "f")
         {
-            digit = ord(digit) - 87;
+            digit = ord(digit) - ord("a") + 10;
         }
         else
         {
@@ -75,4 +75,15 @@ function hex_to_decimal(hex)
         decimal += digit * power(16, hex_length - i - 1);
     }
     return decimal;
+}
+
+/*
+Converts a HEX string to a gamemaker color
+*/
+function hex_to_color(hex)
+{
+    var red = hex_to_decimal(string_copy(hex, 1, 2));
+    var green = hex_to_decimal(string_copy(hex, 3, 2));
+    var blue = hex_to_decimal(string_copy(hex, 5, 2));
+    return make_colour_rgb(red, green, blue);
 }

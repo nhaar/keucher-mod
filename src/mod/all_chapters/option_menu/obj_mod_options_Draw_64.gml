@@ -289,8 +289,8 @@ for (var i = 0; i < button_amount; i++)
                                 hex = get_string("Enter hex value (000000 - FFFFFF)", "")
                                 if (validate_hex_color(hex))
                                 {
-                                    decimal = hex_to_decimal(hex)
-                                    set_ui_color(current_ui_element, decimal)
+                                    color = hex_to_color(hex)
+                                    set_ui_color(current_ui_element, color)
                                 }
                                 break
 
