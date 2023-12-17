@@ -87,3 +87,20 @@ function hex_to_color(hex)
     var blue = hex_to_decimal(string_copy(hex, 5, 2));
     return make_colour_rgb(red, green, blue);
 }
+
+/*
+Trim whitespace from the start and end of string
+*/
+function trim_string(str)
+{
+    var trim = " \n\r\t\v\f"
+    var l = 1
+    while (string_pos(string_char_at(str, l), trim)) {
+        l++
+    }
+    var r = string_length(str)
+    while (string_pos(string_char_at(str, r), trim)) {
+        r--
+    }
+    return string_copy(str, l, r - l + 1)
+}

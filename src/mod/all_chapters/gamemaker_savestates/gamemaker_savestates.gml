@@ -27,6 +27,7 @@ function savestate_save_check(argument0)
     // check if saving savestate or saving file
     if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate")
     {
+        save_global_variables()
         savestate = "ss_"
         _ssslot = ""
         with (obj_IGT)
