@@ -7,6 +7,9 @@ function frames_to_second(frames)
     return string_format(seconds, string_length(string(main)), 3)
 }
 
+/*
+Takes a value in microseconds and returns a string with the time
+*/
 function to_readable_time(original_time)
 {
     var precision = read_json_value(global.player_options, "timer-precision")
@@ -19,8 +22,11 @@ function to_readable_time(original_time)
     var minutes = floor(original_time / 60000000)
     var seconds = floor((original_time - minutes * 60000000) / 1000000)
     var ms = string(round((original_time / 1000000) % 1 * power(10, precision)))
-    if ((original_time / 1000000) % 1 == 1)
+    if (ms == string(power(10, precision))) // this can happen if it's just below the next second
+    {
         ms = ""
+        seconds++
+    }
     var length = string_length(ms)
     while (length < precision)
     {
