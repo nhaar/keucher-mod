@@ -171,6 +171,13 @@ function set_all_instructions()
 #endif
         "kingdefeat",
 #if DEMO
+        "room_krishallway_ch1",
+#endif
+#if SURVEY_PROGRAM
+        "room_krishallway",
+#endif
+        "ch1sleep",
+#if DEMO
         "ch2start",
         "room_dw_cyber_intro_1",
         "djsend",

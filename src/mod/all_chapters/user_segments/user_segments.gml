@@ -22,7 +22,8 @@ function get_mod_room_name(room_id)
         "room_field_checkers4", "Checkerboard - First Room",
         "room_forest_savepoint1", "Forest - Entrance",
         "room_forest_afterthrash2", "Forest - After Susie/Lancer",
-        "room_cc_prisonlancer", "Castle - Cell Hallway"
+        "room_cc_prisonlancer", "Castle - Cell Hallway",
+        "room_krishallway", "Chapter 1 - Kris' Hallway"
     )
     var ch1_room_descs_size = array_length(ch1_room_descs)
     for (var i = 0; i < ch1_room_descs_size; i += 2)

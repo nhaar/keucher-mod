@@ -82,7 +82,6 @@ else if (igt_mode == 3 && current_split >= 0)
 {
     if (current_instruction <= segment_split_number)
     {
-
         var instruction = read_json_value(global.splits_json, current_split, "instructions", current_instruction)
         if (instruction == room_get_name(room) || global.current_event = instruction)
         {
