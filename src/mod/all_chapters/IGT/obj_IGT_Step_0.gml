@@ -25,13 +25,13 @@ if (previous_room != room)
 }
 
 // battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
-if (igt_mode == 4 && global.fighting != battle_started)
+if (igt_mode == #IGT_MODE.room_and_battle && global.fighting != battle_started)
 {
     update_transition_time(current_frame_time)
 }
 
 // updating thigns related to battle
-if (igt_mode == 2)
+if (igt_mode == #IGT_MODE.battle)
 {
     // first: setting everything up when entering battle
     if (global.fighting && !battle_started)
@@ -82,7 +82,7 @@ if (igt_mode == 2)
     if (thisTurn != 0 && split_times[turn_count] == -2)
         split_times[turn_count] = thisTurn + start_time
 }
-else if (igt_mode == 3 && current_split >= 0)
+else if (igt_mode == #IGT_MODE.segment && current_split >= 0)
 {
     if (current_instruction <= segment_split_number)
     {

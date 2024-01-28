@@ -14,7 +14,7 @@ for (i = 0; i < 20; i += 1)
 segment_start_room = -1
 
 // variable keeps track of the IGT timer mode
-igt_mode = 0
+igt_mode = #IGT_MODE.none
 
 // should be `true` if the timer is invisible, `false` if it is visible
 hide_timer = false

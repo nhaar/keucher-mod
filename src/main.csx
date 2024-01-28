@@ -214,6 +214,33 @@ class KeucherModLoader : UMPLoader
         rgb,
         hex
     }
+
+    /// <summary>
+    /// Different modes for the IGT
+    /// </summary>
+    public enum IGT_MODE
+    {
+        /// <summary>
+        /// IGT is not watching for anything
+        /// </summary>
+        none,
+        /// <summary>
+        /// IGT watches for the room to change
+        /// </summary>
+        room_by_room,
+        /// <summary>
+        /// IGT watches for start of battle, splits every turn
+        /// </summary>
+        battle,
+        /// <summary>
+        /// IGT watches for the segment to start and end
+        /// </summary>
+        segment,
+        /// <summary>
+        /// IGT watches for the room to change or for battle to end and start
+        /// </summary>
+        room_and_battle
+    }
 }
 
 void BuildMod (DeltaruneVersion version)

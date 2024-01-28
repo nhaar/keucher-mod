@@ -46,7 +46,7 @@ function set_igt_splits_info(split_status)
     if (split_status == 1)
     {
         obj_IGT.start_time = 0
-        obj_IGT.igt_mode = (obj_IGT.igt_mode + 1) % 5
+        obj_IGT.igt_mode = (obj_IGT.igt_mode + 1) % #IGT_MODE.#length
     }
     if i_ex(obj_IGT)
     {
@@ -68,25 +68,25 @@ function set_igt_splits_info(split_status)
     {
         switch obj_IGT.igt_mode
         {
-            case 0:
+            case #IGT_MODE.none:
                 __splitsText = "No"
                 obj_IGT.segment_start_room = 0
                 break
-            case 1:
+            case #IGT_MODE.room_by_room:
                 __splitsText = "Room-by-room"
                 break
-            case 2:
+            case #IGT_MODE.battle:
                 __splitsText = "Battle"
                 for (var i = 0; i < 20; i++)
                 {
                     obj_IGT.split_times[i] = -2
                 }
                 break
-            case 3:
+            case #IGT_MODE.segment:
                 __splitsText = "Segment with"
                 update_splits()
                 break
-            case 4:
+            case #IGT_MODE.room_and_battle:
                 __splitsText = "Room & Battle"
                 break
         }
