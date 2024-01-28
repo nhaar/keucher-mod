@@ -20,10 +20,16 @@ else
 // room updating
 if (previous_room != room)
 {
-    time_since_last_transition = current_frame_time - last_transition_time
-    last_transition_time = current_frame_time
+    update_transition_time(current_frame_time)
     previous_room = room
 }
+
+// battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
+if (igt_mode == 4 && global.fighting != battle_started)
+{
+    update_transition_time(current_frame_time)
+}
+
 // updating thigns related to battle
 if (igt_mode == 2)
 {
@@ -45,7 +51,6 @@ if (igt_mode == 2)
             TPstart[i] = 0
         }
         global.grazeSubtracted = 0
-        battle_started = true
     }
     // TO-DO: properly document all these cases
     // starting new turn?
@@ -61,7 +66,6 @@ if (igt_mode == 2)
         turn_count++
         last_transition_time = current_frame_time
         thisTurn = current_frame_time - start_time
-        battle_started = false
     }
     // ending turn?
     if (global.mnfight != 2 && turn_started)
@@ -156,3 +160,6 @@ if (detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
         }
     }    
 }
+
+// update battle started tracker for next frame (must be at the end to delay the previous checks)
+battle_started = global.fighting ? true : false

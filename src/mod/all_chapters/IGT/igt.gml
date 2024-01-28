@@ -46,7 +46,7 @@ function set_igt_splits_info(split_status)
     if (split_status == 1)
     {
         obj_IGT.start_time = 0
-        obj_IGT.igt_mode = (obj_IGT.igt_mode + 1) % 4
+        obj_IGT.igt_mode = (obj_IGT.igt_mode + 1) % 5
     }
     if i_ex(obj_IGT)
     {
@@ -85,6 +85,9 @@ function set_igt_splits_info(split_status)
             case 3:
                 __splitsText = "Segment with"
                 update_splits()
+                break
+            case 4:
+                __splitsText = "Room & Battle"
                 break
         }
     }
@@ -191,4 +194,15 @@ function set_all_instructions()
         "gigaend"
 #endif
     )
+}
+
+/*
+Updates times assuming a "transition" occured in this frame (normally used for room transitions, also for leaving/enter battle sometimes)
+
+current_frame_time: Time of the current frame
+*/
+function update_transition_time(current_frame_time)
+{
+    time_since_last_transition = current_frame_time - last_transition_time
+    last_transition_time = current_frame_time
 }
