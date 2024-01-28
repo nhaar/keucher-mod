@@ -49,6 +49,8 @@ function get_mod_room_name(room_id)
             return "Queen's Mansion - Acid Tunnel Entrance";
         case room_dw_mansion_acid_tunnel_exit:
             return "Queen's Mansion - Acid Tunnel Exit"
+        case room_torhouse:
+            return "Chapter 2 - Kris' House - Kitchen";
     }
 #endif
 }
@@ -71,6 +73,7 @@ function get_name_from_instruction(instruction)
             case "cyberend": return "White fadeout in Cyber Field end";
             case "city2end": return "Black screen in City end";
             case "gigaend": return "End Giga Queen";
+            case "ch2sleep": return "Sleeping in Chapter 2 (TIME END)";
             default: return "Error";
         }
     }

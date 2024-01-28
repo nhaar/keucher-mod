@@ -191,7 +191,9 @@ function set_all_instructions()
         "city2end",
         "room_dw_mansion_acid_tunnel",
         "room_dw_mansion_acid_tunnel_exit",
-        "gigaend"
+        "gigaend",
+        "room_torhouse",
+        "ch2sleep"
 #endif
     )
 }
