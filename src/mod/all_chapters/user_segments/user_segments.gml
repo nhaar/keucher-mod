@@ -64,6 +64,7 @@ function get_name_from_instruction(instruction)
             case "captured": return "Getting captured in Chapter 1";
             case "escaped": return "Escape prison in Chapter 1";
             case "kingdefeat": return "Finish King fight";
+            case "ch1sleep": return "Sleeping in Chapter 1 (TIME END)";
             case "ch2start": return "Press YES in Chapter 2 naming";
             case "djsend": return "End DJs fight";
             case "cyberend": return "White fadeout in Cyber Field end";
