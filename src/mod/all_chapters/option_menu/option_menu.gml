@@ -319,6 +319,9 @@ function init_keybinds()
         ds_map_add(global.mod_keybinds, #KEYBINDING.next_boss_attack, vk_pageup)
         ds_map_add(global.mod_keybinds, #KEYBINDING.previous_boss_attack, vk_pagedown)
         save_keybinds()
+
+        // save keybinds will make all arguments string, which is what we want, so load them again instead of converting them before
+        global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
     }
 }
 
