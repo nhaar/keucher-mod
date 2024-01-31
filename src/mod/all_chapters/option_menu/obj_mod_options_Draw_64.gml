@@ -79,6 +79,7 @@ for (var i = 0; i < button_amount; i++)
     {
         continue
     }
+    // if mouse is over button
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
         
@@ -86,6 +87,7 @@ for (var i = 0; i < button_amount; i++)
         {
             button_state[i] = #BUTTON_STATE.press
         }
+        // handle clicking button
         else if (button_state[i] == #BUTTON_STATE.press)
         {
             if (mouse_check_button_released(mb_left))
@@ -241,24 +243,42 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break
                     case #OPTION_STATE.features:
-                        var feature_map = read_json_value(global.player_options, "feature-options")
-                        var feature_name = global.feature_info[i * 3]
-                        var current_value = read_json_value(feature_map, feature_name)
-                        if (current_value == #FEATURE_STATE.never)
+                        // can get id based on index because we're drawing based on that order
+                        var feature_name = global.feature_info[i * global.feature_info_group_length]
+                        current_feature = feature_name
+                        current_feature_index = i
+                        get_single_feature_options(feature_name)
+                        break
+                    case #OPTION_STATE.single_feature:
+                        switch (i)
                         {
-                            current_value = #FEATURE_STATE.debug
+                            // show info
+                            case 0:
+                                // the + 3 is to access the information about feature
+                                var feature_info = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_info_index]
+                                show_message(feature_info)
+                                break
+                            // toggle feature state
+                            case 1:
+                                var feature_map = read_json_value(global.player_options, "feature-options")
+                                var current_value = read_json_value(feature_map, current_feature)
+                                switch (current_value)
+                                {
+                                    case #FEATURE_STATE.never:
+                                        current_value = #FEATURE_STATE.debug
+                                        break
+                                    case #FEATURE_STATE.debug:
+                                        current_value = #FEATURE_STATE.always
+                                        break
+                                    case #FEATURE_STATE.always:
+                                        current_value = #FEATURE_STATE.never
+                                        break
+                                }
+                                ds_map_set(feature_map, current_feature, current_value)
+                                save_player_options()
+                                get_single_feature_options(current_feature)
+                                break
                         }
-                        else if (current_value == #FEATURE_STATE.debug)
-                        {
-                            current_value = #FEATURE_STATE.always
-                        }
-                        else if (current_value == #FEATURE_STATE.always)
-                        {
-                            current_value = #FEATURE_STATE.never
-                        }
-                        ds_map_set(feature_map, feature_name, current_value)
-                        save_player_options()
-                        get_feature_options()
                         break
                     case #OPTION_STATE.ui_colors:
                         current_ui_element = i

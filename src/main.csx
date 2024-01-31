@@ -144,7 +144,14 @@ class KeucherModLoader : UMPLoader
     public enum OPTION_STATE
     {
         default_state,
+        /// <summary>
+        /// For the option that shows all features
+        /// </summary>
         features,
+        /// <summary>
+        /// For the options of a single feature
+        /// </summary>
+        single_feature,
         keybinds,
         keybind_assign,
         splits,
