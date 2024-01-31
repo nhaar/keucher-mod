@@ -335,7 +335,7 @@ function get_default_mod_options()
     get_buttons_from_pair_array
     (
         #DEFAULT_OPTION.keybind, "Set keybinds",
-        #DEFAULT_OPTION.feature, "Configurate features",
+        #DEFAULT_OPTION.feature, "Configure features",
         #DEFAULT_OPTION.current_split, "Set current split",
         #DEFAULT_OPTION.create_split, "Create a new split",
         #DEFAULT_OPTION.timer_precision, "Set timer precision",
