@@ -2,6 +2,10 @@
 
 function create_array()
 {
+    if (argument_count == 0)
+    {
+        return array_create(0)
+    }
     var new_array
     new_array[argument_count - 1] = 0;
     for (var i = 0; i < argument_count; i++)

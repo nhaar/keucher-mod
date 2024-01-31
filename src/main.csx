@@ -152,7 +152,6 @@ class KeucherModLoader : UMPLoader
         /// For the options of a single feature
         /// </summary>
         single_feature,
-        keybinds,
         keybind_assign,
         splits,
         split_assign,
@@ -166,7 +165,6 @@ class KeucherModLoader : UMPLoader
     public enum DEFAULT_OPTION
     {
         feature,
-        keybind,
         current_split,
         create_split,
         timer_precision,

@@ -7,12 +7,12 @@ function init_player_options()
     {
         var feature_json = ""
         var feature_length = array_length(global.feature_info)
-        for (var i = 0; i < feature_length; i+= 3)
+        for (var i = 0; i < feature_length; i += global.feature_info_group_length)
         {
             var feature_name = global.feature_info[i]
-            var value = global.feature_info[i + 2]
+            var value = global.feature_info[i + global.feature_info_state_index]
             feature_json += "\"" + feature_name + "\": " + string(value)
-            if (i < feature_length - 3)
+            if (i < feature_length - global.feature_info_group_length)
             {
                 feature_json += ", "
             }

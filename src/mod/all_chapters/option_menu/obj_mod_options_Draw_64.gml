@@ -98,9 +98,6 @@ for (var i = 0; i < button_amount; i++)
                     case #OPTION_STATE.default_state:
                         switch (i)
                         {
-                            case #DEFAULT_OPTION.keybind:
-                                get_keybind_mod_options()
-                                break
                             case #DEFAULT_OPTION.current_split:
                                 get_split_mod_options()
                                 break
@@ -120,12 +117,15 @@ for (var i = 0; i < button_amount; i++)
                                 break
                         }
                         break
-                    case #OPTION_STATE.keybinds:
-                        get_keybind_assign_options(i)
-                        break
                     case #OPTION_STATE.keybind_assign:
+                        // get info
+                        if (i == 0)
+                        {
+                            var keybind_info = read_json_value(global.keybinding_info, current_keybind, "info")
+                            show_message(keybind_info)
+                        }
                         // setting new value
-                        if (i == 1)
+                        else if (i == 2)
                         {
                             setting_keybind = true
                             // update text
@@ -247,19 +247,19 @@ for (var i = 0; i < button_amount; i++)
                         var feature_name = global.feature_info[i * global.feature_info_group_length]
                         current_feature = feature_name
                         current_feature_index = i
-                        get_single_feature_options(feature_name)
+                        get_single_feature_options(feature_name, i)
                         break
                     case #OPTION_STATE.single_feature:
-                        switch (i)
-                        {
                             // show info
-                            case 0:
+                            if (i == 0)
+                            {
                                 // the + 3 is to access the information about feature
                                 var feature_info = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_info_index]
                                 show_message(feature_info)
-                                break
+                            }
                             // toggle feature state
-                            case 1:
+                            else if (i == 1)
+                            {
                                 var feature_map = read_json_value(global.player_options, "feature-options")
                                 var current_value = read_json_value(feature_map, current_feature)
                                 switch (current_value)
@@ -276,9 +276,17 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 ds_map_set(feature_map, current_feature, current_value)
                                 save_player_options()
-                                get_single_feature_options(current_feature)
-                                break
-                        }
+                                get_single_feature_options(current_feature, current_feature_index)
+                            }
+                            // keybinds, if any exist, are dinamically created
+                            else
+                            {
+                                var keybind_array = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_keybinds_index]
+                                // 2 just to account the first two buttons
+                                // couldn't fint a way to make this magic number be more dynamic
+                                current_keybind = keybind_array[i - 2]
+                                get_keybind_assign_options(current_keybind)
+                            }
                         break
                     case #OPTION_STATE.ui_colors:
                         current_ui_element = i
