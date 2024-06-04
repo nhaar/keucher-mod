@@ -1,4 +1,4 @@
-/// PATCH .igore ifndef DEMO
+/// PATCH .ignore ifndef DEMO
 /// AFTER
 screenshot = -1
 /// CODE
