@@ -138,7 +138,8 @@ class KeucherModLoader : UMPLoader
         previous_house_pattern,
         toggle_boss,
         next_boss_attack,
-        previous_boss_attack
+        previous_boss_attack,
+        screenshot
     }
 
     public enum OPTION_STATE
