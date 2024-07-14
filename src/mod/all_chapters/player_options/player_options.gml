@@ -3,10 +3,10 @@
 function init_player_options()
 {
     global.player_options = scr_84_load_map_json("keucher_mod/player_options.json")
+    var feature_length = array_length(global.feature_info)
     if (ds_map_empty(global.player_options))
     {
         var feature_json = ""
-        var feature_length = array_length(global.feature_info)
         for (var i = 0; i < feature_length; i += global.feature_info_group_length)
         {
             var feature_name = global.feature_info[i]
@@ -39,8 +39,23 @@ function init_player_options()
             }
         }
         ")
-        save_player_options()
     }
+    else
+    {
+        // adding new features if they don't exist yet
+        var feature_options = read_json_value(global.player_options, "feature-options")   
+        for (var i = 0; i < feature_length; i += global.feature_info_group_length)
+        {
+            var feature_name = global.feature_info[i]
+            var value = read_json_value(feature_options, feature_name)
+            if (value == undefined)
+            {
+                ds_map_add(feature_options, feature_name, global.feature_info[i + global.feature_info_state_index])
+            }
+        }
+    }
+    save_player_options()
+
 }
 
 function read_player_option(key)

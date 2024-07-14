@@ -268,11 +268,11 @@ function init_keybinds()
 {
     // setting up keybinds
     global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
+    // definitions for the default are found in keybinding_info
+    var keybinds = ds_map_keys_to_array(global.keybinding_info)
+    var keybind_count = array_length(keybinds)
     if (ds_map_empty(global.mod_keybinds))
     {
-        // definitions for the default are found in keybinding_info
-        var keybinds = ds_map_keys_to_array(global.keybinding_info)
-        var keybind_count = array_length(keybinds)
         for (var i = 0; i < keybind_count; i++)
         {
             var keybind_index = keybinds[i]
@@ -280,12 +280,26 @@ function init_keybinds()
             var default_value = read_json_value(keybind_info, "default")
             ds_map_add(global.mod_keybinds, keybind_index, default_value)
         }
-
-        save_keybinds()
-
-        // save keybinds will make all arguments string, which is what we want, so load them again instead of converting them before
-        global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
     }
+    else
+    {
+        // check if any new keybinds are added
+        for (var i = 0; i < keybind_count; i++)
+        {
+            var keybind_index = keybinds[i]
+            var keybind_info = read_json_value(global.mod_keybinds, keybind_index)
+            if (keybind_info == undefined)
+            {
+                var default_value = read_json_value(global.keybinding_info, keybind_index, "default")
+                ds_map_add(global.mod_keybinds, keybind_index, default_value)
+            }
+        }
+    }
+
+    save_keybinds()
+
+    // save keybinds will make all arguments string, which is what we want, so load them again instead of converting them before
+    global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
 }
 
 function save_keybinds()
