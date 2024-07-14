@@ -63,8 +63,10 @@ function get_single_feature_options(feature_id, feature_index)
     for (var i = 0; i < keybind_count; i++)
     {
         var keybind_index = keybind_array[i]
+        var key_id = read_json_value(global.mod_keybinds, keybind_index);
         var keybind_name = read_json_value(global.keybinding_info, keybind_index, "name")
-        button_text[button_amount] = "KEYBIND: " + keybind_name
+        var keybind_value = read_json_value(global.keybinding_info, keybind_index, )
+        button_text[button_amount] = "KEYBIND: " + keybind_name + " [" + get_key_name(key_id) + "]"
         button_amount++
     }
 }
@@ -83,7 +85,7 @@ function get_keybind_assign_options(keybind_id)
     var key_id = read_json_value(global.mod_keybinds, keybind_id);
 
     get_buttons_from_pair_array(
-        0, "INFO",
+        0, "KEYBIND: " + read_json_value(keybind_info, "name"),
         1, "Value: [" + get_key_name(key_id) + "]",
         2, "Set Value"
     );
