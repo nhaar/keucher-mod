@@ -1,5 +1,8 @@
 /// IMPORT
 
+// a variable to keep track of whether the time has been updated already, to avoid duplicates between room by room and battle
+var updated_already = false
+
 if (!is_feature_active("timer"))
     return;
 
@@ -21,13 +24,17 @@ else
 if (previous_room != room)
 {
     update_transition_time(current_frame_time)
+    updated_already = true
     previous_room = room
 }
 
 // battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
 if ((igt_mode == #IGT_MODE.room_and_battle || igt_mode == #IGT_MODE.room_battle_extra) && global.fighting != battle_started)
 {
-    update_transition_time(current_frame_time)
+    if (!updated_already)
+    {
+        update_transition_time(current_frame_time)
+    }
 }
 
 // updating thigns related to battle
