@@ -89,6 +89,9 @@ function set_igt_splits_info(split_status)
             case #IGT_MODE.room_and_battle:
                 __splitsText = "Room & Battle"
                 break
+            case #IGT_MODE.room_battle_extra:
+                __splitsText = "Room & Battle & More"
+                break
         }
     }
     if (split_status == 0)

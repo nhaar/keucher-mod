@@ -244,7 +244,11 @@ class KeucherModLoader : UMPLoader
         /// <summary>
         /// IGT watches for the room to change or for battle to end and start
         /// </summary>
-        room_and_battle
+        room_and_battle,
+        /// <summary>
+        /// Same as room and battle with some extra triggers
+        /// </summary>
+        room_battle_extra
     }
 }
 

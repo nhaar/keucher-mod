@@ -10,7 +10,7 @@ draw_set_font(fnt_main)
 draw_set_color(c_white)
 
 // if in room-by-room mode or room&battle
-if (igt_mode == #IGT_MODE.room_by_room || igt_mode == #IGT_MODE.room_and_battle)
+if (igt_mode == #IGT_MODE.room_by_room || igt_mode == #IGT_MODE.room_and_battle || igt_mode == #IGT_MODE.room_battle_extra)
     runningtimer = time_since_last_transition
 else
     runningtimer = last_transition_time - start_time
@@ -57,7 +57,7 @@ draw_set_halign(fa_right)
 draw_text(xx - 10, yy + 5, conText)
 draw_set_halign(fa_left)
 
-if ((start_time == 0 || start_time == time_lock_value) && igt_mode != #IGT_MODE.room_by_room && igt_mode != #IGT_MODE.room_and_battle)
+if ((start_time == 0 || start_time == time_lock_value) && igt_mode != #IGT_MODE.room_by_room && igt_mode != #IGT_MODE.room_and_battle && igt_mode != #IGT_MODE.room_battle_extra)
 {
     draw_set_color(c_gray)
     global.timerIsRunning = 0

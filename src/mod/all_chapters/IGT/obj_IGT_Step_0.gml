@@ -25,7 +25,7 @@ if (previous_room != room)
 }
 
 // battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
-if (igt_mode == #IGT_MODE.room_and_battle && global.fighting != battle_started)
+if ((igt_mode == #IGT_MODE.room_and_battle || igt_mode == #IGT_MODE.room_battle_extra) && global.fighting != battle_started)
 {
     update_transition_time(current_frame_time)
 }
@@ -100,6 +100,14 @@ else if (igt_mode == #IGT_MODE.segment && current_split >= 0)
             }
             current_instruction++
         }
+        global.current_event = ""
+    }
+}
+else if (igt_mode == #IGT_MODE.room_battle_extra)
+{
+    if (global.current_event == "ch1introend" || global.current_event == "ch2start" || global.current_event == "ch2sleep" || global.current_event == "ch1sleep" || global.current_event == "doorslam")
+    {
+        update_transition_time(current_frame_time)
         global.current_event = ""
     }
 }
