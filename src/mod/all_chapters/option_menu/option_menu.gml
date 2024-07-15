@@ -76,6 +76,7 @@ function get_key_name(argument0)
         case vk_rcontrol: return "RCtrl";
         case vk_lalt: return "LAlt";
         case vk_ralt: return "RAlt";
+        default: "UNKNOWN KEY";
     }
 }
 
