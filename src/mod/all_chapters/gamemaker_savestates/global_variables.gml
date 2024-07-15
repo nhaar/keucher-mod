@@ -40,7 +40,12 @@ function save_global_variables()
     var var_count = array_length(variables)
     for (var i = 0; i < var_count; i++)
     {
+        // a workaround because the system for saving variables does not work well when a global variable is a string with a linebreak! (TO-DO: Make a better system instead of just a workaround)
         variable = variables[i]
+        if (variable == "feature_info")
+        {
+            continue;
+        }
         if variable_global_exists(variable)
         {
             value = variable_global_get(variable)
