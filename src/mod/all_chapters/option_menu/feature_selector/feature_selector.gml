@@ -142,7 +142,8 @@ function set_feature_info()
         "get-item", "Enable key for getting all weapons", #FEATURE_STATE.debug, "Get all items when pressing the keybind", create_array(),
         "show-wp-mash", "Display mash stats for the Wrist Protector", #FEATURE_STATE.debug, "In Chapter 1, show the mashing stats for the Wrist Protector", create_array(),
         "show-wake-mash", "Display mash stats for the sequence where you get up at the start of Chapter 1", #FEATURE_STATE.debug, "In the first dark world room, where you must mash your arrow keys, you can take a look at the mashing stats", create_array(),
-        "screenshot", "Screenshot (Ch1)", #FEATURE_STATE.debug, "A native debug feature that allows for taking screenshots in Chapter 1", create_array(#KEYBINDING.screenshot)
+        "screenshot", "Screenshot (Ch1)", #FEATURE_STATE.debug, "A native debug feature that allows for taking screenshots in Chapter 1", create_array(#KEYBINDING.screenshot),
+        "tadytext", "TadyText Practice", #FEATURE_STATE.never, "With this practice mode, you have extra information for practicing TadyText.", create_array()
     );
 }
 
