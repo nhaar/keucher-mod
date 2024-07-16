@@ -1,5 +1,12 @@
 /// FUNCTIONS
 
+/* Returns the constant of where the saves directory is located */
+function get_save_dir(include_slash)
+{
+    var last_char = include_slash ? "/" : ""
+    return "keucher_mod/saves" + last_char
+}
+
 /* Loads the menu buttons that displays the files and folders for the given directory (for savefiles) */
 function load_save_buttons(dir)
 {
@@ -10,13 +17,14 @@ function load_save_buttons(dir)
     {
         var subfile = subfiles[i];
         var full_path = dir + "/" + subfile;
-        if directory_exists(dir + "/" + subfile)
+        var short_path = string_copy(full_path, string_length(get_save_dir(true)) + 1, string_length(full_path))
+        if directory_exists(full_path)
         {
-            button_text[i] = full_path + " [FOLDER]";
+            button_text[i] = short_path + " [FOLDER]";
         }
         else
         {
-            button_text[i] = full_path + " [FILE]";
+            button_text[i] = short_path + " [FILE]";
         }
     }
     options_state = #OPTION_STATE.saves

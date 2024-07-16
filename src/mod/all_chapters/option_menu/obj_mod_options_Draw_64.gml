@@ -123,7 +123,7 @@ for (var i = 0; i < button_amount; i++)
                                 get_feature_options()
                                 break
                             case #DEFAULT_OPTION.saves:
-                                var saves_dir = "keucher_mod/saves";
+                                var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
                                     load_save_buttons(saves_dir);
@@ -347,12 +347,12 @@ for (var i = 0; i < button_amount; i++)
                         var folder_pos = string_pos("[FOLDER]", clicked_value)
                         if (folder_pos > 0)
                         {
-                            load_save_buttons(string_copy(clicked_value, 1, folder_pos - 2))
+                            load_save_buttons(get_save_dir(true) + string_copy(clicked_value, 1, folder_pos - 2))
                         }
                         var file_pos = string_pos("[FILE]", clicked_value)
                         if (file_pos > 0)
                         {
-                            var file_to_load = string_copy(clicked_value, 1, file_pos - 2);
+                            var file_to_load = get_save_dir(true) + string_copy(clicked_value, 1, file_pos - 2);
 #if SURVEY_PROGRAM
                             scr_load(file_to_load);
 #else
