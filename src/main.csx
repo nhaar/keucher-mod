@@ -160,7 +160,11 @@ class KeucherModLoader : UMPLoader
         split_pick,
         general_options,
         ui_colors,
-        color_picker
+        color_picker,
+        /// <summary>
+        /// In this state, the save files are displayed
+        /// </summary>
+        saves
     }
 
     public enum DEFAULT_OPTION
@@ -169,7 +173,11 @@ class KeucherModLoader : UMPLoader
         current_split,
         create_split,
         timer_precision,
-        options
+        options,
+        /// <summary>
+        /// Option that allows to browse saves
+        /// </summary>
+        saves
     }
 
     public enum BUTTON_STATE

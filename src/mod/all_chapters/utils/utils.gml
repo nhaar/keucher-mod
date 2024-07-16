@@ -108,3 +108,27 @@ function trim_string(str)
     }
     return string_copy(str, l, r - l + 1)
 }
+
+/* Given a directory, get an array that lists all the files and directories within */
+function get_all_subfiles(dir)
+{
+    var files;
+    var i = 0;
+    var is_empty = true
+    for (var file_name = file_find_first(dir + "/*", fa_directory); file_name != ""; file_name = file_find_next())
+    {
+        is_empty = false;
+        files[i] = file_name;
+        i++;
+    }
+
+    file_find_close();
+    if is_empty
+    {
+        return create_array();
+    }
+    else
+    {
+        return files;
+    }
+}

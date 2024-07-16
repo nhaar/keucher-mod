@@ -122,6 +122,17 @@ for (var i = 0; i < button_amount; i++)
                             case #DEFAULT_OPTION.feature:
                                 get_feature_options()
                                 break
+                            case #DEFAULT_OPTION.saves:
+                                var saves_dir = "keucher_mod/saves";
+                                if directory_exists(saves_dir)
+                                {
+                                    load_save_buttons(saves_dir);
+                                }
+                                else
+                                {
+                                    show_message("No save folders detected!\n\nTo save custom saves, you can go to your DELTARUNE save folder and add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.");
+                                }
+                                break
                         }
                         break
                     case #OPTION_STATE.keybind_assign:
@@ -330,6 +341,39 @@ for (var i = 0; i < button_amount; i++)
                                 break
 
                         }
+                        break
+                    case #OPTION_STATE.saves:
+                        var clicked_value = button_text[i]
+                        var folder_pos = string_pos("[FOLDER]", clicked_value)
+                        if (folder_pos > 0)
+                        {
+                            load_save_buttons(string_copy(clicked_value, 1, folder_pos - 2))
+                        }
+                        var file_pos = string_pos("[FILE]", clicked_value)
+                        if (file_pos > 0)
+                        {
+                            var file_to_load = string_copy(clicked_value, 1, file_pos - 2);
+#if SURVEY_PROGRAM
+                            scr_load(file_to_load);
+#else
+                            if (!instance_exists(obj_time) && !instance_exists(obj_time_ch1))
+                            {
+                                show_message("Pick a chapter first!")
+                            }
+                            else
+                            {
+                                if (global.chapter == 1)
+                                {
+                                    scr_load_ch1(file_to_load);
+                                }
+                                else
+                                {
+                                    scr_load(file_to_load);
+                                }
+                            }
+#endif
+                        }
+                        break
                 }
             }
         }

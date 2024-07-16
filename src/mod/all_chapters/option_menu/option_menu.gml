@@ -329,7 +329,8 @@ function get_default_mod_options()
         #DEFAULT_OPTION.current_split, "Set current split",
         #DEFAULT_OPTION.create_split, "Create a new split",
         #DEFAULT_OPTION.timer_precision, "Set timer precision",
-        #DEFAULT_OPTION.options, "General Options"
+        #DEFAULT_OPTION.options, "General Options",
+        #DEFAULT_OPTION.saves, "Saves"
     )
     
     options_state = #OPTION_STATE.default_state
