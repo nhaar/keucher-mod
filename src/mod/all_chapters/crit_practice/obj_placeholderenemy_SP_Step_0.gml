@@ -28,14 +28,14 @@
 #endif
 #if SURVEY_PROGRAM
         if (rr == 0)
-            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_11_0") // Message&A
+            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_11_0")
         if (rr == 1)
-            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_12_0") // Message&B
+            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_12_0")
         if (rr == 2)
-            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_13_0") // Message&C
+            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_13_0")
         if (rr == 3)
-            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0") // Message&D
-        global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0") // WlyWlyWlyWly&WlyWlyWlyWly&WlyWlyWlyWly&WlyWlyWlyWly
+            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0")
+        global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0")
         scr_enemyblcon((x - 160), y, 3)
 #endif
         talked = true
@@ -49,9 +49,15 @@
         }
         else
         {
+#if SURVEY_PROGRAM
+            scr_randomtarget()
+            if (!instance_exists(obj_darkener))
+                instance_create(0, 0, obj_darkener)
+#else
             scr_randomtarget_ch1()
             if (!instance_exists(obj_darkener_ch1))
                 instance_create_ch1(0, 0, obj_darkener_ch1)
+#endif
             global.typer = 50
             rr = choose(0, 1, 2, 3)
 #if DEMO
@@ -68,14 +74,14 @@
 #endif
 #if SURVEY_PROGRAM
             if (rr == 0)
-                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_11_0") // Message&A
+                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_11_0")
             if (rr == 1)
-                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_12_0") // Message&B
+                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_12_0")
             if (rr == 2)
-                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_13_0") // Message&C
+                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_13_0")
             if (rr == 3)
-                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0") // Message&D
-            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0") // WlyWlyWlyWly&WlyWlyWlyWly&WlyWlyWlyWly&WlyWlyWlyWly
+                global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0")
+            global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0")
             scr_enemyblcon((x - 160), y, 3)
 #endif
             talked = true

@@ -15,7 +15,11 @@ if (global.myfight == 5)
         scr_mnendturn()
 #endif
         global.spelldelay = 10
+#if SURVEY_PROGRAM
+        with (obj_heroparent)
+#else
         with (obj_heroparent_ch1)
+#endif
         {
             attacktimer = 0
             image_index = 0
