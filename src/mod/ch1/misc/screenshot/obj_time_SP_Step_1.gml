@@ -1,4 +1,4 @@
-/// PATCH .ignore ifndef DEMO
+/// PATCH
 
 /// REPLACE
 if keyboard_check_pressed(vk_f10)
