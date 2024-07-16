@@ -23,7 +23,7 @@ function toggle_debug()
         }
         else
         {
-#endif DEMO
+#endif
             if global.debug
             {
                 global.debug = false
