@@ -13,9 +13,20 @@ class KeucherModLoader : UMPLoader
 {
     public override string CodePath => "mod/";
 
-    public override bool UseGlobalScripts => Version == DeltaruneVersion.Demo;
+    public override bool UseGlobalScripts => Version switch
+    {
+        DeltaruneVersion.SurveyProgram => false,
+        DeltaruneVersion.Demo_1_10 or DeltaruneVersion.Demo_1_15 => true,
+        _ => throw new NotImplementedException()
+    };
 
-    public override string[] Symbols => Version == DeltaruneVersion.Demo ? new[] { "DEMO" } : new[] { "SURVEY_PROGRAM" };
+    public override string[] Symbols => Version switch
+    {
+        DeltaruneVersion.SurveyProgram => new[] { "SURVEY_PROGRAM" },
+        DeltaruneVersion.Demo_1_10 => new[] { "DEMO" },
+        DeltaruneVersion.Demo_1_15 => new[] { "DEMO", "DEMO_1_15" },
+        _ => throw new NotImplementedException()
+    };
 
     public override string[] GetCodeNames (string filePath)
     {
@@ -33,7 +44,7 @@ class KeucherModLoader : UMPLoader
         if (Regex.IsMatch(filePath, "_DUPE"))
         {
             names.Add(fileName.Replace("_DUPE", ""));
-            if (Version == DeltaruneVersion.Demo)
+            if (Version == DeltaruneVersion.Demo_1_10 || Version == DeltaruneVersion.Demo_1_15)
             {
                 names.Add(fileName.Replace("_DUPE", "_ch1"));
             }
@@ -46,9 +57,13 @@ class KeucherModLoader : UMPLoader
                 names.Add(fileName.Replace("_SP", ""));
 
             }
-            else if (Version == DeltaruneVersion.Demo)
+            else if (Version == DeltaruneVersion.Demo_1_10 || Version == DeltaruneVersion.Demo_1_15)
             {
                 names.Add(fileName.Replace("_SP", "_ch1"));
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
 
@@ -79,13 +94,17 @@ class KeucherModLoader : UMPLoader
     List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects)
     {
         string[] objects = null;
-        if (Version == DeltaruneVersion.Demo)
+        if (Version == DeltaruneVersion.Demo_1_10 || Version == DeltaruneVersion.Demo_1_15)
         {
             objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
         }
         else if (Version == DeltaruneVersion.SurveyProgram)
         {
             objects = ch1Objects;
+        }
+        else
+        {
+            throw new NotImplementedException();
         }
         return objects.Select(s => $"gml_Object_obj_{s}_Create_0").ToList();
     }
@@ -274,26 +293,6 @@ void BuildMod (DeltaruneVersion version)
     UpdateKrisRoom(version);
 }
 
-bool GetUseFunctions (DeltaruneVersion version)
-{
-    return version switch
-    {
-        DeltaruneVersion.SurveyProgram => false,
-        DeltaruneVersion.Demo => true,
-        _ => throw new NotImplementedException()
-    };
-}
-
-string[] GetSymbols (DeltaruneVersion version)
-{
-    return version switch
-    {
-        DeltaruneVersion.SurveyProgram => new[] { "SURVEY_PROGRAM" },
-        DeltaruneVersion.Demo => new[] { "DEMO" },
-        _ => throw new NotImplementedException()
-    };
-}
-
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
 {
     room.GameObjects.Add(new UndertaleRoom.GameObject()
@@ -327,13 +326,13 @@ void UpdateKrisRoom (DeltaruneVersion version)
     int[] dayTextures = version switch
     {
         DeltaruneVersion.SurveyProgram => new[] { 85 },
-        DeltaruneVersion.Demo => new[] { 74, 3158 },
+        DeltaruneVersion.Demo_1_10 or DeltaruneVersion.Demo_1_15 => new[] { 74, 3158 },
         _ => throw new NotImplementedException()
     };
     int[] nightTextures = version switch
     {
         DeltaruneVersion.SurveyProgram => new[] { 86 },
-        DeltaruneVersion.Demo => new[] { 75, 3159 },
+        DeltaruneVersion.Demo_1_10 or DeltaruneVersion.Demo_1_15 => new[] { 75, 3159 },
         _ => throw new NotImplementedException()
     };
     foreach (int texture in dayTextures)
@@ -354,7 +353,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     var roomName = version switch
     {
         DeltaruneVersion.SurveyProgram => "room_battletest",
-        DeltaruneVersion.Demo => "room_battletest_ch1",
+        DeltaruneVersion.Demo_1_10 or DeltaruneVersion.Demo_1_15 => "room_battletest_ch1",
         _ => throw new NotImplementedException()
     };
     var battleroomCh1 = Data.Rooms.ByName(roomName);
@@ -372,7 +371,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     for (int i = 0; i < objects.Length; i+= 3)
     {
         string objectName = (string)objects[i];
-        if (version == DeltaruneVersion.Demo)
+        if (version == DeltaruneVersion.Demo_1_10 || version == DeltaruneVersion.Demo_1_15)
         {
             objectName += "_ch1";
         }
