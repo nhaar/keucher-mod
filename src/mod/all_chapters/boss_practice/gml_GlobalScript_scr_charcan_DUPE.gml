@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 // to skip the turn if is not Kris and in boss practice
 /// AFTER
 {

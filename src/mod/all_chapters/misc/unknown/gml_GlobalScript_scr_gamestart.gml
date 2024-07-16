@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
 
 // mysteriously this was changed relative to vanilla
 // I have a hunch it's an automatic change by the compiler but can't be certain

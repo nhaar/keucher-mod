@@ -1,6 +1,7 @@
 /// PATCH
 // replaces vanilla speedup key with mod ones
 
+#if DEMO
 /// REPLACE
     if keyboard_check_pressed(ord("À"))
     {
@@ -11,6 +12,7 @@
     }
 /// CODE
 /// END
+#endif
 
 /// APPEND
 if (keyboard_check_pressed(get_bound_key(#KEYBINDING.speed)))
