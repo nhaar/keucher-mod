@@ -1,4 +1,4 @@
-/// FUNCTIONS .ignore ifndef DEMO
+/// FUNCTIONS
 
 function update_tady_text_count()
 {

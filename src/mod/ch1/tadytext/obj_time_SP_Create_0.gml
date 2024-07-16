@@ -1,4 +1,4 @@
-/// PATCH .ignore ifndef DEMO
+/// PATCH
 
 /// APPEND
 // tracks the number of the current textbox in tadytext

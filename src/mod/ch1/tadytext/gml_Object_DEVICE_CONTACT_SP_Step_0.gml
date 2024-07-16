@@ -1,4 +1,4 @@
-/// PATCH .ignore ifndef DEMO
+/// PATCH
 
 // this is at the start of the survey, we want to reset the textboxes
 

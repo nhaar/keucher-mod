@@ -1,4 +1,4 @@
-/// PATCH .ignore ifndef DEMO
+/// PATCH
 
 /// APPEND
 update_tady_text_count()
