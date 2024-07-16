@@ -143,7 +143,8 @@ function set_feature_info()
         "show-wp-mash", "Display mash stats for the Wrist Protector", #FEATURE_STATE.debug, "In Chapter 1, show the mashing stats for the Wrist Protector", create_array(),
         "show-wake-mash", "Display mash stats for the sequence where you get up at the start of Chapter 1", #FEATURE_STATE.debug, "In the first dark world room, where you must mash your arrow keys, you can take a look at the mashing stats", create_array(),
         "screenshot", "Screenshot (Ch1)", #FEATURE_STATE.debug, "A native debug feature that allows for taking screenshots in Chapter 1", create_array(#KEYBINDING.screenshot),
-        "tadytext", "TadyText Practice", #FEATURE_STATE.never, "With this practice mode, you have extra information for practicing TadyText.", create_array()
+        "tadytext", "TadyText Practice", #FEATURE_STATE.never, "With this practice mode, you have extra information for practicing TadyText.", create_array(),
+        "position-cache", "Cache Position", #FEATURE_STATE.never, "When this is toggled, saving in a room with Kris will lead into also caching the position they were in the room, so everytime you load they will return to that position. This only persists until you close the game.", create_array()
     );
 }
 
