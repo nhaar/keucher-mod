@@ -270,8 +270,21 @@ function init_keybinds()
     // setting up keybinds
     global.mod_keybinds = scr_84_load_map_json("keucher_mod/keybinds.json")
     // definitions for the default are found in keybinding_info
+#ifndef SURVEY_PROGRAM
     var keybinds = ds_map_keys_to_array(global.keybinding_info)
     var keybind_count = array_length(keybinds)
+#endif
+#if SURVEY_PROGRAM
+    // SP doesn't have `ds_map_keys_to_array`
+    var keybinds;
+    var key = ds_map_find_first(global.keybinding_info)
+    for (var i = 0; key != undefined; i++)
+    {
+        keybinds[i] = key
+        key = ds_map_find_next(global.keybinding_info, key)
+    }
+    var keybind_count = array_length_1d(keybinds)
+#endif
     if (ds_map_empty(global.mod_keybinds))
     {
         for (var i = 0; i < keybind_count; i++)
