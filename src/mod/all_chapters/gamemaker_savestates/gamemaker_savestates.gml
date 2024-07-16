@@ -38,5 +38,11 @@ function savestate_save_check(argument0)
         savestate = ""
         _ssslot = ""
     }
+#ifndef SURVEY_PROGRAM
     file = string(savestate) + "filech" + string(global.chapter) + "_" + string(argument0) + string(_ssslot)
+#endif
+#if SURVEY_PROGRAM
+    // SP would have global.chapter set to 0 here
+    file = string(savestate) + "filech1_" + string(argument0) + string(_ssslot)
+#endif
 }
