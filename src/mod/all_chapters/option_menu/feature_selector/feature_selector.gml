@@ -234,10 +234,10 @@ function is_feature_active(feature_id)
 
 function pressed_active_feature_key(key, feature)
 {
-    return keyboard_check_pressed(get_bound_key(key)) && is_feature_active(feature)
+    return global.are_keybinds_on && keyboard_check_pressed(get_bound_key(key)) && is_feature_active(feature)
 }
 
 function detected_active_feature_key(key, feature)
 {
-    return keyboard_check(get_bound_key(key)) && is_feature_active(feature)
+    return global.are_keybinds_on && keyboard_check(get_bound_key(key)) && is_feature_active(feature)
 }
