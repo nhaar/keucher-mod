@@ -262,11 +262,36 @@ function get_split_mod_options()
     options_state = #OPTION_STATE.splits
 }
 
-/*
-This initialies the values of the keybinds, and sets them to their default values if they don't exist.
-*/
-function init_keybinds()
+/* Get an array that lists all the keybinds assigned to a specific key code */
+function get_keybinds_assigned(key)
 {
+    var keybinds_using;
+    var keybinds = get_keybinds();
+    var len = array_length_1d(keybinds);
+    var found_conflict = false;
+    var j = 0;
+    for(var i = 0; i < len; i++)
+    {
+        var keybind = keybinds[i];
+        var value = read_json_value(global.mod_keybinds, real(keybind));
+        if (value == key)
+        {
+            found_conflict = true;
+            keybinds_using[j] = keybind;
+            j++;
+        }
+    }
+    
+    if (found_conflict)
+    {
+        return keybinds_using;
+    }
+    else
+    {
+        return create_array();
+    }
+}
+
 /* Get an array with all the keybind indexes */
 function get_keybinds()
 {

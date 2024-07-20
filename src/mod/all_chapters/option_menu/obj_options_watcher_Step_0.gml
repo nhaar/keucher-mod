@@ -11,6 +11,9 @@ if
 {
     if (options_exists)
     {
+        // edge case covering: keybinds are turned off when picking a new key, but if we are closing the menu without setting anything it just wont give the keybinds back, so this is just in case
+        global.are_keybinds_on = true
+
         options_exists = false
         instance_destroy(obj_mod_options)
     }

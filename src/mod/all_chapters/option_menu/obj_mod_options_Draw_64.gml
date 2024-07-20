@@ -42,10 +42,32 @@ if setting_keybind
     // wait until something is pressed
     if (keyboard_key != 0)
     {
+        var target_key = keyboard_key
+        var keybinds_using = get_keybinds_assigned(target_key);
+        var using_total = array_length_1d(keybinds_using);
+        var is_ok = true
+        if (using_total > 0)
+        {
+            var message = "It seems other keybinds are already assigned to this key:\n";
+            for (var i = 0; i < using_total; i++)
+            {
+                var key_name = read_json_value(global.keybinding_info, keybinds_using[i], "name");
+                message += "\n* " + key_name;
+            }
+            is_ok = show_question(message + "\n\nIs this OKAY?");
+        }
+
+        // turning it back on
+        global.are_keybinds_on = true
         setting_keybind = false
-        ds_map_set(global.mod_keybinds, string(current_keybind), keyboard_key)
+
+        if (is_ok)
+        {
+            ds_map_set(global.mod_keybinds, string(current_keybind), target_key)
+            save_keybinds()
+        }
         get_keybind_assign_options(current_keybind)
-        save_keybinds()
+        
     }
 }
 
@@ -145,6 +167,7 @@ for (var i = 0; i < button_amount; i++)
                         // setting new value
                         else if (i == 2)
                         {
+                            global.are_keybinds_on = false
                             setting_keybind = true
                             // update text
                             button_text[1] = "Press any key..."
