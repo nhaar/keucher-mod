@@ -79,7 +79,7 @@ function read_config_with_default()
     if is_undefined(value)
     {
         ds_map_set(cur, argument[argument_count - 1], argument0);
-        save_json(global.config_path, config);
+        save_json(global.config_path, global.config);
         return argument0;
     }
     else
