@@ -22,7 +22,8 @@ function get_debug_keybinds()
         "make_visible",
         "srn_action",
         "noclip",
-        "screenshot"
+        "screenshot",
+        "hitboxes"
     );
 }
 
@@ -50,6 +51,7 @@ function get_debug_keybind_default(name)
         case "srn_action": return ord("J");
         case "noclip": return ord("K");
         case "screenshot": return vk_f10;
+        case "hitboxes": return ord("V");
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";

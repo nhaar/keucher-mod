@@ -5,7 +5,7 @@ Toggle boundary boxes visibility
 */
 function toggle_boundary_boxes()
 {
-    if pressed_active_feature_key(#KEYBINDING.toggle_hitboxes, "boundary-box")
+    if pressed_active_debug_keybind("hitboxes")
     {
         global.bboxVisible = wrap_around(global.bboxVisible + 1, 0, #BOUNDARY_BOX_STATE.#length - 1)
         if (global.bboxVisible == #BOUNDARY_BOX_STATE.none)
