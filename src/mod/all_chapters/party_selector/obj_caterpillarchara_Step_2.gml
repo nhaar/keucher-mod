@@ -5,7 +5,7 @@
 
 /// REPLACE
     else
-        x = (remx[target] - 2)
+        x = remx[target] - 2
 /// CODE
     else if (usprite == spr_ralsei_walk_up)
     {
@@ -23,7 +23,7 @@
 
 /// REPLACE
     else
-        y = (remy[target] - 12)
+        y = remy[target] - 12
 /// CODE
     else if (usprite == spr_ralsei_walk_up)
     {

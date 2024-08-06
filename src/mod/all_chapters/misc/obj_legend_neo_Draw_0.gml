@@ -2,17 +2,17 @@
 
 // no idea what this replace is for
 /// REPLACE
-if (ingame == false)
+if (ingame == 0)
 {
-    if (button1_p() && skipped == false)
+    if (button1_p() && skipped == 0)
     {
-        skipped = true
+        skipped = 1
         skiptimer = 0
         f = instance_create(0, 0, obj_fadeout)
         f.fadespeed = 0.08
         mus_volume(global.currentsong[1], 0, 15)
     }
-    if (skipped == true)
+    if (skipped == 1)
         skiptimer += 1
     if (skiptimer == 19)
     {

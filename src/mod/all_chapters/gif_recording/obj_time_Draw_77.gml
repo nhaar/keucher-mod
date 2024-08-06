@@ -7,7 +7,7 @@ if is_feature_active("gif")
 /// END
 
 /// REPLACE
-if (keyboard_check_pressed(ord("G")) && (!keyboard_check(vk_control)) && gif_recording == false)
+if (keyboard_check_pressed(ord("G")) && (!keyboard_check(vk_control)) && gif_recording == 0)
 /// CODE
 if (keyboard_check_pressed(get_bound_key(#KEYBINDING.gif)) && gif_recording == false)
 /// END

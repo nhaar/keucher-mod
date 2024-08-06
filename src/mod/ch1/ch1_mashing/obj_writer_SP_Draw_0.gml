@@ -25,7 +25,7 @@ if (automash_timer == 0)
 #endif
             
 /// AFTER
-if (halt != false && button1 == 1 && siner > 0)
+if (halt != 0 && button1 == 1 && siner > 0)
 {
 /// CODE
 if is_auto_mashed
@@ -35,7 +35,7 @@ else if has_wrist_protector
 /// END
 
 /// BEFORE
-if (halt != false && button1 == 1 && siner > 0)
+if (halt != 0 && button1 == 1 && siner > 0)
 /// CODE
 if (has_wrist_protector && halt == true && (!is_auto_mashed) && button1 == 0)
     global.wrist_protector_manual_missed++

@@ -13,7 +13,7 @@
 /// REPLACE
     if (keyboard_check_pressed(vk_f6) && quicksaved == 22)
     {
-        quicksaved = true
+        quicksaved = 1
         remmyfight = global.myfight
         remmnfight = global.mnfight
         reminteract = global.interact
@@ -58,7 +58,7 @@
         reminstancecount = instance_count
     }
     if (quicksaved == 2)
-        quicksaved = true
+        quicksaved = 1
     if (keyboard_check_pressed(vk_f7) && quicksaved == 99)
     {
         global.myfight = remmyfight

@@ -3,7 +3,7 @@
 /// AFTER
     if (rate < 3)
     {
-        firstnoise = false
+        firstnoise = 0
         alarm[2] = 1
     }
 /// CODE
