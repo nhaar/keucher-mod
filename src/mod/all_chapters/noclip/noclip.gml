@@ -3,7 +3,7 @@
 // toggle noclip
 function toggle_noclip()
 {
-    if pressed_active_feature_key(#KEYBINDING.no_clip, "toggle-noclip")
+    if pressed_active_debug_keybind("noclip")
     {
         var mainchara = get_object_implicit_chapter("obj_mainchara")
         if (mainchara.mask_index != spr_i_am_the_joker)

@@ -3,16 +3,7 @@
 function init()
 {
     set_constants()
-    var first_time = !directory_exists(working_directory + "keucher_mod");
-    if (first_time)
-    {
-        show_message("Welcome to Keucher Mod!
-
-This mod contains many features to speedrun the game. You will need some time learn all the features useful to you, but as a starter, you should know that pressing the mouse's \"Right Button\" will open the game menu. There, you can look at all the features, learn what they do, enable the ones you want or not. You can also look at the value for all the keybinds, and reassign them as you wish.
-        
-Happy running!")
-    }
-    directory_create("keucher_mod")
+    init_config();
     init_keybinds()
     init_user_ils()
     init_player_options()

@@ -1,7 +1,7 @@
 /// PATCH
 // adding ch1 battle debug keys
 /// APPEND
-if pressed_active_feature_key(#KEYBINDING.heal, "party-heal")
+if pressed_active_debug_keybind("heal_party")
 {
 #if DEMO
     scr_healallitemspell_ch1(999)
@@ -10,7 +10,7 @@ if pressed_active_feature_key(#KEYBINDING.heal, "party-heal")
     scr_healallitemspell(999)
 #endif
 }
-if pressed_active_feature_key(#KEYBINDING.instant_win, "win-battle")
+if pressed_active_debug_keybind("instant_win")
 {
 #if DEMO
     scr_wincombat_ch1()

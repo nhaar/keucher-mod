@@ -24,9 +24,9 @@
 /// END
 
 /// APPEND
-if pressed_active_feature_key(#KEYBINDING.heal, "party-heal")
+if pressed_active_debug_keybind("heal_party")
     scr_debug_fullheal()
-if pressed_active_feature_key(#KEYBINDING.instant_win, "win-battle")
+if pressed_active_debug_keybind("instant_win")
 {
     if (global.chapter == 2 && instance_exists(o_boxingqueen))
     {

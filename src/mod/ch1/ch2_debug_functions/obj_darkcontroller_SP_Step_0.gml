@@ -12,13 +12,13 @@ if scr_debug_ch1()
         game_restart_true_ch1()
 }
 /// CODE
-if pressed_active_feature_key(#KEYBINDING.save, "save-file")
+if pressed_active_debug_keybind("save_menu")
     instance_create_ch1(0, 0, obj_savemenu_ch1)
-if pressed_active_feature_key(#KEYBINDING.load, "save-load")
+if pressed_active_debug_keybind("load_file")
     scr_load_ch1()
-if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && keyboard_check(vk_backspace))
+if (pressed_active_debug_keybind("restart_room") && keyboard_check(vk_backspace))
     game_restart_true()
-if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && !keyboard_check(vk_backspace))
+if (pressed_active_debug_keybind("restart_room") && !keyboard_check(vk_backspace))
 {
     snd_free_all_ch1()
     room_restart()
@@ -28,11 +28,11 @@ if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && !keyboard_check
 
 // adding INS and DEl warps in Ch1
 /// APPEND
-if pressed_active_feature_key(#KEYBINDING.next_room, "room-warp")
+if pressed_active_debug_keybind("next_room")
 {
     room_goto_next()
 }
-if pressed_active_feature_key(#KEYBINDING.previous_room, "room-warp")
+if pressed_active_debug_keybind("previous_room")
 {
     room_goto_previous()
 }
@@ -51,19 +51,19 @@ if scr_debug()
         game_restart_true()
 }
 /// CODE
-if pressed_active_feature_key(#KEYBINDING.save, "save-file")
+if pressed_active_debug_keybind("save_menu")
 {
     instance_create(0, 0, obj_savemenu)
 }
-if pressed_active_feature_key(#KEYBINDING.load, "save-load")
+if pressed_active_debug_keybind("load_file")
 {
     scr_load()
 }
-if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && keyboard_check(vk_backspace))
+if (pressed_active_debug_keybind("restart_room") && keyboard_check(vk_backspace))
 {
     game_restart_true()
 }
-if (pressed_active_feature_key(#KEYBINDING.reload, "restart") && !keyboard_check(vk_backspace))
+if (pressed_active_debug_keybind("restart_room") && !keyboard_check(vk_backspace))
 {
     snd_free_all()
     room_restart()
