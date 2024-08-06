@@ -45,10 +45,16 @@ function get_mod_room_name(room_id)
             return "Cyber City - Traffic After Berdly";
         case room_dw_mansion_krisroom:
             return "Queen's Mansion - Kris's Room";
+        case room_dw_mansion_fire_paintings:
+            return "Queen's Mansion - Fire Paintings Room";
         case room_dw_mansion_acid_tunnel:
             return "Queen's Mansion - Acid Tunnel Entrance";
         case room_dw_mansion_acid_tunnel_exit:
-            return "Queen's Mansion - Acid Tunnel Exit"
+            return "Queen's Mansion - Acid Tunnel Exit";
+        case room_dw_mansion_top:
+            return "Queen's Mansion - Giga Queen Room (before fight)";
+        case room_dw_mansion_top_post:
+            return "Queen's Mansion - Giga Queen Room (after fight)";
         case room_torhouse:
             return "Chapter 2 - Kris' House - Kitchen";
     }

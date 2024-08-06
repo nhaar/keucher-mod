@@ -192,8 +192,11 @@ function set_all_instructions()
         "room_dw_city_traffic_4",
         "room_dw_mansion_krisroom",
         "city2end",
+        "room_dw_mansion_fire_paintings",
         "room_dw_mansion_acid_tunnel",
         "room_dw_mansion_acid_tunnel_exit",
+        "room_dw_mansion_top",
+        "room_dw_mansion_top_post",
         "gigaend",
         "room_torhouse",
         "ch2sleep"
