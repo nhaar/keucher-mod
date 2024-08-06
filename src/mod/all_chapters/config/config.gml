@@ -79,6 +79,7 @@ function read_config_with_default()
     {
         ds_map_set(cur, argument[argument_count - 1], argument0);
         save_json(global.config_path, config);
+        return argument0;
     }
     else
     {
