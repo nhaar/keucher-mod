@@ -17,6 +17,7 @@ Happy running!");
         save_json(global.config_path, config);
     }
 
+    global.config = scr_84_load_map_json(global.config_path);
     global.debug = read_config_with_default(true, "debug");
     init_debug_keybinds();
 }
@@ -34,8 +35,7 @@ function update_config_value()
     }
 
     var value = argument0;
-    var config = scr_84_load_map_json(global.config_path);
-    var cur = config;
+    var cur = global.config;
     var i = 1;
     while(i < argument_count - 1)
     {
@@ -44,14 +44,13 @@ function update_config_value()
     }
     var last_key = argument[i];
     ds_map_set(cur, last_key, value);
-    save_json(global.config_path, config);
+    save_json(global.config_path, global.config);
 }
 
 /* Args: ...path */
 function read_config_value()
 {
-    var config = scr_84_load_map_json(global.config_path);
-    var cur = config;
+    var cur = global.config;
     for (var i = 0; i < argument_count - 1; i++)
     {
         cur = read_json_value(cur, argument[i]);
@@ -65,8 +64,7 @@ function read_config_value()
 
 function read_config_with_default()
 {
-    var config = scr_84_load_map_json(global.config_path);
-    var cur = config;
+    var cur = global.config;
     for (var i = 1; i < argument_count - 1; i++)
     {
         var prev = cur;
