@@ -16,6 +16,8 @@ Happy running!");
         var config = create_json_with_pairs();
         save_json(global.config_path, config);
     }
+
+    global.debug = read_config_with_default(true, "debug");
 }
 
 /*
