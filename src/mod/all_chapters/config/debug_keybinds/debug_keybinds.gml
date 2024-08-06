@@ -59,10 +59,34 @@ function get_debug_keybind_default(name)
 /* Initializes all keybinds in the config file */
 function init_debug_keybinds()
 {
+    global.debug_keybinds_on = true;
+
     var keybinds = get_debug_keybinds();
     var size = array_length(keybinds);
     for (var i = 0; i < size; i++)
     {
         read_config_with_default(get_debug_keybind_default(keybinds[i]), "debug_keybind_" + keybinds[i]);
+        read_config_with_default("debug", "debug_keybind_state_" + keybinds[i]);
     }
+}
+
+/* Checkes if a debug keybind was pressed and is active */
+function pressed_active_debug_keybind(name)
+{
+    if (!global.debug_keybinds_on)
+    {
+        return false;
+    }
+    var key = read_config_value("debug_keybind_" + name);
+    if (!keyboard_check_pressed(key))
+    {
+        return false;
+    }
+
+    var state = read_config_value("debug_keybind_state_" + name);
+    if (state == "debug")
+    {
+        return global.debug;
+    }
+    return state;
 }
