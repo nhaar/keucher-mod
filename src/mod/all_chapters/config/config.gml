@@ -52,6 +52,36 @@ function read_config_value()
     for (var i = 0; i < argument_count - 1; i++)
     {
         cur = read_json_value(cur, argument[i]);
+        if (is_undefined(cur))
+        {
+            return undefined;
+        }
     }
     return read_json_value(cur, argument[argument_count - 1]);
+}
+
+function read_config_with_default()
+{
+    var config = scr_84_load_map_json(global.config_path);
+    var cur = config;
+    for (var i = 1; i < argument_count - 1; i++)
+    {
+        var prev = cur;
+        cur = read_json_value(cur, argument[i]);
+        if (is_undefined(cur))
+        {
+            ds_map_set(prev, argument[i], ds_map_create());
+            cur = read_config_value(prev, argument[i]);
+        }
+    }
+    var value = read_json_value(cur, argument[argument_count - 1]);
+    if is_undefined(value)
+    {
+        ds_map_set(cur, argument[argument_count - 1], argument0);
+        save_json(global.config_path, config);
+    }
+    else
+    {
+        return value;
+    }
 }
