@@ -5,3 +5,7 @@
 !/src/ump-config.json
 !/src/*.json
 !/src/assembly
+
+# ignoring all build scripts except templates
+/build_scripts/*
+!/build_scripts/build-template.bat
