@@ -3,7 +3,7 @@
 function reset_tempflags()
 {
     // reset tempflags
-    if pressed_active_feature_key(#KEYBINDING.reset_tempflags, "reset-flags")
+    if pressed_active_debug_keybind("reset_tempflags")
     {
         for (i = 0; i < 100; i += 1)
             global.tempflag[i] = 0

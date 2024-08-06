@@ -23,7 +23,7 @@ if (slotWasSelected != -1)
 }
 
 // saving savestates
-if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate")
+if pressed_active_debug_keybind("store_savestate")
 {
 #if DEMO
     if (global.chapter == 2)
@@ -45,7 +45,7 @@ if pressed_active_feature_key(#KEYBINDING.store_savestate, "gamemaker-savestate"
     show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " saved")
 }
 // loading savestate
-if pressed_active_feature_key(#KEYBINDING.load_savestate, "gamemaker-savestate")
+if pressed_active_debug_keybind("load_savestate")
 {
 #if DEMO
     if (global.chapter == 2)
