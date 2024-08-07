@@ -1,5 +1,20 @@
 /// FUNCTIONS
 
+/* Gets the character caterpillar ID based on its name */
+function get_character_code(char)
+{
+    switch (char)
+    {
+        case "susie": return 2;
+        case "ralsei": return 3;
+        case "noelle": return 4;
+        case "berdly": return 5;
+        case "starwalker": return 6;
+        default: return undefined;
+    }
+}
+
+/* Party is an array of strings containing the character names: "susie", "ralsei", "noelle", "berdly", "starwalker" */
 function build_party_from_options(party)
 {
     //destryoing previous party
@@ -19,9 +34,13 @@ function build_party_from_options(party)
     }
     
     var party_size = array_length(party)
-    for (var i = 1; i < party_size; i++)
+    for (var i = 0; i < party_size; i++)
     {
-        var party_member = party[i]
+        var party_member = get_character_code(party[i])
+        if (is_undefined(party_member))
+        {
+            continue;
+        }
 #if DEMO
         if (global.chapter == 1)
         {
@@ -31,29 +50,33 @@ function build_party_from_options(party)
 #endif
             scr_getchar(party_member);
     }
-    for (var i = 1; i < party_size; i++)
+    for (var i = 0; i < party_size; i++)
     {
         var party_member = party[i]
-        var height = undefined
-        switch party_member
+        if (is_undefined(party_member))
         {
-            case 2:
+            continue;
+        }
+        var height = undefined
+        switch (party[i])
+        {
+            case "susie":
             {
                 height = 16
             }
-            case 3:
+            case "ralsei":
             {
                 height = 12
             }
-            case 4:
+            case "noelle":
             {
                 height = 18
             }
-            case 5:
+            case "berdly":
             {
                 height = 6
             }
-            case 6:
+            case "starwalker":
             {
                 height = 0
             }
@@ -69,26 +92,36 @@ function build_party_from_options(party)
 #endif
                 scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i - 1);
         }
-        
     }
-    show_temp_message(party[0])
 }
 
 function get_user_input_character(number)
 {
-    var input = string_lower(get_string("Who's party member #" + string(number) + "? (susie, ralsei, noelle, berdly, starwalker, or leave blank)", ""))
-    switch input
+    var character_options = "susie, ralsei";
+
+#if DEMO
+    if (global.chapter == 2)
     {
-        case "susie": return 2;
-        case "ralsei": return 3;
-        case "noelle": return 4;
-        case "berdly": return 5;
-        case "starwalker": return 6;
-        case "": return 1;
-        default:
-        {
-            show_message("Invalid party member.")
-            return get_user_input_character(number)
-        }    
+        character_options += ", noelle, berdly, starwalker";
+    }
+#endif
+
+    var input = string_lower(get_string("Who's party member #" + string(number) + "? (" + character_options + ", or leave blank)", ""));
+#if DEMO
+    if (input == "susie" || input == "ralsei" || (global.chapter == 2 && (input == "noelle" || input == "berdly" || input == "starwalker")))
+#elsif SURVEY_PROGRAM
+    if (input == "susie" || input == "ralseiu")
+#endif
+    {
+        return input;
+    }
+    else if (input == "")
+    {
+        return undefined;
+    }
+    else
+    {
+        show_message("Invalid party member.")
+        return get_user_input_character(number)
     }
 }
