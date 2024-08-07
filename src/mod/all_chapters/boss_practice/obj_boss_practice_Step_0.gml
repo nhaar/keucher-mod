@@ -41,11 +41,11 @@ if (global.bossPractice)
 {
     // changing the boss turn
     var increment = 0
-    if keyboard_check_pressed(get_bound_key(#KEYBINDING.next_boss_attack))
+    if pressed_other_keybind("next_boss_attack")
     {
         increment = 1
     }
-    else if keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_boss_attack))
+    else if pressed_other_keybind("previous_boss_attack")
     {
         increment = -1
     }

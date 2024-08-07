@@ -22,6 +22,7 @@ Happy running!");
     init_debug_keybinds();
     init_options();
     init_rng_options();
+    init_other_keybinds();
 }
 
 /*

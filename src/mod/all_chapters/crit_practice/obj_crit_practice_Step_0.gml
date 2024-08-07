@@ -28,15 +28,15 @@ if pressed_active_feature_key(#KEYBINDING.toggle_crit_mode, "crit-practice")
 }
 
 // toggle random pattern mode
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.toggle_pattern_mode))
+if pressed_other_keybind("pattern_mode")
 {
     global.random_pattern = global.random_pattern ? false : true
 }
 
 // changing current selected pattern
-if (keyboard_check_pressed(get_bound_key(#KEYBINDING.next_crit_pattern)) || keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_crit_pattern)))
+if (pressed_other_keybind("next_crit_pattern") || pressed_other_keybind("previous_crit_pattern"))
 {
-    if keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_crit_pattern))
+    if pressed_other_keybind("previous_crit_pattern")
     {
         global.crit_pattern--
     }
