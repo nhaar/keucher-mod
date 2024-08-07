@@ -21,6 +21,7 @@ Happy running!");
     global.debug = read_config_with_default(true, "debug");
     init_debug_keybinds();
     init_options();
+    init_rng_options();
 }
 
 /*
