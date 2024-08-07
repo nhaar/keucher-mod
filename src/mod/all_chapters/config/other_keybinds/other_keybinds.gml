@@ -10,7 +10,8 @@ function get_other_keybinds()
         "next_house_pattern",
         "previous_house_pattern",
         "next_boss_attack",
-        "previous_boss_attack"
+        "previous_boss_attack",
+        "reset_mash_stat"
     );
 }
 
@@ -26,6 +27,7 @@ function get_other_keybind_default(name)
         case "previous_house_pattern": return vk_pagedown;
         case "next_boss_attack": return vk_pageup;
         case "previous_boss_attack": return vk_pagedown;
+        case "reset_mash_stat": return vk_tab;
         default:
             show_message("Error occured: could not find misc keybind named \"" + name + "\"");
             e += "crash";
