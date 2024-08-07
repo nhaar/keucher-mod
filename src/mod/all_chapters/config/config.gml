@@ -20,6 +20,7 @@ Happy running!");
     global.config = scr_84_load_map_json(global.config_path);
     global.debug = read_config_with_default(true, "debug");
     init_debug_keybinds();
+    init_options();
 }
 
 /*
