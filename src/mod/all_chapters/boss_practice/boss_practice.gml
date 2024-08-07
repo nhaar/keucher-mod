@@ -126,3 +126,32 @@ function reset_graze_condition()
         global.inv = -1
     }
 }
+
+function toggle_boss_practice(on)
+{
+    if (on)
+    {
+        global.bossPractice = true
+        global.bossTurn = 0
+        // making the player unkillable
+        // to-do: This is not a great way to do it, make the bullets themselves not do any damage instead!
+        for (i = 0; i < 3; i++)
+        {
+            global.battledf[i] = 999
+        }
+    }
+    else
+    {
+        global.bossPractice = false
+        // manually give the proper DF values back
+        // iterate chars
+        for (var i = 0; i < 3; i++)
+        {
+            global.battledf[i] =
+                global.df[global.char[i]] +
+                global.itemdf[global.char[i]][0] +
+                global.itemdf[global.char[i]][1] +
+                global.itemdf[global.char[i]][2]
+        }
+    }
+}
