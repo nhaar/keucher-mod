@@ -24,6 +24,7 @@ Happy running!");
     init_rng_options();
     init_other_keybinds();
     init_timer_options();
+    init_split_presets();
 }
 
 /*

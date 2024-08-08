@@ -57,6 +57,10 @@ function set_igt_splits_info(split_status)
             }
         }
     }
+    if (split_status != 2)
+    {
+        init_timer_mode();
+    }
     if (split_status == 0)
     {
         show_temp_message("Timer reset")
@@ -69,7 +73,8 @@ function set_igt_splits_info(split_status)
 
 function update_splits()
 {
-    obj_IGT.segment_start_room = obj_IGT.split_start_room
+    var instruction = read_json_value(global.presets, get_current_preset(), "instructions");
+    obj_IGT.segment_split_number = ds_map_size(instruction) - 1;
     for (var i = 0; i < obj_IGT.segment_split_number; i++)
     {
         obj_IGT.split_times[i] = 0
@@ -247,4 +252,16 @@ function get_segment_battle_status()
 function get_segment_special_status(instruction)
 {
     return read_config_value("timer_special_" + instruction);
+}
+
+function init_timer_mode()
+{
+    if (get_timer_mode() == "battle")
+    {
+        change_to_timer_battle_mode();
+    }
+    else if (get_timer_mode() == "splits")
+    {
+        change_to_timer_splits_mode();
+    }
 }

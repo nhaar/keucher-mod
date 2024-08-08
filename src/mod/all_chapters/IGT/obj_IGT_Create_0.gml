@@ -130,10 +130,11 @@ global.timerIsRunning = 0
 // poor naming here, in the future should change
 // split -> segment
 // instruction -> split
-current_split = -1
 split_start_room = 0
 segment_split_number = 0
 
 current_instruction = 0
 
 global.current_event = ""
+
+init_timer_mode();
