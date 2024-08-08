@@ -5,6 +5,8 @@ global.chapter = 0
 global.fighting = 0
 global.mnfight = 0
 
+global.timer_on = read_config_with_default(false, "timer_on");
+
 // split_times stores the times for each of the current splits
 // by default, it's set to -2, which is the same as "not set"
 for (i = 0; i < 20; i += 1)
@@ -14,7 +16,8 @@ for (i = 0; i < 20; i += 1)
 segment_start_room = -1
 
 // variable keeps track of the IGT timer mode
-igt_mode = #IGT_MODE.none
+// modes: "segment", "battle", "splits"
+igt_mode = read_config_with_default("segment", "timer_mode");
 
 // should be `true` if the timer is invisible, `false` if it is visible
 hide_timer = false

@@ -3,7 +3,7 @@
 // a variable to keep track of whether the time has been updated already, to avoid duplicates between room by room and battle
 var updated_already = false
 
-if (!is_feature_active("timer"))
+if (!global.timer_on)
     return;
 
 
@@ -29,7 +29,7 @@ if (previous_room != room)
 }
 
 // battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
-if ((igt_mode == #IGT_MODE.room_and_battle || igt_mode == #IGT_MODE.room_battle_extra) && global.fighting != battle_started)
+if ((get_timer_mode() == "segment" && get_segment_battle_status()) && global.fighting != battle_started)
 {
     if (!updated_already)
     {
@@ -38,7 +38,7 @@ if ((igt_mode == #IGT_MODE.room_and_battle || igt_mode == #IGT_MODE.room_battle_
 }
 
 // updating thigns related to battle
-if (igt_mode == #IGT_MODE.battle)
+if (get_timer_mode() == "battle")
 {
     // first: setting everything up when entering battle
     if (global.fighting && !battle_started)
@@ -89,7 +89,7 @@ if (igt_mode == #IGT_MODE.battle)
     if (thisTurn != 0 && split_times[turn_count] == -2)
         split_times[turn_count] = thisTurn + start_time
 }
-else if (igt_mode == #IGT_MODE.segment && current_split >= 0)
+else if (get_timer_mode() == "splits" && current_split >= 0)
 {
     if (current_instruction <= segment_split_number)
     {
@@ -110,32 +110,30 @@ else if (igt_mode == #IGT_MODE.segment && current_split >= 0)
         global.current_event = ""
     }
 }
-else if (igt_mode == #IGT_MODE.room_battle_extra)
+// only go if there is an event
+else if (get_timer_mode() == "segment" && global.current_event != "")
 {
-    if (global.current_event == "ch1introend" || global.current_event == "ch2start" || global.current_event == "ch2sleep" || global.current_event == "ch1sleep" || global.current_event == "doorslam")
+    var instructions = get_all_special_instructions();
+    var size = array_length(instructions)
+    for (var i = 0; i < size; i++)
     {
-        update_transition_time(current_frame_time)
-        global.current_event = ""
+        if (global.current_event == instructions[i])
+        {
+            if (get_segment_special_status(global.current_event))
+            {
+                update_transition_time(current_frame_time);
+                global.current_event = "";
+            }
+            break;
+        }
     }
 }
 
-
-// custom room timer
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.igt_room))
-{
-    segment_start_room = get_integer("What room number would you like the timer to start in?", room)
-    attempt_count = 0
-}
-
-// hide timer
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.toggle_timer))
-{
-    hide_timer = hide_timer ? false : true
-}
-
 // reset timer
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.reset_timer))
-    set_igt_splits_info(0)
+if pressed_other_keybind("reset_timer")
+{
+    set_igt_splits_info(0);
+}
 if (detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
 {
     var plot_warp_number = 10

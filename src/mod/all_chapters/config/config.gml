@@ -23,6 +23,7 @@ Happy running!");
     init_options();
     init_rng_options();
     init_other_keybinds();
+    init_timer_options();
 }
 
 /*

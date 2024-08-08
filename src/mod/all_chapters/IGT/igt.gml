@@ -42,12 +42,6 @@ function set_igt_splits_info(split_status)
         obj_IGT.time_since_last_transition = 0
         obj_IGT.current_instruction = 0
     }
-    // this option is for changing the IGT mode
-    if (split_status == 1)
-    {
-        obj_IGT.start_time = 0
-        obj_IGT.igt_mode = (obj_IGT.igt_mode + 1) % #IGT_MODE.#length
-    }
     if i_ex(obj_IGT)
     {
         with (obj_IGT)
@@ -63,44 +57,9 @@ function set_igt_splits_info(split_status)
             }
         }
     }
-    // split status 2 is the automatic call
-    if (split_status != 2)
-    {
-        switch obj_IGT.igt_mode
-        {
-            case #IGT_MODE.none:
-                __splitsText = "No"
-                obj_IGT.segment_start_room = 0
-                break
-            case #IGT_MODE.room_by_room:
-                __splitsText = "Room-by-room"
-                break
-            case #IGT_MODE.battle:
-                __splitsText = "Battle"
-                for (var i = 0; i < 20; i++)
-                {
-                    obj_IGT.split_times[i] = -2
-                }
-                break
-            case #IGT_MODE.segment:
-                __splitsText = "Segment with"
-                update_splits()
-                break
-            case #IGT_MODE.room_and_battle:
-                __splitsText = "Room & Battle"
-                break
-            case #IGT_MODE.room_battle_extra:
-                __splitsText = "Room & Battle & More"
-                break
-        }
-    }
     if (split_status == 0)
     {
         show_temp_message("Timer reset")
-    }
-    else if (split_status == 1)
-    {
-        show_temp_message(string(__splitsText) + " splits selected")
     }
     if (split_status == 2)
     {
@@ -213,4 +172,79 @@ function update_transition_time(current_frame_time)
 {
     time_since_last_transition = current_frame_time - last_transition_time
     last_transition_time = current_frame_time
+}
+
+/* Get array of all special (non room, non battle) instructions */
+function get_all_special_instructions()
+{
+    return create_array(
+        "ch1_introend",
+        "ch1_ct_doorslam",
+        "ch1_captured",
+        "ch1_escaped",
+        "ch1_sleep",
+        "ch2_start",
+        "ch2_djsend",
+        "ch2_city2end",
+        "ch2_gigaend",
+        "ch2_sleep"
+    );
+}
+
+/* Initialize timer variables */
+function init_timer_options()
+{
+    // variable keeps track of the IGT timer mode
+    // modes: "segment", "battle", "splits"
+    read_config_with_default("segment", "timer_mode");
+    read_config_with_default(true, "timer_room_split");
+    read_config_with_default(false, "timer_battle_split");
+    var instructions = get_all_special_instructions();
+    var size = array_length(instructions);
+    for (var i = 0; i < size; i++)
+    {
+        read_config_with_default(false, "timer_special_" + instructions[i]);
+    }
+}
+
+function change_to_timer_segment_mode()
+{
+    update_config_value("segment", "timer_mode");
+}
+
+function change_to_timer_battle_mode()
+{
+    update_config_value("battle", "timer_mode");
+    for (var i = 0; i < 20; i++)
+    {
+        obj_IGT.split_times[i] = -2;
+    }
+}
+
+function change_to_timer_splits_mode()
+{
+    update_config_value("splits", "timer_mode");
+    update_splits();
+}
+
+function get_timer_mode()
+{
+    return read_config_value("timer_mode");
+}
+
+/* Get whether or not splitting at end of rooms in segment-by-segment is on */
+function get_segment_room_status()
+{
+    return read_config_value("timer_room_split");
+}
+/* Get whether or not splitting at start/end of battles in segment-by-segment is on */
+function get_segment_battle_status()
+{
+    return read_config_value("timer_battle_split");
+}
+
+/* Get whether or not splitting at a special instruction in segment-by-segment is on */
+function get_segment_special_status(instruction)
+{
+    return read_config_value("timer_special_" + instruction);
 }
