@@ -40,3 +40,8 @@ function read_rng_value(option)
 {
     return read_config_value("rng_" + option);
 }
+
+function update_rng_value(option, value)
+{
+    update_config_value(value, "rng_" + option);
+}

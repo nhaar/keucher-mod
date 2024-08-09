@@ -58,6 +58,36 @@ function get_debug_keybind_default(name)
     }
 }
 
+function get_debug_keybind_descriptive_name(name)
+{
+    switch (name)
+    {
+        case "save_menu": return "Open Save Menu";
+        case "load_file": return "Load Save File";
+        case "restart_room": return "Restart Room";
+        case "store_savestate": return "Store Savestate";
+        case "load_savestate": return "Load Savestate";
+        case "speedup": return "Speedup";
+        case "slowdown": return "Slowdown";
+        case "gif": return "Record GIF";
+        case "next_room": return "Warp to Next Room";
+        case "previous_room": return "Warp to Previous Room";
+        case "heal_party": return "Heal Party in Battle";
+        case "instant_win": return "Instant Win Battle";
+        case "tp_toggle": return "Set TP to max/min";
+        case "stop_sound": return "Stop All Sounds";
+        case "reset_tempflags": return "Reset Tempflags";
+        case "make_visible": return "Make Kris Visible";
+        case "srn_action": return "Toggle S/R/N-Act";
+        case "noclip": return "Toggle Noclip";
+        case "screenshot": return "Take Screenshot";
+        case "hitboxes": return "Show Hitboxes";
+        default:
+            show_message("Error occured: could not find keybind named \"" + name + "\"");
+            e += "crash";
+    }
+}
+
 /* Initializes all keybinds in the config file */
 function init_debug_keybinds()
 {
@@ -72,6 +102,33 @@ function init_debug_keybinds()
     }
 }
 
+// returns the internal value, not beautified
+function get_debug_keybind_key(name)
+{
+    return read_config_value("debug_keybind_" + name);
+}
+
+function get_debug_keybind_state(name)
+{
+    return read_config_value("debug_keybind_state_" + name);
+}
+
+function set_debug_keybind_state(name, value)
+{
+    update_config_value(value, "debug_keybind_state_" + name);
+}
+
+function set_debug_keybind_key(name, value)
+{
+    update_config_value(value, "debug_keybind_" + name);
+}
+
+function get_debug_keybind_from_index(index)
+{
+    var keybinds = get_debug_keybinds();
+    return keybinds[index];
+}
+
 /* Checkes if a debug keybind was pressed and is active */
 function pressed_active_debug_keybind(name)
 {
@@ -79,16 +136,41 @@ function pressed_active_debug_keybind(name)
     {
         return false;
     }
-    var key = read_config_value("debug_keybind_" + name);
+    var key = get_debug_keybind_key(name);
     if (!keyboard_check_pressed(key))
     {
         return false;
     }
 
-    var state = read_config_value("debug_keybind_state_" + name);
+    var state = get_debug_keybind_state(name);
     if (state == "debug")
     {
         return global.debug;
     }
     return state;
+}
+
+function get_default_keybinds_using_key(key)
+{
+    var keybinds = get_debug_keybinds();
+    var size = array_length(keybinds);
+    var keybinds_using;
+    var found = 0;
+    for (var i = 0; i < size; i++)
+    {
+        var name = keybinds[i];
+        var keybind_key = get_debug_keybind_key(name);
+        if (key == keybind_key)
+        {
+            keybinds_using[found] = name;
+            found++;
+        }
+    }
+
+    if (found == 0)
+    {
+        return create_array();
+    }
+
+    return keybinds_using;
 }

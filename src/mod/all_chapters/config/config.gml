@@ -52,6 +52,10 @@ Happy running!");
 
     // unsure exactly what, savestate related
     slotWasSelected = -1
+
+    global.rurus_random = 1
+    global.mash_practice_mode = 0
+    global.tadytext_mode = 0
 }
 
 /*

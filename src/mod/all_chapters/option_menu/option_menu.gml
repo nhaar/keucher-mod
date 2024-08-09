@@ -577,3 +577,88 @@ function get_event_splits_mod_options()
     }
     options_state = "pick_event_battle";
 }
+
+function get_practice_mode_mod_options()
+{
+    var boss_state = global.bossPractice ? "ON" : "OFF";
+    var crit_state = global.ambyu_practice ? "ON" : "OFF";
+    var rouxls_state = global.rurus_random ? "OFF" : "ON";
+    var ch1_mash_state = global.mash_practice_mode ? "ON" : "OFF";
+    var tady_state = global.tadytext_mode ? "ON" : "OFF";
+
+    get_buttons_from_array(
+        "Boss Practice [" + boss_state + "]",
+        "Crit Practice [" + crit_state + "]",
+        "Rouxls Practice [" + rouxls_state + "]",
+        "TadyText Practice [" + tady_state + "]",
+        "Chapter 1 Mashing Stats [" + ch1_mash_state + "]"
+    );
+
+    options_state = "practice_modes";
+}
+
+function get_rng_settings_mod_options()
+{
+    var susie_state = read_rng_value("susie_death") ? "ON" : "OFF";
+    var spelling_state = read_rng_value("spelling_bee") ? "ON" : "OFF";
+
+    get_buttons_from_array(
+        "Susie always targeted in K. Round [" + susie_state + "]",
+        "Always optimal spelling bee word (language sensitive) [" + spelling_state +"]"
+    );
+
+    options_state = "rng_settings";
+}
+
+function get_descriptive_debug_keybind_key(name)
+{
+    return get_key_name(get_debug_keybind_key(name));
+}
+
+function get_descriptive_debug_keybind_state(name)
+{
+    var state = get_debug_keybind_state(name);
+    if (state == "debug")
+    {
+        return "DEBUG";
+    }
+    
+    return state ? "ON" : "OFF";
+}
+
+function get_debug_keybinds_mod_options()
+{
+    var keybinds = get_debug_keybinds();
+    button_amount = array_length(keybinds) + 1;
+
+    button_text[0] = "Reset Default Keybinds";
+    
+    for (var i = 1; i < button_amount; i++)
+    {
+        var name = keybinds[i - 1];
+        var key = get_descriptive_debug_keybind_key(name);
+        var state = get_descriptive_debug_keybind_state(name);
+        button_text[i] = get_debug_keybind_descriptive_name(name) + " [State: " + state + "] [Key: " + key + "]";
+    }
+
+    options_state = "debug_keybinds";
+}
+
+function get_single_debug_keybind_mod_options(key_index)
+{
+    var keybinds = get_debug_keybinds();
+    var name = keybinds[key_index];
+    var key = get_descriptive_debug_keybind_key(name);
+    var state = get_descriptive_debug_keybind_state(name);
+
+    var key_text = setting_keybind ? "Listening for input..." : "Key: [" + key + "]";
+
+    get_buttons_from_array(
+        "\"" + get_debug_keybind_descriptive_name(name) + "\"",
+        "State: [" + state + "]",
+        key_text
+    );
+
+    current_keybind_index = key_index;
+    options_state = "debug_keybind";
+}

@@ -11,10 +11,11 @@ scroll_ypos = 0
 scroll_dragging = false
 scroll_dragging_y = 0
 
-current_keybind = 0
+// keep track of the index of the keybind being currently edited
+current_keybind_index = 0;
 
 // whether or not waiting for player to press a key
-setting_keybind = false
+setting_keybind = false;
 
 // to keep track of the current feature being edited, if any
 current_feature = undefined

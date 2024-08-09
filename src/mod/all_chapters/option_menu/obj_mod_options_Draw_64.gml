@@ -43,31 +43,29 @@ if setting_keybind
     if (keyboard_key != 0)
     {
         var target_key = keyboard_key
-        var keybinds_using = get_keybinds_assigned(target_key);
-        var using_total = array_length_1d(keybinds_using);
+        var keybinds_using = get_default_keybinds_using_key(target_key);
+        var using_total = array_length(keybinds_using);
         var is_ok = true
         if (using_total > 0)
         {
             var message = "It seems other keybinds are already assigned to this key:\n";
             for (var i = 0; i < using_total; i++)
             {
-                var key_name = read_json_value(global.keybinding_info, keybinds_using[i], "name");
-                message += "\n* " + key_name;
+                var key_name = keybinds_using[i];
+                message += "\n* " + get_debug_keybind_descriptive_name(key_name);
             }
             is_ok = show_question(message + "\n\nIs this OKAY?");
         }
 
         // turning it back on
-        global.are_keybinds_on = true
+        global.debug_keybinds_on = true;
         setting_keybind = false
 
         if (is_ok)
         {
-            ds_map_set(global.mod_keybinds, string(current_keybind), target_key)
-            save_keybinds()
+            set_debug_keybind_key(get_debug_keybind_from_index(current_keybind_index), target_key);
         }
-        get_keybind_assign_options(current_keybind)
-        
+        get_single_debug_keybind_mod_options(current_keybind_index);
     }
 }
 
@@ -138,16 +136,16 @@ for (var i = 0; i < button_amount; i++)
                                 break
                             // Practice Modes
                             case 2:
-                                precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
-                                ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
-                                save_player_options()
+                                get_practice_mode_mod_options();
                                 break
-                            case #DEFAULT_OPTION.options:
-                                get_player_options()
+                            // RNG
+                            case 3:
+                                get_rng_settings_mod_options()
                                 break
-                            case #DEFAULT_OPTION.feature:
-                                get_feature_options()
-                                break
+                            // debug keybinds
+                            case 4:
+                                get_debug_keybinds_mod_options();
+                                break;
                             case #DEFAULT_OPTION.saves:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
@@ -182,6 +180,12 @@ for (var i = 0; i < button_amount; i++)
                         else if (i == 3)
                         {
                             get_split_preset_mod_options();
+                        }
+                        // timer precision
+                        else if (i == 4)
+                        {
+                            var precision = get_integer("Enter timer precision", read_config_value("timer_precision"));
+                            update_config_value(clamp(precision, 1, 6), "timer_precision");
                         }
                         break
                     case "timer_mode":
@@ -379,9 +383,86 @@ for (var i = 0; i < button_amount; i++)
                         ds_map_add(instructions, string(length), instruction);
                         get_create_preset_mod_options();
                         break;
-                    case #OPTION_STATE.split_pick:
-                        get_split_create_options()
+                    case "practice_modes":
+                        switch (i)
+                        {
+                            //boss practice
+                            case 0:
+                                global.bossPractice = global.bossPractice ? false : true;
+                                break;
+                            // crit practice
+                            case 1:
+                                global.ambyu_practice = global.ambyu_practice ? false : true;
+                                break;
+                            // rouxls practice
+                            case 2:
+                                global.rurus_random = global.rurus_random ? false : true;
+                                break;
+                            // ch1 mashing stats
+                            case 3:
+                                global.tadytext_mode = global.tadytext_mode ? false : true;
+                                break;
+                            // tadytext
+                            case 4:
+                                global.mash_practice_mode = global.mash_practice_mode ? false : true;
+                                break;
+                        }
+                        get_practice_mode_mod_options();
+                        break;
+                    case "rng_settings":
+                        // susie death
+                        if (i == 0)
+                        {
+                            update_rng_value("susie_death", read_rng_value("susie_death") ? false : true);
+                        }
+                        // spelling bee
+                        else if (i == 1)
+                        {
+                            update_rng_value("spelling_bee", read_rng_value("spelling_bee") ? false : true);
+                        }
+                        get_rng_settings_mod_options();
+                        break;
+                    case "debug_keybinds":
+                        // reset all keybinds
+                        if (i == 0)
+                        {
+                            get_debug_keybinds_mod_options();
+                        }
+                        else
+                        {
+                            // - 1 to discount the first one which is reset all keybinds
+                            get_single_debug_keybind_mod_options(i - 1);
+                        }
                         break
+                    case "debug_keybind":
+                        // Change state
+                        if (i == 1)
+                        {
+                            var keybinds = get_debug_keybinds();
+                            var name = keybinds[current_keybind_index]
+                            var cur_state = get_debug_keybind_state(name);
+                            if (cur_state == "debug")
+                            {
+                                set_debug_keybind_state(name, false);
+                            }
+                            else if (cur_state)
+                            {
+                                set_debug_keybind_state(name, "debug");
+                            }
+                            else
+                            {
+                                set_debug_keybind_state(name, true);
+                            }
+                            get_single_debug_keybind_mod_options(current_keybind_index);
+                        }
+                        // listen for keybind
+                        else if (i == 2)
+                        {
+                            setting_keybind = true;
+                            get_single_debug_keybind_mod_options(current_keybind_index);
+                            global.debug_keybinds_on = false;
+                        }
+                        break;
                     case #OPTION_STATE.general_options:
                         switch (i)
                         {

@@ -5,11 +5,11 @@
 /// BEFORE
 keytimer++
 /// CODE
-global.are_keybinds_on = false
+global.debug_keybinds_on = false
 /// END
 
 /// BEFORE
 con = 0
 /// CODE
-global.are_keybinds_on = true
+global.debug_keybinds_on = true
 /// END

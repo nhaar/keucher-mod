@@ -12,7 +12,7 @@ Takes a value in microseconds and returns a string with the time
 */
 function to_readable_time(original_time)
 {
-    var precision = read_json_value(global.player_options, "timer-precision")
+    var precision = read_config_value("timer_precision")
     if (precision > 6)
     {
         precision = 6

@@ -227,6 +227,7 @@ function init_timer_options()
     read_config_with_default("segment", "timer_mode");
     read_config_with_default(true, "timer_room_split");
     read_config_with_default(false, "timer_battle_split");
+    read_config_with_default(3, "timer_precision");
     var instructions = get_all_special_instructions();
     var size = array_length(instructions);
     for (var i = 0; i < size; i++)
