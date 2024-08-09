@@ -432,3 +432,148 @@ function get_timer_mode_mod_options()
     
     options_state = "timer_mode";
 }
+
+function get_timer_segment_mod_options()
+{
+    var room_by_room = get_segment_room_status() ? "ON" : "OFF";
+    var battle = get_segment_battle_status() ? "ON" : "OFF";
+
+    var special_instructions = get_all_special_instructions();
+
+    button_amount = array_length(special_instructions) + 2;
+    button_text[0] = "Room-by-Room [" + room_by_room + "]";
+    button_text[1] = "Start and end of battles [" + battle + "]";
+    
+    for (var i = 2; i < button_amount; i++)
+    {
+        var instruction = special_instructions[i - 2];
+        var state = get_segment_special_status(instruction) ? "ON" : "OFF";
+        button_text[i] = get_special_instruction_name(instruction) + " [" + state + "]";
+    }
+    
+    options_state = "timer_segment";
+}
+
+function get_split_preset_mod_options()
+{
+    var cur_preset = get_current_preset();
+    var name;
+    if (cur_preset == -1)
+    {
+        name = "None Selected";
+    }
+    else
+    {
+        name = read_json_value(global.presets, cur_preset, "name");
+    }
+
+    get_buttons_from_array(
+        "Current Preset [" + name + "]",
+        "Pick Preset",
+        "Create Preset"
+    );
+
+    options_state = "timer_preset_options";
+}
+
+function get_pick_preset_mod_options()
+{
+    button_amount = ds_map_size(global.presets);
+    for (var i = 0; i < button_amount; i++)
+    {
+        button_text[i] = read_json_value(global.presets, i, "name");
+    }
+
+    options_state = "pick_split_preset";
+}
+
+function get_create_preset_mod_options()
+{
+    var name = undefined
+    var splits = undefined
+    var name_text = "Pick a name for this preset"
+
+    if (!is_undefined(global.current_created_preset))
+    {
+        var name = read_json_value(global.current_created_preset, "name")
+        var instructions = read_json_value(global.current_created_preset, "instructions")
+        if (!is_undefined(name))
+        {
+            name_text = "Preset Name: [" + name + "]"
+        }
+        if (!is_undefined(instructions))
+        {
+            splits = instructions
+        }
+    }
+    else
+    {
+        global.current_created_preset = ds_map_create()
+        ds_map_add_map(global.current_created_preset, "instructions", ds_map_create())
+    }
+
+    obj_mod_options.button_text[0] = "Reset Preset"
+    obj_mod_options.button_text[1] = "Create This Preset"
+    obj_mod_options.button_text[2] = name_text
+    obj_mod_options.button_text[3] = "Add a new split to the preset"
+    obj_mod_options.button_amount = 4
+    if (!is_undefined(splits))
+    {
+        var split_count = ds_map_size(splits)
+        obj_mod_options.button_amount += split_count
+        for (var i = 0; i < split_count; i ++)
+        {
+            var instruction = read_json_value(splits, i)
+            var split_text = ""
+            if (i == 0) split_text = "Start: "
+            else if (i == split_count - 1) split_text = "End: "
+            else split_text = "Split " + string(i) + ": "
+            obj_mod_options.button_text[i + 4] = split_text + get_instruction_name(instruction)
+        }
+    }
+
+    obj_mod_options.options_state = "create_split_preset";
+}
+
+function get_split_pick_mod_options()
+{
+    get_buttons_from_array(
+        "Rooms",
+        "Events"
+    );
+
+    options_state = "pick_split_1";
+}
+
+function get_room_splits_mod_options()
+{
+    get_buttons_from_array(
+        "Chapter 1",
+        "Chapter 2"
+    );
+
+    options_state = "pick_room_chapter";
+}
+
+function get_rooms_in_chapter_mod_options(chapter)
+{
+    global.picking_room_from_chapter = chapter;
+    var rooms = get_chapter_rooms(chapter);
+    button_amount = array_length(rooms);
+    for (var i = 0; i < button_amount; i++)
+    {
+        button_text[i] = get_descriptive_room_name(chapter, rooms[i]);
+    }
+    options_state = "pick_split_room";
+}
+
+function get_event_splits_mod_options()
+{
+    var events = get_all_special_instructions();
+    button_amount = array_length(events);
+    for (var i = 0; i < button_amount; i++)
+    {
+        button_text[i] = get_special_instruction_name(events[i]);
+    }
+    options_state = "pick_event_battle";
+}

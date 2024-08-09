@@ -186,13 +186,37 @@ function get_all_special_instructions()
         "ch1_ct_doorslam",
         "ch1_captured",
         "ch1_escaped",
+        "ch1_kingdefeat",
         "ch1_sleep",
         "ch2_start",
         "ch2_djsend",
+        "ch2_cyberend",
         "ch2_city2end",
         "ch2_gigaend",
         "ch2_sleep"
     );
+}
+
+function get_special_instruction_name(instruction)
+{
+    switch (instruction)
+    {
+        case "ch1_introend": return "At the end of the VESSEL CREATION";
+        case "ch1_ct_doorslam": return "When the Castle Down door is closed";
+        case "ch1_captured": return "Getting captured in Chapter 1";
+        case "ch1_escaped": return "Escape prison in Chapter 1";
+        case "ch1_kingdefeat": return "Finish King fight";
+        case "ch1_sleep": return "Sleeping in Chapter 1 (TIME END)";
+        case "ch2_start": return "Press YES in Chapter 2 naming";
+        case "ch2_djsend": return "End DJs fight";
+        case "ch2_cyberend": return "White fadeout in Cyber Field end";
+        case "ch2_city2end": return "Black screen in City end";
+        case "ch2_gigaend": return "End Giga Queen";
+        case "ch2_sleep": return "Sleeping in Chapter 2 (TIME END)";
+        default:
+            show_message("Unknown special instruction: " + instruction);
+            e += "crash";
+    }
 }
 
 /* Initialize timer variables */

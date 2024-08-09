@@ -169,9 +169,19 @@ for (var i = 0; i < button_amount; i++)
                             get_timer_mod_options();
                         }
                         // Timer Mode
-                        if (i == 1)
+                        else if (i == 1)
                         {
                             get_timer_mode_mod_options();
+                        }
+                        // segment-segment options
+                        else if (i == 2)
+                        {
+                            get_timer_segment_mod_options();
+                        }
+                        // split preset options
+                        else if (i == 3)
+                        {
+                            get_split_preset_mod_options();
                         }
                         break
                     case "timer_mode":
@@ -192,6 +202,37 @@ for (var i = 0; i < button_amount; i++)
                         }
                         get_timer_mod_options();
                         break;
+                    case "timer_segment":
+                        // room-by-room
+                        if (i == 0)
+                        {
+                            update_config_value(get_segment_room_status() ? false : true, "timer_room_split");
+                        }
+                        // battle
+                        else if (i == 1)
+                        {
+                            update_config_value(get_segment_battle_status() ? false : true, "timer_battle_split");
+                        }
+                        else
+                        {
+                            var instructions = get_all_special_instructions();
+                            var instruction = instructions[i - 2];
+                            update_config_value(get_segment_special_status(instruction) ? false : true, "timer_special_" + instruction);
+                        }
+                        get_timer_segment_mod_options();
+                        break;
+                    case "timer_preset_options":
+                        // Pick Preset
+                        if (i == 1)
+                        {
+                            get_pick_preset_mod_options();
+                        }
+                        // Create Preset
+                        else if (i == 2)
+                        {
+                            get_create_preset_mod_options();
+                        }
+                        break;
                     case #OPTION_STATE.keybind_assign:
                         // get info
                         if (i == 0)
@@ -208,6 +249,11 @@ for (var i = 0; i < button_amount; i++)
                             button_text[1] = "Press any key..."
                         }
                         break
+                    case "pick_split_preset":
+                        set_current_preset(i);
+                        update_splits();
+                        get_split_preset_mod_options();
+                        break;
                     case #OPTION_STATE.splits:
                         get_split_assign_options(i)
                         break
@@ -260,13 +306,13 @@ for (var i = 0; i < button_amount; i++)
                             update_splits()
                         }
                         break
-                    case #OPTION_STATE.split_creator:
+                    case "create_split_preset":
                         switch (i)
                         {
                             // reset preset
                             case 0:
                                 global.current_created_preset = undefined
-                                get_split_create_options()
+                                get_create_preset_mod_options()
                                 break
                             // creating preset
                             case 1:
@@ -279,35 +325,61 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 else if (instruction_count < 2)
                                 {
-                                    show_message("You must have at least 2 instructions: Start and Finish")
+                                    show_message("You must have at least 2 instructions: Start and Finish");
                                 }
                                 else
                                 {
-                                    ds_map_add(global.current_created_preset, "id", sha1_string_utf8(string(get_timer()) + name))
-                                    ds_map_add_map(global.splits_json, string(ds_map_size(global.splits_json)), global.current_created_preset)
-                                    save_json("keucher_mod/userils.json", global.splits_json)
-                                    global.current_created_preset = undefined
-                                    instance_destroy()
+                                    create_split_preset(instructions, name);
+                                    instance_destroy();
                                 }
                                 break
                             case 2:
-                                // apparently deprecated for non debug, but using it anyways
                                 var name = get_string("Enter name for preset", "")
                                 if (ds_map_exists(global.current_created_preset, "name"))
                                     ds_map_replace(global.current_created_preset, "name", name)
                                 else
                                     ds_map_add(global.current_created_preset, "name", name)
-                                get_split_create_options()
+                                    get_create_preset_mod_options()
                                 break
                             case 3:
-                                get_split_pick_options()
+                                get_split_pick_mod_options()
                                 break
                         }
                         break
+                    case "pick_split_1":
+                        // Rooms
+                        if (i == 0)
+                        {
+                            get_room_splits_mod_options();
+                        }
+                        // Events
+                        else if (i == 1)
+                        {
+                            get_event_splits_mod_options();
+                        }
+                        break;
+                    case "pick_room_chapter":
+                        get_rooms_in_chapter_mod_options(i + 1);
+                        break;
+                    case "pick_split_room":
+                    case "pick_split_event":
+                        var instruction;
+                        if (options_state == "pick_split_room")
+                        {
+                            var rooms = get_chapter_rooms(global.picking_room_from_chapter);
+                            instruction = rooms[i];
+                        }
+                        else if (options_state == "pick_split_event")
+                        {
+                            var events = get_all_special_instructions();
+                            instruction = events[i];
+                        }
+                        var instructions = read_json_value(global.current_created_preset, "instructions");
+                        var length = ds_map_size(instructions);
+                        ds_map_add(instructions, string(length), instruction);
+                        get_create_preset_mod_options();
+                        break;
                     case #OPTION_STATE.split_pick:
-                        var instructions = read_json_value(global.current_created_preset, "instructions")
-                        var length = ds_map_size(instructions)
-                        ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
                         get_split_create_options()
                         break
                     case #OPTION_STATE.general_options:
