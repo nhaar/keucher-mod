@@ -5,7 +5,7 @@ button_state[100] = #BUTTON_STATE.none
 button_text[100] = 0
 
 // variable that tracks the current option menu
-options_state = #OPTION_STATE.default_state
+options_state = "default"
 
 scroll_ypos = 0
 scroll_dragging = false

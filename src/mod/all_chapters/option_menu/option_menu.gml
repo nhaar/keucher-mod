@@ -362,24 +362,73 @@ function save_keybinds()
 
 function get_default_mod_options()
 {
-    get_buttons_from_pair_array
-    (
-        #DEFAULT_OPTION.feature, "Configure features",
-        #DEFAULT_OPTION.current_split, "Set current split",
-        #DEFAULT_OPTION.create_split, "Create a new split",
-        #DEFAULT_OPTION.timer_precision, "Set timer precision",
-        #DEFAULT_OPTION.options, "General Options",
-        #DEFAULT_OPTION.saves, "Saves"
-    )
+    var debug_state = global.debug ? "ON" : "OFF";
+
+    get_buttons_from_array(
+        "Debug Mode [" + debug_state + "]",
+        "Timer",
+        "Practice Modes",
+        "RNG Settings",
+        "Debug Keybinds",
+        "Other Keybinds",
+        "Game Flags",
+        "Room Warps",
+        "Saves",
+        "UI Options"
+    );
     
-    options_state = #OPTION_STATE.default_state
+    options_state = "default";
+}
+
+function get_buttons_from_array()
+{
+    button_amount = argument_count
+    for (var i = 0; i < argument_count; i++)
+    {
+        button_text[i] = argument[i]    
+    }
 }
 
 function get_buttons_from_pair_array()
 {
-    button_amount = argument_count / 2
-    for (var i = 0; i < argument_count; i+= 2)
+    return undefined;
+}
+
+function get_timer_mod_options()
+{
+    var timer = read_config_value("timer_on") ? "ON" : "OFF";
+    var mode = get_timer_mode();
+    if (mode == "battle")
     {
-        button_text[argument[i]] = argument[i + 1]    
+        mode = "BATTLE";
     }
+    else if (mode == "segment")
+    {
+        mode = "SEGMENT-BY-SEGMENT";
+    }
+    else if (mode == "splits")
+    {
+        mode = "SPLITS";
+    }
+
+    get_buttons_from_array(
+        "Timer [" + timer + "]",
+        "Timer Mode [" + mode + "]",
+        "Segment-by-segment Options",
+        "Split Preset Options",
+        "Timer Precision"
+    );
+    
+    options_state = "timer";
+}
+
+function get_timer_mode_mod_options()
+{
+    get_buttons_from_array(
+        "Segment-by-Segment",
+        "Battle",
+        "Splits"
+    );
+    
+    options_state = "timer_mode";
 }

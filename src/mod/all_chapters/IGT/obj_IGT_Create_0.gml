@@ -5,7 +5,7 @@ global.chapter = 0
 global.fighting = 0
 global.mnfight = 0
 
-global.timer_on = read_config_with_default(false, "timer_on");
+read_config_with_default(false, "timer_on");
 
 // split_times stores the times for each of the current splits
 // by default, it's set to -2, which is the same as "this split is not meant to be used"

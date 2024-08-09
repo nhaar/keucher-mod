@@ -124,16 +124,20 @@ for (var i = 0; i < button_amount; i++)
                 button_state[i] = #BUTTON_STATE.hover
                 switch (options_state)
                 {
-                    case #OPTION_STATE.default_state:
+                    case "default":
                         switch (i)
                         {
-                            case #DEFAULT_OPTION.current_split:
-                                get_split_mod_options()
+                            // Debug mode
+                            case 0:
+                                global.debug = global.debug ? false : true;
+                                get_default_mod_options();
                                 break
-                            case #DEFAULT_OPTION.create_split:
-                                get_split_create_options()
+                            // Timer
+                            case 1:
+                                get_timer_mod_options();
                                 break
-                            case #DEFAULT_OPTION.timer_precision:
+                            // Practice Modes
+                            case 2:
                                 precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
                                 ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
                                 save_player_options()
@@ -157,6 +161,37 @@ for (var i = 0; i < button_amount; i++)
                                 break
                         }
                         break
+                    case "timer":
+                        // Timer ON/OFF
+                        if (i == 0)
+                        {
+                            update_config_value(read_config_value("timer_on") ? false : true, "timer_on");
+                            get_timer_mod_options();
+                        }
+                        // Timer Mode
+                        if (i == 1)
+                        {
+                            get_timer_mode_mod_options();
+                        }
+                        break
+                    case "timer_mode":
+                        // segment-by-segment
+                        if (i == 0)
+                        {
+                            change_to_timer_segment_mode();
+                        }
+                        // battle
+                        else if (i == 1)
+                        {
+                            change_to_timer_battle_mode();
+                        }
+                        // splits
+                        else if (i == 2)
+                        {
+                            change_to_timer_splits_mode();
+                        }
+                        get_timer_mod_options();
+                        break;
                     case #OPTION_STATE.keybind_assign:
                         // get info
                         if (i == 0)

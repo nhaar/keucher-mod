@@ -1,6 +1,6 @@
 /// IMPORT
 
-if (!global.timer_on)
+if (!read_config_value("timer_on"))
     return;
 
 xx = 640

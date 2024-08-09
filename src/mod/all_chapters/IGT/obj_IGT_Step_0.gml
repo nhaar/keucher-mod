@@ -3,7 +3,7 @@
 // a variable to keep track of whether the time has been updated already, to avoid duplicates between room by room and battle
 var updated_already = false
 
-if (!global.timer_on)
+if (!read_config_value("timer_on"))
     return;
 
 var current_frame_time = get_timer()
