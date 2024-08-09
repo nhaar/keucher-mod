@@ -18,7 +18,7 @@ function set_igt_splits_info(split_status)
 
     // reset split and TP info
     // TO-DO: Check why TP must be reset here and in boss practice
-    for (i = 0; i < 20; i++)
+    for (var i = 0; i < 20; i++)
     {
         obj_IGT.split_times[i] = -2
         obj_IGT.turn_graze[i] = 0
@@ -34,7 +34,6 @@ function set_igt_splits_info(split_status)
     // this is the option for resetting the timer
     if (split_status == 0)
     {
-        obj_IGT.hide_timer = false
         obj_IGT.start_time = get_timer()
         obj_IGT.last_transition_time = obj_IGT.start_time
         obj_IGT.time_lock_value = obj_IGT.start_time
@@ -263,5 +262,23 @@ function init_timer_mode()
     else if (get_timer_mode() == "splits")
     {
         change_to_timer_splits_mode();
+    }
+}
+
+function reset_battle_display()
+{
+    // battle mode variables
+    // splittext is an array for each split (to-do: clarify)
+    // turn_graze stores the amount grazed in each split/turn?
+    // tp_end is how much tp one had at the end of the turn
+    for (i = 0; i < 20; i += 1)
+    {
+        obj_IGT.splittext[i] = "";
+        obj_IGT.turn_graze[i] = 0;
+        obj_IGT.tp_end[i] = 0;
+        obj_IGT.grazeOriginal[i] = 0;
+        obj_IGT.TPstart[i] = 0;
+        obj_IGT.turn_count = -1;
+        obj_IGT.split_times[i] = -2;
     }
 }

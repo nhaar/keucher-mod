@@ -6,19 +6,11 @@ var updated_already = false
 if (!global.timer_on)
     return;
 
-
 var current_frame_time = get_timer()
 
 // warn player when max splits reached
 if (split_times[19] != -2)
     set_igt_splits_info(2)
-
-// what exactly is this timer for?
-contimer = current_frame_time - start_time
-if hide_timer
-    conText = ""
-else
-    conText = to_readable_time(contimer)
 
 // room updating
 if (previous_room != room)
@@ -43,20 +35,13 @@ if (get_timer_mode() == "battle")
     // first: setting everything up when entering battle
     if (global.fighting && !battle_started)
     {
+        global.timerIsRunning = 1;
         start_time = current_frame_time
         last_transition_time = current_frame_time
         lastTurn = current_frame_time
         thisTurn = 0
         turn_count = -1
-        // TO-DO: figure why here and group this pattern again
-        for (i = 0; i < 20; i += 1)
-        {
-            split_times[i] = -2
-            turn_graze[i] = 0
-            tp_end[i] = 0
-            grazeOriginal[i] = 0
-            TPstart[i] = 0
-        }
+        reset_battle_display();
         global.grazeSubtracted = 0
     }
     // TO-DO: properly document all these cases
@@ -70,9 +55,9 @@ if (get_timer_mode() == "battle")
     // ending turn? or end battle?
     if (!global.fighting && battle_started)
     {
-        turn_count++
         last_transition_time = current_frame_time
-        thisTurn = current_frame_time - start_time
+        global.final_time = current_frame_time - start_time;
+        global.timerIsRunning = 2;
     }
     // ending turn?
     if (global.mnfight != 2 && turn_started)

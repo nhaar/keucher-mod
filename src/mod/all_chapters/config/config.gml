@@ -25,6 +25,33 @@ Happy running!");
     init_other_keybinds();
     init_timer_options();
     init_split_presets();
+
+    // should be `0` if crit practice is off, and `1` if it's on
+    global.ambyu_practice = 0;
+
+    // should be `1` if boss practice is on, `0` otherwise
+    global.bossPractice = 0;
+
+    // current turn being practiced in boss practice
+    global.bossTurn = 0;
+
+    // text for the current boss practice turn
+    global.bossText = "";
+    
+    // No idea wtf these are for, somehow related to choosing Berdly and Starwalker with H
+    // TO-DO: Move this unrelated initialization and ask Keucher wtf this is
+    global.krerdlyMode = 0
+    global.theOriginal = 0
+
+    // Related to viewing hitboxes
+    // TO-DO: Move unrelated hitbox variable initialization
+    global.bboxVisible = 0
+
+    // related to savestates. Move out of this file
+    global.currentSlotSelected = 0
+
+    // unsure exactly what, savestate related
+    slotWasSelected = -1
 }
 
 /*
