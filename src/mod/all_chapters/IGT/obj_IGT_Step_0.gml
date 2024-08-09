@@ -85,12 +85,18 @@ else if (get_timer_mode() == "splits" && get_current_preset() >= 0)
             {
                 start_time = current_frame_time
                 attempt_count++
+                global.timerIsRunning = 1;
             }
             else
             {
                 split_times[current_instruction - 1] = current_frame_time
             }
             current_instruction++
+            if (current_instruction > segment_split_number)
+            {
+                global.final_time = current_frame_time - start_time;
+                global.timerIsRunning = 2;
+            }
         }
         global.current_event = ""
     }

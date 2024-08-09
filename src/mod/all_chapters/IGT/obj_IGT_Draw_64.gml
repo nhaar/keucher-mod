@@ -53,7 +53,8 @@ if (get_timer_mode() == "battle" || get_timer_mode() == "splits")
             runningtimer = 0
         // -2 means split is not defined for this mode
         // POSSIBLE TO-DO: add break after finding first undefined?
-        if (split_times[i] != -2 && splittext[i] == "")
+        // to-do: This way of doing it every frame is more resource intensive than needed, might be interesting to optimize it (so far has not shown to be necessary)
+        if (split_times[i] != -2)
         {
             splittext[i] = to_readable_time(runningtimer)  
             if (get_timer_mode() == "battle")
@@ -77,8 +78,6 @@ if ((start_time == 0 || start_time == time_lock_value) && get_timer_mode() != "s
     draw_set_color(c_gray)
     global.timerIsRunning = 0
 }
-else if (global.timerIsRunning == 2)
-    global.timerIsRunning = 1
 
 // main timer
 var main_timer = get_timer_mode() == "segment" ? text : conText;
