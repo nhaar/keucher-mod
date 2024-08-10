@@ -760,3 +760,17 @@ function get_consumables_selector_mod_options()
 
     options_state = "consumable_selector";
 }
+
+function get_party_selector_mod_options()
+{
+    get_buttons_from_array(
+        "Kris",
+        "Kris + Susie",
+        "Kris + Ralsei",
+        "Kris + Susie + Ralsei",
+        "Kris + Noelle",
+        "Custom"
+    );
+
+    options_state = "party_selector";
+}

@@ -164,6 +164,8 @@ for (var i = 0; i < button_amount; i++)
                             case 6:
                                 get_game_flags_mod_optins();
                                 break;
+                            case 7:
+                                break;
                             case 11:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
@@ -501,6 +503,7 @@ for (var i = 0; i < button_amount; i++)
                                 break;
                             // party selector
                             case 1:
+                                get_party_selector_mod_options();
                                 break;
                             // plot warp
                             case 2:
@@ -536,6 +539,51 @@ for (var i = 0; i < button_amount; i++)
                     case "consumable_selector":
                         var consumables = get_consumable_ids();
                         scr_itemget(consumables[i]);
+                        break;
+                    case "party_selector":
+                        switch (i)
+                        {
+                            // kris
+                            case 0:
+                                build_party_from_options(create_array());
+                                break;
+                            // kris + susie
+                            case 1:
+                                build_party_from_options(create_array("susie"));
+                                break;
+                            // kris + ralsei
+                            case 2:
+                                build_party_from_options(create_array("ralsei"));
+                                break;
+                            // kris + susie + ralsei
+                            case 3:
+                                build_party_from_options(create_array("susie", "ralsei"));
+                                break;
+                            // kris + noelle
+                            case 4:
+                                build_party_from_options(create_array("noelle"));
+                                break;
+                            // custom
+                            case 5:
+                                var member2 = get_user_input_character(2);
+                                var member3 = get_user_input_character(3);
+
+                                var party;
+                                var cur = 0;
+                                if (member2 != "")
+                                {
+                                    party[cur] = member2;
+                                    cur++;
+                                }
+                                if (member3 != "")
+                                {
+                                    party[cur] = member3;
+                                    cur++;
+                                }
+                                build_party_from_options(party);
+                                break;
+                        }
+                        instance_destroy();
                         break;
                     case #OPTION_STATE.general_options:
                         switch (i)

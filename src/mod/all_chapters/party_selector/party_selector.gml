@@ -52,7 +52,7 @@ function build_party_from_options(party)
     }
     for (var i = 0; i < party_size; i++)
     {
-        var party_member = party[i]
+        var party_member = get_character_code(party[i])
         if (is_undefined(party_member))
         {
             continue;
@@ -86,11 +86,11 @@ function build_party_from_options(party)
 #if DEMO
             if (global.chapter == 1)
             {
-                scr_makecaterpillar_ch1(obj_mainchara_ch1.x, obj_mainchara_ch1.y - height, party_member, i - 1)
+                scr_makecaterpillar_ch1(obj_mainchara_ch1.x, obj_mainchara_ch1.y - height, party_member, i)
             }
             else
 #endif
-                scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i - 1);
+                scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i);
         }
     }
 }
