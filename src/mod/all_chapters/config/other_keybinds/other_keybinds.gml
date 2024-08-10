@@ -36,6 +36,25 @@ function get_other_keybind_default(name)
     }
 }
 
+function get_other_keybind_descriptive_name(name)
+{
+    switch (name)
+    {
+        case "pattern_mode": return "Change to crit pattern mode";
+        case "next_crit_pattern": return "Change to next crit pattern";
+        case "previous_crit_pattern": return "Change to previous crit pattern";
+        case "next_house_pattern": return "Change to next house pattern";
+        case "previous_house_pattern": return "Change to previous house pattern";
+        case "next_boss_attack": return "Change to next boss attack";
+        case "previous_boss_attack": return "Change to previous boss attack";
+        case "reset_mash_stat": return "Reset Chapter 1 Mashing stats";
+        case "reset_timer": return "Reset Timer";
+        default:
+            show_message("Error occured: could not find misc keybind named \"" + name + "\"");
+            e += "crash";
+    }
+}
+
 /* Initializes all keybinds in the config file */
 function init_other_keybinds()
 {

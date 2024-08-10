@@ -662,3 +662,33 @@ function get_single_debug_keybind_mod_options(key_index)
     current_keybind_index = key_index;
     options_state = "debug_keybind";
 }
+
+// this listening index is not in the keybind array, but of the button
+function get_misc_keybinds_mod_options(listening_index)
+{
+    var keybinds = get_other_keybinds();
+    button_amount = array_length(keybinds) + 1;
+    
+    button_text[0] = "Reset Default Keybinds";
+
+    for (var i = 1; i < button_amount; i++)
+    {
+        var name = keybinds[i - 1];
+        var desc = get_other_keybind_descriptive_name(name);
+        var key = get_key_name(read_config_value("other_keybind_" + name));
+        if (listening_index == i)
+        {
+            button_text[i] = desc + ": Listening for input...";
+            current_keybind_index = listening_index - 1;
+            setting_keybind = true;
+            setting_debug = false;
+        }
+        else
+        {
+            button_text[i] = desc + " [" + key + "]";
+        }
+
+    }
+
+    options_state = "other_keybinds";
+}

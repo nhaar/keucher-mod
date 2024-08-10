@@ -43,29 +43,39 @@ if setting_keybind
     if (keyboard_key != 0)
     {
         var target_key = keyboard_key
-        var keybinds_using = get_default_keybinds_using_key(target_key);
-        var using_total = array_length(keybinds_using);
-        var is_ok = true
-        if (using_total > 0)
+
+        if (setting_debug)
         {
-            var message = "It seems other keybinds are already assigned to this key:\n";
-            for (var i = 0; i < using_total; i++)
+            var keybinds_using = get_default_keybinds_using_key(target_key);
+            var using_total = array_length(keybinds_using);
+            var is_ok = true
+            if (using_total > 0)
             {
-                var key_name = keybinds_using[i];
-                message += "\n* " + get_debug_keybind_descriptive_name(key_name);
+                var message = "It seems other keybinds are already assigned to this key:\n";
+                for (var i = 0; i < using_total; i++)
+                {
+                    var key_name = keybinds_using[i];
+                    message += "\n* " + get_debug_keybind_descriptive_name(key_name);
+                }
+                is_ok = show_question(message + "\n\nIs this OKAY?");
             }
-            is_ok = show_question(message + "\n\nIs this OKAY?");
+    
+            // turning it back on
+            global.debug_keybinds_on = true;
+            
+            if (is_ok)
+            {
+                set_debug_keybind_key(get_debug_keybind_from_index(current_keybind_index), target_key);
+            }
+            get_single_debug_keybind_mod_options(current_keybind_index);
         }
-
-        // turning it back on
-        global.debug_keybinds_on = true;
-        setting_keybind = false
-
-        if (is_ok)
+        else
         {
-            set_debug_keybind_key(get_debug_keybind_from_index(current_keybind_index), target_key);
+            var keybinds = get_other_keybinds();
+            update_config_value(target_key, "other_keybind_" + keybinds[current_keybind_index]);
+            get_misc_keybinds_mod_options();
         }
-        get_single_debug_keybind_mod_options(current_keybind_index);
+        setting_keybind = false
     }
 }
 
@@ -146,7 +156,11 @@ for (var i = 0; i < button_amount; i++)
                             case 4:
                                 get_debug_keybinds_mod_options();
                                 break;
-                            case #DEFAULT_OPTION.saves:
+                            // other keybinds
+                            case 5:
+                                get_misc_keybinds_mod_options();
+                                break;
+                            case 11:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
@@ -249,6 +263,7 @@ for (var i = 0; i < button_amount; i++)
                         {
                             global.are_keybinds_on = false
                             setting_keybind = true
+                            setting_debug = true;
                             // update text
                             button_text[1] = "Press any key..."
                         }
@@ -461,6 +476,16 @@ for (var i = 0; i < button_amount; i++)
                             setting_keybind = true;
                             get_single_debug_keybind_mod_options(current_keybind_index);
                             global.debug_keybinds_on = false;
+                        }
+                        break;
+                    case "other_keybinds":
+                        if (i == 0)
+                        {
+
+                        }
+                        else
+                        {
+                            get_misc_keybinds_mod_options(i);
                         }
                         break;
                     case #OPTION_STATE.general_options:

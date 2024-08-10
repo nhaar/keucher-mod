@@ -17,6 +17,9 @@ current_keybind_index = 0;
 // whether or not waiting for player to press a key
 setting_keybind = false;
 
+// true if setting keybind is for debug keybind, false if for misc keybind
+setting_debug = true;
+
 // to keep track of the current feature being edited, if any
 current_feature = undefined
 current_feature_index = undefined
