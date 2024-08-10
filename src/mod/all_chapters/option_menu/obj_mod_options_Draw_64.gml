@@ -507,6 +507,7 @@ for (var i = 0; i < button_amount; i++)
                                 break;
                             // plot warp
                             case 2:
+                                get_plot_warp_mod_options();
                                 break;
                             // snowgrave plot
                             case 3:
@@ -584,6 +585,65 @@ for (var i = 0; i < button_amount; i++)
                                 break;
                         }
                         instance_destroy();
+                        break;
+                    case "plot_warp":
+                        if (instance_exists(obj_mainchara) || instance_exists(obj_mainchara_ch1))
+                        {
+                            if (global.chapter == 1)
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        plotwarp("ch1_wake_up");
+                                        break;
+                                    case 1:
+                                        plotwarp("field_start");
+                                        break;
+                                    case 2:
+                                        plotwarp("checkerboard_start");
+                                        break;
+                                    case 3:
+                                        plotwarp("forest_start");
+                                        break;
+                                    case 4:
+                                        plotwarp("post_vs_lancer");
+                                        break;
+                                    case 5:
+                                        plotwarp("post_escape");
+                                        break;
+                                    case 6:
+                                        plotwarp("king");
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        plotwarp("post_arcade");
+                                        break;
+                                    case 1:
+                                        plotwarp("city_start");
+                                        break;
+                                    case 2:
+                                        plotwarp("city_dj_save");
+                                        break;
+                                    case 3:
+                                        plotwarp("city_post_berdly");
+                                        break;
+                                    case 4:
+                                        plotwarp("mansion_start");
+                                        break;
+                                    case 5:
+                                        plotwarp("acid_lake_start");
+                                        break;
+                                    case 6:
+                                        plotwarp("acid_lake_exit");
+                                        break;
+                                }
+                            }
+                        }
                         break;
                     case #OPTION_STATE.general_options:
                         switch (i)
