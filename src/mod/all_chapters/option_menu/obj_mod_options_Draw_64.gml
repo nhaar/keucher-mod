@@ -511,6 +511,7 @@ for (var i = 0; i < button_amount; i++)
                                 break;
                             // snowgrave plot
                             case 3:
+                                get_snowgrave_plot_mod_options();
                                 break;
                         }
                         break;
@@ -643,6 +644,13 @@ for (var i = 0; i < button_amount; i++)
                                         break;
                                 }
                             }
+                        }
+                        break;
+                    case "snowgrave_plot":
+                        if (instance_exists(obj_mainchara) && global.chapter == 2)
+                        {
+                            set_snowgrave_plot(i + 1);
+                            instance_destroy();
                         }
                         break;
                     case #OPTION_STATE.general_options:

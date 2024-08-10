@@ -774,3 +774,61 @@ function get_party_selector_mod_options()
 
     options_state = "party_selector";
 }
+
+function get_plot_warp_mod_options()
+{
+    if (!instance_exists(obj_mainchara) && !instance_exists(obj_mainchara_ch1))
+    {
+        get_buttons_from_array("You must load a savefile to use plot warp");
+    }
+    else
+    {
+        if (global.chapter == 1)
+        {
+            get_buttons_from_array(
+                "Chapter 1 Wake Up",
+                "Field Start",
+                "Checkerboard Start",
+                "Forest Start",
+                "Post Vs Lancer",
+                "Post Escape",
+                "King"
+            );
+        }
+        else
+        {
+            get_buttons_from_array(
+                "Post Arcade",
+                "City Start",
+                "City DJ Save",
+                "City Post Berdly",
+                "Mansion Start",
+                "Acid Lake Start",
+                "Acid Lake Exit"
+            );
+        }
+    }
+
+    options_state = "plot_warp";
+}
+
+function get_snowgrave_plot_mod_options()
+{
+    if (!instance_exists(obj_mainchara) || global.chapter != 2)
+    {
+        get_buttons_from_array("You must be in Chapter 2 to set Snowgrave flags");
+    }
+    else
+    {
+        get_buttons_from_array(
+            "Default state (Before city)",
+            "Ready for Freeze Ring",
+            "After Forcefield",
+            "Berdly Frozen",
+            "After Rouxls Statue Scene",
+            "Before NEO"
+        );
+    }
+
+    options_state = "snowgrave_plot";
+}
