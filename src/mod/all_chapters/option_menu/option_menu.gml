@@ -692,3 +692,71 @@ function get_misc_keybinds_mod_options(listening_index)
 
     options_state = "other_keybinds";
 }
+
+function get_game_flags_mod_optins()
+{
+    get_buttons_from_array(
+        "Item Selector",
+        "Party Selector",
+        "Plot Warp",
+        "Snowgrave Plot Setter"
+    );
+
+    options_state = "game_flags";
+}
+
+function get_item_selector()
+{
+    get_buttons_from_array(
+        "Weapons",
+        "Armor",
+        "Consumable"
+    );
+
+    options_state = "item_selector_intro";
+}
+
+function get_weapons_selector_mod_options()
+{
+    var weapons = get_weapon_ids();
+    var size = array_length(weapons);
+
+    button_amount = size;
+
+    for (var i = 0; i < size; i++)
+    {
+        button_text[i] = get_weapon_name(weapons[i]);
+    }
+
+    options_state = "weapon_selector";
+}
+
+function get_armors_selector_mod_options()
+{
+    var armors = get_armor_ids();
+    var size = array_length(armors);
+
+    button_amount = size;
+
+    for (var i = 0; i < size; i++)
+    {
+        button_text[i] = get_armor_name(armors[i]);
+    }
+
+    options_state = "armor_selector";
+}
+
+function get_consumables_selector_mod_options()
+{
+    var consumables = get_consumable_ids();
+    var size = array_length(consumables);
+
+    button_amount = size;
+
+    for (var i = 0; i < size; i++)
+    {
+        button_text[i] = get_consumable_name(consumables[i]);
+    }
+
+    options_state = "consumable_selector";
+}

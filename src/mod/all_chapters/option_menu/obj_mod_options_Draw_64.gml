@@ -160,6 +160,10 @@ for (var i = 0; i < button_amount; i++)
                             case 5:
                                 get_misc_keybinds_mod_options();
                                 break;
+                            // flags
+                            case 6:
+                                get_game_flags_mod_optins();
+                                break;
                             case 11:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
@@ -487,6 +491,51 @@ for (var i = 0; i < button_amount; i++)
                         {
                             get_misc_keybinds_mod_options(i);
                         }
+                        break;
+                    case "game_flags":
+                        switch (i)
+                        {
+                            // items
+                            case 0:
+                                get_item_selector();
+                                break;
+                            // party selector
+                            case 1:
+                                break;
+                            // plot warp
+                            case 2:
+                                break;
+                            // snowgrave plot
+                            case 3:
+                                break;
+                        }
+                        break;
+                    case "item_selector_intro":
+                        switch (i)
+                        {
+                            // weapons
+                            case 0:
+                                get_weapons_selector_mod_options();
+                                break;
+                            case 1:
+                                get_armors_selector_mod_options();
+                                break;
+                            case 2:
+                                get_consumables_selector_mod_options();
+                                break;
+                        }
+                        break;
+                    case "weapon_selector":
+                        var weapons = get_weapon_ids();
+                        scr_weaponget(weapons[i]);
+                        break;
+                    case "armor_selector":
+                        var armors = get_armor_ids();
+                        scr_armorget(armors[i]);
+                        break;
+                    case "consumable_selector":
+                        var consumables = get_consumable_ids();
+                        scr_itemget(consumables[i]);
                         break;
                     case #OPTION_STATE.general_options:
                         switch (i)
