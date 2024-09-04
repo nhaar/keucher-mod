@@ -1,12 +1,8 @@
-/// PATCH
+/// PATCH .ignore ifndef DEMO
+
 // first message of the placeholder enemy
 /// REPLACE
-#if DEMO
 global.battlemsg[0] = scr_84_get_lang_string_ch1("scr_monstersetup_slash_scr_monstersetup_gml_27_0")
-#endif
-#if SURVEY_PROGRAM
-global.monstername[myself] = scr_84_get_lang_string("scr_monstersetup_slash_scr_monstersetup_gml_4_0")
-#endif
 /// CODE
 global.battlemsg[0] = "* just hit the frame perfect # inputs 4Head"
 /// END
