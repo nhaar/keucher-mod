@@ -6,20 +6,23 @@
 // below is savestate related, move to a separate script
 draw_set_color(c_white)
 slotWasSelected = -1
-for (var i = ord("0"); i < 58; i++)
+if (global.debug_keybinds_on)
 {
-    if keyboard_check_pressed(i)
+    for (var i = ord("0"); i < 58; i++)
     {
-        if (!keyboard_check(get_bound_key(#KEYBINDING.plot_warp)) && !keyboard_check(get_bound_key(#KEYBINDING.snowgrave_plot)))
+        if keyboard_check_pressed(i)
         {
-            slotWasSelected = i - 48
+            if (!keyboard_check(get_bound_key(#KEYBINDING.plot_warp)) && !keyboard_check(get_bound_key(#KEYBINDING.snowgrave_plot)))
+            {
+                slotWasSelected = i - 48
+            }
         }
     }
-}
-if (slotWasSelected != -1)
-{
-    global.currentSlotSelected = slotWasSelected
-    show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " selected")
+    if (slotWasSelected != -1)
+    {
+        global.currentSlotSelected = slotWasSelected
+        show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " selected")
+    }
 }
 
 // saving savestates

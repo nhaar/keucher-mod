@@ -108,7 +108,8 @@ else if typing_room
                 }
                 else
                 {
-                    char_pressed = chr(keyboard_key + ((shift_press && is_letter) ? 0 : 32));
+                    // supporting lower and upper case
+                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
                 }
                 room_query += char_pressed;
                 get_room_warp_mod_options();
