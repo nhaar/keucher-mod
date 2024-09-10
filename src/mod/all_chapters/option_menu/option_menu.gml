@@ -832,3 +832,18 @@ function get_snowgrave_plot_mod_options()
 
     options_state = "snowgrave_plot";
 }
+
+function get_room_warp_mod_options()
+{
+    room_results = search_room_by_substring(room_query, 10);
+    
+    button_amount = array_length(room_results) + 1;
+    button_text[0] = "[SEARCH ROOM]: " + room_query
+    for (var i = 0; i < button_amount - 1; i++)
+    {
+        button_text[i + 1] = room_results[i];
+    }
+
+    typing_room = true;
+    options_state = "room_warp";
+}

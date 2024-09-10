@@ -78,6 +78,57 @@ if setting_keybind
         setting_keybind = false
     }
 }
+// this block takes care of when you are typing room name for room warp
+else if typing_room
+{
+    if (keyboard_key != 0)
+    {
+        key_current_cooldown++;
+        if (keyboard_key == pressing_room_query)
+        {
+            if (key_current_cooldown > KEY_COOLDOWN)
+            {
+                pressing_room_query = 0;
+            }
+        }
+        else
+        {
+            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
+            var is_underscore = keyboard_key == 189;
+            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
+            var shift_press = keyboard_check(vk_shift);
+            pressing_room_query = keyboard_key; // avoid multiple registers
+            if (is_letter || (is_underscore && shift_press) || is_digits)
+            {
+    
+                var char_pressed = ""
+                if (is_underscore)
+                {
+                    char_pressed = "_"
+                }
+                else
+                {
+                    char_pressed = chr(keyboard_key + ((shift_press && is_letter) ? 0 : 32));
+                }
+                room_query += char_pressed;
+                get_room_warp_mod_options();
+            }
+            else if (keyboard_key == 8)
+            {
+                room_query = keyboard_check(vk_control) ?
+                    "" :
+                    string_copy(room_query, 1, string_length(room_query) - 1)
+
+                get_room_warp_mod_options()
+            }
+        }
+    }
+    else
+    {
+        key_current_cooldown = 0;
+        pressing_room_query = keyboard_key
+    }
+}
 
 // dragging scroll
 if (scroll_dragging)
@@ -164,7 +215,11 @@ for (var i = 0; i < button_amount; i++)
                             case 6:
                                 get_game_flags_mod_optins();
                                 break;
+                            // room warp
                             case 7:
+                                room_query = "";
+                                get_room_warp_mod_options();
+                                global.debug_keybinds_on = false;
                                 break;
                             case 11:
                                 var saves_dir = get_save_dir(false);
@@ -651,6 +706,20 @@ for (var i = 0; i < button_amount; i++)
                         {
                             set_snowgrave_plot(i + 1);
                             instance_destroy();
+                        }
+                        break;
+                    case "room_warp":
+                        // first button is typing field
+                        if (i != 0)
+                        {
+                            var room_id = asset_get_index(button_text[i]);
+                            // shouldnt be possible to not have a proper room name
+                            if (room_id > -1)
+                            {
+                                room_goto(room_id);
+                                global.debug_keybinds_on = true;
+                                instance_destroy();
+                            }
                         }
                         break;
                     case #OPTION_STATE.general_options:

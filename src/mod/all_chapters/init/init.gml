@@ -7,6 +7,7 @@ function init()
     init_keybinds()
     init_user_ils()
     init_player_options()
+    init_room_names()
 
     var omnipresent_instances = create_array
     (

@@ -30,3 +30,12 @@ global.current_created_preset = undefined
 
 // saves the current ui element being targeted for change
 current_ui_element = undefined
+
+// check if are in the room warp options (search for key inputs)
+typing_room = false;
+room_query = "";
+pressing_room_query = false;
+
+// how long between frames we have been pressing the same key
+key_current_cooldown = 0;
+KEY_COOLDOWN = 60;
