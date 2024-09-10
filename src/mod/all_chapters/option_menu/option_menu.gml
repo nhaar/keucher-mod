@@ -835,7 +835,7 @@ function get_snowgrave_plot_mod_options()
 
 function get_room_warp_mod_options()
 {
-    room_results = search_room_by_substring(room_query, 10);
+    room_results = search_room_by_substring(room_query);
     
     button_amount = array_length(room_results) + 1;
     button_text[0] = "[SEARCH ROOM]: " + room_query

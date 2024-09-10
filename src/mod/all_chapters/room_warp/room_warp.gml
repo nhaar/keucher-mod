@@ -4,8 +4,10 @@
 function init_room_names()
 {
     var room_names
-    cur_room = 0
-    for (var i = 0; i < room_last; i++)
+    var cur_room = 0
+    // for some reason, room_last is 0 at the start, so we can't use it
+    // THIS NEEDS TO BE UPDATED IF MORE ROOMS ARE ADDED
+    for (var i = 0; i < 427; i++)
     {
         var name = room_get_name(i)
         if (string_length(name) > 0)
@@ -17,9 +19,14 @@ function init_room_names()
     global.room_names = room_names
 }
 
-/* Search across room names by a substring with a max amount of results allowed */
-function search_room_by_substring(substring, max_results)
+/* Search across room names by a substring */
+function search_room_by_substring(substring)
 {
+    if (substring == "")
+    {
+        return global.room_names;
+    }
+
     var results
     var size = array_length(global.room_names)
     found = 0
@@ -31,10 +38,6 @@ function search_room_by_substring(substring, max_results)
         {
             results[found] = current_room
             found++
-            if (found > max_results)
-            {
-                break;
-            }
         }
     }
 
