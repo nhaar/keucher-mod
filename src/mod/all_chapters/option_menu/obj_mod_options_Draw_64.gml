@@ -60,22 +60,21 @@ if setting_keybind
                 is_ok = show_question(message + "\n\nIs this OKAY?");
             }
     
-            // turning it back on
-            global.debug_keybinds_on = true;
-            
             if (is_ok)
             {
                 set_debug_keybind_key(get_debug_keybind_from_index(current_keybind_index), target_key);
             }
+            setting_keybind = false;
             get_single_debug_keybind_mod_options(current_keybind_index);
         }
         else
         {
             var keybinds = get_other_keybinds();
             update_config_value(target_key, "other_keybind_" + keybinds[current_keybind_index]);
+            setting_keybind = false;
             get_misc_keybinds_mod_options();
         }
-        setting_keybind = false
+
     }
 }
 // this block takes care of when you are typing room name for room warp
@@ -220,7 +219,6 @@ for (var i = 0; i < button_amount; i++)
                             case 7:
                                 room_query = "";
                                 get_room_warp_mod_options();
-                                global.debug_keybinds_on = false;
                                 break;
                             // saves
                             case 8:
@@ -347,7 +345,7 @@ for (var i = 0; i < button_amount; i++)
                                 else
                                 {
                                     create_split_preset(instructions, name);
-                                    instance_destroy();
+                                    close_mod_options();
                                 }
                                 break
                             case 2:
@@ -473,7 +471,6 @@ for (var i = 0; i < button_amount; i++)
                         {
                             setting_keybind = true;
                             get_single_debug_keybind_mod_options(current_keybind_index);
-                            global.debug_keybinds_on = false;
                         }
                         break;
                     case "other_keybinds":
@@ -577,7 +574,7 @@ for (var i = 0; i < button_amount; i++)
                                 build_party_from_options(party);
                                 break;
                         }
-                        instance_destroy();
+                        close_mod_options();
                         break;
                     case "plot_warp":
                         if (instance_exists(obj_mainchara) || instance_exists(obj_mainchara_ch1))
@@ -642,7 +639,7 @@ for (var i = 0; i < button_amount; i++)
                         if (instance_exists(obj_mainchara) && global.chapter == 2)
                         {
                             set_snowgrave_plot(i + 1);
-                            instance_destroy();
+                            close_mod_options();
                         }
                         break;
                     case "room_warp":
@@ -654,8 +651,7 @@ for (var i = 0; i < button_amount; i++)
                             if (room_id > -1)
                             {
                                 room_goto(room_id);
-                                global.debug_keybinds_on = true;
-                                instance_destroy();
+                                close_mod_options();
                             }
                         }
                         break;

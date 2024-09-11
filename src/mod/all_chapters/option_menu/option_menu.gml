@@ -645,3 +645,13 @@ function get_room_warp_mod_options()
     typing_room = true;
     options_state = "room_warp";
 }
+
+/* Proper way to close the mod options */
+function close_mod_options()
+{
+    if instance_exists(obj_mod_options)
+    {
+        instance_destroy(obj_mod_options);
+        global.debug_keybinds_on = true;
+    }
+}
