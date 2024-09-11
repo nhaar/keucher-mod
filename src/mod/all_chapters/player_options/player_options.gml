@@ -33,6 +33,8 @@ function set_ui_color(element, color)
         case 6:
             ui_name = "button-highlight"
             break
+        case 7:
+            ui_name = "scrollbar"
     }
     update_config_value(color, ui_name + "color");
 }
@@ -57,4 +59,5 @@ function init_ui_colors()
     read_config_with_default("12632256", "button-hovercolor");
     read_config_with_default("8421504", "button-presscolor");
     read_config_with_default("16711680", "button-highlightcolor");
+    read_config_with_default("16777215", "scrollbarcolor");
 }

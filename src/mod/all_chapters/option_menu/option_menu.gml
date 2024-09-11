@@ -92,7 +92,8 @@ function get_ui_colors_options()
         "Border Color",
         "Button Hover Color",
         "Button Press Color",
-        "Button Highlight Color"
+        "Button Highlight Color",
+        "Scrollbar"
     );
 
     options_state = "uicolors"

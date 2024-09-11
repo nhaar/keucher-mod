@@ -155,7 +155,7 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
 
 // drawing the actual buttons
 
-draw_set_color(read_ui_color("button"))
+draw_set_color(read_ui_color("scrollbar"))
 draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false)
 
 for (var i = 0; i < button_amount; i++)
