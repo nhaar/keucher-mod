@@ -125,45 +125,6 @@ if pressed_other_keybind("reset_timer")
 {
     set_igt_splits_info(0);
 }
-if (detected_active_feature_key(#KEYBINDING.plot_warp, "plotwarp"))
-{
-    var plot_warp_number = 10
-    var first_plot_warp = 3
-
-    for (var i = 0; i < plot_warp_number; i++)
-    {
-        if (keyboard_check_pressed(ord(string(i))))
-        {
-            if (global.chapter == 1)
-            {
-                switch (i)
-                {
-                    case 3: plotwarp("ch1_wake_up"); break
-                    case 4: plotwarp("field_start"); break
-                    case 5: plotwarp("checkerboard_start"); break
-                    case 6: plotwarp("forest_start"); break
-                    case 7: plotwarp("post_vs_lancer"); break
-                    case 8: plotwarp("post_escape"); break
-                    case 9: plotwarp("king"); break
-                }
-            }
-            else if (global.chapter == 2)
-            {
-                switch (i)
-                {
-                    case 3: plotwarp("post_arcade"); break
-                    case 4: plotwarp("city_start"); break
-                    case 5: plotwarp("city_dj_save"); break
-                    case 6: plotwarp("city_post_berdly"); break
-                    case 7: plotwarp("mansion_start"); break
-                    case 8: plotwarp("acid_lake_start"); break
-                    case 9: plotwarp("acid_lake_exit"); break
-                }
-            }
-            break
-        }
-    }    
-}
 
 // update battle started tracker for next frame (must be at the end to delay the previous checks)
 battle_started = global.fighting ? true : false

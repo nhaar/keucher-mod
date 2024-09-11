@@ -174,14 +174,14 @@ for (var i = 0; i < button_amount; i++)
         
         if (mouse_check_button_pressed(mb_left))
         {
-            button_state[i] = #BUTTON_STATE.press
+            button_state[i] = "press"
         }
         // handle clicking button
-        else if (button_state[i] == #BUTTON_STATE.press)
+        else if (button_state[i] == "press")
         {
             if (mouse_check_button_released(mb_left))
             {
-                button_state[i] = #BUTTON_STATE.hover
+                button_state[i] = "hover"
                 switch (options_state)
                 {
                     case "default":
@@ -318,80 +318,11 @@ for (var i = 0; i < button_amount; i++)
                             get_create_preset_mod_options();
                         }
                         break;
-                    case #OPTION_STATE.keybind_assign:
-                        // get info
-                        if (i == 0)
-                        {
-                            var keybind_info = read_json_value(global.keybinding_info, current_keybind, "info")
-                            show_message(keybind_info)
-                        }
-                        // setting new value
-                        else if (i == 2)
-                        {
-                            global.are_keybinds_on = false
-                            setting_keybind = true
-                            setting_debug = true;
-                            // update text
-                            button_text[1] = "Press any key..."
-                        }
-                        break
                     case "pick_split_preset":
                         set_current_preset(i);
                         update_splits();
                         get_split_preset_mod_options();
                         break;
-                    case #OPTION_STATE.splits:
-                        get_split_assign_options(i)
-                        break
-                    case #OPTION_STATE.split_assign:
-                        // warp
-                        if (i == 1)
-                        {
-                            plotwarp(read_json_value(global.splits_json, selected_split, "warp"))
-                            // switch (selected_split)
-                            // {
-                            //     case global.SPLIT_field_hopes_dreams:
-                            //         plotwarp(1)
-                            //         break
-                            //     case global.SPLIT_checkerboard:
-                            //         plotwarp(2)
-                            //         break
-                            //     case global.SPLIT_forest:
-                            //         plotwarp(3)
-                            //         break
-                            //     case global.SPLIT_escape_castle:
-                            //         plotwarp(4)
-                            //         break
-                            //     case global.SPLIT_castle_and_king:
-                            //         plotwarp(5)
-                            //         break
-                            //     case global.SPLIT_city_one:
-                            //         plotwarp(1)
-                            //         break
-                            //     case global.SPLIT_city_heights:
-                            //         plotwarp(3)
-                            //         break
-                            //     case global.SPLIT_mansion:
-                            //         plotwarp(4)
-                            //         break
-                            //     case global.SPLIT_acid_lake:
-                            //         plotwarp(5)
-                            //         break
-                            //     case global.SPLIT_queen_and_giga:
-                            //         plotwarp(6)
-                            //         break
-                            // }
-                        }
-                        // set split
-                        else if (i == 2)
-                        {
-                            obj_IGT.current_split = selected_split
-                            get_split_assign_options(selected_split)
-                            obj_IGT.split_start_room = start_room
-                            obj_IGT.segment_split_number = split_count
-                            update_splits()
-                        }
-                        break
                     case "create_split_preset":
                         switch (i)
                         {
@@ -728,60 +659,6 @@ for (var i = 0; i < button_amount; i++)
                             }
                         }
                         break;
-                    case #OPTION_STATE.general_options:
-                        switch (i)
-                        {
-                            case #GENERAL_OPTION.ui_colors:
-                                get_ui_colors_options()
-                                break
-                        }
-                        break
-                    case #OPTION_STATE.features:
-                        // can get id based on index because we're drawing based on that order
-                        var feature_name = global.feature_info[i * global.feature_info_group_length]
-                        current_feature = feature_name
-                        current_feature_index = i
-                        get_single_feature_options(feature_name, i)
-                        break
-                    case #OPTION_STATE.single_feature:
-                            // show info
-                            if (i == 0)
-                            {
-                                // the + 3 is to access the information about feature
-                                var feature_info = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_info_index]
-                                show_message(feature_info)
-                            }
-                            // toggle feature state
-                            else if (i == 1)
-                            {
-                                var feature_map = read_json_value(global.player_options, "feature-options")
-                                var current_value = read_json_value(feature_map, current_feature)
-                                switch (current_value)
-                                {
-                                    case #FEATURE_STATE.never:
-                                        current_value = #FEATURE_STATE.debug
-                                        break
-                                    case #FEATURE_STATE.debug:
-                                        current_value = #FEATURE_STATE.always
-                                        break
-                                    case #FEATURE_STATE.always:
-                                        current_value = #FEATURE_STATE.never
-                                        break
-                                }
-                                ds_map_set(feature_map, current_feature, current_value)
-                                save_player_options()
-                                get_single_feature_options(current_feature, current_feature_index)
-                            }
-                            // keybinds, if any exist, are dinamically created
-                            else
-                            {
-                                var keybind_array = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_keybinds_index]
-                                // 2 just to account the first two buttons
-                                // couldn't fint a way to make this magic number be more dynamic
-                                current_keybind = keybind_array[i - 2]
-                                get_keybind_assign_options(current_keybind)
-                            }
-                        break
                     case "uicolors":
                         current_ui_element = i
                         get_color_picker_options()
@@ -860,30 +737,30 @@ for (var i = 0; i < button_amount; i++)
             }
         }
         else
-            button_state[i] = #BUTTON_STATE.hover
+            button_state[i] = "hover"
     }
-    else if (options_state == #OPTION_STATE.splits && i == obj_IGT.current_split)
+    else if (options_state == "pick_split_preset" && i == obj_IGT.current_split)
     {
-        button_state[i] = #BUTTON_STATE.highlight
+        button_state[i] = "highlight"
     }
     else
     {
-        button_state[i] = #BUTTON_STATE.none
+        button_state[i] = "none"
     }
 
-    if (button_state[i] == #BUTTON_STATE.hover)
+    if (button_state[i] == "hover")
     {
         draw_set_color(read_ui_color("button-hover"))
     }
-    else if (button_state[i] == #BUTTON_STATE.press)
+    else if (button_state[i] == "press")
     {
         draw_set_color(read_ui_color("button-press"))
     }
-    else if (button_state[i] == #BUTTON_STATE.none)
+    else if (button_state[i] == "none")
     {
         draw_set_color(read_ui_color("button"))
     }
-    else if (button_state[i] == #BUTTON_STATE.highlight)
+    else if (button_state[i] == "highlight")
     {
         draw_set_color(read_ui_color("button-highlight"))
     }

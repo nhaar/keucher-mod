@@ -7,8 +7,12 @@ function toggle_boundary_boxes()
 {
     if pressed_active_debug_keybind("hitboxes")
     {
-        global.bboxVisible = wrap_around(global.bboxVisible + 1, 0, #BOUNDARY_BOX_STATE.#length - 1)
-        if (global.bboxVisible == #BOUNDARY_BOX_STATE.none)
+        global.bboxVisible = wrap_around(global.bboxVisible + 1, 0, 2);
+
+        // 0: none
+        // 1: doors
+        // 2: doors and walls
+        if (global.bboxVisible == 0)
         {
             update_doors_visibility(false)
             update_walls_visibility(false)
@@ -18,7 +22,7 @@ function toggle_boundary_boxes()
         {
             update_doors_visibility(true)
             show_temp_message("visible: doors")
-            if (global.bboxVisible == #BOUNDARY_BOX_STATE.doors_and_walls)
+            if (global.bboxVisible == 2)
             {
                 update_walls_visibility(true)
                 show_temp_message("visible: doors and walls")

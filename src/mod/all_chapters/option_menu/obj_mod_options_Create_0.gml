@@ -1,7 +1,13 @@
 /// IMPORT
 
 button_amount = 0
-button_state[100] = #BUTTON_STATE.none
+
+// button states
+// "none"
+// "press"
+// "hover"
+// "highlight"
+button_state[100] = "none"
 button_text[100] = 0
 
 // variable that tracks the current option menu

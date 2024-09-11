@@ -12,10 +12,7 @@ if (global.debug_keybinds_on)
     {
         if keyboard_check_pressed(i)
         {
-            if (!keyboard_check(get_bound_key(#KEYBINDING.plot_warp)) && !keyboard_check(get_bound_key(#KEYBINDING.snowgrave_plot)))
-            {
-                slotWasSelected = i - 48
-            }
+            slotWasSelected = i - 48
         }
     }
     if (slotWasSelected != -1)
