@@ -222,11 +222,12 @@ for (var i = 0; i < button_amount; i++)
                                 get_room_warp_mod_options();
                                 global.debug_keybinds_on = false;
                                 break;
-                            case 11:
+                            // saves
+                            case 8:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
-                                    load_save_buttons(saves_dir);
+                                    load_save_buttons("/");
                                 }
                                 else
                                 {
@@ -813,38 +814,44 @@ for (var i = 0; i < button_amount; i++)
 
                         }
                         break
-                    case #OPTION_STATE.saves:
-                        var clicked_value = button_text[i]
-                        var folder_pos = string_pos("[FOLDER]", clicked_value)
-                        if (folder_pos > 0)
+                    case "savebrowse":
+                        // first button only shows current folder
+                        if (i != 0)
                         {
-                            load_save_buttons(get_save_dir(true) + string_copy(clicked_value, 1, folder_pos - 2))
-                        }
-                        var file_pos = string_pos("[FILE]", clicked_value)
-                        if (file_pos > 0)
-                        {
-                            var file_to_load = get_save_dir(true) + string_copy(clicked_value, 1, file_pos - 2);
-#if SURVEY_PROGRAM
-                            scr_load(file_to_load);
-#else
-                            if (!instance_exists(obj_time) && !instance_exists(obj_time_ch1))
+                            var clicked_value = button_text[i]
+                            var cur_dir = button_text[0];
+                            var folder_pos = string_pos("[FOLDER]", clicked_value)
+                            if (folder_pos > 0)
                             {
-                                show_message("Pick a chapter first!")
+                                load_save_buttons(cur_dir + string_copy(clicked_value, 1, folder_pos - 2) + "/")
                             }
-                            else
+                            var file_pos = string_pos("[FILE]", clicked_value)
+                            if (file_pos > 0)
                             {
-                                if (global.chapter == 1)
+                                // index 0 contains the folder
+                                var file_to_load = get_save_dir(true) + cur_dir + "/" + string_copy(clicked_value, 1, file_pos - 2);
+#if SURVEY_PROGRAM
+                                scr_load(file_to_load);
+#else
+                                if (!instance_exists(obj_time) && !instance_exists(obj_time_ch1))
                                 {
-                                    scr_load_ch1(file_to_load);
+                                    show_message("Pick a chapter first!")
                                 }
                                 else
                                 {
-                                    scr_load(file_to_load);
+                                    if (global.chapter == 1)
+                                    {
+                                        scr_load_ch1(file_to_load);
+                                    }
+                                    else
+                                    {
+                                        scr_load(file_to_load);
+                                    }
                                 }
-                            }
 #endif
+                            }
+                            break
                         }
-                        break
                 }
             }
         }
