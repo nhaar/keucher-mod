@@ -189,6 +189,7 @@ for (var i = 0; i < button_amount; i++)
                             // Debug mode
                             case 0:
                                 global.debug = global.debug ? false : true;
+                                update_config_value(global.debug, "debug");
                                 get_default_mod_options();
                                 break
                             // Timer
