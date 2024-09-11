@@ -80,30 +80,29 @@ function set_ui_color(element, color)
     var ui_name = ""
     switch (element)
     {
-        case #UI_ELEMENT.background:
+        case 0:
             ui_name = "background"
             break
-        case #UI_ELEMENT.text:
+        case 1:
             ui_name = "text"
             break
-        case #UI_ELEMENT.border:
+        case 2:
             ui_name = "border"
             break
-        case #UI_ELEMENT.button:
+        case 3:
             ui_name = "button"
             break
-        case #UI_ELEMENT.button_hover:
+        case 4:
             ui_name = "button-hover"
             break
-        case #UI_ELEMENT.button_press:
+        case 5:
             ui_name = "button-press"
             break
-        case #UI_ELEMENT.button_highlight:
+        case 6:
             ui_name = "button-highlight"
             break
     }
-    var ui_colors = read_json_value(global.player_options, "ui-colors")
-    ds_map_set(ui_colors, ui_name, color)
+    update_config_value(color, ui_name + "color");
 }
 
 /*
@@ -114,5 +113,16 @@ Arguments:
 */
 function read_ui_color(element)
 {
-    return read_json_value(global.player_options, "ui-colors", element)
+    return read_config_value(element + "color");
+}
+
+function init_ui_colors()
+{
+    read_config_with_default("0", "backgroundcolor");
+    read_config_with_default("16777215", "textcolor");
+    read_config_with_default("16777215", "bordercolor");
+    read_config_with_default("0", "buttoncolor");
+    read_config_with_default("12632256", "button-hovercolor");
+    read_config_with_default("8421504", "button-presscolor");
+    read_config_with_default("16711680", "button-highlightcolor");
 }

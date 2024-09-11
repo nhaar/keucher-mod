@@ -234,6 +234,10 @@ for (var i = 0; i < button_amount; i++)
                                     show_message("No save folders detected!\n\nTo save custom saves, you can go to your DELTARUNE save folder and add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.");
                                 }
                                 break
+                            // ui colors
+                            case 9:
+                                get_ui_colors_options();
+                                break;
                         }
                         break
                     case "timer":
@@ -778,14 +782,14 @@ for (var i = 0; i < button_amount; i++)
                                 get_keybind_assign_options(current_keybind)
                             }
                         break
-                    case #OPTION_STATE.ui_colors:
+                    case "uicolors":
                         current_ui_element = i
                         get_color_picker_options()
                         break
-                    case #OPTION_STATE.color_picker:
+                    case "colorpicker":
                         switch (i)
                         {
-                            case #COLOR_PICKER_OPTION.rgb:
+                            case 0: // rgb
                                 red = get_integer("Enter red value (0 - 255)", "")
                                 if (!validate_rgb_color(red))
                                 {
@@ -803,7 +807,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
                                 break
-                            case #COLOR_PICKER_OPTION.hex:
+                            case 1: // hex
                                 hex = get_string("Enter hex value (000000 - FFFFFF)", "")
                                 if (validate_hex_color(hex))
                                 {

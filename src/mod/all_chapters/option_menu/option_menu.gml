@@ -98,18 +98,17 @@ Get options for which UI element to set the color
 */
 function get_ui_colors_options()
 {
-    get_buttons_from_pair_array
-    (
-        #UI_ELEMENT.background, "Background Color",
-        #UI_ELEMENT.text, "Text Color",
-        #UI_ELEMENT.button, "Button Color",
-        #UI_ELEMENT.border, "Border Color",
-        #UI_ELEMENT.button_hover, "Button Hover Color",
-        #UI_ELEMENT.button_press, "Button Press Color",
-        #UI_ELEMENT.button_highlight, "Button Highlight Color"
-    )
+    get_buttons_from_array(
+        "Background Color",
+        "Text Color",
+        "Button Color",
+        "Border Color",
+        "Button Hover Color",
+        "Button Press Color",
+        "Button Highlight Color"
+    );
 
-    options_state = #OPTION_STATE.ui_colors
+    options_state = "uicolors"
 }
 
 /*
@@ -117,13 +116,12 @@ Get options for picking a color
 */
 function get_color_picker_options()
 {
-    get_buttons_from_pair_array
-    (
-        #COLOR_PICKER_OPTION.rgb, "Get color from RGB",
-        #COLOR_PICKER_OPTION.hex, "Get color from HEX value"
-    )
+    get_buttons_from_array(
+        "Get color from RGB",
+        "Get color from HEX value"
+    );
 
-    options_state = #OPTION_STATE.color_picker
+    options_state = "colorpicker";
 }
 
 /*

@@ -25,6 +25,7 @@ Happy running!");
     init_other_keybinds();
     init_timer_options();
     init_split_presets();
+    init_ui_colors();
 
     // should be `0` if crit practice is off, and `1` if it's on
     global.ambyu_practice = 0;
