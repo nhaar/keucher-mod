@@ -494,12 +494,19 @@ function get_misc_keybinds_mod_options(listening_index)
 
 function get_game_flags_mod_optins()
 {
-    get_buttons_from_array(
-        "Item Selector",
-        "Party Selector",
-        "Plot Warp",
-        "Snowgrave Plot Setter"
-    );
+    if (loaded_savefile())
+    {
+        get_buttons_from_array(
+            "Item Selector",
+            "Party Selector",
+            "Plot Warp",
+            "Snowgrave Plot Setter"
+        );
+    }
+    else
+    {
+        get_buttons_from_array("You must load a savefile to edit game data!");
+    }
 
     options_state = "game_flags";
 }
@@ -576,36 +583,29 @@ function get_party_selector_mod_options()
 
 function get_plot_warp_mod_options()
 {
-    if (!instance_exists(obj_mainchara) && !instance_exists(obj_mainchara_ch1))
+    if (global.chapter == 1)
     {
-        get_buttons_from_array("You must load a savefile to use plot warp");
+        get_buttons_from_array(
+            "Chapter 1 Wake Up",
+            "Field Start",
+            "Checkerboard Start",
+            "Forest Start",
+            "Post Vs Lancer",
+            "Post Escape",
+            "King"
+        );
     }
     else
     {
-        if (global.chapter == 1)
-        {
-            get_buttons_from_array(
-                "Chapter 1 Wake Up",
-                "Field Start",
-                "Checkerboard Start",
-                "Forest Start",
-                "Post Vs Lancer",
-                "Post Escape",
-                "King"
-            );
-        }
-        else
-        {
-            get_buttons_from_array(
-                "Post Arcade",
-                "City Start",
-                "City DJ Save",
-                "City Post Berdly",
-                "Mansion Start",
-                "Acid Lake Start",
-                "Acid Lake Exit"
-            );
-        }
+        get_buttons_from_array(
+            "Post Arcade",
+            "City Start",
+            "City DJ Save",
+            "City Post Berdly",
+            "Mansion Start",
+            "Acid Lake Start",
+            "Acid Lake Exit"
+        );
     }
 
     options_state = "plot_warp";
