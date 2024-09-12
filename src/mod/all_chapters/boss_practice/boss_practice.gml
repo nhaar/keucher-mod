@@ -20,6 +20,7 @@ function start_boss_practice()
     {
         instance_create(0, 0, obj_boss_practice)
     }
+
     // object_index from the calling object
     obj_boss_practice.boss_obj = object_index
 
@@ -124,5 +125,44 @@ function reset_graze_condition()
     {
         global.tension = 0
         global.inv = -1
+    }
+}
+
+function toggle_boss_practice(on)
+{
+    if (on)
+    {
+        global.bossPractice = true
+        global.bossTurn = 0
+        make_player_unkillable();
+    }
+    else
+    {
+        global.bossPractice = false
+        reset_defense_stats();
+    }
+}
+
+function make_player_unkillable()
+{
+    // making the player unkillable
+    // to-do: This is not a great way to do it, make the bullets themselves not do any damage instead!
+    for (i = 0; i < 3; i++)
+    {
+        global.battledf[i] = 999
+    }
+}
+
+function reset_defense_stats()
+{
+    // manually give the proper DF values back
+    // iterate chars
+    for (var i = 0; i < 3; i++)
+    {
+        global.battledf[i] =
+            global.df[global.char[i]] +
+            global.itemdf[global.char[i]][0] +
+            global.itemdf[global.char[i]][1] +
+            global.itemdf[global.char[i]][2]
     }
 }

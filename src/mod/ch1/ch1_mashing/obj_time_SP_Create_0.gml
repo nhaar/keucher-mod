@@ -1,6 +1,8 @@
 /// PATCH
 /// APPEND
-global.wrist_protector_auto_mashed = 0
-global.wrist_protector_manual_mashed = 0
-global.wrist_protector_manual_missed = 0
+// track whether it is on or not
+global.mash_practice_mode = false;
+
+// used as initializer
+reset_mashing_stats();
 /// END

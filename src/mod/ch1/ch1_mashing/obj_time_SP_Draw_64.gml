@@ -1,6 +1,12 @@
 /// PATCH
 /// APPEND
-if (is_feature_active("show-wp-mash"))
+
+if (pressed_other_keybind("reset_mash_stat"))
+{
+    reset_mashing_stats();
+}
+
+if (global.mash_practice_mode)
 {
     var total = global.wrist_protector_auto_mashed + global.wrist_protector_manual_mashed
     // time in seconds: frames spent mashing / fps = s

@@ -4,28 +4,33 @@
 function get_save_dir(include_slash)
 {
     var last_char = include_slash ? "/" : ""
-    return "keucher_mod/saves" + last_char
+    return global.mod_dir + "/saves" + last_char
 }
 
 /* Loads the menu buttons that displays the files and folders for the given directory (for savefiles) */
 function load_save_buttons(dir)
 {
-    var subfiles = get_all_subfiles(dir);
+    var relative_dir = get_save_dir(false) + dir;
+    var subfiles = get_all_subfiles(relative_dir);
     var size = array_length_1d(subfiles);
-    button_amount = size;
+    button_amount = size + 1;
+    button_text[0] = dir;
+    hover_desc[0] = "The current directory we are in";
     for (var i = 0; i < size; i++)
     {
         var subfile = subfiles[i];
-        var full_path = dir + "/" + subfile;
-        var short_path = string_copy(full_path, string_length(get_save_dir(true)) + 1, string_length(full_path))
+        var full_path = relative_dir + subfile;
+        hover_desc[i + 1] = "";
         if directory_exists(full_path)
         {
-            button_text[i] = short_path + " [FOLDER]";
+            button_text[i + 1] = subfile + " [FOLDER]";
         }
         else
         {
-            button_text[i] = short_path + " [FILE]";
+            button_text[i + 1] = subfile + " [FILE]";
         }
     }
-    options_state = #OPTION_STATE.saves
+    menu_desc = "Browse your saves here!\nClick on a FOLDER to check inside it\nClick on a FILE to load it";
+    use_enumeration = false;
+    options_state = "savebrowse"
 }

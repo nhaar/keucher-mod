@@ -1,6 +1,6 @@
 /// IMPORT .ignore ifndef DEMO
 
-if (is_feature_active("doorwarp-square"))
+if (is_option_active("doorwarp_indicator"))
 {
     // this is when door overflow is ready to be done
     if (con == 7)

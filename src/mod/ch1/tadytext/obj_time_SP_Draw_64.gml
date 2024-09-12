@@ -1,7 +1,7 @@
 /// PATCH
 
 /// APPEND
-if is_feature_active("tadytext")
+if global.tadytext_mode
 {
     draw_set_color(c_black)
     draw_set_alpha(0.5)

@@ -87,3 +87,22 @@ function update_end_turn_crit_stats()
         global.attackse++
     }
 }
+
+function toggle_crit_practice(on)
+{
+    if (on)
+    {
+        global.ambyu_practice = true
+        // make enemy unkillable, if we are turning it on inside battle
+        global.monsterhp[0] = 40000000
+    }
+    else
+    {
+        global.ambyu_practice = false
+    }
+}
+
+function toggle_pattern_mode(on)
+{
+    global.random_pattern = on;
+}

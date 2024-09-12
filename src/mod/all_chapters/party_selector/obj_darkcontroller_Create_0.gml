@@ -1,9 +1,6 @@
 /// PATCH .ignore ifndef DEMO
 
 /// PREPEND
-// keeps track of the party members, using an arbitrary party ID system (check the switch statement)
-partystate = -1
-
 // keeps track of how many times the party members have been changed
 presscount = 0
 
