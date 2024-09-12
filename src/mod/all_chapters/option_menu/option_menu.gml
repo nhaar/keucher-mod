@@ -170,7 +170,7 @@ function get_default_mod_options()
         "RNG Settings",
         "Debug Keybinds",
         "Other Keybinds",
-        "Game Flags",
+        "Game Data",
         "Room Warps",
         "Saves",
         "UI Options"
