@@ -15,10 +15,12 @@ function load_save_buttons(dir)
     var size = array_length_1d(subfiles);
     button_amount = size + 1;
     button_text[0] = dir;
+    hover_desc[0] = "The current directory we are in";
     for (var i = 0; i < size; i++)
     {
         var subfile = subfiles[i];
         var full_path = relative_dir + subfile;
+        hover_desc[i] = "";
         if directory_exists(full_path)
         {
             button_text[i + 1] = subfile + " [FOLDER]";
@@ -28,5 +30,6 @@ function load_save_buttons(dir)
             button_text[i + 1] = subfile + " [FILE]";
         }
     }
+    menu_desc = "Browse your saves here!\nClick on a FOLDER to check inside it\nClick on a FILE to load it";
     options_state = "savebrowse"
 }

@@ -88,6 +88,56 @@ function get_debug_keybind_descriptive_name(name)
     }
 }
 
+function get_debug_keybind_description(name)
+{
+    switch (name)
+    {
+        case "save_menu":
+            return "When pressed, will open the menu where you can save\nIt also gives you movement";
+        case "load_file":
+            return "When pressed, your currently selected file will be load\nIt will not work if you don't have any file saved to this slot";
+        case "restart_room":
+            return "When pressed, the room will be restart";
+        case "store_savestate":
+            return "When pressed, you will save the current state as a savestate\nYou may change the savestate slot by pressing the numbers";
+        case "load_savestate":
+            return "When pressed, you will load the current selected savestate slot\nSavestates don't always work! The game may break, specially in battles";
+        case "speedup":
+            return "When pressed, the game will speed up by 5x of normal speed";
+        case "slowdown":
+            return "When pressed, the game will be slowed down by 3x of normal speed";
+        case "gif":
+            return "When pressed, a GIF will start recording, or it will stop recording the current GIF";
+        case "next_room":
+            return "When pressed, you will warp to the next room in the game's order";
+        case "previous_room":
+            return "When pressed, you will warp to the previous room in the game's order";
+        case "heal_party":
+            return "When pressed during battle, your party will be healed";
+        case "instant_win":
+            return "When pressed during battle, the battle ends instantly";
+        case "tp_toggle":
+            return "When pressed, TP will go to 100% TP, or if at maximum, it will go to 0% TP";
+        case "stop_sound":
+            return "When pressed, all sounds will be canceled";
+        case "reset_tempflags":
+            return "When pressed, temporary flags will be reset\nYou will need to restart the room you are in if it uses temp flags";
+        case "make_visible":
+            return "When pressed, Kris will become visible if they are invisible";
+        case "srn_action":
+            return "When pressed, S/R/N-Act will be enabled/disabled";
+        case "noclip":
+            return "When pressed, no clip will be enabled/disabled";
+        case "screenshot":
+            return "When pressed, you can take a screenshot (Chapter 1 only)";
+        case "hitboxes":
+            return "When pressed, you can see some hitboxes in the room\nPress twice to see even more hitboxes";
+        default:
+            show_message("Error occured: could not find keybind named \"" + name + "\"");
+            e += "crash";
+    }
+}
+
 function set_all_debug_keybinds_default()
 {
     var keybinds = get_debug_keybinds();

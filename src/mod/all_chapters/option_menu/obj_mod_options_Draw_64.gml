@@ -16,6 +16,9 @@ view_width = 640
 view_height = 480
 #endif
 
+// empty by default, will fill it if hovering a button
+menu_hover_desc = "";
+
 menu_desc_height = min(100, 0.1 * view_height);
 
 hover_desc_height = min(100, 0.1 * view_height);
@@ -60,7 +63,7 @@ if (mouse_wheel_down())
 }
 
 scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
-min_y = visible_min_y + buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
+min_y = visible_min_y - buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
