@@ -374,7 +374,7 @@ function get_event_splits_mod_options()
     {
         button_text[i] = get_special_instruction_name(events[i]);
     }
-    options_state = "pick_event_battle";
+    options_state = "pick_split_event";
 }
 
 function get_practice_mode_mod_options()

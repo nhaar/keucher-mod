@@ -363,7 +363,7 @@ for (var i = 0; i < button_amount; i++)
                                     close_mod_options();
                                 }
                                 break
-                            case 2:
+                            case 2: // pick name
                                 var name = get_string("Enter name for preset", "")
                                 if (ds_map_exists(global.current_created_preset, "name"))
                                     ds_map_replace(global.current_created_preset, "name", name)
@@ -371,7 +371,7 @@ for (var i = 0; i < button_amount; i++)
                                     ds_map_add(global.current_created_preset, "name", name)
                                     get_create_preset_mod_options()
                                 break
-                            case 3:
+                            case 3: // add split
                                 get_split_pick_mod_options()
                                 break
                         }

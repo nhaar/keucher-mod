@@ -55,9 +55,24 @@ function get_current_preset()
     return read_config_value("timer_current_preset");
 }
 
+/* Get instruction name, regardless of being room or special */
 function get_instruction_name(instruction)
 {
-    return instruction;
+    name = undefined;
+    // all available chapters
+    for (var i = 1; i < 3; i++)
+    {
+        name = get_descriptive_room_name(i, instruction);
+        if (name != undefined)
+        {
+            break;
+        }
+    }
+    if (name == undefined)
+    {
+        name = get_special_instruction_name(instruction);
+    }
+    return name;
 }
 
 function get_chapter_rooms(chapter)
