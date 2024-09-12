@@ -1,9 +1,17 @@
 /// PATCH
 
 /// REPLACE
+#if DEMO
 if scr_debug_ch1()
+#elsif SURVEY_PROGRAM
+if scr_debug()
+#endif
 {
+#if DEMO
     if scr_84_debug_ch1(true)
+#elsif SURVEY_PROGRAM
+    if scr_84_debug(true)
+#endif
         return;
     if keyboard_check_pressed(vk_f10)
     {

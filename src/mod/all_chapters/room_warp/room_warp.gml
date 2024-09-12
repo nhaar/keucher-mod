@@ -10,11 +10,13 @@ function init_room_names()
     for (var i = 0; i < 427; i++)
     {
         var name = room_get_name(i)
-        if (string_length(name) > 0)
+        // reached the limit of index, exit loop
+        if (name == "<undefined>")
         {
-            room_names[cur_room] = name
-            cur_room += 1
+            break;
         }
+        room_names[cur_room] = name
+        cur_room += 1
     }
     global.room_names = room_names
 }
