@@ -786,8 +786,8 @@ for (var i = 0; i < button_amount; i++)
                                 }
 #endif
                             }
-                            break
                         }
+                        break
                     case "miscoptions":
                         var options = get_options();
                         var name = options[i];
