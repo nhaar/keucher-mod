@@ -72,3 +72,15 @@ function pressed_other_keybind(name)
     var key = read_config_value("other_keybind_" + name);
     return keyboard_check_pressed(key);
 }
+
+function reset_all_other_keybinds_default()
+{
+    var keybinds = get_other_keybinds();
+    var size = array_length(keybinds);
+
+    for (var i = 0; i < size; i++)
+    {
+        var name = keybinds[i];
+        update_config_value(get_other_keybind_default(name), "other_keybind_" + name);
+    }
+}

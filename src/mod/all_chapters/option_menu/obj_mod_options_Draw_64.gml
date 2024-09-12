@@ -452,6 +452,7 @@ for (var i = 0; i < button_amount; i++)
                         // reset all keybinds
                         if (i == 0)
                         {
+                            set_all_debug_keybinds_default();
                             get_debug_keybinds_mod_options();
                         }
                         else
@@ -491,7 +492,8 @@ for (var i = 0; i < button_amount; i++)
                     case "other_keybinds":
                         if (i == 0)
                         {
-
+                            reset_all_other_keybinds_default();
+                            get_misc_keybinds_mod_options();
                         }
                         else
                         {

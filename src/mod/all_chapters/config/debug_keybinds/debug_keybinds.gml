@@ -88,6 +88,17 @@ function get_debug_keybind_descriptive_name(name)
     }
 }
 
+function set_all_debug_keybinds_default()
+{
+    var keybinds = get_debug_keybinds();
+    var size = array_length(keybinds);
+
+    for (var i = 0; i < size; i++)
+    {
+        set_debug_keybind_key(keybinds[i], get_debug_keybind_default(keybinds[i]));
+    }
+}
+
 /* Initializes all keybinds in the config file */
 function init_debug_keybinds()
 {
