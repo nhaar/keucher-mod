@@ -1,5 +1,8 @@
 /// IMPORT
 
+draw_set_font(fnt_main)
+draw_set_color(c_white)
+
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 
