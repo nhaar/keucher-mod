@@ -405,6 +405,7 @@ function get_rooms_in_chapter_mod_options(chapter)
     for (var i = 0; i < button_amount; i++)
     {
         button_text[i] = get_descriptive_room_name(chapter, rooms[i]);
+        hover_desc[i] = "";
     }
     menu_desc = "Choose which of these rooms will be in the preset next";
     use_enumeration = true;
@@ -418,6 +419,7 @@ function get_event_splits_mod_options()
     for (var i = 0; i < button_amount; i++)
     {
         button_text[i] = get_special_instruction_name(events[i]);
+        hover_desc[i] = "";
     }
 
     menu_desc = "Choose which of these events will be in the preset next";
