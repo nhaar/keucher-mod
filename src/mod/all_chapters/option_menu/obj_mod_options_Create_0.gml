@@ -13,6 +13,8 @@ INIT_BUTTON_AMOUNT = 1000;
 button_state[INIT_BUTTON_AMOUNT] = "none"
 button_text[INIT_BUTTON_AMOUNT] = 0
 
+use_enumeration = false;
+
 // Description at the top
 menu_desc = "";
 

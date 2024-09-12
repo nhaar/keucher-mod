@@ -31,5 +31,6 @@ function load_save_buttons(dir)
         }
     }
     menu_desc = "Browse your saves here!\nClick on a FOLDER to check inside it\nClick on a FILE to load it";
+    use_enumeration = false;
     options_state = "savebrowse"
 }

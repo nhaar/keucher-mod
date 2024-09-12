@@ -843,7 +843,8 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(read_ui_color("button-press"))
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
     draw_set_color(read_ui_color("text"))
-    draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
+    var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
+    draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i])
 }
 
 // menu description rendering

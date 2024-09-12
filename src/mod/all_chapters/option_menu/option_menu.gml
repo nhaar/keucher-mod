@@ -97,6 +97,7 @@ function get_ui_colors_options()
     );
 
     menu_desc = "Choose the interface element you would like to change the color of";
+    use_enumeration = true;
     options_state = "uicolors"
 }
 
@@ -111,6 +112,7 @@ function get_color_picker_options()
     );
 
     menu_desc = "Pick the method for selecting the color"
+    use_enumeration = false;
     options_state = "colorpicker";
 }
 
@@ -180,7 +182,7 @@ function get_default_mod_options()
     );
 
     menu_desc = "Welcome to the Keucher Mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
-    
+    use_enumeration = true;
     options_state = "default";
 }
 
@@ -236,6 +238,7 @@ function get_timer_mod_options()
     );
     
     menu_desc = "Here, you can customize how the timer works"
+    use_enumeration = false;
     options_state = "timer";
 }
 
@@ -248,6 +251,7 @@ function get_timer_mode_mod_options()
     );
     
     menu_desc = "Choose the way in which the timer operates";
+    use_enumeration = false;
     options_state = "timer_mode";
 }
 
@@ -273,6 +277,7 @@ function get_timer_segment_mod_options()
     }
     
     menu_desc = "Here you can choose what will update the segment-by-segment timer";
+    use_enumeration = false;
     options_state = "timer_segment";
 }
 
@@ -296,6 +301,7 @@ function get_split_preset_mod_options()
     );
 
     menu_desc = "Here you can configure split presets, which are what splits will be used while in the splits timer\nmode";
+    use_enumeration = false;
     options_state = "timer_preset_options";
 }
 
@@ -309,6 +315,7 @@ function get_pick_preset_mod_options()
     }
 
     menu_desc = "Click to select a new split preset";
+    use_enumeration = false;
     options_state = "pick_split_preset";
 }
 
@@ -362,6 +369,7 @@ function get_create_preset_mod_options()
     }
 
     menu_desc = "In this menu you may create a new split preset";
+    use_enumeration = false;
     obj_mod_options.options_state = "create_split_preset";
 }
 
@@ -373,6 +381,7 @@ function get_split_pick_mod_options()
     );
 
     menu_desc = "Choose the category you would like to pick the split point from";
+    use_enumeration = false;
     options_state = "pick_split_1";
 }
 
@@ -384,6 +393,7 @@ function get_room_splits_mod_options()
     );
 
     menu_desc = "Choose which chapter the room is from\nRooms in both Chapters (like Kris' room) must be picked from a specific chapter";
+    use_enumeration = false;
     options_state = "pick_room_chapter";
 }
 
@@ -397,6 +407,7 @@ function get_rooms_in_chapter_mod_options(chapter)
         button_text[i] = get_descriptive_room_name(chapter, rooms[i]);
     }
     menu_desc = "Choose which of these rooms will be in the preset next";
+    use_enumeration = true;
     options_state = "pick_split_room";
 }
 
@@ -410,6 +421,7 @@ function get_event_splits_mod_options()
     }
 
     menu_desc = "Choose which of these events will be in the preset next";
+    use_enumeration = true;
     options_state = "pick_split_event";
 }
 
@@ -430,6 +442,7 @@ function get_practice_mode_mod_options()
     );
 
     menu_desc = "Turn on/off various practice modes here\nHover for specific info on each mode";
+    use_enumeration = true;
     options_state = "practice_modes";
 }
 
@@ -444,6 +457,7 @@ function get_rng_settings_mod_options()
     );
 
     menu_desc = "Click each button to turn on/off a RNG setting"
+    use_enumeration = true;
     options_state = "rng_settings";
 }
 
@@ -481,6 +495,7 @@ function get_debug_keybinds_mod_options()
     }
 
     menu_desc = "Hover on buttons for info on each keybind\nClick on them to configure when the keybinds should work";
+    use_enumeration = true;
     options_state = "debug_keybinds";
 }
 
@@ -501,6 +516,7 @@ function get_single_debug_keybind_mod_options(key_index)
 
     menu_desc = "Here you can change this keybind and change when it is enabled";
     current_keybind_index = key_index;
+    use_enumeration = true;
     options_state = "debug_keybind";
 }
 
@@ -533,6 +549,7 @@ function get_misc_keybinds_mod_options(listening_index)
     }
 
     menu_desc = "Here you can see all the miscellaneous keybinds\nClick on them to change their value";
+    use_enumeration = true;
     options_state = "other_keybinds";
 }
 
@@ -554,6 +571,7 @@ function get_game_flags_mod_optins()
         menu_desc = "You must load a savefile to edit game data!";
     }
 
+    use_enumeration = false;
     options_state = "game_flags";
 }
 
@@ -566,6 +584,7 @@ function get_item_selector()
     );
 
     menu_desc = "Pick the category of item to select";
+    use_enumeration = false;
     options_state = "item_selector_intro";
 }
 
@@ -583,6 +602,7 @@ function get_weapons_selector_mod_options()
     }
 
     menu_desc = "Click the weapon to get it";
+    use_enumeration = false;
     options_state = "weapon_selector";
 }
 
@@ -600,6 +620,7 @@ function get_armors_selector_mod_options()
     }
 
     menu_desc = "Click the armor to get it";
+    use_enumeration = false;
     options_state = "armor_selector";
 }
 
@@ -617,6 +638,7 @@ function get_consumables_selector_mod_options()
     }
 
     menu_desc = "Click the consumable to get it";
+    use_enumeration = false;
     options_state = "consumable_selector";
 }
 
@@ -632,6 +654,7 @@ function get_party_selector_mod_options()
     );
 
     menu_desc = "Click what party you would like to have";
+    use_enumeration = false;
     options_state = "party_selector";
 }
 
@@ -664,6 +687,7 @@ function get_plot_warp_mod_options()
     }
 
     menu_desc = "Click in one of these options to warp to a certain moment in the game";
+    use_enumeration = true;
     options_state = "plot_warp";
 }
 
@@ -687,6 +711,7 @@ function get_snowgrave_plot_mod_options()
         menu_desc = "Click in one of these options to advance the Snowgrave progress";
     }
 
+    use_enumeration = true;
     options_state = "snowgrave_plot";
 }
 
@@ -706,6 +731,7 @@ function get_warps_mod_options()
         menu_desc = "Choose an option to warp to a room";
     }
 
+    use_enumeration = false;
     options_state = "warp_selector";
 }
 
@@ -724,6 +750,7 @@ function get_room_warp_mod_options()
 
     typing_room = true;
     menu_desc = "Type to search for a room by its name";
+    use_enumeration = false;
     options_state = "room_warp";
 }
 
@@ -754,5 +781,6 @@ function get_misc_options_mod_options()
     }
 
     menu_desc = "Click on each option to change their availability from ON (always), OFF (never)\nDEBUG (if using debug mode)";
+    use_enumeration = true;
     options_state = "miscoptions";
 }
