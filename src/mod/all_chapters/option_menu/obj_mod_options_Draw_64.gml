@@ -16,9 +16,25 @@ view_width = 640
 view_height = 480
 #endif
 
+menu_desc_height = min(100, 0.1 * view_height);
+
+hover_desc_height = min(100, 0.1 * view_height);
+hover_desc_start_y = view_height - hover_desc_height;
+
 padding = 10
 button_height = 32
 scroll_width = 16
+
+// the y-coordinate in which buttons can start showing up
+visible_min_y = menu_desc_height;
+
+// the y-coordinate in which buttons must stop showing up
+visible_max_y = view_height - hover_desc_height;
+
+// the total amount of pixels all buttons take up in y-direction
+buttons_delta_y = button_amount * (button_height + padding) + padding;
+
+buttons_visible_delta_y = (visible_max_y - visible_min_y);
 
 button_start_x = padding
 button_end_x = view_width - padding - scroll_width
@@ -30,8 +46,8 @@ draw_rectangle(0, 0, view_width, view_height, true)
 
 // scroll wheel related coordinates
 // highest y value reached by the BUTTONS
-max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
-scroll_height = view_height * min(1, view_height / max_y)
+max_y = buttons_delta_y
+scroll_height = buttons_visible_delta_y * min(1, buttons_visible_delta_y / buttons_delta_y);
 
 var mouse_wheel_delta = 30;
 if (mouse_wheel_up())
@@ -43,8 +59,8 @@ if (mouse_wheel_down())
     scroll_ypos += mouse_wheel_delta;
 }
 
-scroll_ypos = clamp(scroll_ypos, 0, view_height - scroll_height)
-min_y = - scroll_ypos / view_height * max_y
+scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
+min_y = visible_min_y + buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
@@ -174,8 +190,8 @@ draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = min_y + padding + i * (button_height + padding) - scroll_ypos
-    button_end_y = min_y + padding + button_height + i * (button_height + padding) - scroll_ypos
+    button_start_y = min_y + padding + i * (button_height + padding)
+    button_end_y = min_y + padding + button_height + i * (button_height + padding)
 
     if (button_start_y > view_hport || button_end_y < view_yport)
     {
@@ -780,6 +796,7 @@ for (var i = 0; i < button_amount; i++)
     if (button_state[i] == "hover")
     {
         draw_set_color(read_ui_color("button-hover"))
+        menu_hover_desc = hover_desc[i];
     }
     else if (button_state[i] == "press")
     {
@@ -799,6 +816,16 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(read_ui_color("text"))
     draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
 }
+
+// menu description rendering
+draw_set_color(read_ui_color("background"));
+draw_rectangle(0, 0, view_width, menu_desc_height, false);
+draw_rectangle(0, hover_desc_start_y, view_width, view_height, false);
+menu_desc_padding = 5;
+draw_set_color(read_ui_color("text"));
+draw_text(menu_desc_padding, menu_desc_padding, menu_desc);
+draw_text(menu_desc_padding, menu_desc_padding + hover_desc_start_y, menu_hover_desc);
+
 draw_sprite(
 #if DEMO
     spr_maus_cursor

@@ -10,6 +10,15 @@ button_amount = 0
 button_state[100] = "none"
 button_text[100] = 0
 
+// Description at the top
+menu_desc = "";
+
+// Currently displayed hover description
+menu_hover_desc = "";
+
+// Saves the descriptions when hovering the i-th index button
+hover_desc[100] = "";
+
 // variable that tracks the current option menu
 options_state = "default"
 

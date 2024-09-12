@@ -175,6 +175,8 @@ function get_default_mod_options()
         "Saves",
         "UI Options"
     );
+
+    menu_desc = "Welcome to the Keucher Mod OPTIONS. Click on buttons to explore or change settings. Hover to get a\nsummary of what the setting presents."
     
     options_state = "default";
 }
