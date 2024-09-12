@@ -29,7 +29,18 @@ draw_rectangle(0, 0, view_width, view_height, true)
 // highest y value reached by the BUTTONS
 max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
 scroll_height = view_height * min(1, view_height / max_y)
-scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_height) - view_height)
+
+var mouse_wheel_delta = 30;
+if (mouse_wheel_up())
+{
+    scroll_ypos -= mouse_wheel_delta;
+}
+if (mouse_wheel_down())
+{
+    scroll_ypos += mouse_wheel_delta;
+}
+
+scroll_ypos = clamp(scroll_ypos, 0, view_height - scroll_height)
 min_y = - scroll_ypos / view_height * max_y
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
@@ -139,8 +150,7 @@ if (scroll_dragging)
     }
     else
     {
-        scroll_ypos += mouse_y - scroll_dragging_y
-        scroll_dragging_y = mouse_y
+        scroll_ypos = clamp(mouse_y - scroll_top_delta, 0, view_height - scroll_height)
     }
 }
 // if can initiate dragging scroll
@@ -150,6 +160,7 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
     {
         scroll_dragging = true
         scroll_dragging_y = mouse_y
+        scroll_top_delta = mouse_y - scroll_start_y;
     }
 }
 
