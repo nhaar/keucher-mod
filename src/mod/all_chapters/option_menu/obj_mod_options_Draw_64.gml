@@ -722,6 +722,7 @@ for (var i = 0; i < button_amount; i++)
                             {
                                 // index 0 contains the folder
                                 var file_to_load = get_save_dir(true) + cur_dir + "/" + string_copy(clicked_value, 1, file_pos - 2);
+                                close_mod_options();
 #if SURVEY_PROGRAM
                                 scr_load(file_to_load);
 #else

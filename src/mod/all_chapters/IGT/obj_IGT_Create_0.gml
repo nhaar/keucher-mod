@@ -80,3 +80,5 @@ global.current_event = ""
 global.final_time = 0
 
 init_timer_mode();
+
+contimer = 0;
