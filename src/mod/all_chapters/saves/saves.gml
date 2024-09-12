@@ -20,7 +20,7 @@ function load_save_buttons(dir)
     {
         var subfile = subfiles[i];
         var full_path = relative_dir + subfile;
-        hover_desc[i] = "";
+        hover_desc[i + 1] = "";
         if directory_exists(full_path)
         {
             button_text[i + 1] = subfile + " [FOLDER]";

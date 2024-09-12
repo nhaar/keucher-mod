@@ -196,7 +196,7 @@ for (var i = 0; i < button_amount; i++)
     button_start_y = min_y + padding + i * (button_height + padding)
     button_end_y = min_y + padding + button_height + i * (button_height + padding)
 
-    if (button_start_y > view_hport || button_end_y < view_yport)
+    if (button_start_y > visible_max_y || button_end_y < visible_min_y)
     {
         continue
     }

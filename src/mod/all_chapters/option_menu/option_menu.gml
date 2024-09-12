@@ -549,8 +549,8 @@ function get_game_flags_mod_optins()
     }
     else
     {
-        get_buttons_from_array("You must load a savefile to edit game data!");
-        menu_desc = "";
+        get_buttons_from_array();
+        menu_desc = "You must load a savefile to edit game data!";
     }
 
     options_state = "game_flags";
@@ -669,7 +669,8 @@ function get_snowgrave_plot_mod_options()
 {
     if (!instance_exists(obj_mainchara) || global.chapter != 2)
     {
-        get_buttons_from_array("You must be in Chapter 2 to set Snowgrave flags");
+        get_buttons_from_array();
+        menu_desc = "You must be in Chapter 2 to set Snowgrave flags";
     }
     else
     {
@@ -681,9 +682,9 @@ function get_snowgrave_plot_mod_options()
             "After Rouxls Statue Scene",
             "Before NEO"
         );
+        menu_desc = "Click in one of these options to advance the Snowgrave progress";
     }
 
-    menu_desc = "Click in one of these options to advance the Snowgrave progress";
     options_state = "snowgrave_plot";
 }
 
@@ -691,8 +692,8 @@ function get_warps_mod_options()
 {
     if (get_current_chapter() == 0)
     {
-        get_buttons_from_array("No room warping available in Chapter Select");   
-        menu_desc = "";
+        get_buttons_from_array();
+        menu_desc = "No room warping available in Chapter Select";
     }
     else
     {
