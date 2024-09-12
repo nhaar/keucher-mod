@@ -751,7 +751,7 @@ for (var i = 0; i < button_amount; i++)
         else
             button_state[i] = "hover"
     }
-    else if (options_state == "pick_split_preset" && i == obj_IGT.current_split)
+    else if (options_state == "pick_split_preset" && i == get_current_preset())
     {
         button_state[i] = "highlight"
     }
