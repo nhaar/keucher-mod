@@ -414,7 +414,7 @@ for (var i = 0; i < button_amount; i++)
                         {
                             //boss practice
                             case 0:
-                                global.bossPractice = global.bossPractice ? false : true;
+                                toggle_boss_practice(!global.bossPractice);
                                 break;
                             // crit practice
                             case 1:
