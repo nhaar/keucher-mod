@@ -172,7 +172,7 @@ if (scroll_dragging)
     }
     else
     {
-        scroll_ypos = clamp(mouse_y - scroll_top_delta, 0, view_height - scroll_height)
+        scroll_ypos = clamp(real_mouse_y - scroll_top_delta, visible_min_y, visible_max_y - scroll_height)
     }
 }
 // if can initiate dragging scroll
@@ -181,8 +181,8 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
     if (mouse_check_button_pressed(mb_left))
     {
         scroll_dragging = true
-        scroll_dragging_y = mouse_y
-        scroll_top_delta = mouse_y - scroll_start_y;
+        scroll_dragging_y = real_mouse_y
+        scroll_top_delta = real_mouse_y - scroll_start_y;
     }
 }
 
@@ -483,7 +483,7 @@ for (var i = 0; i < button_amount; i++)
                             // - 1 to discount the first one which is reset all keybinds
                             get_single_debug_keybind_mod_options(i - 1);
                         }
-                        break
+                        break;
                     case "debug_keybind":
                         // Change state
                         if (i == 1)
