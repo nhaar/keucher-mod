@@ -245,17 +245,21 @@ for (var i = 0; i < button_amount; i++)
                             case 5:
                                 get_misc_keybinds_mod_options();
                                 break;
-                            // flags
+                            // misc options
                             case 6:
+                                get_misc_options_mod_options();
+                                break;
+                            // flags
+                            case 7:
                                 get_game_flags_mod_optins();
                                 break;
                             // room warp
-                            case 7:
+                            case 8:
                                 room_query = "";
                                 get_warps_mod_options();
                                 break;
                             // saves
-                            case 8:
+                            case 9:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
@@ -267,7 +271,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 break
                             // ui colors
-                            case 9:
+                            case 10:
                                 get_ui_colors_options();
                                 break;
                         }
@@ -784,6 +788,25 @@ for (var i = 0; i < button_amount; i++)
                             }
                             break
                         }
+                    case "miscoptions":
+                        var options = get_options();
+                        var name = options[i];
+                        var state = read_option_value(name);
+                        if (state == "debug")
+                        {
+                            state = true;
+                        }
+                        else if (state == true)
+                        {
+                            state = false;
+                        }
+                        else
+                        {
+                            state = "debug";
+                        }
+                        set_option_value(name, state);
+                        get_misc_options_mod_options();
+                        break;
                 }
             }
         }

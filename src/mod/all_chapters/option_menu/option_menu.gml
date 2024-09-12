@@ -172,6 +172,7 @@ function get_default_mod_options()
         "RNG Settings", "RNG stands for Random Number Generator, the speedrunner's jargon for luck\nHere you can force certain RNG elements to be always the same",
         "Debug Keybinds", "Various keybinds which will perform useful things for practice\nClick to see/change them",
         "Other Keybinds", "Miscellaneous keybinds or shortcuts\nClick to see/change them",
+        "Misc Options", "Mod options you can toggle that don't fit anywhere else in this menu",
         "Game Data", "Item giver, plot warper, party selector",
         "Room Warps", "Allows teleporting to rooms",
         "Saves", "Allows quickly loading savefiles that you have saved\nRequires some external setup (Click to learn)",
@@ -494,7 +495,7 @@ function get_single_debug_keybind_mod_options(key_index)
 
     get_buttons_from_pair_array(
         "\"" + get_debug_keybind_descriptive_name(name) + "\"", "",
-        "State: [" + state + "]", "Change when the key is available. If ON, it is always available, OFF is always unavaialble, DEBUG is only if Debug Mode is on",
+        "State: [" + state + "]", "Change when the key is available. If ON, it is always available, OFF is always unavailable\nDEBUG is only if Debug Mode is on",
         key_text, "Click to update the value of this keybind"
     );
 
@@ -734,4 +735,24 @@ function close_mod_options()
         instance_destroy(obj_mod_options);
         global.debug_keybinds_on = true;
     }
+}
+
+function get_misc_options_mod_options()
+{
+    var misc_options = get_options();
+    var size = array_length(misc_options);
+    button_amount = size;
+    for (var i = 0; i < size; i++)
+    {
+        var name = misc_options[i];
+        var state = read_option_value(name);
+        var state_text = state == "debug" ? "DEBUG" : (
+            state ? "ON" : "OFF"
+        );
+        button_text[i] = get_option_button_text(name) + " [" + state_text + "]";
+        hover_desc[i] = get_option_button_desc(name);
+    }
+
+    menu_desc = "Click on each option to change their availability from ON (always), OFF (never)\nDEBUG (if using debug mode)";
+    options_state = "miscoptions";
 }
