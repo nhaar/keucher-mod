@@ -2,11 +2,12 @@
 
 function get_weapon_ids()
 {
-    if (global.chapter == 1)
+    var ch = get_current_chapter();
+    if (ch == 1)
     {
         return get_range_array(1, 10);
     }
-    else if (global.chapter == 2)
+    else if (ch == 2)
     {
         return get_range_array(1, 22);
     }
@@ -45,11 +46,12 @@ function get_weapon_name(weapon_id)
 
 function get_armor_ids()
 {
-    if (global.chapter == 1)
+    var ch = get_current_chapter();
+    if (ch == 1)
     {
         return get_range_array(1, 10);
     }
-    else if (global.chapter == 2)
+    else if (ch == 2)
     {
         return get_range_array(1, 22);
     }
@@ -88,11 +90,12 @@ function get_armor_name(armor_id)
 
 function get_consumable_ids()
 {
-    if (global.chapter == 1)
+    var ch = get_current_chapter();
+    if (ch == 1)
     {
         return get_range_array(1, 15);
     }
-    else if (global.chapter == 2)
+    else if (ch == 2)
     {
         return get_range_array(1, 33);
     }
@@ -142,6 +145,7 @@ function get_consumable_name(consumable_id)
 
 function get_weapon_any_chapter(weapon_id)
 {
+#if DEMO
     if (global.chapter == 1)
     {
         scr_weaponget_ch1(weapon_id);
@@ -150,10 +154,14 @@ function get_weapon_any_chapter(weapon_id)
     {
         scr_weaponget(weapon_id);
     }
+#elsif SURVEY_PROGRAM
+    scr_weaponget(weapon_id);
+#endif
 }
 
 function get_armor_any_chapter(armor_id)
 {
+#if DEMO
     if (global.chapter == 1)
     {
         scr_armorget_ch1(armor_id);
@@ -162,10 +170,14 @@ function get_armor_any_chapter(armor_id)
     {
         scr_armorget(armor_id);
     }
+#elsif SURVEY_PROGRAM
+    scr_armorget(armor_id);
+#endif
 }
 
 function get_consumable_any_chapter(item_id)
 {
+#if DEMO
     if (global.chapter == 1)
     {
         scr_itemget_ch1(item_id);
@@ -174,4 +186,7 @@ function get_consumable_any_chapter(item_id)
     {
         scr_itemget(item_id);
     }
+#elsif SURVEY_PROGRAM
+    scr_itemget(item_id);
+#endif
 }

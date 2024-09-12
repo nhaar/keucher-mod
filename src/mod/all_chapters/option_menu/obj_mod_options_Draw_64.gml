@@ -616,7 +616,8 @@ for (var i = 0; i < button_amount; i++)
                         close_mod_options();
                         break;
                     case "plot_warp":
-                        if (global.chapter == 1)
+                        var ch = get_current_chapter();
+                        if (ch == 1)
                         {
                             switch (i)
                             {
@@ -643,7 +644,7 @@ for (var i = 0; i < button_amount; i++)
                                     break;
                             }
                         }
-                        else
+                        else if (ch == 2)
                         {
                             switch (i)
                             {
@@ -672,11 +673,13 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "snowgrave_plot":
+#if DEMO
                         if (instance_exists(obj_mainchara) && global.chapter == 2)
                         {
                             set_snowgrave_plot(i + 1);
                             close_mod_options();
                         }
+#endif
                         break;
                     case "warp_selector":
                         if (get_current_chapter() != 0)

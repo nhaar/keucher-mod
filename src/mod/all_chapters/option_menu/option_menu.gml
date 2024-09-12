@@ -636,7 +636,8 @@ function get_party_selector_mod_options()
 
 function get_plot_warp_mod_options()
 {
-    if (global.chapter == 1)
+    var ch = get_current_chapter();
+    if (ch == 1)
     {
         get_buttons_from_pair_array(
             "Chapter 1 Wake Up", "At the start of the Dark World",
@@ -648,7 +649,7 @@ function get_plot_warp_mod_options()
             "King", "Before King fight"
         );
     }
-    else
+    else if (ch == 2)
     {
         get_buttons_from_pair_array(
             "Post Arcade", "After the Punchout Arcade",

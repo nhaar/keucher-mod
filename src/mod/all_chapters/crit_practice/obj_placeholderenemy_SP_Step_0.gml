@@ -25,6 +25,7 @@
             global.msg[0] = scr_84_get_lang_string_ch1("obj_placeholderenemy_slash_Step_0_gml_14_0")
         global.msg[0] = scr_84_get_lang_string_ch1("obj_placeholderenemy_slash_Step_0_gml_16_0")
         scr_enemyblcon_ch1((x - 160), y, 3)
+        talked = 1
 #endif
 #if SURVEY_PROGRAM
         if (rr == 0)
@@ -37,8 +38,8 @@
             global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0")
         global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0")
         scr_enemyblcon((x - 160), y, 3)
+        talked = true
 #endif
-        talked = 1
         talktimer = 0
     }
 /// CODE

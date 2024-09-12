@@ -2,13 +2,16 @@
 
 button_amount = 0
 
+// rooms are what take up most of it
+INIT_BUTTON_AMOUNT = 1000;
+
 // button states
 // "none"
 // "press"
 // "hover"
 // "highlight"
-button_state[100] = "none"
-button_text[100] = 0
+button_state[INIT_BUTTON_AMOUNT] = "none"
+button_text[INIT_BUTTON_AMOUNT] = 0
 
 // Description at the top
 menu_desc = "";
@@ -17,7 +20,7 @@ menu_desc = "";
 menu_hover_desc = "";
 
 // Saves the descriptions when hovering the i-th index button
-hover_desc[100] = "";
+hover_desc[INIT_BUTTON_AMOUNT] = "";
 
 // variable that tracks the current option menu
 options_state = "default"
