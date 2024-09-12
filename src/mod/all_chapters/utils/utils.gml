@@ -132,3 +132,17 @@ function get_all_subfiles(dir)
         return files;
     }
 }
+
+/* Generates an array like [start, start + 1, ..., end_number] */
+function get_range_array(start_number, end_number)
+{
+    var range_array;
+
+    size = end_number - start_number + 1;
+    for (var i = 0; i < size; i++)
+    {
+        range_array[i] = start_number + i;
+    }
+
+    return range_array;
+}

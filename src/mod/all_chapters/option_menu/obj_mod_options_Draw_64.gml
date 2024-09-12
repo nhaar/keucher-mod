@@ -538,15 +538,15 @@ for (var i = 0; i < button_amount; i++)
                         break;
                     case "weapon_selector":
                         var weapons = get_weapon_ids();
-                        scr_weaponget(weapons[i]);
+                        get_weapon_any_chapter(weapons[i]);
                         break;
                     case "armor_selector":
                         var armors = get_armor_ids();
-                        scr_armorget(armors[i]);
+                        get_armor_any_chapter(armors[i]);
                         break;
                     case "consumable_selector":
                         var consumables = get_consumable_ids();
-                        scr_itemget(consumables[i]);
+                        get_consumable_any_chapter(consumables[i]);
                         break;
                     case "party_selector":
                         switch (i)
