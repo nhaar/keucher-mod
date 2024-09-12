@@ -12,7 +12,7 @@ function get_options()
     );
 }
 
-function get_option_default()
+function get_option_default(name)
 {
     switch (name)
     {
