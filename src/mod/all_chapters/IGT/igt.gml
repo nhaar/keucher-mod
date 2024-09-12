@@ -230,3 +230,16 @@ function reset_battle_display()
         obj_IGT.split_times[i] = -2;
     }
 }
+
+/* Function ensures compatibility with ch1 rooms in survey program */
+function parse_room_name(instruction)
+{
+    var parsed = instruction;
+#if SURVEY_PROGRAM
+    if (string_pos("ch1", instruction) > 0)
+    {
+        parsed = string_copy(instruction, 1, string_length(instruction) - 4);
+    }
+#endif
+    return parsed;
+}

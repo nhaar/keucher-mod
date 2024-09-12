@@ -79,7 +79,7 @@ else if (get_timer_mode() == "splits" && get_current_preset() >= 0)
     if (current_instruction <= segment_split_number)
     {
         var instruction = read_json_value(global.presets, get_current_preset(), "instructions", current_instruction)
-        if (instruction == room_get_name(room) || global.current_event = instruction)
+        if (parse_room_name(instruction) == room_get_name(room) || global.current_event = instruction)
         {
             if (current_instruction == 0)
             {
