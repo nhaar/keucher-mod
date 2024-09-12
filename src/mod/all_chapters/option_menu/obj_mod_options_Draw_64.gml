@@ -233,7 +233,7 @@ for (var i = 0; i < button_amount; i++)
                             // room warp
                             case 7:
                                 room_query = "";
-                                get_room_warp_mod_options();
+                                get_warps_mod_options();
                                 break;
                             // saves
                             case 8:
@@ -657,6 +657,21 @@ for (var i = 0; i < button_amount; i++)
                         {
                             set_snowgrave_plot(i + 1);
                             close_mod_options();
+                        }
+                        break;
+                    case "warp_selector":
+                        if (get_current_chapter() != 0)
+                        {
+                            switch (i)
+                            {
+                                case 0: // battle room
+                                    warp_to_battleroom();
+                                    close_mod_options();
+                                    break;
+                                case 1: // search room
+                                    get_room_warp_mod_options();
+                                    break;
+                            }
                         }
                         break;
                     case "room_warp":

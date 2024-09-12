@@ -632,6 +632,23 @@ function get_snowgrave_plot_mod_options()
     options_state = "snowgrave_plot";
 }
 
+function get_warps_mod_options()
+{
+    if (get_current_chapter() == 0)
+    {
+        get_buttons_from_array("No room warping available in Chapter Select");   
+    }
+    else
+    {
+        get_buttons_from_array(
+            "Battle Test Warp",
+            "Room Search"
+        );
+    }
+
+    options_state = "warp_selector";
+}
+
 function get_room_warp_mod_options()
 {
     room_results = search_room_by_substring(room_query);
