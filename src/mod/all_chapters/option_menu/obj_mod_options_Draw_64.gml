@@ -260,7 +260,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 else
                                 {
-                                    show_message("No save folders detected!\n\nTo save custom saves, you can go to your DELTARUNE save folder and add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.");
+                                    show_message("No saves folder detected!\n\nTo use custom saves, you can go to your DELTARUNE save folder, and inside \"keucher_mod_v5\" you can add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.\n\nIn windows, your deltarune save folder is located in %localappdata%/DELTARUNE");
                                 }
                                 break
                             // ui colors
