@@ -556,16 +556,29 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "weapon_selector":
-                        var weapons = get_weapon_ids();
-                        get_weapon_any_chapter(weapons[i]);
-                        break;
                     case "armor_selector":
-                        var armors = get_armor_ids();
-                        get_armor_any_chapter(armors[i]);
-                        break;
                     case "consumable_selector":
-                        var consumables = get_consumable_ids();
-                        get_consumable_any_chapter(consumables[i]);
+                        audio_play_sound(snd_item, 50, 0);
+                        var item_name = "";
+                        switch (options_state)
+                        {
+                            case "weapon_selector":
+                                var weapons = get_weapon_ids();
+                                item_name = get_weapon_name(weapons[i]);
+                                get_weapon_any_chapter(weapons[i]);
+                                break;
+                            case "armor_selector":
+                                var armors = get_armor_ids();
+                                item_name = get_armor_name(armors[i]);
+                                get_armor_any_chapter(armors[i]);
+                                break;
+                            case "consumable_selector":
+                                var consumables = get_consumable_ids();
+                                item_name = get_consumable_name(consumables[i]);
+                                get_consumable_any_chapter(consumables[i]);
+                                break;
+                        }
+                        menu_desc = "* Got the " + item_name;
                         break;
                     case "party_selector":
                         switch (i)
