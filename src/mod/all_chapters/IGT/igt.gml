@@ -37,7 +37,6 @@ function set_igt_splits_info(split_status)
         obj_IGT.start_time = get_timer()
         obj_IGT.last_transition_time = obj_IGT.start_time
         obj_IGT.time_lock_value = obj_IGT.start_time
-        obj_IGT.previous_room = 0
         obj_IGT.time_since_last_transition = 0
         obj_IGT.current_instruction = 0
     }
