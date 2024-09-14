@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore ifndef demo
 
 /// AFTER
 instance_deactivate_all(true)
