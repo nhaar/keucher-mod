@@ -4,7 +4,8 @@ function init()
 {
     set_constants()
     init_config();
-    init_room_names()
+    init_room_names();
+    request_version();
 
     var omnipresent_instances = create_array
     (
