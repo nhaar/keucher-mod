@@ -621,6 +621,7 @@ for (var i = 0; i < button_amount; i++)
                         break;
                     case "plot_warp":
                         var ch = get_current_chapter();
+                        close_mod_options();
                         if (ch == 1)
                         {
                             switch (i)
