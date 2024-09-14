@@ -23,7 +23,8 @@ function get_debug_keybinds()
         "srn_action",
         "noclip",
         "screenshot",
-        "hitboxes"
+        "hitboxes",
+        "pause"
     );
 }
 
@@ -52,6 +53,7 @@ function get_debug_keybind_default(name)
         case "noclip": return ord("K");
         case "screenshot": return vk_f10;
         case "hitboxes": return ord("V");
+        case "pause": return vk_pause;
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";
@@ -82,6 +84,7 @@ function get_debug_keybind_descriptive_name(name)
         case "noclip": return "Toggle Noclip";
         case "screenshot": return "Take Screenshot";
         case "hitboxes": return "Show Hitboxes";
+        case "pause": return "Emulate OS Pause";
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";
@@ -132,6 +135,8 @@ function get_debug_keybind_description(name)
             return "When pressed, you can take a screenshot (Chapter 1 only)";
         case "hitboxes":
             return "When pressed, you can see some hitboxes in the room\nPress twice to see even more hitboxes";
+        case "pause":
+            return "When pressed, the game will emulate the pause/unpause function from consoles (DEMO only)";
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";

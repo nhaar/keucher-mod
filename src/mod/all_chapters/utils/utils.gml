@@ -174,3 +174,23 @@ function loaded_savefile()
     return instance_exists(obj_mainchara);
 #endif
 }
+
+function get_gui_width()
+{
+#ifndef SURVEY_PROGRAM
+    return display_get_gui_width()
+#elsif SURVEY_PROGRAM
+    // survey program just has fixed values, if they're not using a resizer (and the functions dont return a good value for some reason)
+    return 640
+#endif
+}
+
+function get_gui_height()
+{
+#ifndef SURVEY_PROGRAM
+    return display_get_gui_height()
+#elsif SURVEY_PROGRAM
+    // see get_gui_width
+    return 480
+#endif
+}

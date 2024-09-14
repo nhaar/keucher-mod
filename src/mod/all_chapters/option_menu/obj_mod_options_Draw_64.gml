@@ -6,15 +6,8 @@ draw_set_color(c_white)
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 
-#ifndef SURVEY_PROGRAM
-view_width = display_get_gui_width()
-view_height = display_get_gui_height()
-#endif
-#if SURVEY_PROGRAM
-// survey program just has fixed values, if they're not using a resizer (and the functions dont return a good value for some reason)
-view_width = 640
-view_height = 480
-#endif
+view_width = get_gui_width();
+view_height = get_gui_height();
 
 // empty by default, will fill it if hovering a button
 menu_hover_desc = "";

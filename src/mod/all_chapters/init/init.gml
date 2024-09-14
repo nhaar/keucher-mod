@@ -7,6 +7,9 @@ function init()
     init_room_names();
     request_version();
 
+    // variable keeps track if emulating the OS pause
+    global.is_pause_emulating = false;
+
     var omnipresent_instances = create_array
     (
         obj_IGT,
