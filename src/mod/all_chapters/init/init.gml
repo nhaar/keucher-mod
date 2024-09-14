@@ -4,7 +4,11 @@ function init()
 {
     set_constants()
     init_config();
-    init_room_names()
+    init_room_names();
+    request_version();
+
+    // variable keeps track if emulating the OS pause
+    global.is_pause_emulating = false;
 
     var omnipresent_instances = create_array
     (

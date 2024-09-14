@@ -6,15 +6,8 @@ draw_set_color(c_white)
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 
-#ifndef SURVEY_PROGRAM
-view_width = display_get_gui_width()
-view_height = display_get_gui_height()
-#endif
-#if SURVEY_PROGRAM
-// survey program just has fixed values, if they're not using a resizer (and the functions dont return a good value for some reason)
-view_width = 640
-view_height = 480
-#endif
+view_width = get_gui_width();
+view_height = get_gui_height();
 
 // empty by default, will fill it if hovering a button
 menu_hover_desc = "";
@@ -267,7 +260,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 else
                                 {
-                                    show_message("No save folders detected!\n\nTo save custom saves, you can go to your DELTARUNE save folder and add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.");
+                                    show_message("No saves folder detected!\n\nTo use custom saves, you can go to your DELTARUNE save folder, and inside \"keucher_mod_v5\" you can add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.\n\nIn windows, your deltarune save folder is located in %localappdata%/DELTARUNE");
                                 }
                                 break
                             // ui colors
@@ -563,16 +556,29 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "weapon_selector":
-                        var weapons = get_weapon_ids();
-                        get_weapon_any_chapter(weapons[i]);
-                        break;
                     case "armor_selector":
-                        var armors = get_armor_ids();
-                        get_armor_any_chapter(armors[i]);
-                        break;
                     case "consumable_selector":
-                        var consumables = get_consumable_ids();
-                        get_consumable_any_chapter(consumables[i]);
+                        audio_play_sound(snd_item, 50, 0);
+                        var item_name = "";
+                        switch (options_state)
+                        {
+                            case "weapon_selector":
+                                var weapons = get_weapon_ids();
+                                item_name = get_weapon_name(weapons[i]);
+                                get_weapon_any_chapter(weapons[i]);
+                                break;
+                            case "armor_selector":
+                                var armors = get_armor_ids();
+                                item_name = get_armor_name(armors[i]);
+                                get_armor_any_chapter(armors[i]);
+                                break;
+                            case "consumable_selector":
+                                var consumables = get_consumable_ids();
+                                item_name = get_consumable_name(consumables[i]);
+                                get_consumable_any_chapter(consumables[i]);
+                                break;
+                        }
+                        menu_desc = "* Got the " + item_name;
                         break;
                     case "party_selector":
                         switch (i)
@@ -621,6 +627,7 @@ for (var i = 0; i < button_amount; i++)
                         break;
                     case "plot_warp":
                         var ch = get_current_chapter();
+                        close_mod_options();
                         if (ch == 1)
                         {
                             switch (i)
