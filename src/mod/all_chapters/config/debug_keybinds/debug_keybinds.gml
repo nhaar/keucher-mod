@@ -38,7 +38,7 @@ function get_debug_keybind_default(name)
         case "store_savestate": return ord("Q");
         case "load_savestate": return ord("E");
         case "speedup": return ord("À");
-        case "slowdown": return ord("-");
+        case "slowdown": return vk_backspace;
         case "gif": return ord("G");
         case "next_room": return vk_insert;
         case "previous_room": return vk_delete;
