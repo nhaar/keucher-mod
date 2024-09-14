@@ -121,6 +121,8 @@ void BuildMod (DeltaruneVersion version)
     SetupChapterOneBattleRoom(version);
 
     UpdateKrisRoom(version);
+
+    UpdateTvStatic(version);
 }
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
@@ -175,6 +177,31 @@ void UpdateKrisRoom (DeltaruneVersion version)
         ReplacePageItemTexture($"PageItem {texture}", "dark_kris_room.png");
     }
 
+}
+
+/// <summary>
+/// Adds Frisk to the static on the TV
+/// </summary>
+/// <param name="version"></param>
+void UpdateTvStatic(DeltaruneVersion version)
+{
+    if (version == DeltaruneVersion.Demo_1_10 || version == DeltaruneVersion.Demo_1_15)
+    {
+        var pageItemIds = new[] { 11365, 10509, 10508, 10507 };
+        for (int i = 0; i < pageItemIds.Length; i++)
+        {
+            var pageItem = Data.TexturePageItems.ByName($"PageItem {pageItemIds[i]}");
+            // the static smile images used match the size of the static but not of the
+            // original static smile
+            pageItem.SourceWidth = 29;
+            pageItem.SourceHeight = 18;
+            pageItem.TargetX = 9;
+            pageItem.TargetY = 22;
+            pageItem.ReplaceTexture(
+                Image.FromFile(Path.Combine(spritesDir, $"static_smile_{i + 1}.png"))
+            );
+        }
+    }
 }
 
 void SetupChapterOneBattleRoom (DeltaruneVersion version)
