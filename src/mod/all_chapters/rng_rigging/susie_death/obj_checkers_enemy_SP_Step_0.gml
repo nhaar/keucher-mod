@@ -8,7 +8,7 @@ scr_randomtarget()
 #endif
 /// CODE
 // target SUSIE
-if (first_turn == 0 && is_feature_active("susie-death"))
+if (first_turn == 0 && read_rng_value("susie_death"))
 {
     mytarget = 2
     global.targeted[2] = true

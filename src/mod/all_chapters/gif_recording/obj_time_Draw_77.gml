@@ -1,21 +1,15 @@
 /// PATCH .ignore ifndef DEMO
 
 /// REPLACE
-if scr_debug()
-/// CODE
-if is_feature_active("gif")
-/// END
-
-/// REPLACE
 if (keyboard_check_pressed(ord("G")) && (!keyboard_check(vk_control)) && gif_recording == 0)
 /// CODE
-if (keyboard_check_pressed(get_bound_key(#KEYBINDING.gif)) && gif_recording == false)
+if (pressed_active_debug_keybind("gif") && gif_recording == false)
 /// END
 
 /// REPLACE
 if keyboard_check_released(ord("G"))
 /// CODE
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.gif))
+if pressed_active_debug_keybind("gif")
 /// END
 
 /// REPLACE

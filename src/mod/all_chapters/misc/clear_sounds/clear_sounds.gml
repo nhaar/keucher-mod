@@ -2,7 +2,7 @@
 
 function clear_all_sounds()
 {
-    if pressed_active_feature_key(#KEYBINDING.stop_sounds, "stop-sounds")
+    if pressed_active_debug_keybind("stop_sound")
     {
 #if DEMO
         if (global.chapter == 1)

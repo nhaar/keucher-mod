@@ -3,8 +3,8 @@
 function get_mod_version()
 {
 #if SURVEY_PROGRAM
-    return "4.6.1-SP"
+    return "5.0.0-SP"
 #else
-    return "4.6.0-DEMO";
+    return "5.0.0-DEMO";
 #endif
 }

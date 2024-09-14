@@ -12,31 +12,10 @@ if (!i_ex(obj_placeholderenemy))
     instance_destroy()
 }
 
-// toggle crit practice
-if pressed_active_feature_key(#KEYBINDING.toggle_crit_mode, "crit-practice")
-{
-    if (!global.ambyu_practice)
-    {
-        global.ambyu_practice = true
-        // make enemy unkillable
-        global.monsterhp[0] = 40000000
-    }
-    else
-    {
-        global.ambyu_practice = false
-    }
-}
-
-// toggle random pattern mode
-if keyboard_check_pressed(get_bound_key(#KEYBINDING.toggle_pattern_mode))
-{
-    global.random_pattern = global.random_pattern ? false : true
-}
-
 // changing current selected pattern
-if (keyboard_check_pressed(get_bound_key(#KEYBINDING.next_crit_pattern)) || keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_crit_pattern)))
+if (pressed_other_keybind("next_crit_pattern") || pressed_other_keybind("previous_crit_pattern"))
 {
-    if keyboard_check_pressed(get_bound_key(#KEYBINDING.previous_crit_pattern))
+    if pressed_other_keybind("previous_crit_pattern")
     {
         global.crit_pattern--
     }

@@ -15,23 +15,13 @@
 #endif
 
 /// APPEND
-if (keyboard_check_pressed(get_bound_key(#KEYBINDING.speed)))
+if (pressed_active_debug_keybind("speedup"))
 {
-if (room_speed == 30)
-{
-    
-    if (keyboard_check(vk_control) && is_feature_active("slowdown"))
-    {
-        room_speed = 10
-    }
-    else if is_feature_active("speedup") 
-    {
-        room_speed = 150
-    }
+    room_speed = room_speed == 150 ? 30 : 150;
 }
-else
+
+if (pressed_active_debug_keybind("slowdown"))
 {
-    room_speed = 30
-}
+    room_speed = room_speed == 10 ? 30 : 10;
 }
 /// END

@@ -15,7 +15,7 @@ draw_rectangle
     xx + 420, yy + 380 + i * 30,
     xx + 420 + global.monsterhp[i] / global.monstermaxhp[i] * 80, yy + 380 + i * 30 + 15, false
 )
-if (is_feature_active("enemy-hp"))
+if (is_option_active("hp_display"))
 {
     // Percentage just like in ch2
     draw_set_color(c_white)

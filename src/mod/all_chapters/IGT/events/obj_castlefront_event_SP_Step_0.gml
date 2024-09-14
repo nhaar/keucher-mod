@@ -7,5 +7,5 @@ snd_play_ch1(snd_hurt1_ch1)
 snd_play(snd_hurt1)
 #endif
 /// CODE
-global.current_event = "captured"
+global.current_event = "ch1_captured"
 /// END

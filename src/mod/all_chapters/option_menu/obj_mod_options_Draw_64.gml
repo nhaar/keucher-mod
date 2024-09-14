@@ -1,5 +1,8 @@
 /// IMPORT
 
+draw_set_font(fnt_main)
+draw_set_color(c_white)
+
 real_mouse_x = device_mouse_x_to_gui(0)
 real_mouse_y = device_mouse_y_to_gui(0)
 
@@ -13,9 +16,28 @@ view_width = 640
 view_height = 480
 #endif
 
+// empty by default, will fill it if hovering a button
+menu_hover_desc = "";
+
+menu_desc_height = min(100, 0.1 * view_height);
+
+hover_desc_height = min(100, 0.1 * view_height);
+hover_desc_start_y = view_height - hover_desc_height;
+
 padding = 10
 button_height = 32
 scroll_width = 16
+
+// the y-coordinate in which buttons can start showing up
+visible_min_y = menu_desc_height;
+
+// the y-coordinate in which buttons must stop showing up
+visible_max_y = view_height - hover_desc_height;
+
+// the total amount of pixels all buttons take up in y-direction
+buttons_delta_y = button_amount * (button_height + padding) + padding;
+
+buttons_visible_delta_y = (visible_max_y - visible_min_y);
 
 button_start_x = padding
 button_end_x = view_width - padding - scroll_width
@@ -27,10 +49,21 @@ draw_rectangle(0, 0, view_width, view_height, true)
 
 // scroll wheel related coordinates
 // highest y value reached by the BUTTONS
-max_y = padding + button_height + (button_amount - 1) * (button_height + padding)
-scroll_height = view_height * min(1, view_height / max_y)
-scroll_ypos = clamp(scroll_ypos, 0, max(max_y, view_height) - view_height)
-min_y = - scroll_ypos / view_height * max_y
+max_y = buttons_delta_y
+scroll_height = buttons_visible_delta_y * min(1, buttons_visible_delta_y / buttons_delta_y);
+
+var mouse_wheel_delta = 30;
+if (mouse_wheel_up())
+{
+    scroll_ypos -= mouse_wheel_delta;
+}
+if (mouse_wheel_down())
+{
+    scroll_ypos += mouse_wheel_delta;
+}
+
+scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
+min_y = visible_min_y - buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
@@ -43,31 +76,90 @@ if setting_keybind
     if (keyboard_key != 0)
     {
         var target_key = keyboard_key
-        var keybinds_using = get_keybinds_assigned(target_key);
-        var using_total = array_length_1d(keybinds_using);
-        var is_ok = true
-        if (using_total > 0)
+
+        if (setting_debug)
         {
-            var message = "It seems other keybinds are already assigned to this key:\n";
-            for (var i = 0; i < using_total; i++)
+            var keybinds_using = get_default_keybinds_using_key(target_key);
+            var using_total = array_length(keybinds_using);
+            var is_ok = true
+            if (using_total > 0)
             {
-                var key_name = read_json_value(global.keybinding_info, keybinds_using[i], "name");
-                message += "\n* " + key_name;
+                var message = "It seems other keybinds are already assigned to this key:\n";
+                for (var i = 0; i < using_total; i++)
+                {
+                    var key_name = keybinds_using[i];
+                    message += "\n* " + get_debug_keybind_descriptive_name(key_name);
+                }
+                is_ok = show_question(message + "\n\nIs this OKAY?");
             }
-            is_ok = show_question(message + "\n\nIs this OKAY?");
+    
+            if (is_ok)
+            {
+                set_debug_keybind_key(get_debug_keybind_from_index(current_keybind_index), target_key);
+            }
+            setting_keybind = false;
+            get_single_debug_keybind_mod_options(current_keybind_index);
         }
-
-        // turning it back on
-        global.are_keybinds_on = true
-        setting_keybind = false
-
-        if (is_ok)
+        else
         {
-            ds_map_set(global.mod_keybinds, string(current_keybind), target_key)
-            save_keybinds()
+            var keybinds = get_other_keybinds();
+            update_config_value(target_key, "other_keybind_" + keybinds[current_keybind_index]);
+            setting_keybind = false;
+            get_misc_keybinds_mod_options();
         }
-        get_keybind_assign_options(current_keybind)
-        
+
+    }
+}
+// this block takes care of when you are typing room name for room warp
+else if typing_room
+{
+    if (keyboard_key != 0)
+    {
+        key_current_cooldown++;
+        if (keyboard_key == pressing_room_query)
+        {
+            if (key_current_cooldown > KEY_COOLDOWN)
+            {
+                pressing_room_query = 0;
+            }
+        }
+        else
+        {
+            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
+            var is_underscore = keyboard_key == 189;
+            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
+            var shift_press = keyboard_check(vk_shift);
+            pressing_room_query = keyboard_key; // avoid multiple registers
+            if (is_letter || (is_underscore && shift_press) || is_digits)
+            {
+    
+                var char_pressed = ""
+                if (is_underscore)
+                {
+                    char_pressed = "_"
+                }
+                else
+                {
+                    // supporting lower and upper case
+                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                }
+                room_query += char_pressed;
+                get_room_warp_mod_options();
+            }
+            else if (keyboard_key == 8)
+            {
+                room_query = keyboard_check(vk_control) ?
+                    "" :
+                    string_copy(room_query, 1, string_length(room_query) - 1)
+
+                get_room_warp_mod_options()
+            }
+        }
+    }
+    else
+    {
+        key_current_cooldown = 0;
+        pressing_room_query = keyboard_key
     }
 }
 
@@ -80,8 +172,7 @@ if (scroll_dragging)
     }
     else
     {
-        scroll_ypos += mouse_y - scroll_dragging_y
-        scroll_dragging_y = mouse_y
+        scroll_ypos = clamp(real_mouse_y - scroll_top_delta, visible_min_y, visible_max_y - scroll_height)
     }
 }
 // if can initiate dragging scroll
@@ -90,21 +181,22 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
     if (mouse_check_button_pressed(mb_left))
     {
         scroll_dragging = true
-        scroll_dragging_y = mouse_y
+        scroll_dragging_y = real_mouse_y
+        scroll_top_delta = real_mouse_y - scroll_start_y;
     }
 }
 
 // drawing the actual buttons
 
-draw_set_color(read_ui_color("button"))
+draw_set_color(read_ui_color("scrollbar"))
 draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false)
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = min_y + padding + i * (button_height + padding) - scroll_ypos
-    button_end_y = min_y + padding + button_height + i * (button_height + padding) - scroll_ypos
+    button_start_y = min_y + padding + i * (button_height + padding)
+    button_end_y = min_y + padding + button_height + i * (button_height + padding)
 
-    if (button_start_y > view_hport || button_end_y < view_yport)
+    if (button_start_y > visible_max_y || button_end_y < visible_min_y)
     {
         continue
     }
@@ -114,124 +206,166 @@ for (var i = 0; i < button_amount; i++)
         
         if (mouse_check_button_pressed(mb_left))
         {
-            button_state[i] = #BUTTON_STATE.press
+            button_state[i] = "press"
         }
         // handle clicking button
-        else if (button_state[i] == #BUTTON_STATE.press)
+        else if (button_state[i] == "press")
         {
             if (mouse_check_button_released(mb_left))
             {
-                button_state[i] = #BUTTON_STATE.hover
+                button_state[i] = "hover"
                 switch (options_state)
                 {
-                    case #OPTION_STATE.default_state:
+                    case "default":
                         switch (i)
                         {
-                            case #DEFAULT_OPTION.current_split:
-                                get_split_mod_options()
+                            // Debug mode
+                            case 0:
+                                global.debug = global.debug ? false : true;
+                                update_config_value(global.debug, "debug");
+                                get_default_mod_options();
                                 break
-                            case #DEFAULT_OPTION.create_split:
-                                get_split_create_options()
+                            // Timer
+                            case 1:
+                                get_timer_mod_options();
                                 break
-                            case #DEFAULT_OPTION.timer_precision:
-                                precision = get_integer("Enter timer precision", read_json_value(global.player_options, "timer-precision"))
-                                ds_map_set(global.player_options, "timer-precision", clamp(precision, 1, 6))
-                                save_player_options()
+                            // Practice Modes
+                            case 2:
+                                get_practice_mode_mod_options();
                                 break
-                            case #DEFAULT_OPTION.options:
-                                get_player_options()
+                            // RNG
+                            case 3:
+                                get_rng_settings_mod_options()
                                 break
-                            case #DEFAULT_OPTION.feature:
-                                get_feature_options()
-                                break
-                            case #DEFAULT_OPTION.saves:
+                            // debug keybinds
+                            case 4:
+                                get_debug_keybinds_mod_options();
+                                break;
+                            // other keybinds
+                            case 5:
+                                get_misc_keybinds_mod_options();
+                                break;
+                            // misc options
+                            case 6:
+                                get_misc_options_mod_options();
+                                break;
+                            // flags
+                            case 7:
+                                get_game_flags_mod_optins();
+                                break;
+                            // room warp
+                            case 8:
+                                room_query = "";
+                                get_warps_mod_options();
+                                break;
+                            // saves
+                            case 9:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
-                                    load_save_buttons(saves_dir);
+                                    load_save_buttons("/");
                                 }
                                 else
                                 {
                                     show_message("No save folders detected!\n\nTo save custom saves, you can go to your DELTARUNE save folder and add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.");
                                 }
                                 break
+                            // ui colors
+                            case 10:
+                                get_ui_colors_options();
+                                break;
                         }
                         break
-                    case #OPTION_STATE.keybind_assign:
-                        // get info
+                    case "timer":
+                        // Timer ON/OFF
                         if (i == 0)
                         {
-                            var keybind_info = read_json_value(global.keybinding_info, current_keybind, "info")
-                            show_message(keybind_info)
+                            update_config_value(read_config_value("timer_on") ? false : true, "timer_on");
+                            get_timer_mod_options();
                         }
-                        // setting new value
+                        // Timer Mode
+                        else if (i == 1)
+                        {
+                            get_timer_mode_mod_options();
+                        }
+                        // segment-segment options
                         else if (i == 2)
                         {
-                            global.are_keybinds_on = false
-                            setting_keybind = true
-                            // update text
-                            button_text[1] = "Press any key..."
+                            get_timer_segment_mod_options();
+                        }
+                        // split preset options
+                        else if (i == 3)
+                        {
+                            get_split_preset_mod_options();
+                        }
+                        // timer precision
+                        else if (i == 4)
+                        {
+                            var precision = get_integer("Enter timer precision", read_config_value("timer_precision"));
+                            update_config_value(clamp(precision, 1, 6), "timer_precision");
                         }
                         break
-                    case #OPTION_STATE.splits:
-                        get_split_assign_options(i)
-                        break
-                    case #OPTION_STATE.split_assign:
-                        // warp
+                    case "timer_mode":
+                        // segment-by-segment
+                        if (i == 0)
+                        {
+                            change_to_timer_segment_mode();
+                        }
+                        // battle
+                        else if (i == 1)
+                        {
+                            change_to_timer_battle_mode();
+                        }
+                        // splits
+                        else if (i == 2)
+                        {
+                            change_to_timer_splits_mode();
+                        }
+                        get_timer_mod_options();
+                        break;
+                    case "timer_segment":
+                        // room-by-room
+                        if (i == 0)
+                        {
+                            update_config_value(get_segment_room_status() ? false : true, "timer_room_split");
+                        }
+                        // battle
+                        else if (i == 1)
+                        {
+                            update_config_value(get_segment_battle_status() ? false : true, "timer_battle_split");
+                        }
+                        else
+                        {
+                            var instructions = get_all_special_instructions();
+                            var instruction = instructions[i - 2];
+                            update_config_value(get_segment_special_status(instruction) ? false : true, "timer_special_" + instruction);
+                        }
+                        get_timer_segment_mod_options();
+                        break;
+                    case "timer_preset_options":
+                        // Pick Preset
                         if (i == 1)
                         {
-                            plotwarp(read_json_value(global.splits_json, selected_split, "warp"))
-                            // switch (selected_split)
-                            // {
-                            //     case global.SPLIT_field_hopes_dreams:
-                            //         plotwarp(1)
-                            //         break
-                            //     case global.SPLIT_checkerboard:
-                            //         plotwarp(2)
-                            //         break
-                            //     case global.SPLIT_forest:
-                            //         plotwarp(3)
-                            //         break
-                            //     case global.SPLIT_escape_castle:
-                            //         plotwarp(4)
-                            //         break
-                            //     case global.SPLIT_castle_and_king:
-                            //         plotwarp(5)
-                            //         break
-                            //     case global.SPLIT_city_one:
-                            //         plotwarp(1)
-                            //         break
-                            //     case global.SPLIT_city_heights:
-                            //         plotwarp(3)
-                            //         break
-                            //     case global.SPLIT_mansion:
-                            //         plotwarp(4)
-                            //         break
-                            //     case global.SPLIT_acid_lake:
-                            //         plotwarp(5)
-                            //         break
-                            //     case global.SPLIT_queen_and_giga:
-                            //         plotwarp(6)
-                            //         break
-                            // }
+                            get_pick_preset_mod_options();
                         }
-                        // set split
+                        // Create Preset
                         else if (i == 2)
                         {
-                            obj_IGT.current_split = selected_split
-                            get_split_assign_options(selected_split)
-                            obj_IGT.split_start_room = start_room
-                            obj_IGT.segment_split_number = split_count
-                            update_splits()
+                            get_create_preset_mod_options();
                         }
-                        break
-                    case #OPTION_STATE.split_creator:
+                        break;
+                    case "pick_split_preset":
+                        set_current_preset(i);
+                        update_splits();
+                        get_split_preset_mod_options();
+                        break;
+                    case "create_split_preset":
                         switch (i)
                         {
                             // reset preset
                             case 0:
                                 global.current_created_preset = undefined
-                                get_split_create_options()
+                                get_create_preset_mod_options()
                                 break
                             // creating preset
                             case 1:
@@ -244,99 +378,349 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 else if (instruction_count < 2)
                                 {
-                                    show_message("You must have at least 2 instructions: Start and Finish")
+                                    show_message("You must have at least 2 instructions: Start and Finish");
                                 }
                                 else
                                 {
-                                    ds_map_add(global.current_created_preset, "id", sha1_string_utf8(string(get_timer()) + name))
-                                    ds_map_add_map(global.splits_json, string(ds_map_size(global.splits_json)), global.current_created_preset)
-                                    save_json("keucher_mod/userils.json", global.splits_json)
-                                    global.current_created_preset = undefined
-                                    instance_destroy()
+                                    create_split_preset(instructions, name);
+                                    close_mod_options();
                                 }
                                 break
-                            case 2:
-                                // apparently deprecated for non debug, but using it anyways
+                            case 2: // pick name
                                 var name = get_string("Enter name for preset", "")
                                 if (ds_map_exists(global.current_created_preset, "name"))
                                     ds_map_replace(global.current_created_preset, "name", name)
                                 else
                                     ds_map_add(global.current_created_preset, "name", name)
-                                get_split_create_options()
+                                    get_create_preset_mod_options()
                                 break
-                            case 3:
-                                get_split_pick_options()
+                            case 3: // add split
+                                get_split_pick_mod_options()
                                 break
                         }
                         break
-                    case #OPTION_STATE.split_pick:
-                        var instructions = read_json_value(global.current_created_preset, "instructions")
-                        var length = ds_map_size(instructions)
-                        ds_map_add(instructions, string(length), global.ALL_INSTRUCTIONS[i])
-                        get_split_create_options()
-                        break
-                    case #OPTION_STATE.general_options:
+                    case "pick_split_1":
+                        // Rooms
+                        if (i == 0)
+                        {
+                            get_room_splits_mod_options();
+                        }
+                        // Events
+                        else if (i == 1)
+                        {
+                            get_event_splits_mod_options();
+                        }
+                        break;
+                    case "pick_room_chapter":
+                        get_rooms_in_chapter_mod_options(i + 1);
+                        break;
+                    case "pick_split_room":
+                    case "pick_split_event":
+                        var instruction;
+                        if (options_state == "pick_split_room")
+                        {
+                            var rooms = get_chapter_rooms(global.picking_room_from_chapter);
+                            instruction = rooms[i];
+                        }
+                        else if (options_state == "pick_split_event")
+                        {
+                            var events = get_all_special_instructions();
+                            instruction = events[i];
+                        }
+                        var instructions = read_json_value(global.current_created_preset, "instructions");
+                        var length = ds_map_size(instructions);
+                        ds_map_add(instructions, string(length), instruction);
+                        get_create_preset_mod_options();
+                        break;
+                    case "practice_modes":
                         switch (i)
                         {
-                            case #GENERAL_OPTION.ui_colors:
-                                get_ui_colors_options()
-                                break
+                            //boss practice
+                            case 0:
+                                toggle_boss_practice(!global.bossPractice);
+                                break;
+                            // crit practice
+                            case 1:
+                                global.ambyu_practice = global.ambyu_practice ? false : true;
+                                break;
+                            // rouxls practice
+                            case 2:
+                                global.rurus_random = global.rurus_random ? false : true;
+                                break;
+                            // ch1 mashing stats
+                            case 3:
+                                global.tadytext_mode = global.tadytext_mode ? false : true;
+                                break;
+                            // tadytext
+                            case 4:
+                                global.mash_practice_mode = global.mash_practice_mode ? false : true;
+                                break;
                         }
-                        break
-                    case #OPTION_STATE.features:
-                        // can get id based on index because we're drawing based on that order
-                        var feature_name = global.feature_info[i * global.feature_info_group_length]
-                        current_feature = feature_name
-                        current_feature_index = i
-                        get_single_feature_options(feature_name, i)
-                        break
-                    case #OPTION_STATE.single_feature:
-                            // show info
-                            if (i == 0)
+                        get_practice_mode_mod_options();
+                        break;
+                    case "rng_settings":
+                        // susie death
+                        if (i == 0)
+                        {
+                            update_rng_value("susie_death", read_rng_value("susie_death") ? false : true);
+                        }
+                        // spelling bee
+                        else if (i == 1)
+                        {
+                            update_rng_value("spelling_bee", read_rng_value("spelling_bee") ? false : true);
+                        }
+                        get_rng_settings_mod_options();
+                        break;
+                    case "debug_keybinds":
+                        // reset all keybinds
+                        if (i == 0)
+                        {
+                            set_all_debug_keybinds_default();
+                            get_debug_keybinds_mod_options();
+                        }
+                        else
+                        {
+                            // - 1 to discount the first one which is reset all keybinds
+                            get_single_debug_keybind_mod_options(i - 1);
+                        }
+                        break;
+                    case "debug_keybind":
+                        // Change state
+                        if (i == 1)
+                        {
+                            var keybinds = get_debug_keybinds();
+                            var name = keybinds[current_keybind_index]
+                            var cur_state = get_debug_keybind_state(name);
+                            if (cur_state == "debug")
                             {
-                                // the + 3 is to access the information about feature
-                                var feature_info = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_info_index]
-                                show_message(feature_info)
+                                set_debug_keybind_state(name, false);
                             }
-                            // toggle feature state
-                            else if (i == 1)
+                            else if (cur_state)
                             {
-                                var feature_map = read_json_value(global.player_options, "feature-options")
-                                var current_value = read_json_value(feature_map, current_feature)
-                                switch (current_value)
-                                {
-                                    case #FEATURE_STATE.never:
-                                        current_value = #FEATURE_STATE.debug
-                                        break
-                                    case #FEATURE_STATE.debug:
-                                        current_value = #FEATURE_STATE.always
-                                        break
-                                    case #FEATURE_STATE.always:
-                                        current_value = #FEATURE_STATE.never
-                                        break
-                                }
-                                ds_map_set(feature_map, current_feature, current_value)
-                                save_player_options()
-                                get_single_feature_options(current_feature, current_feature_index)
+                                set_debug_keybind_state(name, "debug");
                             }
-                            // keybinds, if any exist, are dinamically created
                             else
                             {
-                                var keybind_array = global.feature_info[current_feature_index * global.feature_info_group_length + global.feature_info_keybinds_index]
-                                // 2 just to account the first two buttons
-                                // couldn't fint a way to make this magic number be more dynamic
-                                current_keybind = keybind_array[i - 2]
-                                get_keybind_assign_options(current_keybind)
+                                set_debug_keybind_state(name, true);
                             }
-                        break
-                    case #OPTION_STATE.ui_colors:
+                            get_single_debug_keybind_mod_options(current_keybind_index);
+                        }
+                        // listen for keybind
+                        else if (i == 2)
+                        {
+                            setting_keybind = true;
+                            get_single_debug_keybind_mod_options(current_keybind_index);
+                        }
+                        break;
+                    case "other_keybinds":
+                        if (i == 0)
+                        {
+                            reset_all_other_keybinds_default();
+                            get_misc_keybinds_mod_options();
+                        }
+                        else
+                        {
+                            get_misc_keybinds_mod_options(i);
+                        }
+                        break;
+                    case "game_flags":
+                        if (loaded_savefile())
+                        {
+                            switch (i)
+                            {
+                                // items
+                                case 0:
+                                    get_item_selector();
+                                    break;
+                                // party selector
+                                case 1:
+                                    get_party_selector_mod_options();
+                                    break;
+                                // plot warp
+                                case 2:
+                                    get_plot_warp_mod_options();
+                                    break;
+                                // snowgrave plot
+                                case 3:
+                                    get_snowgrave_plot_mod_options();
+                                    break;
+                            }
+                        }
+                        break;
+                    case "item_selector_intro":
+                        switch (i)
+                        {
+                            // weapons
+                            case 0:
+                                get_weapons_selector_mod_options();
+                                break;
+                            case 1:
+                                get_armors_selector_mod_options();
+                                break;
+                            case 2:
+                                get_consumables_selector_mod_options();
+                                break;
+                        }
+                        break;
+                    case "weapon_selector":
+                        var weapons = get_weapon_ids();
+                        get_weapon_any_chapter(weapons[i]);
+                        break;
+                    case "armor_selector":
+                        var armors = get_armor_ids();
+                        get_armor_any_chapter(armors[i]);
+                        break;
+                    case "consumable_selector":
+                        var consumables = get_consumable_ids();
+                        get_consumable_any_chapter(consumables[i]);
+                        break;
+                    case "party_selector":
+                        switch (i)
+                        {
+                            // kris
+                            case 0:
+                                build_party_from_options(create_array());
+                                break;
+                            // kris + susie
+                            case 1:
+                                build_party_from_options(create_array("susie"));
+                                break;
+                            // kris + ralsei
+                            case 2:
+                                build_party_from_options(create_array("ralsei"));
+                                break;
+                            // kris + susie + ralsei
+                            case 3:
+                                build_party_from_options(create_array("susie", "ralsei"));
+                                break;
+                            // kris + noelle
+                            case 4:
+                                build_party_from_options(create_array("noelle"));
+                                break;
+                            // custom
+                            case 5:
+                                var member2 = get_user_input_character(2);
+                                var member3 = get_user_input_character(3);
+
+                                var party;
+                                var cur = 0;
+                                if (member2 != "")
+                                {
+                                    party[cur] = member2;
+                                    cur++;
+                                }
+                                if (member3 != "")
+                                {
+                                    party[cur] = member3;
+                                    cur++;
+                                }
+                                build_party_from_options(party);
+                                break;
+                        }
+                        close_mod_options();
+                        break;
+                    case "plot_warp":
+                        var ch = get_current_chapter();
+                        if (ch == 1)
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    plotwarp("ch1_wake_up");
+                                    break;
+                                case 1:
+                                    plotwarp("field_start");
+                                    break;
+                                case 2:
+                                    plotwarp("checkerboard_start");
+                                    break;
+                                case 3:
+                                    plotwarp("forest_start");
+                                    break;
+                                case 4:
+                                    plotwarp("post_vs_lancer");
+                                    break;
+                                case 5:
+                                    plotwarp("post_escape");
+                                    break;
+                                case 6:
+                                    plotwarp("king");
+                                    break;
+                            }
+                        }
+                        else if (ch == 2)
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    plotwarp("post_arcade");
+                                    break;
+                                case 1:
+                                    plotwarp("city_start");
+                                    break;
+                                case 2:
+                                    plotwarp("city_dj_save");
+                                    break;
+                                case 3:
+                                    plotwarp("city_post_berdly");
+                                    break;
+                                case 4:
+                                    plotwarp("mansion_start");
+                                    break;
+                                case 5:
+                                    plotwarp("acid_lake_start");
+                                    break;
+                                case 6:
+                                    plotwarp("acid_lake_exit");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "snowgrave_plot":
+#if DEMO
+                        if (instance_exists(obj_mainchara) && global.chapter == 2)
+                        {
+                            set_snowgrave_plot(i + 1);
+                            close_mod_options();
+                        }
+#endif
+                        break;
+                    case "warp_selector":
+                        if (get_current_chapter() != 0)
+                        {
+                            switch (i)
+                            {
+                                case 0: // battle room
+                                    warp_to_battleroom();
+                                    close_mod_options();
+                                    break;
+                                case 1: // search room
+                                    get_room_warp_mod_options();
+                                    break;
+                            }
+                        }
+                        break;
+                    case "room_warp":
+                        // first button is typing field
+                        if (i != 0)
+                        {
+                            var room_id = asset_get_index(button_text[i]);
+                            // shouldnt be possible to not have a proper room name
+                            if (room_id > -1)
+                            {
+                                room_goto(room_id);
+                                close_mod_options();
+                            }
+                        }
+                        break;
+                    case "uicolors":
                         current_ui_element = i
                         get_color_picker_options()
                         break
-                    case #OPTION_STATE.color_picker:
+                    case "colorpicker":
                         switch (i)
                         {
-                            case #COLOR_PICKER_OPTION.rgb:
+                            case 0: // rgb
                                 red = get_integer("Enter red value (0 - 255)", "")
                                 if (!validate_rgb_color(red))
                                 {
@@ -354,7 +738,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
                                 break
-                            case #COLOR_PICKER_OPTION.hex:
+                            case 1: // hex
                                 hex = get_string("Enter hex value (000000 - FFFFFF)", "")
                                 if (validate_hex_color(hex))
                                 {
@@ -365,66 +749,93 @@ for (var i = 0; i < button_amount; i++)
 
                         }
                         break
-                    case #OPTION_STATE.saves:
-                        var clicked_value = button_text[i]
-                        var folder_pos = string_pos("[FOLDER]", clicked_value)
-                        if (folder_pos > 0)
+                    case "savebrowse":
+                        // first button only shows current folder
+                        if (i != 0)
                         {
-                            load_save_buttons(get_save_dir(true) + string_copy(clicked_value, 1, folder_pos - 2))
-                        }
-                        var file_pos = string_pos("[FILE]", clicked_value)
-                        if (file_pos > 0)
-                        {
-                            var file_to_load = get_save_dir(true) + string_copy(clicked_value, 1, file_pos - 2);
-#if SURVEY_PROGRAM
-                            scr_load(file_to_load);
-#else
-                            if (!instance_exists(obj_time) && !instance_exists(obj_time_ch1))
+                            var clicked_value = button_text[i]
+                            var cur_dir = button_text[0];
+                            var folder_pos = string_pos("[FOLDER]", clicked_value)
+                            if (folder_pos > 0)
                             {
-                                show_message("Pick a chapter first!")
+                                load_save_buttons(cur_dir + string_copy(clicked_value, 1, folder_pos - 2) + "/")
                             }
-                            else
+                            var file_pos = string_pos("[FILE]", clicked_value)
+                            if (file_pos > 0)
                             {
-                                if (global.chapter == 1)
+                                // index 0 contains the folder
+                                var file_to_load = get_save_dir(true) + cur_dir + "/" + string_copy(clicked_value, 1, file_pos - 2);
+                                close_mod_options();
+#if SURVEY_PROGRAM
+                                scr_load(file_to_load);
+#else
+                                if (!instance_exists(obj_time) && !instance_exists(obj_time_ch1))
                                 {
-                                    scr_load_ch1(file_to_load);
+                                    show_message("Pick a chapter first!")
                                 }
                                 else
                                 {
-                                    scr_load(file_to_load);
+                                    if (global.chapter == 1)
+                                    {
+                                        scr_load_ch1(file_to_load);
+                                    }
+                                    else
+                                    {
+                                        scr_load(file_to_load);
+                                    }
                                 }
-                            }
 #endif
+                            }
                         }
                         break
+                    case "miscoptions":
+                        var options = get_options();
+                        var name = options[i];
+                        var state = read_option_value(name);
+                        if (state == "debug")
+                        {
+                            state = true;
+                        }
+                        else if (state == true)
+                        {
+                            state = false;
+                        }
+                        else
+                        {
+                            state = "debug";
+                        }
+                        set_option_value(name, state);
+                        get_misc_options_mod_options();
+                        break;
                 }
             }
         }
         else
-            button_state[i] = #BUTTON_STATE.hover
+            button_state[i] = "hover"
     }
-    else if (options_state == #OPTION_STATE.splits && i == obj_IGT.current_split)
+    else if (options_state == "pick_split_preset" && i == get_current_preset())
     {
-        button_state[i] = #BUTTON_STATE.highlight
+        button_state[i] = "highlight"
     }
     else
     {
-        button_state[i] = #BUTTON_STATE.none
+        button_state[i] = "none"
     }
 
-    if (button_state[i] == #BUTTON_STATE.hover)
+    if (button_state[i] == "hover")
     {
         draw_set_color(read_ui_color("button-hover"))
+        menu_hover_desc = hover_desc[i];
     }
-    else if (button_state[i] == #BUTTON_STATE.press)
+    else if (button_state[i] == "press")
     {
         draw_set_color(read_ui_color("button-press"))
     }
-    else if (button_state[i] == #BUTTON_STATE.none)
+    else if (button_state[i] == "none")
     {
         draw_set_color(read_ui_color("button"))
     }
-    else if (button_state[i] == #BUTTON_STATE.highlight)
+    else if (button_state[i] == "highlight")
     {
         draw_set_color(read_ui_color("button-highlight"))
     }
@@ -432,8 +843,19 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(read_ui_color("button-press"))
     draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
     draw_set_color(read_ui_color("text"))
-    draw_text(button_start_x + 5, button_start_y + 5, button_text[i])
+    var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
+    draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i])
 }
+
+// menu description rendering
+draw_set_color(read_ui_color("background"));
+draw_rectangle(0, 0, view_width, menu_desc_height, false);
+draw_rectangle(0, hover_desc_start_y, view_width, view_height, false);
+menu_desc_padding = 5;
+draw_set_color(read_ui_color("text"));
+draw_text(menu_desc_padding, menu_desc_padding, menu_desc);
+draw_text(menu_desc_padding, menu_desc_padding + hover_desc_start_y, menu_hover_desc);
+
 draw_sprite(
 #if DEMO
     spr_maus_cursor

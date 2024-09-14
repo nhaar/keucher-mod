@@ -33,7 +33,7 @@ If position caching is activated, sets the flag that we are trying to load a fil
 */
 function set_cache_loading()
 {
-    if is_feature_active("position-cache")
+    if is_option_active("position_save_caching")
     {
         global.is_cache_loading = true
     }

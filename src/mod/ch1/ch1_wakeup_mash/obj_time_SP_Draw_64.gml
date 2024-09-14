@@ -1,6 +1,6 @@
 /// PATCH
 /// APPEND
-if (is_feature_active("show-wake-mash") && room ==
+if (is_option_active("wakeup_mash_display") && room ==
 #if DEMO
     room_dark1_ch1
 #elsif SURVEY_PROGRAM
