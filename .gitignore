@@ -9,3 +9,7 @@
 # ignoring all build scripts except templates
 /build_scripts/*
 !/build_scripts/build-template.bat
+!/build_scripts/build.py
+
+# build files
+/dist
