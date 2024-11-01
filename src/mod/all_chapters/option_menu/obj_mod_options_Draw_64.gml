@@ -469,6 +469,10 @@ for (var i = 0; i < button_amount; i++)
                         {
                             update_rng_value("spelling_bee", read_rng_value("spelling_bee") ? false : true);
                         }
+                        else if (i == 2)
+                        {
+                            update_rng_value("fast_attack", read_rng_value("fast_attack") ? false : true);
+                        }
                         get_rng_settings_mod_options();
                         break;
                     case "debug_keybinds":

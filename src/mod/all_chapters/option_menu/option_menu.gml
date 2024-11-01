@@ -452,10 +452,12 @@ function get_rng_settings_mod_options()
 {
     var susie_state = read_rng_value("susie_death") ? "ON" : "OFF";
     var spelling_state = read_rng_value("spelling_bee") ? "ON" : "OFF";
+    var attack_state = read_rng_value("fast_attack") ? "ON" : "OFF";
 
     get_buttons_from_array(
         "Susie always targeted in K. Round [" + susie_state + "]",
-        "Always optimal spelling bee word (language sensitive) [" + spelling_state +"]"
+        "Always optimal spelling bee word (language sensitive) [" + spelling_state +"]",
+        "Always get the fastest crit pattern [" + attack_state + "]"
     );
 
     menu_desc = "Click each button to turn on/off a RNG setting"
