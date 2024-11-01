@@ -19,8 +19,8 @@ set umt_path=
 set flips_path=
 
 :: Versions
-set demo_version=5.1.0
-set sp_version=5.10.0
+set demo_version=5.1.1
+set sp_version=5.1.1
 
 set batch_path=%~dp0
 set dist_path=%batch_path%..\dist\
