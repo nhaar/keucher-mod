@@ -312,7 +312,14 @@ for (var i = 0; i < button_amount; i++)
                         // splits
                         else if (i == 2)
                         {
-                            change_to_timer_splits_mode();
+                            if (get_current_preset() == -1)
+                            {
+                                show_message("Please create and/or pick a split preset first!");
+                            }
+                            else
+                            {
+                                change_to_timer_splits_mode();
+                            }
                         }
                         get_timer_mod_options();
                         break;
