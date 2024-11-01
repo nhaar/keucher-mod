@@ -5,7 +5,8 @@ function get_rng_options()
 {
     return create_array(
         "susie_death",
-        "spelling_bee"
+        "spelling_bee",
+        "fast_attack"
     );
 }
 
@@ -16,6 +17,7 @@ function get_rng_option_options(name)
     {
         case "susie_death": return create_array(false, true);
         case "spelling_bee": return create_array(false, true);
+        case "fast_attack": return create_array(false, true);
         default:
             show_message("Error occured: could not find rng option named \"" + name + "\"");
             e += "crash";
