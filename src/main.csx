@@ -1,6 +1,7 @@
 #load "ump\ump.csx"
 #load "enums.csx"
 
+using ImageMagick;
 using System.Linq;
 using System.Drawing;
 using System.Text.RegularExpressions;
@@ -133,7 +134,7 @@ void ReplacePageItemTexture (string itemName, string textureName)
 {
     Data.TexturePageItems.ByName(itemName).ReplaceTexture
     (
-        Image.FromFile(Path.Combine(spritesDir, textureName))
+        new MagickImage(Path.Combine(spritesDir, textureName))
     );
 }
 
@@ -199,7 +200,7 @@ void UpdateTvStatic(DeltaruneVersion version)
             pageItem.TargetX = 9;
             pageItem.TargetY = 22;
             pageItem.ReplaceTexture(
-                Image.FromFile(Path.Combine(spritesDir, $"static_smile_{i + 1}.png"))
+                new MagickImage(Path.Combine(spritesDir, $"static_smile_{i + 1}.png"))
             );
         }
     }
