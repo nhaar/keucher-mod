@@ -17,7 +17,11 @@
             global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_14_0")
         global.msg[0] = scr_84_get_lang_string("obj_placeholderenemy_slash_Step_0_gml_16_0")
         scr_enemyblcon((x - 160), y, 3)
+#if SP
+        talked = true
+#else
         talked = 1
+#endif
         talktimer = 0
     }
 /// CODE

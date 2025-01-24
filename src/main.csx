@@ -15,19 +15,23 @@ class KeucherModLoader : UMPLoader
 {
     public override string CodePath => "mod/";
 
-    public override bool UseGlobalScripts => true;
+    public override bool UseGlobalScripts => Version switch
+    {
+        DeltaruneVersion.SurveyProgram => false,
+        _ => true
+    };
 
     public override string[] Symbols => Version switch
     {
         DeltaruneVersion.ChapterSelect => new[] { "CHS" },
         DeltaruneVersion.Chapter1 => new[] { "CH1" },
         DeltaruneVersion.Chapter2 => new[] { "CH2" },
+        DeltaruneVersion.SurveyProgram => new[] { "CH1", "SP" },
         _ => throw new NotImplementedException()
     };
 
     public override string[] GetCodeNames (string filePath)
     {
-        Console.WriteLine($"file path: {filePath}");
         List<string> names = new List<string>();
 
         var isChapterSelect = filePath.Contains("chapter_select");
@@ -40,11 +44,10 @@ class KeucherModLoader : UMPLoader
 
         if (
             (isChapterSelect && Version != DeltaruneVersion.ChapterSelect) ||
-            (chapter == 1 && Version != DeltaruneVersion.Chapter1) ||
+            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram)) ||
             (chapter == 2 && Version != DeltaruneVersion.Chapter2)
         )
         {
-            Console.WriteLine("Cancelling!");
             return names.ToArray();
         }
 
@@ -87,7 +90,7 @@ class KeucherModLoader : UMPLoader
         {
             objects = new string[] { };
         }
-        else if (Version == DeltaruneVersion.Chapter1)
+        else if (Version == DeltaruneVersion.Chapter1 || Version == DeltaruneVersion.SurveyProgram)
         {
             objects = ch1Objects;
         }
@@ -161,12 +164,14 @@ void UpdateKrisRoom (DeltaruneVersion version)
     {
         DeltaruneVersion.Chapter1 => new[] { 102 },
         DeltaruneVersion.Chapter2 => new[] { 232 },
+        DeltaruneVersion.SurveyProgram => new[] { 85 },
         _ => throw new NotImplementedException()
     };
     int[] nightTextures = version switch
     {
         DeltaruneVersion.Chapter1 => new[] { 103 },
         DeltaruneVersion.Chapter2 => new[] { 233 },
+        DeltaruneVersion.SurveyProgram => new[] { 86 },
         _ => throw new NotImplementedException()
     };
     foreach (int texture in dayTextures)
@@ -208,7 +213,7 @@ void UpdateTvStatic(DeltaruneVersion version)
 
 void SetupChapterOneBattleRoom (DeltaruneVersion version)
 {
-    if (version != DeltaruneVersion.Chapter1)
+    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.SurveyProgram)
     {
         return;
     }
@@ -217,6 +222,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     var roomName = version switch
     {
         DeltaruneVersion.Chapter1 => "room_battletest",
+        DeltaruneVersion.SurveyProgram => "room_battletest",
         _ => throw new NotImplementedException()
     };
     var battleroomCh1 = Data.Rooms.ByName(roomName);

@@ -167,10 +167,19 @@ function loaded_savefile()
 
 function get_gui_width()
 {
+#if SP
+    // survey program just has fixed values, if they're not using a resizer (and the functions dont return a good value for some reason)
+    return 640
+#else
     return display_get_gui_width()
+#endif
 }
 
 function get_gui_height()
 {
+#if SP
+    return 480
+#else
     return display_get_gui_height()
+#endif
 }

@@ -1,5 +1,14 @@
 /// PATCH
 
+#if SP
+/// REPLACE
+if (global.debug == true)
+    return 0;
+return 0;
+/// CODE
+return global.debug
+/// END
+#else
 // vanilla uses this debugcontroller which is useless
 
 /// REPLACE
@@ -8,3 +17,4 @@
 /// CODE
     return global.debug;
 /// END
+#endif

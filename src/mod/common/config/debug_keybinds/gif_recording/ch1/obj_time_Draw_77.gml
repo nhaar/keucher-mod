@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1
+/// PATCH .ignore if !CH1 || SP
 
 // gif_open and others just dont exist in SP's GMS version!
 

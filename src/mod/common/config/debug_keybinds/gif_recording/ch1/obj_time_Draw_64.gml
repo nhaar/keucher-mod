@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1
+/// PATCH .ignore if !CH1 || SP
 /// PREPEND
 if (gif_recording)
 {
