@@ -1,7 +1,7 @@
 /// PATCH .ignore if !CH1
 
 /// AFTER
-scr_tempsave()
+#Suffix("scr_tempsave")()
 /// CODE
 set_cache_loading()
 /// END

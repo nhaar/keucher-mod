@@ -4,8 +4,8 @@ mercyamt = 100
 /// CODE
 if (is_option_active("mercy_percentage_ch1"))
 {
-    var joker = obj_joker
-    var king = obj_king_boss
+    var joker = #Suffix("obj_joker")
+    var king = #Suffix("obj_king_boss")
     // add mercy bar in ch1, except for Jevil which is a tired bar
     if (!i_ex(joker))
     {

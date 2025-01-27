@@ -1,7 +1,9 @@
 /// IMPORT
 
 // destroy whenever practice enemy is not present
-#if CHS
+#if DEMO
+if (!i_ex(obj_omawaroid_enemy) && !i_ex(obj_placeholderenemy_ch1))
+#elsif CHS
 if (true)
 #elsif CH1
 if (!i_ex(obj_placeholderenemy))

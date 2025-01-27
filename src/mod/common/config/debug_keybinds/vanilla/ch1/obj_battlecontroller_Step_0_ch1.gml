@@ -3,10 +3,10 @@
 /// APPEND
 if pressed_active_debug_keybind("heal_party")
 {
-    scr_healallitemspell(999)
+    #Suffix("scr_healallitemspell")(999)
 }
 if pressed_active_debug_keybind("instant_win")
 {
-    scr_wincombat()
+    #Suffix("scr_wincombat")()
 }
 /// END

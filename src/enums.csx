@@ -18,5 +18,10 @@ enum DeltaruneVersion
     /// <summary>
     /// data.win for the Survey Program PC version
     /// </summary>
-    SurveyProgram
+    SurveyProgram,
+
+    /// <summary>
+    /// data.win for DEMO 1.15
+    /// </summary>
+    Demo_1_15
 }

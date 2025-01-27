@@ -4,13 +4,13 @@
 // (was removed in LTS)
 
 /// APPEND
-if scr_debug()
+if #Suffix("scr_debug")()
 {
     if keyboard_check_pressed(vk_backspace)
     {
         global.flag[6] = 0
         snd_free_all()
-        room_goto(room_krisroom)
+        room_goto(#Suffix("room_krisroom"))
     }
 }
 /// END

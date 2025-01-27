@@ -5,17 +5,17 @@
 /// APPEND
 if pressed_active_debug_keybind("save_menu")
 {
-    instance_create(0, 0, obj_savemenu)
+    #Suffix("instance_create")(0, 0, #Suffix("obj_savemenu"))
 }
 if pressed_active_debug_keybind("load_file")
 {
-    scr_load()
+    #Suffix("scr_load")()
 }
 if pressed_active_debug_keybind("restart_room")
 {
     if keyboard_check(vk_backspace)
     {
-        game_restart_true()
+        #Suffix("game_restart_true")()
     }
     else
     {

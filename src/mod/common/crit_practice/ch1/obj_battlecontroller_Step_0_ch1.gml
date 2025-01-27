@@ -8,7 +8,7 @@ if (global.myfight == 5)
     myfightreturntimer--
     if (myfightreturntimer <= 0)
     {
-        scr_mnendturn()
+        #Suffix("scr_mnendturn")()
         global.spelldelay = 10
         with (obj_heroparent)
         {
@@ -24,7 +24,7 @@ if (global.myfight == 5)
             fsiner = 0
             alarm[4] = -1
         }
-        with (obj_spellphase)
+        with (#Suffix("obj_spellphase"))
         {
             with (spellwriter)
                 instance_destroy()

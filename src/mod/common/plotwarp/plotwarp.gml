@@ -23,8 +23,8 @@ function plotwarp(__warp)
             global.char[1] = 0
             global.char[2] = 0
             global.plot = 10
-            snd_free_all()
-            room_goto(room_dark1)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_dark1"))
             break
         case "field_start":
             global.flag[101] = 0
@@ -43,8 +43,8 @@ function plotwarp(__warp)
             global.char[1] = 3
             global.char[2] = 0
             global.plot = 33
-            snd_free_all()
-            room_goto(room_field_start)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_field_start"))
             break
         case "checkerboard_start":
             global.flag[214] = 0
@@ -56,8 +56,8 @@ function plotwarp(__warp)
             global.char[1] = 3
             global.char[2] = 2
             global.plot = 50
-            snd_free_all()
-            room_goto(room_field_checkers4)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_field_checkers4"))
             break
         case "forest_start":
             global.flag[107] = 0
@@ -81,8 +81,8 @@ function plotwarp(__warp)
             global.char[1] = 3
             global.char[2] = 0
             global.plot = 60
-            snd_free_all()
-            room_goto(room_forest_savepoint1)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_forest_savepoint1"))
             break
         case "post_vs_lancer":
             global.flag[105] = 0
@@ -96,8 +96,8 @@ function plotwarp(__warp)
             global.char[1] = 3
             global.char[2] = 2
             global.plot = 130
-            snd_free_all()
-            room_goto(room_forest_fightsusie)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_forest_fightsusie"))
             break
         case "post_escape":
             global.flag[112] = 0
@@ -120,8 +120,8 @@ function plotwarp(__warp)
             global.char[1] = 3
             global.char[2] = 2
             global.plot = 154
-            snd_free_all()
-            room_goto(room_cc_prison_cells)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_cc_prison_cells"))
             break
         case "king":
             global.flag[29] = 0
@@ -138,15 +138,11 @@ function plotwarp(__warp)
             global.char[1] = 2
             global.char[2] = 3
             global.plot = 175
-            snd_free_all()
-            room_goto(room_cc_kingbattle)
+            #Suffix("snd_free_all")()
+            room_goto(#Suffix("room_cc_kingbattle"))
             break
-        default:
-            show_temp_message("bro wtf did you do (plotwarp failed)")
-    }
-#elsif CH2
-    switch __warp
-    {
+#endif
+#if CH2
         case "post_arcade":
             global.plot[34] = 1
             global.plot[333] = 0
@@ -304,8 +300,8 @@ function plotwarp(__warp)
             global.plot = 150
             room_goto(room_dw_mansion_acid_tunnel_exit)
             break
+#endif
         default:
             show_temp_message("bro wtf did you do (plotwarp failed)")
     }
-#endif
 }

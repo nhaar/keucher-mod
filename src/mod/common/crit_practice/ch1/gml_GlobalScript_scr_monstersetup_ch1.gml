@@ -2,7 +2,7 @@
 
 // first message of the placeholder enemy
 /// REPLACE
-global.battlemsg[0] = scr_84_get_lang_string("scr_monstersetup_slash_scr_monstersetup_gml_27_0")
+global.battlemsg[0] = #Suffix("scr_84_get_lang_string")("scr_monstersetup_slash_scr_monstersetup_gml_27_0")
 /// CODE
 global.battlemsg[0] = "* just hit the frame perfect # inputs 4Head"
 /// END

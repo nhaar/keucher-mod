@@ -1,6 +1,6 @@
 /// PATCH .ignore if !CH1
 /// REPLACE
-scr_randomtarget()
+#Suffix("scr_randomtarget")()
 /// CODE
 // target SUSIE
 if (first_turn == 0 && read_rng_value("susie_death"))
@@ -11,6 +11,6 @@ if (first_turn == 0 && read_rng_value("susie_death"))
 }
 else
 {
-    scr_randomtarget()
+    #Suffix("scr_randomtarget")()
 }
 /// END

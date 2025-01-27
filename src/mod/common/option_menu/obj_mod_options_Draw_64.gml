@@ -786,6 +786,15 @@ for (var i = 0; i < button_amount; i++)
                                 close_mod_options();
 #if CHS
                                 show_message("Pick a chapter first!")           
+#elif DEMO
+                                if (global.chapter == 1)
+                                {
+                                    scr_load_ch1(file_to_load);
+                                }
+                                else
+                                {
+                                    scr_load(file_to_load);
+                                }
 #else
                                 scr_load(file_to_load)
 #endif
@@ -861,11 +870,11 @@ draw_text(menu_desc_padding, menu_desc_padding, menu_desc);
 draw_text(menu_desc_padding, menu_desc_padding + hover_desc_start_y, menu_hover_desc);
 
 draw_sprite(
-#if CHS
+#if CH2
+    spr_maus_cursor
+#elsif CHS
     spr_heart
 #elsif CH1
     spr_face_sans0
-#elsif CH2
-    spr_maus_cursor
 #endif
 , 0, real_mouse_x, real_mouse_y)

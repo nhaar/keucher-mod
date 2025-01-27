@@ -1,10 +1,10 @@
 /// PATCH
 /// APPEND
 if (is_option_active("wakeup_mash_display") && room ==
-    room_dark1
+    #Suffix("room_dark1")
 )
 {
-    var darkawake = obj_darkwakeevent
+    var darkawake = #Suffix("obj_darkwakeevent")
     var waketimer = i_ex(darkawake)
         ? darkawake.max_timer - darkawake.waketimer
         : 0

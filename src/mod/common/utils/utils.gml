@@ -44,6 +44,12 @@ For compatibility for DEMO objects which end in CH1
 */
 function get_object_implicit_chapter (object)
 {
+#if DEMO
+    if (global.chapter == 1)
+    {
+        object += "_ch1";
+    }
+#endif
     return asset_get_index(object)
 }
 
@@ -147,7 +153,17 @@ function get_range_array(start_number, end_number)
 /* Returns 0 if chapter select */
 function get_current_chapter()
 {
-#if CH1
+#if DEMO
+    if (instance_exists(obj_time_ch1))
+    {
+        return 1;
+    }
+    if (instance_exists(obj_time))
+    {
+        return 2;
+    }
+    return 0;
+#elsif CH1
     return 1;
 #elsif CH2
     return 2;
@@ -160,6 +176,8 @@ function loaded_savefile()
 {
 #if CHS
     return false;
+#elsif DEMO
+    return instance_exists(obj_mainchara) || instance_exists(obj_mainchara_ch1)
 #else
     return instance_exists(obj_mainchara)
 #endif

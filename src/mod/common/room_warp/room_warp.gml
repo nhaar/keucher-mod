@@ -6,17 +6,10 @@ function init_room_names()
     var room_names
     var cur_room = 0
 
-#if CHS
-    var ROOM_COUNT = 427;
-#elsif CH1
-    var ROOM_COUNT = 427;
-#elsif CH2
-    var ROOM_COUNT = 427;
-#endif
-
     // for some reason, room_last is 0 at the start, so we can't use it
     // THIS NEEDS TO BE UPDATED IF MORE ROOMS ARE ADDED
-    for (var i = 0; i < ROOM_COUNT; i++)
+    var i = 0;
+    while (true)
     {
         var name = room_get_name(i)
         // reached the limit of index, exit loop
@@ -26,6 +19,7 @@ function init_room_names()
         }
         room_names[cur_room] = name
         cur_room += 1
+        i++;
     }
     global.room_names = room_names
 }

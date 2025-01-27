@@ -234,9 +234,11 @@ function reset_battle_display()
 function parse_room_name(instruction)
 {
     var parsed = instruction;
+#if !DEMO
     if (string_pos("ch1", instruction) > 0)
     {
         parsed = string_copy(instruction, 1, string_length(instruction) - 4);
     }
+#endif
     return parsed;
 }

@@ -27,7 +27,7 @@ function start_boss_practice()
     switch (object_index)
     {
 #if CH1
-        case obj_king_boss:
+        case #Suffix("obj_king_boss"):
         {
             obj_boss_practice.turn_text[0] = "Spades (Turn 1)"
             obj_boss_practice.turn_text[1] = "Wave Chain (Turn 2)"
@@ -42,7 +42,7 @@ function start_boss_practice()
             obj_boss_practice.turn_text[10] = "Chain Box 2 (Turn 11)"
             break
         }
-        case obj_joker:
+        case #Suffix("obj_joker"):
         {
             obj_boss_practice.turn_text[0] = "OPE! (Turn 1)"
             obj_boss_practice.turn_text[1] = "Spade Circle (Turn 2)"

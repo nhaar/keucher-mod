@@ -145,7 +145,16 @@ function get_consumable_name(consumable_id)
 
 function get_weapon_any_chapter(weapon_id)
 {
-#if !CHS
+#if DEMO
+        if (global.chapter == 1)
+    {
+        scr_weaponget_ch1(weapon_id);
+    }
+    else if (global.chapter == 2)
+    {
+        scr_weaponget(weapon_id);
+    }
+#elsif !CHS
     scr_weaponget(weapon_id);
 #endif
     return;
@@ -153,7 +162,16 @@ function get_weapon_any_chapter(weapon_id)
 
 function get_armor_any_chapter(armor_id)
 {
-#if !CHS
+#if DEMO
+    if (global.chapter == 1)
+    {
+        scr_armorget_ch1(armor_id);
+    }
+    else if (global.chapter == 2)
+    {
+        scr_armorget(armor_id);
+    }
+#elsif !CHS
     scr_armorget(armor_id);
 #endif
     return;
@@ -161,7 +179,16 @@ function get_armor_any_chapter(armor_id)
 
 function get_consumable_any_chapter(item_id)
 {
-#if !CHS
+#if DEMO
+    if (global.chapter == 1)
+    {
+        scr_itemget_ch1(item_id);
+    }
+    else if (global.chapter == 2)
+    {
+        scr_itemget(item_id);
+    }
+#elsif !CHS
     scr_itemget(item_id);
 #endif
     return;

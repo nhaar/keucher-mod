@@ -13,7 +13,7 @@ if (global.bossPractice == 1)
 
 // resetting between turns
 /// AFTER
-scr_blconskip(15)
+#Suffix("scr_blconskip")(15)
 /// CODE
 reset_graze_condition()
 /// END

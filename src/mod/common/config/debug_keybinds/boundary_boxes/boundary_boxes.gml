@@ -171,6 +171,22 @@ function update_doors_visibility(is_visible)
 {
     var doors = create_array
     (
+#if DEMO
+        obj_doorA_ch1,
+        obj_doorB_ch1,
+        obj_doorC_ch1,
+        obj_doorD_ch1,
+        obj_doorA_musfade_ch1,
+        obj_doorB_musfade_ch1,
+        obj_doorC_musfade_ch1,
+        obj_doorD_musfade_ch1,
+        obj_doorE_ch1,
+        obj_doorF_ch1,
+        obj_doorX_ch1,
+        obj_doorW_ch1,
+        obj_doorX_musfade_ch1,
+        obj_doorw_musfade_ch1,
+#endif
         obj_doorA,
         obj_doorB,
         obj_doorC,

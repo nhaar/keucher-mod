@@ -4,7 +4,7 @@
 /// APPEND
 #else
 /// AFTER
-ossafe_file_text_close(myfileid)
+#Suffix("ossafe_file_text_close")(myfileid)
 /// CODE
 #endif
 save_position(obj_mainchara)

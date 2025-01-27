@@ -19,7 +19,7 @@ if (!global.bossPractice)
 
 // resetting stats between turns
 /// AFTER
-scr_blconskip(-1)
+#Suffix("scr_blconskip")(-1)
 /// CODE
 reset_graze_condition()
 /// END

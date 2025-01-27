@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1 && !CH2
+/// PATCH .ignore if CHS || DEMO
 
 #if SP
 /// PREPEND
