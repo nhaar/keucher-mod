@@ -21,7 +21,7 @@ enum DeltaruneVersion
     SurveyProgram,
 
     /// <summary>
-    /// data.win for DEMO 1.15
+    /// data.win for DEMO, supported versions being 1.09, 1.10 and 1.15
     /// </summary>
-    Demo_1_15
+    Demo
 }

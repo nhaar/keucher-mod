@@ -27,7 +27,7 @@ class KeucherModLoader : UMPLoader
         DeltaruneVersion.Chapter1 => new[] { "CH1" },
         DeltaruneVersion.Chapter2 => new[] { "CH2" },
         DeltaruneVersion.SurveyProgram => new[] { "CH1", "SP" },
-        DeltaruneVersion.Demo_1_15 => new[] { "CH1", "CH2", "DEMO", "V1_15" },
+        DeltaruneVersion.Demo => new[] { "CH1", "CH2", "DEMO" },
         _ => throw new NotImplementedException()
     };
 
@@ -44,8 +44,8 @@ class KeucherModLoader : UMPLoader
 
         if (
             (isChapterSelect && Version != DeltaruneVersion.ChapterSelect) ||
-            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram && Version != DeltaruneVersion.Demo_1_15)) ||
-            (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo_1_15))
+            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram && Version != DeltaruneVersion.Demo)) ||
+            (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo))
         )
         {
             return names.ToArray();
@@ -76,7 +76,7 @@ class KeucherModLoader : UMPLoader
         {
             // if not DEMO, just remove the indicator.
             fileName = fileName.Substring(0, fileName.Length - suffixLength);
-            if (Version == DeltaruneVersion.Demo_1_15)
+            if (Version == DeltaruneVersion.Demo)
             {
                 if (fileName.Contains("gml_Object"))
                 {
@@ -162,7 +162,7 @@ class KeucherModLoader : UMPLoader
         {
             objects = ch2Objects;
         }
-        else if (Version == DeltaruneVersion.Demo_1_15)
+        else if (Version == DeltaruneVersion.Demo)
         {
             objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
         }
@@ -176,7 +176,7 @@ class KeucherModLoader : UMPLoader
 
     public string Suffix(string name)
     {
-        if (Version == DeltaruneVersion.Demo_1_15)
+        if (Version == DeltaruneVersion.Demo)
         {
             return name + "_ch1";
         }
@@ -243,7 +243,7 @@ void UpdateKrisRoom (DeltaruneVersion version)
         DeltaruneVersion.Chapter1 => new[] { 102 },
         DeltaruneVersion.Chapter2 => new[] { 232 },
         DeltaruneVersion.SurveyProgram => new[] { 85 },
-        DeltaruneVersion.Demo_1_15 => new[] { 74, 3158 },
+        DeltaruneVersion.Demo => new[] { 74, 3158 },
         _ => throw new NotImplementedException()
     };
     int[] nightTextures = version switch
@@ -251,7 +251,7 @@ void UpdateKrisRoom (DeltaruneVersion version)
         DeltaruneVersion.Chapter1 => new[] { 103 },
         DeltaruneVersion.Chapter2 => new[] { 233 },
         DeltaruneVersion.SurveyProgram => new[] { 86 },
-        DeltaruneVersion.Demo_1_15 => new[] { 75, 3159 },
+        DeltaruneVersion.Demo => new[] { 75, 3159 },
         _ => throw new NotImplementedException()
     };
     foreach (int texture in dayTextures)
@@ -275,7 +275,7 @@ void UpdateTvStatic(DeltaruneVersion version)
     if (version == DeltaruneVersion.Chapter2)
     {
         var pageItemIds = new[] { 2897, 2898, 2896, 2895 };
-        if (version == DeltaruneVersion.Demo_1_15)
+        if (version == DeltaruneVersion.Demo)
         {
             pageItemIds = new [] { 11365, 10509, 10508, 10507 };
         }
@@ -297,7 +297,7 @@ void UpdateTvStatic(DeltaruneVersion version)
 
 void SetupChapterOneBattleRoom (DeltaruneVersion version)
 {
-    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.SurveyProgram && version != DeltaruneVersion.Demo_1_15)
+    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.SurveyProgram && version != DeltaruneVersion.Demo)
     {
         return;
     }
@@ -307,7 +307,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     {
         DeltaruneVersion.Chapter1 => "room_battletest",
         DeltaruneVersion.SurveyProgram => "room_battletest",
-        DeltaruneVersion.Demo_1_15 => "room_battletest_ch1",
+        DeltaruneVersion.Demo => "room_battletest_ch1",
         _ => throw new NotImplementedException()
     };
     var battleroomCh1 = Data.Rooms.ByName(roomName);
@@ -325,7 +325,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     for (int i = 0; i < objects.Length; i+= 3)
     {
         string objectName = (string)objects[i];
-        if (version == DeltaruneVersion.Demo_1_15)
+        if (version == DeltaruneVersion.Demo)
         {
             objectName += "_ch1";
         }
