@@ -1,4 +1,4 @@
-/// PATCH .ignore ifndef SURVEY_PROGRAM
+/// PATCH .ignore if !SP
 
 // in demo, this function returns empty map for non existent files
 // this change is for compatibility
