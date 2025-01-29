@@ -23,6 +23,11 @@ class KeucherModLoader : UMPLoader
 
     public override string[] Symbols => Version switch
     {
+        // Symbols guide:
+        // CH1, CH2 -> This data.win CONTAINS the given chapter number
+        // CHS -> This data.win IS the chapter select LTS data.win
+        // DEMO -> This data.win is from the DEMO version, PRE-LTS versions
+        // SP -> This data.win is from the Survey Program version
         DeltaruneVersion.ChapterSelect => new[] { "CHS" },
         DeltaruneVersion.Chapter1 => new[] { "CH1" },
         DeltaruneVersion.Chapter2 => new[] { "CH2" },

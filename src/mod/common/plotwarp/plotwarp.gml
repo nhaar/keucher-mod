@@ -8,9 +8,9 @@ function plotwarp(__warp)
     // set dark world mode
     global.darkzone = true
     
-#if CH1
     switch __warp
     {
+#if CH1
         case "ch1_wake_up":
             global.flag[100] = 0
             global.flag[201] = 0
