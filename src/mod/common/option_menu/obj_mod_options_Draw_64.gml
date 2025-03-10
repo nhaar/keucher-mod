@@ -295,7 +295,10 @@ for (var i = 0; i < button_amount; i++)
                         else if (i == 4)
                         {
                             var precision = get_integer("Enter timer precision", read_config_value("timer_precision"));
-                            update_config_value(clamp(precision, 1, 6), "timer_precision");
+                            if (!is_undefined(precision))
+                            {
+                                update_config_value(clamp(precision, 1, 6), "timer_precision");
+                            }
                         }
                         break
                     case "timer_mode":
@@ -388,6 +391,10 @@ for (var i = 0; i < button_amount; i++)
                                 break
                             case 2: // pick name
                                 var name = get_string("Enter name for preset", "")
+                                if (name == "")
+                                {
+                                    break;
+                                }
                                 if (ds_map_exists(global.current_created_preset, "name"))
                                     ds_map_replace(global.current_created_preset, "name", name)
                                 else
@@ -740,16 +747,28 @@ for (var i = 0; i < button_amount; i++)
                         {
                             case 0: // rgb
                                 red = get_integer("Enter red value (0 - 255)", "")
+                                if (is_undefined(red))
+                                {
+                                    break;
+                                }
                                 if (!validate_rgb_color(red))
                                 {
                                     break
                                 }
                                 green = get_integer("Enter green value (0 - 255)", "")
+                                if (is_undefined(green))
+                                {
+                                    break;
+                                }
                                 if (!validate_rgb_color(green))
                                 {
                                     break
                                 }
                                 blue = get_integer("Enter blue value (0 - 255)", "")
+                                if (is_undefined(blue))
+                                {
+                                    break;
+                                }
                                 if (!validate_rgb_color(blue))
                                 {
                                     break
@@ -758,6 +777,10 @@ for (var i = 0; i < button_amount; i++)
                                 break
                             case 1: // hex
                                 hex = get_string("Enter hex value (000000 - FFFFFF)", "")
+                                if (hex == "")
+                                {
+                                    break;
+                                }
                                 if (validate_hex_color(hex))
                                 {
                                     color = hex_to_color(hex)
