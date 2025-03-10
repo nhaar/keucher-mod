@@ -119,7 +119,7 @@ function get_user_input_character(number)
     var character_options = "susie, ralsei";
     var ch = get_current_chapter();
 
-    if (ch2 == 2)
+    if (ch == 2)
     {
         character_options += ", noelle, berdly, starwalker";
     }
