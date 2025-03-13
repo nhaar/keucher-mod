@@ -1,9 +1,18 @@
 /// FUNCTIONS
 
+#if CHS || SURVEY_PROGRAM || (LTS && CH1)
 function i_ex(instance)
 {
-    return instance_exists(instance)
+    if (instance > 0)
+    {
+        return instance_exists(instance)
+    }
+    else
+    {
+        return false;
+    }
 }
+#endif
 
 #if CHS
 function scr_84_load_map_json(filename)

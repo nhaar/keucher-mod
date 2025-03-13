@@ -29,8 +29,8 @@ class KeucherModLoader : UMPLoader
         // DEMO -> This data.win is from the DEMO version, PRE-LTS versions
         // SP -> This data.win is from the Survey Program version
         DeltaruneVersion.ChapterSelect => new[] { "CHS" },
-        DeltaruneVersion.Chapter1 => new[] { "CH1" },
-        DeltaruneVersion.Chapter2 => new[] { "CH2" },
+        DeltaruneVersion.Chapter1 => new[] { "CH1", "LTS" },
+        DeltaruneVersion.Chapter2 => new[] { "CH2", "LTS" },
         DeltaruneVersion.SurveyProgram => new[] { "CH1", "SP" },
         DeltaruneVersion.Demo => new[] { "CH1", "CH2", "DEMO" },
         _ => throw new NotImplementedException()
