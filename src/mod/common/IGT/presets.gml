@@ -84,6 +84,8 @@ function get_chapter_rooms(chapter)
             "room_krisroom_ch1",
             "room_dark1_ch1",
             "room_dark1a_ch1",
+            "room_dark2_ch1",
+            "room_dark_chase2_ch1",
             "room_castle_outskirts_ch1",
             "room_field_start_ch1",
             "room_field_puzzle1_ch1",
@@ -92,7 +94,8 @@ function get_chapter_rooms(chapter)
             "room_forest_savepoint1_ch1",
             "room_forest_afterthrash2_ch1",
             "room_cc_prisonlancer_ch1",
-            "room_krishallway_ch1"
+            "room_krishallway_ch1",
+            "room_cc_joker_ch1"
         );
     }
     else if (chapter == 2)
@@ -129,6 +132,8 @@ function get_descriptive_room_name(chapter, roomname)
             case "room_krisroom_ch1": return "Chapter 1 - Kris' Room";
             case "room_dark1_ch1": return "Chapter 1 Dark World - First Room";
             case "room_dark1a_ch1": return "Chapter 1 Dark World - First Savepoint";
+            case "room_dark2_ch1": return "Chapter 1 - Long Room with Turns";
+            case "room_dark_chase2_ch1": return "Chapter 1 - Second room of first chase";
             case "room_castle_outskirts_ch1": return "Chapter 1 - Get up after cliff";
             case "room_field_start_ch1": return "Field - Great Door";
             case "room_field_puzzle1_ch1": return "Field - First Puzzle";
@@ -138,6 +143,7 @@ function get_descriptive_room_name(chapter, roomname)
             case "room_forest_afterthrash2_ch1": return "Forest - After Susie/Lancer";
             case "room_cc_prisonlancer_ch1": return "Castle - Cell Hallway";
             case "room_krishallway_ch1": return "Chapter 1 - Kris' Hallway";
+            case "room_cc_joker_ch1": return "Chapter 1 - Jevil's Room";
         }
     }
     else if (chapter == 2)

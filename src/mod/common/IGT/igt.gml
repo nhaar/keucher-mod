@@ -110,6 +110,7 @@ function get_all_special_instructions()
         "ch1_escaped",
         "ch1_kingdefeat",
         "ch1_sleep",
+        "ch1_jevil",
         "ch2_start",
         "ch2_djsend",
         "ch2_cyberend",
@@ -129,6 +130,7 @@ function get_special_instruction_name(instruction)
         case "ch1_escaped": return "Escape prison in Chapter 1";
         case "ch1_kingdefeat": return "Finish King fight";
         case "ch1_sleep": return "Sleeping in Chapter 1 (TIME END)";
+        case "ch1_jevil": return "Finish Jevil fight";
         case "ch2_start": return "Press YES in Chapter 2 naming";
         case "ch2_djsend": return "End DJs fight";
         case "ch2_cyberend": return "White fadeout in Cyber Field end";
