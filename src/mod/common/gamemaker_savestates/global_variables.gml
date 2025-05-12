@@ -347,7 +347,7 @@ The values are hardcoded and obtained from the SearchAllGlobals.csx script.
 */
 function get_global_variables()
 {
-    var variables_text = "is_console
+    var variables_text = @"is_console
 input_g
 chapter
 savedata_async_id

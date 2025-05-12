@@ -1,7 +1,7 @@
 /// PATCH .ignore if !CH1
 // rigging attacks
 /// BEFORE
-global.flag[(51 + myself)] = 4
+global.flag[51 + myself] = 4;
 /// CODE
 if (global.bossPractice == 1)
 {
@@ -13,7 +13,7 @@ if (global.bossPractice == 1)
 
 // resetting between turns
 /// AFTER
-#Suffix("scr_blconskip")(15)
+#Suffix("scr_blconskip")(15);
 /// CODE
 reset_graze_condition()
 /// END

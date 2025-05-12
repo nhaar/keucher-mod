@@ -22,7 +22,7 @@ if (global.bossPractice)
 
 // reset stats between turns
 /// BEFORE
-if scr_isphase("bullets")
+if (scr_isphase("bullets"))
 /// CODE
-reset_graze_condition()
+reset_graze_condition();
 /// END

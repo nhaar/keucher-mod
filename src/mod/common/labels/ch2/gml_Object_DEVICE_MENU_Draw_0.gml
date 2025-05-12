@@ -4,7 +4,7 @@
 #if DEMO
 draw_text_transformed(195, 230, ("DELTARUNE " + version_text + " (C) Toby Fox 2018-2022 "), 0.5, 0.5, 0)
 #else
-draw_text_transformed(195, 230, ("DELTARUNE " + version_text + " (C) Toby Fox 2018-2024 "), 0.5, 0.5, 0)
+draw_text_transformed(195, 230, "DELTARUNE " + version_text + " (C) Toby Fox 2018-2024 ", 0.5, 0.5, 0);
 #endif
 /// CODE
 draw_set_halign(fa_center)

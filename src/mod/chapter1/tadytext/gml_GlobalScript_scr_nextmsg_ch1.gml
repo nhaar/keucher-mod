@@ -10,8 +10,8 @@ if (rate < 3)
 #else
     if (rate < 3)
     {
-        firstnoise = 0
-        alarm[2] = 1
+        firstnoise = 0;
+        alarm[2] = 1;
     }
 #endif
 /// CODE

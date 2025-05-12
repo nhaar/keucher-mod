@@ -12,7 +12,7 @@ return global.debug
 // vanilla uses this debugcontroller which is useless
 
 /// REPLACE
-    if instance_exists(#Suffix("obj_debugcontroller"))
+    if (instance_exists(#Suffix("obj_debugcontroller")))
         return #Suffix("obj_debugcontroller").debug;
 /// CODE
     return global.debug;

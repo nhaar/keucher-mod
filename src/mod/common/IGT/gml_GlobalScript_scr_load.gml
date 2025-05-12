@@ -4,7 +4,7 @@
 /// PREPEND
 #else
 /// AFTER
-function scr_load() //gml_Script_scr_load
+function scr_load()
 {
 /// CODE
 #endif

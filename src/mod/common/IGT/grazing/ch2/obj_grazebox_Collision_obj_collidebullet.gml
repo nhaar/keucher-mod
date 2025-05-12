@@ -8,7 +8,7 @@ var _grazesub2 = grazesub2
 /// END
 
 /// REPLACE
-global.turntimer -= (timepoints / 30 * _grazetimefactor)
+global.turntimer -= ((timepoints / 30) * _grazetimefactor);
 /// CODE
 {
     _grazesub1 = ((timepoints / 30) * _grazetimefactor)
@@ -18,7 +18,7 @@ global.turntimer -= (timepoints / 30 * _grazetimefactor)
 /// END
 
 /// REPLACE
-global.turntimer -= (timepoints * _grazetimefactor)
+global.turntimer -= (timepoints * _grazetimefactor);
 /// CODE
 {
     _grazesub2 = (timepoints * _grazetimefactor)

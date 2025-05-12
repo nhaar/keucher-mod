@@ -10,7 +10,7 @@ if (global.debug == true)
 /// END
 
 /// REPLACE
-room_goto(PLACE_LOGO)
+room_goto(PLACE_LOGO);
 /// CODE
-room_goto(room_dw_mansion_top_post)
+room_goto(room_dw_mansion_top_post);
 /// END
