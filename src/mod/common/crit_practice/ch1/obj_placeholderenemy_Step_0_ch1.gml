@@ -4,7 +4,7 @@
     {
         #Suffix("scr_randomtarget")();
         
-        if (!instance_exists(obj_darkener))
+        if (!instance_exists(#Suffix("obj_darkener")))
             #Suffix("instance_create")(0, 0, #Suffix("obj_darkener"));
         
         global.typer = 50;
