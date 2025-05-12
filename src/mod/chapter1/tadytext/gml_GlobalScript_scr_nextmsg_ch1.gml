@@ -4,8 +4,8 @@
 #if SP
 if (rate < 3)
 {
-    firstnoise = false
-    alarm[2] = 1
+    firstnoise = 0;
+    alarm[2] = 1;
 }
 #else
     if (rate < 3)

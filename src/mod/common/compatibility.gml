@@ -1,6 +1,6 @@
 /// FUNCTIONS
 
-#if CHS || SURVEY_PROGRAM || (LTS && CH1)
+#if CHS || SP || (LTS && CH1)
 function i_ex(instance)
 {
     if (instance > 0)

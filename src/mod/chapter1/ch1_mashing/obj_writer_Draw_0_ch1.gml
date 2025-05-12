@@ -26,7 +26,7 @@ var has_wrist_protector = global.flag[10] == 1;
 
 /// AFTER
 #if SP
-if (halt != false && button1 == 1 && siner > 0)
+if (halt != 0 && button1 == 1 && siner > 0)
 #else
 if (halt != 0 && button1 == 1 && siner > 0)
 #endif
@@ -40,7 +40,7 @@ else if has_wrist_protector
 
 /// BEFORE
 #if SP
-if (halt != false && button1 == 1 && siner > 0)
+if (halt != 0 && button1 == 1 && siner > 0)
 #else
 if (halt != 0 && button1 == 1 && siner > 0)
 #endif

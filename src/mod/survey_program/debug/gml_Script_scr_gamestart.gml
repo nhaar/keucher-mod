@@ -3,6 +3,6 @@
 // removing vanilla assign
 
 /// REPLACE
-global.debug = false
+global.debug = 0;
 /// CODE
 /// END

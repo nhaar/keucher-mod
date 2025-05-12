@@ -153,8 +153,8 @@ function reset_defense_stats()
     {
         global.battledf[i] =
             global.df[global.char[i]] +
-            global.itemdf[global.char[i]][0] +
-            global.itemdf[global.char[i]][1] +
-            global.itemdf[global.char[i]][2]
+            global.itemdf[global.char[i], 0] +
+            global.itemdf[global.char[i], 1] +
+            global.itemdf[global.char[i], 2]
     }
 }

@@ -21,7 +21,7 @@ if (bolttotal != 1)
         for (i = 0; i < bolttotal; i += 1)
         {
             // TO-DO: Check why triple pattern is for both?
-            boltframe[i] = pattern_array[global.triple_pattern][i]
+            boltframe[i] = pattern_array[global.triple_pattern, i]
         }
     }
     else if (read_rng_value("fast_attack"))
@@ -30,7 +30,7 @@ if (bolttotal != 1)
         var pattern_number = bolttotal == 2 ? 0 : 3;
         for (i = 0; i < bolttotal; i += 1)
         {
-            boltframe[i] = pattern_array[pattern_number][i]
+            boltframe[i] = pattern_array[pattern_number, i]
         }
     }
 }

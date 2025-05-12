@@ -12,16 +12,16 @@ global.battlemsg[0] = "* just hit the frame perfect # inputs 4Head"
 // replaces are split due to SP and DEMO compatibility
 /// REPLACE
 #if SP
-    global.monstermaxhp[myself] = 130
-    global.monsterhp[myself] = 130
-    global.monsterat[myself] = 7
-    global.monsterdf[myself] = 0
-    global.monsterexp[myself] = 0
-    global.monstergold[myself] = 0
-    global.sparepoint[myself] = 10
-    global.mercymod[myself] = 0
-    global.mercymax[myself] = 100
-    global.canact[myself, 0] = true
+    global.monstermaxhp[myself] = 130;
+    global.monsterhp[myself] = 130;
+    global.monsterat[myself] = 7;
+    global.monsterdf[myself] = 0;
+    global.monsterexp[myself] = 0;
+    global.monstergold[myself] = 0;
+    global.sparepoint[myself] = 10;
+    global.mercymod[myself] = 0;
+    global.mercymax[myself] = 100;
+    global.canact[myself, 0] = 1;
 #else
         global.monstermaxhp[myself] = 130;
         global.monsterhp[myself] = 130;
@@ -44,5 +44,5 @@ global.battlemsg[0] = "* just hit the frame perfect # inputs 4Head"
         global.sparepoint[myself] = 10
         global.mercymod[myself] = 0
         global.mercymax[myself] = 100
-        global.canact[myself][0] = 1
+        global.canact[myself, 0] = 1
 /// END
