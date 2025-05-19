@@ -192,6 +192,9 @@ class KeucherModLoader : UMPLoader
 
 void BuildMod (DeltaruneVersion version)
 {
+    // changing save folder
+    Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");
+
     CreateNoClipSprite(version);
 
     KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
