@@ -5,6 +5,11 @@ Toggle boundary boxes visibility
 */
 function toggle_boundary_boxes()
 {
+    if (global.fighting)
+    {
+        // this feature is not allowed in battles
+        return;
+    }
     if pressed_active_debug_keybind("hitboxes")
     {
         global.bboxVisible = wrap_around(global.bboxVisible + 1, 0, 2);

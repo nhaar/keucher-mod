@@ -24,7 +24,8 @@ function get_debug_keybinds()
         "noclip",
         "screenshot",
         "hitboxes",
-        "pause"
+        "pause",
+        "turn_skip"
     );
 }
 
@@ -54,6 +55,7 @@ function get_debug_keybind_default(name)
         case "screenshot": return vk_f10;
         case "hitboxes": return ord("V");
         case "pause": return vk_pause;
+        case "turn_skip": return ord("V");
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";
@@ -85,6 +87,7 @@ function get_debug_keybind_descriptive_name(name)
         case "screenshot": return "Take Screenshot";
         case "hitboxes": return "Show Hitboxes";
         case "pause": return "Emulate OS Pause";
+        case "turn_skip": return "Skip turns in-battle";
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";
@@ -137,6 +140,8 @@ function get_debug_keybind_description(name)
             return "When pressed, you can see some hitboxes in the room\nPress twice to see even more hitboxes";
         case "pause":
             return "When pressed, the game will emulate the pause/unpause function from consoles (DEMO only)";
+        case "turn_skip":
+            return "When pressed in a battle, the turn will be skipped";
         default:
             show_message("Error occured: could not find keybind named \"" + name + "\"");
             e += "crash";
