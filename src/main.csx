@@ -21,6 +21,35 @@ class KeucherModLoader : UMPLoader
         _ => true
     };
 
+    public override bool AcceptFile(string filePath)
+    {
+        var isChapterSelect = filePath.StartsWith("chapter_select");
+        // chapter select is isolated
+        if (DeltaruneVersion.ChapterSelect == Version)
+        {
+            return isChapterSelect;
+        }
+        else if (isChapterSelect)
+        {
+            return false;
+        }
+
+        var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
+        var isChapter = chapterMatch.Success;
+        var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
+
+
+        if (
+            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram && Version != DeltaruneVersion.Demo)) ||
+            (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo))
+        )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public override string[] Symbols => Version switch
     {
         // Symbols guide:
@@ -36,28 +65,11 @@ class KeucherModLoader : UMPLoader
         _ => throw new NotImplementedException()
     };
 
-    public override string[] GetCodeNames (string filePath)
+    public override string[] GetCodeNames(string filePath)
     {
         List<string> names = new List<string>();
 
-        var isChapterSelect = filePath.Contains("chapter_select");
-        var isCommon = filePath.Contains("common");
-
-        var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
-        var isChapter = chapterMatch.Success;
-        var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
-
-        if (
-            (isChapterSelect && Version != DeltaruneVersion.ChapterSelect) ||
-            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram && Version != DeltaruneVersion.Demo)) ||
-            (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo))
-        )
-        {
-            return names.ToArray();
-        }
-
         string fileName = Path.GetFileNameWithoutExtension(filePath);
-        
         // legal object prefixes
         if (Regex.IsMatch(fileName, @"^(obj_|o_)"))
         {
@@ -108,7 +120,7 @@ class KeucherModLoader : UMPLoader
                         fileNameCh1 += ch1Suffix;
                     }
                     names.Add(fileNameCh1);
-                    
+
                     if (suffix == dupeSuffix)
                     {
                         names.Add(fileName);
@@ -125,7 +137,7 @@ class KeucherModLoader : UMPLoader
                     return names.ToArray();
                 }
             }
-            
+
         }
 
         if (fileName == "boss_init")

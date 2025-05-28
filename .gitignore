@@ -10,6 +10,7 @@
 /build_scripts/*
 !/build_scripts/build-template.bat
 !/build_scripts/build.py
+!/build_scripts/paths-template.py
 
 # build files
 /dist
