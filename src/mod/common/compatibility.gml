@@ -32,7 +32,7 @@ function instance_create(x_pos, y_pos, obj_name)
 }
 #endif
 
-#if LTS && CH1
+#if (LTS && CH1) || SP
 // copy and paste to work on ch1
 function scr_isphase(arg0)
 {
