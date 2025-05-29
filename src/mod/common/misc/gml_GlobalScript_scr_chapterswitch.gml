@@ -3,7 +3,7 @@
 // changing game change for LTS
 
 /// REPLACE
-game_change("/../", "-game data.win" + parameters);
+game_change("/../chapter" + chapstring + "_windows", "-game data.win" + parameters);
 /// CODE
-game_change("/../", "-game data_keucher.win" + parameters);
+game_change("/../chapter" + chapstring + "_windows", "-game data_keucher.win" + parameters);
 /// END
