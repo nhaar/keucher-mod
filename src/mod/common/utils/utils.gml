@@ -201,3 +201,14 @@ function get_gui_height()
     return display_get_gui_height()
 #endif
 }
+
+function get_mouse_sprite()
+{
+#if CH2
+    return spr_maus_cursor
+#elsif CHS
+    return spr_heart
+#elsif CH1
+    return spr_face_sans0
+#endif
+}

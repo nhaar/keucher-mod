@@ -892,12 +892,4 @@ draw_set_color(read_ui_color("text"));
 draw_text(menu_desc_padding, menu_desc_padding, menu_desc);
 draw_text(menu_desc_padding, menu_desc_padding + hover_desc_start_y, menu_hover_desc);
 
-draw_sprite(
-#if CH2
-    spr_maus_cursor
-#elsif CHS
-    spr_heart
-#elsif CH1
-    spr_face_sans0
-#endif
-, 0, real_mouse_x, real_mouse_y)
+draw_sprite(get_mouse_sprite(), 0, real_mouse_x, real_mouse_y)
