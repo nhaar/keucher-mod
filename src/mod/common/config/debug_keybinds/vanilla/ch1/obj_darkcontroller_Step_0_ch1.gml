@@ -25,3 +25,17 @@ if pressed_active_debug_keybind("previous_room")
     room_goto_previous()
 }
 /// END
+
+#if DEMO
+/// REPLACE
+    if (keyboard_check_pressed(ord("S")))
+        instance_create_ch1(0, 0, obj_savemenu_ch1);
+    
+    if (keyboard_check_pressed(ord("L")))
+        ossafe_savedata_load_ch1();
+    
+    if (keyboard_check_pressed(ord("R")))
+        game_restart_true_ch1();
+/// CODE
+/// END
+#endif
