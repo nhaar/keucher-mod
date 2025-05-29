@@ -1,5 +1,6 @@
 import subprocess
 import os
+import re
 from pathlib import Path
 
 from paths import UTMT, FLIPS, DEMO, SP, LTS
@@ -10,7 +11,14 @@ SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
 def get_script_path(name: str):
   return os.path.join(SCRIPT_PATH, name + '.csx')
 
-VERSION = "5.2.0"
+version_file = os.path.join(SCRIPT_PATH, 'mod', 'common', 'labels', 'mod_version.gml')
+
+VERSION = ""
+
+with open(version_file, 'r') as f:
+  content = f.read()
+  match = re.search(r'return "(.*)"', content)
+  VERSION = match[1]
 
 def build_version(data_win_path: str, script_name: str, version_name: str):
   data_win_output_path = os.path.join(DIST_PATH, f"data_{version_name}.win")
