@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 if (sprite_palette != -1)
 {

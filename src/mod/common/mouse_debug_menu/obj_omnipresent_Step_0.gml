@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS || SP
+/// PATCH .ignore if CHS
 
 /// APPEND
 if (mouse_check_button_pressed(mb_middle))

@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1 || SP || DEMO
+/// PATCH .ignore if !CH1
 
 // TODO - same as ch2. Possible merge?
 

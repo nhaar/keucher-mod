@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 xx = mouse_x - 40;
 yy = mouse_y - 20;

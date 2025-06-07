@@ -4,7 +4,7 @@
 if
 (
     mouse_check_button_pressed(mb_right)
-#if !CHS && !SP
+#if !CHS
     && !i_ex(obj_debug_xy)
 #endif
 )

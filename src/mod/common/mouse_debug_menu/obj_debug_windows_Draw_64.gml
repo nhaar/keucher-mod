@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 bspace = 30;
 padding = 5;

@@ -1,7 +1,7 @@
 /// IMPORT
 
 // initialize vanilla variables to avoid crashes
-#if CHS || DEMO
+#if CHS
 global.chapter = 0
 #elsif CH1
 global.chapter = 1

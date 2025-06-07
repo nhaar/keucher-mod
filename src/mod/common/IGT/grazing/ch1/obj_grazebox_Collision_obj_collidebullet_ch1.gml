@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1 || SP
+/// PATCH .ignore if !CH1
 
 /// PREPEND
 var _grazesub1 = grazesub1

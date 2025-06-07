@@ -18,19 +18,8 @@ function get_character_code(char)
 function build_party_from_options(party)
 {
     //destryoing previous party
-#if DEMO
-    if (global.chapter == 1)
-    {
-        scr_losechar_ch1();
-    }
-    else
-    {
-        scr_losechar();
-    }
-#elsif !CHS
-    scr_losechar();
-#endif
 #if !CHS
+    scr_losechar();
     var caterpillar = get_object_implicit_chapter("obj_caterpillarchara")
     if instance_exists(caterpillar)
     {
@@ -45,20 +34,7 @@ function build_party_from_options(party)
         {
             continue;
         }
-#endif
-#if DEMO
-        if (global.chapter == 1)
-        {
-            scr_getchar_ch1(party_member)
-        }
-        else if (global.chapter == 2)
-        {
-            scr_getchar(party_member)
-        }
-#elsif !CHS
         scr_getchar(party_member);
-#endif
-#if !CHS
     }
     for (var i = 0; i < party_size; i++)
     {
@@ -93,20 +69,7 @@ function build_party_from_options(party)
         }
         if (!is_undefined(height))
         {
-#endif
-#if DEMO
-            if (global.chapter == 1)
-            {
-                scr_makecaterpillar_ch1(obj_mainchara_ch1.x, obj_mainchara_ch1.y - height, party_member, i);
-            }
-            else
-            {
-                scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i);
-            }
-#elsif !CHS
             scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i);
-#endif
-#if !CHS
         }
     }
 #endif

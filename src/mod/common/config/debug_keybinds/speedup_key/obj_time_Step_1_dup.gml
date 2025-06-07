@@ -1,6 +1,6 @@
 /// PATCH .ignore if CHS
 // replaces vanilla speedup key with mod ones
-// in LTS, the speedup key was removed
+// after LTS, the speedup key was removed
 
 /// APPEND
 if (pressed_active_debug_keybind("speedup"))

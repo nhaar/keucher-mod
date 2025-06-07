@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CHS && ! DEMO
+/// PATCH .ignore if !CHS
 
 /// APPEND
 // add obj_IGT initialization and constants

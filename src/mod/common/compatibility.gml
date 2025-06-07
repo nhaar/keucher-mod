@@ -1,6 +1,6 @@
 /// FUNCTIONS
 
-#if CHS || SP || (LTS && CH1)
+#if CHS || CH1
 function i_ex(instance)
 {
     if (instance > 0)
@@ -32,7 +32,7 @@ function instance_create(x_pos, y_pos, obj_name)
 }
 #endif
 
-#if (LTS && CH1) || SP
+#if CH1
 // copy and paste to work on ch1
 function scr_isphase(arg0)
 {

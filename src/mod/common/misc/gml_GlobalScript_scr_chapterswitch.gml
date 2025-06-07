@@ -1,4 +1,4 @@
-/// PATCH .ignore if !LTS
+/// PATCH
 
 // changing game change for LTS
 

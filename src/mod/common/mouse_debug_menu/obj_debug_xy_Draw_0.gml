@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 x = round(mouse_x);
 y = round(mouse_y);

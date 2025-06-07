@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH1 || SP
+/// PATCH .ignore if !CH1
 /// AFTER
 screenshot = -1
 /// CODE

@@ -139,7 +139,7 @@ function get_debug_keybind_description(name)
         case "hitboxes":
             return "When pressed, you can see some hitboxes in the room\nPress twice to see even more hitboxes";
         case "pause":
-            return "When pressed, the game will emulate the pause/unpause function from consoles (DEMO only)";
+            return "When pressed, the game will emulate the pause/unpause function from consoles";
         case "turn_skip":
             return "When pressed in a battle, the turn will be skipped";
         default:

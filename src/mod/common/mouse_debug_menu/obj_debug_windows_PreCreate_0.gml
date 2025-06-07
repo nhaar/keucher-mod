@@ -1,3 +1,3 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 event_inherited();
