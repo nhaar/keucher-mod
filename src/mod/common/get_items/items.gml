@@ -11,6 +11,10 @@ function get_weapon_ids()
     {
         return get_range_array(1, 22);
     }
+    else if (ch == 3)
+    {
+        return get_range_array(1, 26);
+    }
 
     return create_array();
 }
@@ -41,6 +45,10 @@ function get_weapon_name(weapon_id)
         case 20: return "Broken Sword";
         case 21: return "Puppet Scarf";
         case 22: return "Freeze Ring";
+        case 23: return "Saber10";
+        case 24: return "ToxicAxe";
+        case 25: return "FlexScarf";
+        case 26: return "BlackShard";
     }
 }
 
@@ -54,6 +62,10 @@ function get_armor_ids()
     else if (ch == 2)
     {
         return get_range_array(1, 22);
+    }
+    else if (ch == 3)
+    {
+        return get_range_array(1, 27);
     }
 
     return create_array();
@@ -85,6 +97,11 @@ function get_armor_name(armor_id)
         case 20: return "Frayed Bowtie";
         case 21: return "Dealmaker";
         case 22: return "Royal Pin";
+        case 23: return "ShadowMantle";
+        case 24: return "LodeStone";
+        case 25: return "GingerGuard";
+        case 26: return "BlueRibbon";
+        case 27: return "TennaTie";
     }
 }
 
@@ -98,6 +115,10 @@ function get_consumable_ids()
     else if (ch == 2)
     {
         return get_range_array(1, 33);
+    }
+    else if (ch == 3)
+    {
+        return get_range_array(1, 39);
     }
 
     return create_array();
@@ -140,6 +161,12 @@ function get_consumable_name(consumable_id)
         case 31: return "Revive Brite";
         case 32: return "S. POISON";
         case 33: return "Dog Dollar";
+        case 34: return "TVDinner";
+        case 35: return "Pipis";
+        case 36: return "FlatSoda";
+        case 37: return "TVSlop";
+        case 38: return "ExecBuffet";
+        case 39: return "DeluxeDinner";
     }
 }
 
