@@ -245,3 +245,25 @@ function get_default_keybinds_using_key(key)
 
     return keybinds_using;
 }
+
+function check_battle_keybinds()
+{
+    if pressed_active_debug_keybind("heal_party")
+    {
+        scr_healall(999)
+    }
+    if pressed_active_debug_keybind("instant_win")
+    {
+#if CH2
+        if (instance_exists(o_boxingqueen))
+        {
+            with (o_boxingqueen)
+                health_count = 10
+            with (o_boxinghud)
+                sub_healthbar_count = 0
+        }
+        else
+#endif
+            scr_wincombat()
+    }
+}

@@ -42,20 +42,5 @@
 /// END
 
 /// APPEND
-if pressed_active_debug_keybind("heal_party")
-{
-    scr_healallitemspell(999)
-}
-if pressed_active_debug_keybind("instant_win")
-{
-    if (global.chapter == 2 && instance_exists(o_boxingqueen))
-    {
-        with (o_boxingqueen)
-            health_count = 10
-        with (o_boxinghud)
-            sub_healthbar_count = 0
-    }
-    else
-        scr_wincombat()
-}
+check_battle_keybinds();
 /// END
