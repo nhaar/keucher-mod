@@ -103,6 +103,22 @@ function start_boss_practice()
             break
         }
 #endif
+#if CH3
+        case obj_knight_enemy:
+            obj_boss_practice.turn_text[0] = "Stars (Phase 1)";
+            obj_boss_practice.turn_text[1] = "Swords (Phase 1)";
+            obj_boss_practice.turn_text[2] = "Screen Splitting (Phase 1)";
+            obj_boss_practice.turn_text[3] = "Sword Corridor (Phase 1)";
+            obj_boss_practice.turn_text[4] = "Rotating Slash (Phase 1)";
+            obj_boss_practice.turn_text[5] = "Stars (Phase 2)";
+            obj_boss_practice.turn_text[6] = "Screen Splitting (Phase 2)";
+            obj_boss_practice.turn_text[7] = "Sword Corridor (Phase 2)";
+            obj_boss_practice.turn_text[8] = "Swords (Phase 2)";
+            obj_boss_practice.turn_text[9] = "Rotating Slash (Phase 2)";
+            obj_boss_practice.turn_text[10] = "Rotating Slash (With sans attack)";
+            obj_boss_practice.turn_text[11] = "Ultimate Attack";
+            break;
+#endif
     }
 
     obj_boss_practice.maxturn = array_length(obj_boss_practice.turn_text) - 1

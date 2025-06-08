@@ -181,7 +181,7 @@ function get_gui_height()
 
 function get_mouse_sprite()
 {
-#if CH2
+#if CH2 || CH3
     return spr_maus_cursor
 #elsif CHS
     return spr_heart
