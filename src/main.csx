@@ -77,15 +77,10 @@ class KeucherModLoader : UMPLoader
         // Handling DEMO guiding prefixes files
         var suffix = "";
         var ch1Suffix = "_ch1";
-        var dupeSuffix = "_dup";
         var suffixLength = ch1Suffix.Length;
         if (fileName.EndsWith(ch1Suffix))
         {
             suffix = ch1Suffix;
-        }
-        else if (fileName.EndsWith(dupeSuffix))
-        {
-            suffix = dupeSuffix;
         }
         if (suffix != "")
         {
