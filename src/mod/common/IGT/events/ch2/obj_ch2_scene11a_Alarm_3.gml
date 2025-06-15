@@ -1,3 +1,3 @@
-/// IMPORT .ignore if !CH2
+/// IMPORT
 
 global.current_event = "ch2_cyberend"

@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // to skip the turn if is not Kris and in boss practice
 
 /// AFTER

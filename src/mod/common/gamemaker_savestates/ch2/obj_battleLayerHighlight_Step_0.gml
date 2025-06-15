@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // unsure what this does, but it's related to savestates
 /// APPEND

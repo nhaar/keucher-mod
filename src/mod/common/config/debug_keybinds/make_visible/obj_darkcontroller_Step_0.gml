@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 /// APPEND
 // toggle visible
 if pressed_active_debug_keybind("make_visible")

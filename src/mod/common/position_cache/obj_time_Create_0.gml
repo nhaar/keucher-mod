@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 
 /// APPEND
 // cache variables will store temporary x and y positions

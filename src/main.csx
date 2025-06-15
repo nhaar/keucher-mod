@@ -33,16 +33,40 @@ class KeucherModLoader : UMPLoader
         var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
         var isChapter = chapterMatch.Success;
         var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
+        var isRange = false;
 
 
-        if (
-            (chapter == 1 && Version != DeltaruneVersion.Chapter1) ||
-            (chapter == 2 && Version != DeltaruneVersion.Chapter2) ||
-            (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
-            (chapter == 4 && Version != DeltaruneVersion.Chapter4)
-        )
+
+        var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)(\+|)");
+        if (minifiedChapterMatch.Success)
         {
-            return false;
+            isRange = chapterMatch.Groups[2].Value == "+";
+            chapter = int.Parse(minifiedChapterMatch.Groups[1].Value);
+        }
+
+        if (isRange)
+        {
+            if (
+                (Version == DeltaruneVersion.Chapter1 && chapter < 1) ||
+                (Version == DeltaruneVersion.Chapter2 && chapter < 2) ||
+                (Version == DeltaruneVersion.Chapter3 && chapter < 3) ||
+                (Version == DeltaruneVersion.Chapter4 && chapter < 4)
+            )
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (
+                (chapter == 1 && Version != DeltaruneVersion.Chapter1) ||
+                (chapter == 2 && Version != DeltaruneVersion.Chapter2) ||
+                (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
+                (chapter == 4 && Version != DeltaruneVersion.Chapter4)
+            )
+            {
+                return false;
+            }
         }
 
         return true;

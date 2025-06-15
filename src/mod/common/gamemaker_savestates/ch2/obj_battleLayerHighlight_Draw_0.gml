@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // I believe this is a savestate crash fix
 /// PREPEND

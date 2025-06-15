@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /*
 This patch is for having a way to split when going to bed in Chapter 2.

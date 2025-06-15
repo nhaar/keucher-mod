@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // count damage of attacks in ch2
 /// REPLACE

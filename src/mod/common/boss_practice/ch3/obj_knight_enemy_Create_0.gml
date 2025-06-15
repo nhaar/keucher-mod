@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH3
+/// PATCH
 
 /// APPEND
 // this array is indexed by global.bossTurn, and each element is an array of 4 elements:

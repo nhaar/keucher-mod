@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // removing originally debug only keybindings
 /// REPLACE

@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // update at the end of turns
 /// AFTER
 global.charturn = 0

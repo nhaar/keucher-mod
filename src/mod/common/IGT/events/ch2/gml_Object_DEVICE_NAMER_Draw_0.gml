@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// BEFORE
 snd_play(snd_dtrans_lw)

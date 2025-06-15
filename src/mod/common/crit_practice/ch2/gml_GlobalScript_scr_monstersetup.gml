@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 
 // make enemy unkillable in practice mode (ambyu-lance)

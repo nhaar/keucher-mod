@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 /// PREPEND
 if (!i_ex(obj_crit_practice))
 {

@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // rigging attacks
 /// AFTER
             else

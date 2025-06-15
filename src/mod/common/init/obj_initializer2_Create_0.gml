@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 
 /// APPEND
 // ch1&ch2 init

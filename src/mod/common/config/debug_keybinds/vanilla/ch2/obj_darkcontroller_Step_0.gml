@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // overwrite vanilla keybinds with the mod ones in ch2
 /// REPLACE

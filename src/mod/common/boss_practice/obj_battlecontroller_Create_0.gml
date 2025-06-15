@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 
 /// APPEND
 if (global.bossPractice)

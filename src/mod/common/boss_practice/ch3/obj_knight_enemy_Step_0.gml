@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH3
+/// PATCH
 
 /// BEFORE
 if (blockanim == 1)

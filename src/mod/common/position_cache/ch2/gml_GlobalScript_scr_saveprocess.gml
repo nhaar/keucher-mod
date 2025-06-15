@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// AFTER
 ossafe_file_text_close(myfileid)

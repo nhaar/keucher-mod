@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // adding toggle in battles
 /// APPEND
 if pressed_active_debug_keybind("tp_toggle")

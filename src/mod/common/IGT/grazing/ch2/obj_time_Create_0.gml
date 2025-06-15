@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// APPEND
 global.grazeSubtracted = 0

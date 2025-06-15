@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// AFTER
 snd_play(snd_explosion)

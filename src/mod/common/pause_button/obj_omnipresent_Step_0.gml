@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 /// APPEND
 // check for pause start
 if (pressed_active_debug_keybind("pause"))

@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // keybind for toggling boundary boxes
 /// APPEND
 toggle_boundary_boxes()

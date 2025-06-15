@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 // replaces vanilla speedup key with mod ones
 // after LTS, the speedup key was removed
 

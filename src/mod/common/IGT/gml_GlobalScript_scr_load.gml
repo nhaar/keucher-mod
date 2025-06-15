@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 
 /// AFTER
 function scr_load()

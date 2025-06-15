@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 // lightworld basic keybinds for ch2
 /// APPEND
