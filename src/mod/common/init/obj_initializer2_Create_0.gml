@@ -2,5 +2,5 @@
 
 /// APPEND
 // ch1&ch2 init
-init()
+mod_init()
 /// END

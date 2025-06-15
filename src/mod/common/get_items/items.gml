@@ -15,6 +15,10 @@ function get_weapon_ids()
     {
         return get_range_array(1, 26);
     }
+    else if (ch == 4)
+    {
+        return concat_arrays(get_range_array(1, 26), get_range_array(50, 54));
+    }
 
     return create_array();
 }
@@ -49,6 +53,11 @@ function get_weapon_name(weapon_id)
         case 24: return "ToxicAxe";
         case 25: return "FlexScarf";
         case 26: return "BlackShard";
+        case 50: return "JingleBlade";
+        case 51: return "ScarfMark";
+        case 52: return "JusticeAxe";
+        case 53: return "Winglade";
+        case 54: return "AbsorbAx";
     }
 }
 
@@ -66,6 +75,10 @@ function get_armor_ids()
     else if (ch == 3)
     {
         return get_range_array(1, 27);
+    }
+    else if (ch == 4)
+    {
+        return concat_arrays(get_range_array(1, 27), get_range_array(50, 54));
     }
 
     return create_array();
@@ -102,6 +115,11 @@ function get_armor_name(armor_id)
         case 25: return "GingerGuard";
         case 26: return "BlueRibbon";
         case 27: return "TennaTie";
+        case 50: return "Waferguard";
+        case 51: return "MysticBand";
+        case 52: return "PowerBand";
+        case 53: return "PrincessRBN";
+        case 54: return "GoldWidow";
     }
 }
 
@@ -119,6 +137,10 @@ function get_consumable_ids()
     else if (ch == 3)
     {
         return get_range_array(1, 39);
+    }
+    else if (ch == 4)
+    {
+        return concat_arrays(get_range_array(1, 39), get_range_array(60, 63));
     }
 
     return create_array();
@@ -167,6 +189,10 @@ function get_consumable_name(consumable_id)
         case 37: return "TVSlop";
         case 38: return "ExecBuffet";
         case 39: return "DeluxeDinner";
+        case 60: return "AncientSweet";
+        case 61: return "Rhapsotea";
+        case 62: return "Scarlixir";
+        case 63: return "BitterTear";
     }
 }
 

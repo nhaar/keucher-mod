@@ -582,6 +582,7 @@ for (var i = 0; i < button_amount; i++)
                         {
                             case "weapon_selector":
                                 var weapons = get_weapon_ids();
+                                show_message(weapons);
                                 item_name = get_weapon_name(weapons[i]);
                                 get_weapon_any_chapter(weapons[i]);
                                 break;

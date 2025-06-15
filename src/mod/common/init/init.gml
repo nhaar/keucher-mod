@@ -5,7 +5,7 @@ function set_constants()
     set_crit_patterns()
 }
 
-function init()
+function mod_init()
 {
     set_constants()
     init_config();

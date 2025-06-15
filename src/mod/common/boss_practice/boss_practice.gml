@@ -119,6 +119,10 @@ function start_boss_practice()
             obj_boss_practice.turn_text[11] = "Ultimate Attack";
             break;
 #endif
+#if CH4
+        case -1:
+            break;
+#endif
     }
 
     obj_boss_practice.maxturn = array_length(obj_boss_practice.turn_text) - 1

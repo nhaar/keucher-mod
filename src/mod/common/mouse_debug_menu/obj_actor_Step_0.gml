@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CH4
 
 if (auto_walk == 1)
 {

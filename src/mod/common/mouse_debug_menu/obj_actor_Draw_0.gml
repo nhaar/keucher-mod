@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CH4
 
 if (sprite_palette != -1)
 {

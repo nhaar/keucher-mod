@@ -15,6 +15,16 @@ function create_array()
     return new_array;
 }
 
+function concat_arrays(array1, array2)
+{
+    var len1 = array_length(array1);
+    var len2 = array_length(array2);
+    for (var i = 0; i < len2; i++){
+        array1[len1 + i] = array2[i];
+    }
+    return array1;
+}
+
 /*
 Keep a value in a range wrapping around the bounds
 
@@ -181,7 +191,7 @@ function get_gui_height()
 
 function get_mouse_sprite()
 {
-#if CH2 || CH3
+#if CH2 || CH3 || CH4
     return spr_maus_cursor
 #elsif CHS
     return spr_heart

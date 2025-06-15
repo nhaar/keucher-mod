@@ -1,4 +1,4 @@
-/// IMPORT
+/// IMPORT .ignore if CH4
 
 scr_depth();
 image_speed = 0;
