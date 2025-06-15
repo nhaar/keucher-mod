@@ -36,21 +36,20 @@ class KeucherModLoader : UMPLoader
         var isRange = false;
 
 
-
         var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)(\+|)");
         if (minifiedChapterMatch.Success)
         {
-            isRange = chapterMatch.Groups[2].Value == "+";
+            isRange = minifiedChapterMatch.Groups[2].Value == "+";
             chapter = int.Parse(minifiedChapterMatch.Groups[1].Value);
         }
 
         if (isRange)
         {
             if (
-                (Version == DeltaruneVersion.Chapter1 && chapter < 1) ||
-                (Version == DeltaruneVersion.Chapter2 && chapter < 2) ||
-                (Version == DeltaruneVersion.Chapter3 && chapter < 3) ||
-                (Version == DeltaruneVersion.Chapter4 && chapter < 4)
+                (Version == DeltaruneVersion.Chapter1 && chapter > 1) ||
+                (Version == DeltaruneVersion.Chapter2 && chapter > 2) ||
+                (Version == DeltaruneVersion.Chapter3 && chapter > 3) ||
+                (Version == DeltaruneVersion.Chapter4 && chapter > 4)
             )
             {
                 return false;
