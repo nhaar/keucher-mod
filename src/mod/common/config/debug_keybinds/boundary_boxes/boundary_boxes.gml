@@ -49,8 +49,8 @@ function draw_boundary_boxes()
         var solid_block = get_object_implicit_chapter("obj_solidblock")
         if i_ex(mainchara)
         {
-            // TODO: document what is this for?
-            if (global.chapter == 2 && mainchara.roomenterfreezeend == 0)
+            // signal wrong warp state in ch2+
+            if (global.chapter > 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
@@ -61,7 +61,7 @@ function draw_boundary_boxes()
             draw_rectangle_in_instance(mainchara)
             // change color of rectangle on the speed status
             // running
-            if (mainchara.runmove)
+            if (variable_instance_exists(mainchara, "runmove") && mainchara.runmove)
             {
                 // top speed (in dark world)
                 if (mainchara.wspeed == 9)
