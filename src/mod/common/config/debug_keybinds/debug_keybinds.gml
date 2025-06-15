@@ -250,7 +250,7 @@ function check_battle_keybinds()
 {
     if pressed_active_debug_keybind("heal_party")
     {
-        scr_healall(999)
+        scr_healall(9999)
     }
     if pressed_active_debug_keybind("instant_win")
     {
@@ -291,6 +291,14 @@ function check_dark_world_keybinds()
             global.interact = 0
         }
     }
+    if pressed_active_debug_keybind("next_room")
+    {
+        room_goto_next()
+    }
+    if pressed_active_debug_keybind("previous_room")
+    {
+        room_goto_previous()
+    }
 }
 
 function check_gif_recording()
@@ -300,8 +308,7 @@ function check_gif_recording()
         gif_recording = 1
         gif_timer = 0
         gif_date = string(date_get_year(date_current_datetime())) + "_" + string(date_get_month(date_current_datetime())) + "_" + string(date_get_day(date_current_datetime())) + "_" + string(date_get_hour(date_current_datetime())) + "_" + string(date_get_minute(date_current_datetime())) + "_" + string(date_get_second(date_current_datetime()))
-    }
-    if gif_recording
+    } else if (gif_recording)
     {
         var gif_release = 0
         if pressed_active_debug_keybind("gif")

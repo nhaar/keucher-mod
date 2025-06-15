@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 /// REPLACE
 if (global.is_console && os_is_paused())
 /// CODE

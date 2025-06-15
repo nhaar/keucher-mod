@@ -20,5 +20,8 @@ if (scr_debug())
     }
 }
 /// CODE
+/// END
+
+/// APPEND
 check_dark_world_keybinds();
 /// END

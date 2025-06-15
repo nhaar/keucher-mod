@@ -1,9 +1,11 @@
 /// PATCH
 
+// remove vanilla code
+
 /// REPLACE
 if (scr_debug())
 {
-    if (sunkus_kb_check_pressed(71) && !sunkus_kb_check(17) && gif_recording == 0)
+    if ((sunkus_kb_check_pressed(71) || dorecord == 1) && !sunkus_kb_check(17) && gif_recording == 0)
     {
         gif_recording = 1;
         gif_timer = 0;
@@ -14,7 +16,7 @@ if (scr_debug())
     {
         var gif_release = 0;
         
-        if (sunkus_kb_check_released(71))
+        if (sunkus_kb_check_released(71) || dorecord == 2)
             gif_release = 1;
         
         if (gif_timer == 0)
@@ -33,6 +35,7 @@ if (scr_debug())
             gif_save(gif_image, "game_" + gif_date + ".gif");
             gif_timer = 0;
             gif_recording = false;
+            dorecord = 0;
         }
         
         gif_timer++;
