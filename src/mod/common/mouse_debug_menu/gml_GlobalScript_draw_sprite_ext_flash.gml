@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 function draw_sprite_ext_flash(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 {

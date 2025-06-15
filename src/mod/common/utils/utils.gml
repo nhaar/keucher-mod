@@ -15,6 +15,16 @@ function create_array()
     return new_array;
 }
 
+function concat_arrays(array1, array2)
+{
+    var len1 = array_length(array1);
+    var len2 = array_length(array2);
+    for (var i = 0; i < len2; i++){
+        array1[len1 + i] = array2[i];
+    }
+    return array1;
+}
+
 /*
 Keep a value in a range wrapping around the bounds
 
@@ -44,12 +54,6 @@ For compatibility for DEMO objects which end in CH1
 */
 function get_object_implicit_chapter (object)
 {
-#if DEMO
-    if (global.chapter == 1)
-    {
-        object += "_ch1";
-    }
-#endif
     return asset_get_index(object)
 }
 
@@ -153,20 +157,14 @@ function get_range_array(start_number, end_number)
 /* Returns 0 if chapter select */
 function get_current_chapter()
 {
-#if DEMO
-    if (instance_exists(obj_time_ch1))
-    {
-        return 1;
-    }
-    if (instance_exists(obj_time))
-    {
-        return 2;
-    }
-    return 0;
-#elsif CH1
+#if CH1
     return 1;
 #elsif CH2
     return 2;
+#elsif CH3
+    return 3;
+#elsif CH4
+    return 4;
 #else
     return 0;
 #endif
@@ -176,8 +174,6 @@ function loaded_savefile()
 {
 #if CHS
     return false;
-#elsif DEMO
-    return instance_exists(obj_mainchara) || instance_exists(obj_mainchara_ch1)
 #else
     return instance_exists(obj_mainchara)
 #endif
@@ -185,26 +181,17 @@ function loaded_savefile()
 
 function get_gui_width()
 {
-#if SP
-    // survey program just has fixed values, if they're not using a resizer (and the functions dont return a good value for some reason)
-    return 640
-#else
     return display_get_gui_width()
-#endif
 }
 
 function get_gui_height()
 {
-#if SP
-    return 480
-#else
     return display_get_gui_height()
-#endif
 }
 
 function get_mouse_sprite()
 {
-#if CH2
+#if CH2 || CH3 || CH4
     return spr_maus_cursor
 #elsif CHS
     return spr_heart

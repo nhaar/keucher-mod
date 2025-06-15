@@ -8,7 +8,9 @@ function get_options()
         "hp_display",
         "doorwarp_indicator",
         "wakeup_mash_display",
-        "position_save_caching"
+        "position_save_caching",
+        "no_death_mantle",
+        "ch3_board_room"
     );
 }
 
@@ -26,6 +28,10 @@ function get_option_default(name)
             return "debug";
         case "position_save_caching":
             return false;
+        case "no_death_mantle":
+            return true;
+        case "ch3_board_room":
+            return "debug";
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
@@ -46,6 +52,10 @@ function get_option_button_text(name)
             return "Display wake up mash stats";
         case "position_save_caching":
             return "Use position caching for saves";
+        case "no_death_mantle":
+            return "Shadow Mantle no-death version"
+        case "ch3_board_room":
+            return "Board Arcade Room Display";
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
@@ -66,6 +76,10 @@ function get_option_button_desc(name)
             return "In the sequence at the start of Chapter 1 where you mash the arrow keys\nDisplay stats for how well you are doing";
         case "position_save_caching":
             return "When this is enabled, saving and loading will remember what position you saved in\nOnly works during the current session, will sometimes be out of bounds";
+        case "no_death_mantle":
+            return "Shadow Mantle fight is always no-death version, the version you get if you fight\nit without reloading";
+        case "ch3_board_room":
+            return "Enables the debug feature in which the room names are displayed in the arcade\nsection of the boards in chapter 3";
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
@@ -87,7 +101,13 @@ function init_options()
 
 function set_option_value(name, value)
 {
+    
     update_config_value(value, "option_" + name);
+
+    if (name == "ch3_board_room")
+    {
+        global.chemg_show_room = is_option_active(name);
+    }
 }
 
 function read_option_value(name)

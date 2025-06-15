@@ -49,8 +49,8 @@ function draw_boundary_boxes()
         var solid_block = get_object_implicit_chapter("obj_solidblock")
         if i_ex(mainchara)
         {
-            // TODO: document what is this for?
-            if (global.chapter == 2 && mainchara.roomenterfreezeend == 0)
+            // signal wrong warp state in ch2+
+            if (global.chapter > 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
@@ -61,7 +61,7 @@ function draw_boundary_boxes()
             draw_rectangle_in_instance(mainchara)
             // change color of rectangle on the speed status
             // running
-            if (mainchara.runmove)
+            if (variable_instance_exists(mainchara, "runmove") && mainchara.runmove)
             {
                 // top speed (in dark world)
                 if (mainchara.wspeed == 9)
@@ -176,22 +176,6 @@ function update_doors_visibility(is_visible)
 {
     var doors = create_array
     (
-#if DEMO
-        obj_doorA_ch1,
-        obj_doorB_ch1,
-        obj_doorC_ch1,
-        obj_doorD_ch1,
-        obj_doorA_musfade_ch1,
-        obj_doorB_musfade_ch1,
-        obj_doorC_musfade_ch1,
-        obj_doorD_musfade_ch1,
-        obj_doorE_ch1,
-        obj_doorF_ch1,
-        obj_doorX_ch1,
-        obj_doorW_ch1,
-        obj_doorX_musfade_ch1,
-        obj_doorw_musfade_ch1,
-#endif
         obj_doorA,
         obj_doorB,
         obj_doorC,
@@ -219,14 +203,6 @@ function update_walls_visibility(is_visible)
 {
     var walls = create_array
     (
-#if DEMO
-        obj_sur_dark_ch1,
-        obj_sur_ch1,
-        obj_sul_ch1,
-        obj_sdr_ch1,
-        obj_sdl_dark_ch1,
-        obj_sdl_ch1,
-#endif
         obj_sur_dark,
         obj_sur,
         obj_sul,

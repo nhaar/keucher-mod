@@ -1,21 +1,10 @@
-# Path to the DEMO data.wins
-DEMO = {
-  '1.15': r"",
-  '1.10': r"",
-  '1.09': r""
-}
-
-# Path to the Survey Program data.wins
-SP = {
-  'japanese': r"",
-  'english': r"",
-}
-
-# Path to the 1.19 data.wins
-LTS = {
+# Path to the chapters data.wins (0 is chapter select)
+CHAPTERS = {
   '0': r"",
   '1': r"",
-  '2': r""
+  '2': r"",
+  '3': r"",
+  '4': r""
 }
 
 # Path to the UTMT CLI .exe

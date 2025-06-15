@@ -25,19 +25,8 @@ if (global.debug_keybinds_on)
 // saving savestates
 if pressed_active_debug_keybind("store_savestate")
 {
-#if DEMO
-    if (global.chapter == 1)
-    {
-        scr_save_ch1()
-    }
-    else
-    {
-        scr_save();
-    }
-#elsif !CHS
-    scr_save();
-#endif
 #if !CHS
+    scr_save();
     var ch = get_current_chapter();
     game_save("ssch" + string(ch) + "_" + string(global.filechoice) + "_" + string(global.currentSlotSelected))
     show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " saved")
@@ -50,23 +39,8 @@ if pressed_active_debug_keybind("load_savestate")
     var ch = get_current_chapter();
     if file_exists("ss_filech" + string(ch) + "_" + string(global.filechoice) + "_" + string(global.currentSlotSelected))
     {
-#endif
-#if DEMO
-        if (global.chapter == 1)
-        {
-            snd_stop_all_ch1()
-            scr_load_ch1()
-        }
-        else
-        {
-            snd_stop_all()
-            scr_load()    
-        }
-#elsif !CHS
         snd_stop_all()
         scr_load()
-#endif
-#if !CHS
         // TO-DO: check if this ord(string()) is redundant, since global.currentSlotSelected is apparently already a valid value
         if keyboard_check(ord(string(global.currentSlotSelected)))
             show_temp_message("File " + string(global.filechoice) + ", slot " + string(global.currentSlotSelected) + " loaded (savestate ignored)")

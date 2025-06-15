@@ -1,4 +1,4 @@
-/// PATCH .ignore if CHS
+/// PATCH
 /// APPEND
 draw_boundary_boxes()
 /// END

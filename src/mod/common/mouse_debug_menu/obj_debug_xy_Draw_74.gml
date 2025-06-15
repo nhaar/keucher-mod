@@ -1,4 +1,4 @@
-/// IMPORT .ignore if SP
+/// IMPORT
 
 _selected_string = "No object!#MouseL:Choose&Drag#MouseR:Drag From Anchor";
 

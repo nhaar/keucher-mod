@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// BEFORE
 for (i = 0; i < 20; i++)

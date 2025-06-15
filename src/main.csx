@@ -15,11 +15,7 @@ class KeucherModLoader : UMPLoader
 {
     public override string CodePath => "mod/";
 
-    public override bool UseGlobalScripts => Version switch
-    {
-        DeltaruneVersion.SurveyProgram => false,
-        _ => true
-    };
+    public override bool UseGlobalScripts => true;
 
     public override bool AcceptFile(string filePath)
     {
@@ -37,14 +33,39 @@ class KeucherModLoader : UMPLoader
         var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
         var isChapter = chapterMatch.Success;
         var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
+        var isRange = false;
 
 
-        if (
-            (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.SurveyProgram && Version != DeltaruneVersion.Demo)) ||
-            (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo))
-        )
+        var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)(\+|)");
+        if (minifiedChapterMatch.Success)
         {
-            return false;
+            isRange = minifiedChapterMatch.Groups[2].Value == "+";
+            chapter = int.Parse(minifiedChapterMatch.Groups[1].Value);
+        }
+
+        if (isRange)
+        {
+            if (
+                (Version == DeltaruneVersion.Chapter1 && chapter > 1) ||
+                (Version == DeltaruneVersion.Chapter2 && chapter > 2) ||
+                (Version == DeltaruneVersion.Chapter3 && chapter > 3) ||
+                (Version == DeltaruneVersion.Chapter4 && chapter > 4)
+            )
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (
+                (chapter == 1 && Version != DeltaruneVersion.Chapter1) ||
+                (chapter == 2 && Version != DeltaruneVersion.Chapter2) ||
+                (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
+                (chapter == 4 && Version != DeltaruneVersion.Chapter4)
+            )
+            {
+                return false;
+            }
         }
 
         return true;
@@ -58,10 +79,10 @@ class KeucherModLoader : UMPLoader
         // DEMO -> This data.win is from the DEMO version, PRE-LTS versions
         // SP -> This data.win is from the Survey Program version
         DeltaruneVersion.ChapterSelect => new[] { "CHS" },
-        DeltaruneVersion.Chapter1 => new[] { "CH1", "LTS" },
-        DeltaruneVersion.Chapter2 => new[] { "CH2", "LTS" },
-        DeltaruneVersion.SurveyProgram => new[] { "CH1", "SP" },
-        DeltaruneVersion.Demo => new[] { "CH1", "CH2", "DEMO" },
+        DeltaruneVersion.Chapter1 => new[] { "CH1" },
+        DeltaruneVersion.Chapter2 => new[] { "CH2" },
+        DeltaruneVersion.Chapter3 => new[] { "CH3" },
+        DeltaruneVersion.Chapter4 => new[] { "CH4" },
         _ => throw new NotImplementedException()
     };
 
@@ -79,74 +100,24 @@ class KeucherModLoader : UMPLoader
         // Handling DEMO guiding prefixes files
         var suffix = "";
         var ch1Suffix = "_ch1";
-        var dupeSuffix = "_dup";
         var suffixLength = ch1Suffix.Length;
         if (fileName.EndsWith(ch1Suffix))
         {
             suffix = ch1Suffix;
         }
-        else if (fileName.EndsWith(dupeSuffix))
-        {
-            suffix = dupeSuffix;
-        }
         if (suffix != "")
         {
             // if not DEMO, just remove the indicator.
             fileName = fileName.Substring(0, fileName.Length - suffixLength);
-            if (Version == DeltaruneVersion.Demo)
-            {
-                if (fileName.Contains("gml_Object"))
-                {
-                    // for objects, find the event index
-                    int index = -1;
-                    var events = new string[] { "PreCreate", "Create", "Step", "Other", "Draw", "Collision", "Alarm" };
-                    var foundEvent = "";
-                    foreach (var ev in events)
-                    {
-                        index = fileName.IndexOf(ev);
-                        if (index > -1)
-                        {
-                            foundEvent = ev;
-                            break;
-                        }
-                    }
-
-                    // to place before the _ before the event name
-                    index -= 1;
-                    var fileNameCh1 = fileName.Substring(0, index) + ch1Suffix + fileName.Substring(index, fileName.Length - index);
-                    if (foundEvent == "Collision")
-                    {
-                        // collision names end with another object's name, thus need to suffix too
-                        fileNameCh1 += ch1Suffix;
-                    }
-                    names.Add(fileNameCh1);
-
-                    if (suffix == dupeSuffix)
-                    {
-                        names.Add(fileName);
-                    }
-                    return names.ToArray();
-                }
-                else
-                {
-                    names.Add(fileName + ch1Suffix);
-                    if (suffix == dupeSuffix)
-                    {
-                        names.Add(fileName);
-                    }
-                    return names.ToArray();
-                }
-            }
-
         }
 
         if (fileName == "boss_init")
         {
-            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }));
+            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }, new [] { "knight_enemy" }, new string[] {}));
         }
         else if (fileName == "crit_practice_init")
         {
-            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }));
+            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] {}, new string[] {}));
         }
         else
         {
@@ -164,14 +135,15 @@ class KeucherModLoader : UMPLoader
 
     public DeltaruneVersion Version { get; set; }
 
-    List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects)
+    List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects, string[] ch3Objects, string[] ch4Objects)
     {
         string[] objects = null;
         if (Version == DeltaruneVersion.ChapterSelect)
         {
             objects = new string[] { };
         }
-        else if (Version == DeltaruneVersion.Chapter1 || Version == DeltaruneVersion.SurveyProgram)
+        else
+         if (Version == DeltaruneVersion.Chapter1)
         {
             objects = ch1Objects;
         }
@@ -179,9 +151,13 @@ class KeucherModLoader : UMPLoader
         {
             objects = ch2Objects;
         }
-        else if (Version == DeltaruneVersion.Demo)
+        else if (Version == DeltaruneVersion.Chapter3)
         {
-            objects = ch1Objects.Select(s => s + "_ch1").Concat(ch2Objects).ToArray();
+            objects = ch3Objects;
+        }
+        else if (Version == DeltaruneVersion.Chapter4)
+        {
+            objects = ch4Objects;
         }
         else
         {
@@ -193,11 +169,6 @@ class KeucherModLoader : UMPLoader
 
     public string Suffix(string name)
     {
-        if (Version == DeltaruneVersion.Demo)
-        {
-            return name + "_ch1";
-        }
-
         return name;
     }
 }
@@ -262,16 +233,16 @@ void UpdateKrisRoom (DeltaruneVersion version)
     {
         DeltaruneVersion.Chapter1 => new[] { 102 },
         DeltaruneVersion.Chapter2 => new[] { 232 },
-        DeltaruneVersion.SurveyProgram => new[] { 85 },
-        DeltaruneVersion.Demo => new[] { 74, 3158 },
+        DeltaruneVersion.Chapter3 => new[] { 2731 },
+        DeltaruneVersion.Chapter4 => new[] { 436 },
         _ => throw new NotImplementedException()
     };
     int[] nightTextures = version switch
     {
         DeltaruneVersion.Chapter1 => new[] { 103 },
         DeltaruneVersion.Chapter2 => new[] { 233 },
-        DeltaruneVersion.SurveyProgram => new[] { 86 },
-        DeltaruneVersion.Demo => new[] { 75, 3159 },
+        DeltaruneVersion.Chapter3 => new[] { 2732 },
+        DeltaruneVersion.Chapter4 => new[] { 437 },
         _ => throw new NotImplementedException()
     };
     foreach (int texture in dayTextures)
@@ -295,10 +266,6 @@ void UpdateTvStatic(DeltaruneVersion version)
     if (version == DeltaruneVersion.Chapter2)
     {
         var pageItemIds = new[] { 2897, 2898, 2896, 2895 };
-        if (version == DeltaruneVersion.Demo)
-        {
-            pageItemIds = new [] { 11365, 10509, 10508, 10507 };
-        }
         for (int i = 0; i < pageItemIds.Length; i++)
         {
             var pageItem = Data.TexturePageItems.ByName($"PageItem {pageItemIds[i]}");
@@ -317,19 +284,13 @@ void UpdateTvStatic(DeltaruneVersion version)
 
 void SetupChapterOneBattleRoom (DeltaruneVersion version)
 {
-    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.SurveyProgram && version != DeltaruneVersion.Demo)
+    if (version != DeltaruneVersion.Chapter1)
     {
         return;
     }
 
     // setting up the battle room for chapter 1
-    var roomName = version switch
-    {
-        DeltaruneVersion.Chapter1 => "room_battletest",
-        DeltaruneVersion.SurveyProgram => "room_battletest",
-        DeltaruneVersion.Demo => "room_battletest_ch1",
-        _ => throw new NotImplementedException()
-    };
+    var roomName = "room_battletest";
     var battleroomCh1 = Data.Rooms.ByName(roomName);
     battleroomCh1.Width = 640;
     battleroomCh1.Height = 480;
@@ -345,10 +306,6 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
     for (int i = 0; i < objects.Length; i+= 3)
     {
         string objectName = (string)objects[i];
-        if (version == DeltaruneVersion.Demo)
-        {
-            objectName += "_ch1";
-        }
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
 }

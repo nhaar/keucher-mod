@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// REPLACE
 file = "filech2_" + string(global.filechoice)

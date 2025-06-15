@@ -1,8 +1,5 @@
-/// PATCH .ignore if !DEMO
+/// PATCH
 
-// remove vanilla function that was CH2 pre-LTS only
-
-/// REPLACE
-scr_turn_skip();
-/// CODE
+/// APPEND
+turn_skip();
 /// END

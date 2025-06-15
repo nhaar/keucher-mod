@@ -1,4 +1,4 @@
-/// PATCH .ignore if SP || CHS
+/// PATCH
 
 /// AFTER
 myfileid = ossafe_file_text_open_read(file)
