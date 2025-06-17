@@ -108,6 +108,13 @@ function set_option_value(name, value)
     {
         global.chemg_show_room = is_option_active(name);
     }
+    else if (name == "no_death_mantle")
+    {
+        if (is_option_active(name))
+        {
+            global.shadow_mantle_losses = 0;
+        }
+    }
 }
 
 function read_option_value(name)
