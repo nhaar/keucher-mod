@@ -1,5 +1,9 @@
 Keucher Mod is a DELTARUNE speedrun practice mod
 
+# Installation Video Guide
+
+[Here's a video guide.](https://www.youtube.com/watch?v=KisS3tkutsM&feature=youtu.be)
+
 # Installation
 
 1. First, pick your version [downloads are here](https://github.com/nhaar/keucher-mod/releases/latest):
