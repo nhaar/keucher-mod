@@ -120,7 +120,18 @@ function start_boss_practice()
             break;
 #endif
 #if CH4
-        case -1:
+        case obj_jackenstein_enemy:
+            obj_boss_practice.turn_text[0] = "Turn 1";
+            obj_boss_practice.turn_text[1] = "Turn 2";
+            obj_boss_practice.turn_text[2] = "Turn 3";
+            obj_boss_practice.turn_text[3] = "Turn 4";
+            obj_boss_practice.turn_text[4] = "Turn 5";
+            obj_boss_practice.turn_text[5] = "Turn 6";
+            obj_boss_practice.turn_text[6] = "Turn 7";
+            obj_boss_practice.turn_text[7] = "Turn 8";
+            obj_boss_practice.turn_text[8] = "Turn 9";
+            obj_boss_practice.turn_text[9] = "Turn 10";
+            obj_boss_practice.turn_text[10] = "Turn 11";
             break;
 #endif
     }
