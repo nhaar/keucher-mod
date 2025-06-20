@@ -176,7 +176,7 @@ function get_default_mod_options()
         "Other Keybinds", "Miscellaneous keybinds or shortcuts\nClick to see/change them",
         "Misc Options", "Mod options you can toggle that don't fit anywhere else in this menu",
         "Game Data", "Item giver, plot warper, party selector",
-        "Room Warps", "Allows teleporting to rooms",
+        "Room Warps", "Allows teleporting to rooms (current room: " + room_get_name(room) + ")",
         "Saves", "Allows quickly loading savefiles that you have saved\nRequires some external setup (Click to learn)",
         "UI Colors", "Change the color of the UI (User Interface) elements of this menu"
     );
