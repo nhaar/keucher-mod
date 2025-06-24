@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH
 
 /// REPLACE
 draw_text_transformed(195, 230, "DELTARUNE " + version_text + " (C) Toby Fox 2018-2025 ", 0.5, 0.5, 0);
