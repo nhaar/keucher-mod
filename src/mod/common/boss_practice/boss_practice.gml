@@ -118,6 +118,11 @@ function start_boss_practice()
             obj_boss_practice.turn_text[10] = "Rotating Slash (With sans attack)";
             obj_boss_practice.turn_text[11] = "Ultimate Attack";
             break;
+        case obj_tenna_enemy:
+            obj_boss_practice.turn_text[0] = "Rimshot (Random Variant 1)";
+            obj_boss_practice.turn_text[1] = "Rimshot (Random Variant 2)";
+            obj_boss_practice.turn_text[2] = "Rimshot (Random Variant 3)";
+            obj_boss_practice.turn_text[3] = "Rimshot (Random Variant 4)";
 #endif
 #if CH4
         case obj_jackenstein_enemy:
