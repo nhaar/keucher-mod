@@ -10,7 +10,8 @@ function get_options()
         "wakeup_mash_display",
         "position_save_caching",
         "no_death_mantle",
-        "ch3_board_room"
+        "ch3_board_room",
+        "random_mizzle_cycle"
     );
 }
 
@@ -32,6 +33,8 @@ function get_option_default(name)
             return true;
         case "ch3_board_room":
             return "debug";
+        case "random_mizzle_cycle":
+            return false;
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
@@ -56,6 +59,8 @@ function get_option_button_text(name)
             return "Shadow Mantle no-death version"
         case "ch3_board_room":
             return "Board Arcade Room Display";
+        case "random_mizzle_cycle":
+            return "Mizzle Watercooler Cycles randomizer"
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
@@ -80,6 +85,8 @@ function get_option_button_desc(name)
             return "Shadow Mantle fight is always no-death version, the version you get if you fight\nit without reloading";
         case "ch3_board_room":
             return "Enables the debug feature in which the room names are displayed in the arcade\nsection of the boards in chapter 3";
+        case "random_mizzle_cycle":
+            return "Instead of having the cycle depend on the second, it randomizes it, for practicing\nmany possible cycles in succession";
         default:
             show_message("Unknown option name: " + name);
             e += "crash";
