@@ -758,6 +758,56 @@ function get_room_warp_mod_options()
     options_state = "room_warp";
 }
 
+function process_typing_keyboard(current_query) {
+    if (keyboard_key != 0)
+    {
+        key_current_cooldown++;
+        if (keyboard_key == pressed_key)
+        {
+            if (key_current_cooldown > KEY_COOLDOWN)
+            {
+                pressed_key = 0;
+            }
+        }
+        else
+        {
+            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
+            var is_underscore = keyboard_key == 189;
+            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
+            var shift_press = keyboard_check(vk_shift);
+            pressed_key = keyboard_key; // avoid multiple registers
+            if (is_letter || (is_underscore && shift_press) || is_digits)
+            {
+    
+                var char_pressed = "";
+                if (is_underscore)
+                {
+                    char_pressed = "_";
+                }
+                else
+                {
+                    // supporting lower and upper case
+                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                }
+                current_query += char_pressed;
+            }
+            //Pressing backspace
+            else if (keyboard_key == 8)
+            {
+                current_query = keyboard_check(vk_control) ?
+                    "" :
+                    string_copy(current_query, 1, string_length(current_query) - 1);
+            }
+        }
+    }
+    else
+    {
+        key_current_cooldown = 0;
+        pressed_key = 0;
+    }
+    return current_query
+}
+
 /* Proper way to close the mod options */
 function close_mod_options()
 {

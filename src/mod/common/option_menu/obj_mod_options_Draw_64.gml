@@ -106,54 +106,8 @@ if setting_keybind
 // this block takes care of when you are typing room name for room warp
 else if typing_room
 {
-    if (keyboard_key != 0)
-    {
-        key_current_cooldown++;
-        if (keyboard_key == pressing_room_query)
-        {
-            if (key_current_cooldown > KEY_COOLDOWN)
-            {
-                pressing_room_query = 0;
-            }
-        }
-        else
-        {
-            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
-            var is_underscore = keyboard_key == 189;
-            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
-            var shift_press = keyboard_check(vk_shift);
-            pressing_room_query = keyboard_key; // avoid multiple registers
-            if (is_letter || (is_underscore && shift_press) || is_digits)
-            {
-    
-                var char_pressed = ""
-                if (is_underscore)
-                {
-                    char_pressed = "_"
-                }
-                else
-                {
-                    // supporting lower and upper case
-                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
-                }
-                room_query += char_pressed;
-                get_room_warp_mod_options();
-            }
-            else if (keyboard_key == 8)
-            {
-                room_query = keyboard_check(vk_control) ?
-                    "" :
-                    string_copy(room_query, 1, string_length(room_query) - 1)
-
-                get_room_warp_mod_options()
-            }
-        }
-    }
-    else
-    {
-        key_current_cooldown = 0;
-        pressing_room_query = keyboard_key
-    }
+    room_query = process_typing_keyboard(room_query);
+    get_room_warp_mod_options();
 }
 
 // dragging scroll
@@ -808,9 +762,9 @@ for (var i = 0; i < button_amount; i++)
                                 var file_to_load = get_save_dir(true) + cur_dir + "/" + string_copy(clicked_value, 1, file_pos - 2);
                                 close_mod_options();
 #if CHS
-                                show_message("Pick a chapter first!")           
+                                show_message("Pick a chapter first!");
 #else
-                                scr_load(file_to_load)
+                                scr_load(file_to_load);
 #endif
                             }
                         }
@@ -838,40 +792,40 @@ for (var i = 0; i < button_amount; i++)
             }
         }
         else
-            button_state[i] = "hover"
+            button_state[i] = "hover";
     }
     else if (options_state == "pick_split_preset" && i == get_current_preset())
     {
-        button_state[i] = "highlight"
+        button_state[i] = "highlight";
     }
     else
     {
-        button_state[i] = "none"
+        button_state[i] = "none";
     }
 
     if (button_state[i] == "hover")
     {
-        draw_set_color(read_ui_color("button-hover"))
+        draw_set_color(read_ui_color("button-hover"));
         menu_hover_desc = hover_desc[i];
     }
     else if (button_state[i] == "press")
     {
-        draw_set_color(read_ui_color("button-press"))
+        draw_set_color(read_ui_color("button-press"));
     }
     else if (button_state[i] == "none")
     {
-        draw_set_color(read_ui_color("button"))
+        draw_set_color(read_ui_color("button"));
     }
     else if (button_state[i] == "highlight")
     {
-        draw_set_color(read_ui_color("button-highlight"))
+        draw_set_color(read_ui_color("button-highlight"));
     }
-    draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false)
-    draw_set_color(read_ui_color("button-press"))
-    draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true)
-    draw_set_color(read_ui_color("text"))
+    draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false);
+    draw_set_color(read_ui_color("button-press"));
+    draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, true);
+    draw_set_color(read_ui_color("text"));
     var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
-    draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i])
+    draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i]);
 }
 
 // menu description rendering
@@ -883,4 +837,4 @@ draw_set_color(read_ui_color("text"));
 draw_text(menu_desc_padding, menu_desc_padding, menu_desc);
 draw_text(menu_desc_padding, menu_desc_padding + hover_desc_start_y, menu_hover_desc);
 
-draw_sprite(get_mouse_sprite(), 0, real_mouse_x, real_mouse_y)
+draw_sprite(get_mouse_sprite(), 0, real_mouse_x, real_mouse_y);
