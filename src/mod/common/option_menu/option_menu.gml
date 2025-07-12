@@ -168,6 +168,7 @@ function get_default_mod_options()
     var debug_state = global.debug ? "ON" : "OFF";
 
     get_buttons_from_pair_array(
+        "[SEARCH OPTIONS]: ", "Search through all keucher mod options available in this menu",
         "Debug Mode [" + debug_state + "]", "Debug mode will enable some helpful features and the keybinds assigned to debug mode\nClick to turn on/off",
         "Timer", "The in-game timer is a helpful tool to automatically time how fast you go\nClick to configure it",
         "Practice Modes", "Click to check and activate various practice modes",
@@ -178,8 +179,7 @@ function get_default_mod_options()
         "Game Data", "Item giver, plot warper, party selector",
         "Room Warps", "Allows teleporting to rooms (current room: " + room_get_name(room) + ")",
         "Saves", "Allows quickly loading savefiles that you have saved\nRequires some external setup (Click to learn)",
-        "UI Colors", "Change the color of the UI (User Interface) elements of this menu",
-        "Search Options", "Search through all keucher mod options available in this menu"
+        "UI Colors", "Change the color of the UI (User Interface) elements of this menu"
     );
 
     menu_desc = "Welcome to the Keucher Mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
@@ -823,6 +823,7 @@ function get_searchable_mod_options()
     var search_button_text_amount = array_length(button_text_search_results);
     var hover_desc_search_results = filter_array_by_substring(search_query, all_search_hover_desc, false);
     var search_hover_desc_amount = array_length(hover_desc_search_results);
+    var search_options_amount = array_length(all_search_button_text);
     //store results details in filtered_search_options
     var button_text_ind = 0;
     var hover_desc_ind = 0;
@@ -909,8 +910,9 @@ function store_all_searchable_mod_options() {
     for (var i = 0; i < number_fetch_functions; i++) 
     {
         script_execute(options_fetch_functions[i]);
-        array_copy(all_search_button_text, total_button_amount, button_text, 0, button_amount);
-        array_copy(all_search_hover_desc, total_button_amount, hover_desc, 0, button_amount);
+        //SPECIAL CASE: Remove options search button from searchable buttons list (index 0 of default mod options)
+        array_copy(all_search_button_text, total_button_amount, button_text, (options_state == "default") ? 1 : 0, button_amount);
+        array_copy(all_search_hover_desc, total_button_amount, hover_desc, (options_state == "default") ? 1 : 0, button_amount);
         for (var button_index = 0; button_index < button_amount; button_index++)
         {
             all_search_options_state[total_button_amount + button_index] = options_state;

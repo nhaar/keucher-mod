@@ -184,47 +184,52 @@ for (var i = 0; i < button_amount; i++)
                     case "default":
                         switch (button_index)
                         {
-                            // Debug mode
+                            //search options
                             case 0:
+                                search_query = "";
+                                get_searchable_mod_options();
+                                break;
+                            // Debug mode
+                            case 1:
                                 global.debug = global.debug ? false : true;
                                 update_config_value(global.debug, "debug");
                                 get_default_mod_options();
                                 break
                             // Timer
-                            case 1:
+                            case 2:
                                 get_timer_mod_options();
                                 break
                             // Practice Modes
-                            case 2:
+                            case 3:
                                 get_practice_mode_mod_options();
                                 break
                             // RNG
-                            case 3:
+                            case 4:
                                 get_rng_settings_mod_options()
                                 break
                             // debug keybinds
-                            case 4:
+                            case 5:
                                 get_debug_keybinds_mod_options();
                                 break;
                             // other keybinds
-                            case 5:
+                            case 6:
                                 get_misc_keybinds_mod_options();
                                 break;
                             // misc options
-                            case 6:
+                            case 7:
                                 get_misc_options_mod_options();
                                 break;
                             // flags
-                            case 7:
+                            case 8:
                                 get_game_flags_mod_optins();
                                 break;
                             // room warp
-                            case 8:
+                            case 9:
                                 room_query = "";
                                 get_warps_mod_options();
                                 break;
                             // saves
-                            case 9:
+                            case 10:
                                 var saves_dir = get_save_dir(false);
                                 if directory_exists(saves_dir)
                                 {
@@ -236,13 +241,8 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 break
                             // ui colors
-                            case 10:
-                                get_ui_colors_options();
-                                break;
-                            //search options
                             case 11:
-                                search_query = "";
-                                get_searchable_mod_options();
+                                get_ui_colors_options();
                                 break;
                         }
                         break
