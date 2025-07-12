@@ -821,9 +821,9 @@ function get_searchable_mod_options()
     //Fetch button text and hover description from stored data
     var all_button_text = array_create(INIT_BUTTON_AMOUNT, 0);
     var all_hover_desc = array_create(INIT_BUTTON_AMOUNT, "");
-    var search_options_amount = array_length(all_search_options)/4;
-    //for some reason it goes to 1000????? TODO: fix this shit
-    for (var i = 0; i < search_options_amount-1; i++) 
+    //Not sure why but without - 1 the loop bounds are incorrect? TODO: figure out why
+    var search_options_amount = array_length(all_search_options)/4 - 1;
+    for (var i = 0; i < search_options_amount; i++) 
     {
         if (all_search_options[i*4] == 0)
         {
@@ -841,30 +841,20 @@ function get_searchable_mod_options()
     var button_text_ind = 0;
     var hover_desc_ind = 0;
     var search_options_ind = 0;
+    var hover_desc_matches = array_create(4*search_hover_desc_amount, "");;
+    var hover_desc_matches_ind = 0;
     button_amount = 0;
     //Search bar
     button_text[0] = "[SEARCH OPTIONS]: " + search_query
     hover_desc[0] = "";
-    //SAME ISSUE AS OTHER LOOP TODO: REALLY FIX THIS SHIT
-    while (search_options_ind < search_options_amount-1 && 
+    while (search_options_ind < search_options_amount && 
         (button_text_ind < search_button_text_amount || hover_desc_ind < search_hover_desc_amount))
     {
-        var is_in_results = false; 
+        var is_in_results = false;
+        //Add matches to result list
         if (button_text_ind < search_button_text_amount && 
             all_search_options[search_options_ind*4] == button_text_search_results[button_text_ind] && 
             button_text_search_results[button_text_ind] != 0)
-        {
-            is_in_results = true;
-            button_text_ind++;
-        }
-        if (hover_desc_ind < search_hover_desc_amount &&
-            all_search_options[search_options_ind*4 + 1] == hover_desc_search_results[hover_desc_ind] && 
-            hover_desc_search_results[hover_desc_ind] != 0)
-        {
-            is_in_results = true;
-            hover_desc_ind++;
-        }
-        if (is_in_results) 
         {
             filtered_search_options[button_amount*4] = all_search_options[search_options_ind*4];
             filtered_search_options[button_amount*4 + 1] = all_search_options[search_options_ind*4 + 1];
@@ -874,8 +864,38 @@ function get_searchable_mod_options()
             button_text[button_amount+1] = all_search_options[search_options_ind*4];
             hover_desc[button_amount+1] = all_search_options[search_options_ind*4 + 1];
             button_amount++;
+            button_text_ind++;
+            is_in_results = true;
+        }
+        if (hover_desc_ind < search_hover_desc_amount &&
+            all_search_options[search_options_ind*4 + 1] == hover_desc_search_results[hover_desc_ind] && 
+            hover_desc_search_results[hover_desc_ind] != 0)
+        {
+            // put hover_desc matches in different array to be appended at the end of results
+            if (!is_in_results)
+            {
+                hover_desc_matches[hover_desc_matches_ind*4] = all_search_options[search_options_ind*4];
+                hover_desc_matches[hover_desc_matches_ind*4 + 1] = all_search_options[search_options_ind*4 + 1];
+                hover_desc_matches[hover_desc_matches_ind*4 + 2] = all_search_options[search_options_ind*4 + 2];
+                hover_desc_matches[hover_desc_matches_ind*4 + 3] = all_search_options[search_options_ind*4 + 3];
+                hover_desc_matches_ind++;
+            }
+            hover_desc_ind++;
+            
         }
         search_options_ind++;
+    }
+    //Append hover_desc_matches to results
+    for (var i = 0; i < hover_desc_matches_ind; i++)
+    {
+        filtered_search_options[button_amount*4] = hover_desc_matches[i*4];
+        filtered_search_options[button_amount*4 + 1] = hover_desc_matches[i*4 + 1];
+        filtered_search_options[button_amount*4 + 2] = hover_desc_matches[i*4 + 2];
+        filtered_search_options[button_amount*4 + 3] = hover_desc_matches[i*4 + 3];
+        //update button_text and hover_desc
+        button_text[button_amount+1] = hover_desc_matches[i*4];
+        hover_desc[button_amount+1] = hover_desc_matches[i*4 + 1];
+        button_amount++;
     }
     //increment button_amount to include search bar
     button_amount++;
