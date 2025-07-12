@@ -58,7 +58,7 @@ pressing_room_query = false;
 
 // how long between frames we have been pressing the same key
 key_current_cooldown = 0;
-KEY_COOLDOWN = 60;
+KEY_COOLDOWN = 15;
 
 // save progress for when scrolling such that there is
 // a constant distance between top of scroll bar and mouse pos
