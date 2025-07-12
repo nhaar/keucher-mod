@@ -818,30 +818,16 @@ function process_typing_keyboard(current_query)
 function get_searchable_mod_options() 
 {
     store_all_searchable_mod_options();
-    //Fetch button text and hover description from stored data
-    var all_button_text = array_create(INIT_BUTTON_AMOUNT, 0);
-    var all_hover_desc = array_create(INIT_BUTTON_AMOUNT, "");
-    //Not sure why but without - 1 the loop bounds are incorrect? TODO: figure out why
-    var search_options_amount = array_length(all_search_options)/4 - 1;
-    for (var i = 0; i < search_options_amount; i++) 
-    {
-        if (all_search_options[i*4] == 0)
-        {
-            break;
-        }
-        all_button_text[i] = all_search_options[i*4];
-        all_hover_desc[i] = all_search_options[i*4 + 1];
-    }
     //get search results
-    var button_text_search_results = filter_array_by_substring(search_query, all_button_text, false);
+    var button_text_search_results = filter_array_by_substring(search_query, all_search_button_text, false);
     var search_button_text_amount = array_length(button_text_search_results);
-    var hover_desc_search_results = filter_array_by_substring(search_query, all_hover_desc, false);
+    var hover_desc_search_results = filter_array_by_substring(search_query, all_search_hover_desc, false);
     var search_hover_desc_amount = array_length(hover_desc_search_results);
     //store results details in filtered_search_options
     var button_text_ind = 0;
     var hover_desc_ind = 0;
     var search_options_ind = 0;
-    var hover_desc_matches = array_create(4*search_hover_desc_amount, "");;
+    var hover_desc_matches = array_create(4*search_hover_desc_amount, ""); //TODO: If necessary, can make instance variable
     var hover_desc_matches_ind = 0;
     button_amount = 0;
     //Search bar
@@ -853,35 +839,34 @@ function get_searchable_mod_options()
         var is_in_results = false;
         //Add matches to result list
         if (button_text_ind < search_button_text_amount && 
-            all_search_options[search_options_ind*4] == button_text_search_results[button_text_ind] && 
+            all_search_button_text[search_options_ind] == button_text_search_results[button_text_ind] && 
             button_text_search_results[button_text_ind] != 0)
         {
-            filtered_search_options[button_amount*4] = all_search_options[search_options_ind*4];
-            filtered_search_options[button_amount*4 + 1] = all_search_options[search_options_ind*4 + 1];
-            filtered_search_options[button_amount*4 + 2] = all_search_options[search_options_ind*4 + 2];
-            filtered_search_options[button_amount*4 + 3] = all_search_options[search_options_ind*4 + 3];
+            filtered_search_options[button_amount*4] = all_search_button_text[search_options_ind];
+            filtered_search_options[button_amount*4 + 1] = all_search_hover_desc[search_options_ind];
+            filtered_search_options[button_amount*4 + 2] = all_search_options_state[search_options_ind];
+            filtered_search_options[button_amount*4 + 3] = all_search_button_index[search_options_ind];
             //update button_text and hover_desc
-            button_text[button_amount+1] = all_search_options[search_options_ind*4];
-            hover_desc[button_amount+1] = all_search_options[search_options_ind*4 + 1];
+            button_text[button_amount+1] = all_search_button_text[search_options_ind];
+            hover_desc[button_amount+1] = all_search_hover_desc[search_options_ind];
             button_amount++;
             button_text_ind++;
             is_in_results = true;
         }
         if (hover_desc_ind < search_hover_desc_amount &&
-            all_search_options[search_options_ind*4 + 1] == hover_desc_search_results[hover_desc_ind] && 
+            all_search_hover_desc[search_options_ind] == hover_desc_search_results[hover_desc_ind] && 
             hover_desc_search_results[hover_desc_ind] != 0)
         {
             // put hover_desc matches in different array to be appended at the end of results
             if (!is_in_results)
             {
-                hover_desc_matches[hover_desc_matches_ind*4] = all_search_options[search_options_ind*4];
-                hover_desc_matches[hover_desc_matches_ind*4 + 1] = all_search_options[search_options_ind*4 + 1];
-                hover_desc_matches[hover_desc_matches_ind*4 + 2] = all_search_options[search_options_ind*4 + 2];
-                hover_desc_matches[hover_desc_matches_ind*4 + 3] = all_search_options[search_options_ind*4 + 3];
+                hover_desc_matches[hover_desc_matches_ind*4] = all_search_button_text[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 1] = all_search_hover_desc[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 2] = all_search_options_state[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 3] = all_search_button_index[search_options_ind];
                 hover_desc_matches_ind++;
             }
             hover_desc_ind++;
-            
         }
         search_options_ind++;
     }
@@ -907,43 +892,31 @@ function get_searchable_mod_options()
 }
 
 function store_all_searchable_mod_options() {
-    //Already stored in all_search_options, no need to redo
+    //Already stored in instance arrays, no need to redo
     if (search_options_stored) 
     {
         return;
     }
     var total_button_amount = 0;
-    var all_button_text = array_create(INIT_BUTTON_AMOUNT, 0);
-    var all_hover_desc = array_create(INIT_BUTTON_AMOUNT, "");
-    var search_options_state = array_create(INIT_BUTTON_AMOUNT, "");
-    var search_button_index = array_create(INIT_BUTTON_AMOUNT, 0);
-    //List of all searchable options fetching function names
+    //List of all searchable options fetching function names (ADD NEW SEARCHABLE OPTIONS HERE)
     var options_fetch_functions = 
     [get_default_mod_options, get_timer_mod_options, get_practice_mode_mod_options, 
     get_rng_settings_mod_options, get_debug_keybinds_mod_options, get_misc_keybinds_mod_options, 
     get_misc_options_mod_options, get_game_flags_mod_optins, get_item_selector, 
     get_warps_mod_options, get_ui_colors_options];
     var number_fetch_functions = array_length(options_fetch_functions);
-    //Fetch all option buttons and place in temp arrays
+    //Fetch all option buttons and place info in respective arrays
     for (var i = 0; i < number_fetch_functions; i++) 
     {
         script_execute(options_fetch_functions[i]);
-        array_copy(all_button_text, total_button_amount, button_text, 0, button_amount);
-        array_copy(all_hover_desc, total_button_amount, hover_desc, 0, button_amount);
+        array_copy(all_search_button_text, total_button_amount, button_text, 0, button_amount);
+        array_copy(all_search_hover_desc, total_button_amount, hover_desc, 0, button_amount);
         for (var button_index = 0; button_index < button_amount; button_index++)
         {
-            search_options_state[total_button_amount + button_index] = options_state;
-            search_button_index[total_button_amount + button_index] = button_index;
+            all_search_options_state[total_button_amount + button_index] = options_state;
+            all_search_button_index[total_button_amount + button_index] = button_index;
         }
         total_button_amount += button_amount;
-    }
-    //Store in instance array
-    for (var i = 0; i < total_button_amount; i++) 
-    {
-        all_search_options[i*4] = all_button_text[i];
-        all_search_options[i*4+1] = all_hover_desc[i];
-        all_search_options[i*4+2] = search_options_state[i];
-        all_search_options[i*4+3] = search_button_index[i];
     }
     search_options_stored = true;
 }

@@ -34,7 +34,11 @@ options_state = "default"
 * 3 - Options State
 * 4 - Button Index
 */
-all_search_options[4*INIT_BUTTON_AMOUNT] = 0;
+all_search_button_text[INIT_BUTTON_AMOUNT] = 0;
+all_search_hover_desc[INIT_BUTTON_AMOUNT] = "";
+all_search_options_state[INIT_BUTTON_AMOUNT] = "";
+all_search_button_index[INIT_BUTTON_AMOUNT] = 0;
+// all_search_options[4*INIT_BUTTON_AMOUNT] = 0;
 search_options_stored = false;
 filtered_search_options[4*INIT_BUTTON_AMOUNT] = 0;
 
