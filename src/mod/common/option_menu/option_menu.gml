@@ -741,7 +741,7 @@ function get_warps_mod_options()
 
 function get_room_warp_mod_options()
 {
-    room_results = search_room_by_substring(room_query);
+    room_results = filter_array_by_substring(room_query, global.room_names);
     
     button_amount = array_length(room_results) + 1;
     button_text[0] = "[SEARCH ROOM]: " + room_query
