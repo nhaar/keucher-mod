@@ -27,6 +27,16 @@ hover_desc[INIT_BUTTON_AMOUNT] = "";
 // variable that tracks the current option menu
 options_state = "default"
 
+// Stores all searchable options 
+// [button_text, hover_desc, options_state, button_index]
+all_search_options[4*INIT_BUTTON_AMOUNT] = 0;
+search_options_stored = false;
+filtered_search_options[4*INIT_BUTTON_AMOUNT] = 0;
+
+typing_search = false;
+search_query = "";
+previous_search_query = "";
+
 scroll_ypos = 0
 scroll_dragging = false
 scroll_dragging_y = 0

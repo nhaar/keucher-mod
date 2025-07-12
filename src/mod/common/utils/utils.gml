@@ -201,23 +201,26 @@ function get_mouse_sprite()
 }
 
 /* Returns filtered array based on substring */
-function filter_array_by_substring(substring, array)
+function filter_array_by_substring(substring, array, is_case_sensitive)
 {
     if (substring == "")
     {
         return array;
     }
-
-    var results
-    var size = array_length(array)
-    found = 0
+    if (!is_case_sensitive)
+    {
+        substring = string_lower(substring);
+    }
+    var results;
+    var size = array_length(array);
+    found = 0;
     for (var i = 0; i < size; i++)
     {
-        var current_element = array[i]
+        var current_element = is_case_sensitive ? array[i] : string_lower(array[i]);
         pos = string_pos(substring, current_element)
         if (pos > 0)
         {
-            results[found] = current_element
+            results[found] = array[i];
             found++
         }
     }
