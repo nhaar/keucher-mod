@@ -32,8 +32,8 @@ def build_chapter_version(chapter: int, version: str):
 def build_chapter_select(version: str):
   build_version(CHAPTERS['0'], f'ChapterSelect', f'chapter_select_v{version}')
 
-build_chapter_select('14')
-build_chapter_version(1, '1.36')
-build_chapter_version(2, '1.42')
-build_chapter_version(3, '89')
-build_chapter_version(4, '88')
+build_chapter_select('15')
+build_chapter_version(1, '1.37')
+build_chapter_version(2, '1.43')
+build_chapter_version(3, '91')
+build_chapter_version(4, '90')
