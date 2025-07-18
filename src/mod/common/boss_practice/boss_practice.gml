@@ -138,6 +138,43 @@ function start_boss_practice()
             obj_boss_practice.turn_text[9] = "Turn 10";
             obj_boss_practice.turn_text[10] = "Turn 11";
             break;
+
+        case obj_titan_enemy:
+            obj_boss_practice.turn_text[0] = "Swarm 1";
+            obj_boss_practice.turn_text[1] = "Worms 1";
+            obj_boss_practice.turn_text[2] = "Hands 1";
+            obj_boss_practice.turn_text[3] = "Big Shot 1";
+            obj_boss_practice.turn_text[4] = "Worms 2";
+            obj_boss_practice.turn_text[5] = "Hands 2";
+            obj_boss_practice.turn_text[6] = "Swarm 2";
+            obj_boss_practice.turn_text[7] = "Big Shot 2;";
+            obj_boss_practice.turn_text[8] = "Worms 3";
+            obj_boss_practice.turn_text[9] = "Swarm 3";
+            obj_boss_practice.turn_text[10] = "Laser";
+            obj_boss_practice.turn_text[11] = "Big Shot 3;";
+            break;
+        
+        case obj_hammer_of_justice_enemy:
+            obj_boss_practice.turn_text[0] = "Turn 1";
+            obj_boss_practice.turn_text[1] = "Turn 2";
+            obj_boss_practice.turn_text[2] = "Turn 3";
+            obj_boss_practice.turn_text[3] = "Turn 4";
+            obj_boss_practice.turn_text[4] = "Turn 5";
+            obj_boss_practice.turn_text[5] = "Shell";
+            obj_boss_practice.turn_text[6] = "Hammers";
+            obj_boss_practice.turn_text[7] = "Turn 8";
+            obj_boss_practice.turn_text[8] = "Turn 9";
+            obj_boss_practice.turn_text[9] = "Turn 10";
+            obj_boss_practice.turn_text[10] = "Turn 11";
+            obj_boss_practice.turn_text[11] = "Turn 12";
+            obj_boss_practice.turn_text[12] = "Final Attack";
+            obj_boss_practice.turn_text[13] = "Turn 14";
+            obj_boss_practice.turn_text[14] = "Turn 15";
+            obj_boss_practice.turn_text[15] = "Turn 16";
+            obj_boss_practice.turn_text[16] = "Turn 17";
+            obj_boss_practice.turn_text[17] = "Turn 18";
+            obj_boss_practice.turn_text[18] = "Turn 19";
+            break;
 #endif
     }
 

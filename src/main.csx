@@ -113,7 +113,7 @@ class KeucherModLoader : UMPLoader
 
         if (fileName == "boss_init")
         {
-            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }, new [] { "knight_enemy", "tenna_enemy" }, new [] { "jackenstein_enemy" }));
+            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }, new [] { "knight_enemy", "tenna_enemy" }, new [] { "jackenstein_enemy", "titan_enemy", "hammer_of_justice_enemy" }));
         }
         else if (fileName == "crit_practice_init")
         {
