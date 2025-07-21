@@ -168,6 +168,7 @@ function get_default_mod_options()
     var debug_state = global.debug ? "ON" : "OFF";
 
     get_buttons_from_pair_array(
+        "[SEARCH OPTIONS]: ", "Search through all keucher mod options available in this menu",
         "Debug Mode [" + debug_state + "]", "Debug mode will enable some helpful features and the keybinds assigned to debug mode\nClick to turn on/off",
         "Timer", "The in-game timer is a helpful tool to automatically time how fast you go\nClick to configure it",
         "Practice Modes", "Click to check and activate various practice modes",
@@ -741,7 +742,7 @@ function get_warps_mod_options()
 
 function get_room_warp_mod_options()
 {
-    room_results = search_room_by_substring(room_query);
+    room_results = filter_array_by_substring(room_query, global.room_names, true);
     
     button_amount = array_length(room_results) + 1;
     button_text[0] = "[SEARCH ROOM]: " + room_query
@@ -756,6 +757,170 @@ function get_room_warp_mod_options()
     menu_desc = "Type to search for a room by its name";
     use_enumeration = false;
     options_state = "room_warp";
+}
+
+function process_typing_keyboard(current_query) 
+{
+    if (keyboard_key != 0 || keyboard_check(vk_space))
+    {
+        key_current_cooldown++;
+        if (keyboard_key == pressed_key)
+        {
+            if (key_current_cooldown > KEY_COOLDOWN)
+            {
+                pressed_key = 0;
+            }
+        }
+        else
+        {
+            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
+            var is_underscore = keyboard_key == 189;
+            var is_space = keyboard_check(vk_space);
+            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
+            var shift_press = keyboard_check(vk_shift);
+            pressed_key = keyboard_key; // avoid multiple registers
+            if (is_letter || (is_underscore && shift_press) || is_digits || is_space)
+            {
+    
+                var char_pressed = "";
+                if (is_underscore)
+                {
+                    char_pressed = "_";
+                }
+                else if (is_space)
+                {
+                    char_pressed = " ";
+                }
+                else
+                {
+                    // supporting lower and upper case
+                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                }
+                current_query += char_pressed;
+            }
+            //Pressing backspace
+            else if (keyboard_key == 8)
+            {
+                current_query = keyboard_check(vk_control) ?
+                    "" :
+                    string_copy(current_query, 1, string_length(current_query) - 1);
+            }
+        }
+    }
+    else
+    {
+        key_current_cooldown = 0;
+        pressed_key = 0;
+    }
+    return current_query
+}
+
+function get_searchable_mod_options() 
+{
+    store_all_searchable_mod_options();
+    //get search results
+    var button_text_search_results = filter_array_by_substring(search_query, all_search_button_text, false);
+    var search_button_text_amount = array_length(button_text_search_results);
+    var hover_desc_search_results = filter_array_by_substring(search_query, all_search_hover_desc, false);
+    var search_hover_desc_amount = array_length(hover_desc_search_results);
+    var search_options_amount = array_length(all_search_button_text);
+    //store results details in filtered_search_options
+    var button_text_ind = 0;
+    var hover_desc_ind = 0;
+    var search_options_ind = 0;
+    var hover_desc_matches = array_create(4*search_hover_desc_amount, ""); //TODO: If necessary, can make instance variable
+    var hover_desc_matches_ind = 0;
+    button_amount = 0;
+    //Search bar
+    button_text[0] = "[SEARCH OPTIONS]: " + search_query
+    hover_desc[0] = "";
+    while (search_options_ind < search_options_amount && 
+        (button_text_ind < search_button_text_amount || hover_desc_ind < search_hover_desc_amount))
+    {
+        var is_in_results = false;
+        //Add matches to result list
+        if (button_text_ind < search_button_text_amount && 
+            all_search_button_text[search_options_ind] == button_text_search_results[button_text_ind] && 
+            button_text_search_results[button_text_ind] != 0)
+        {
+            filtered_search_options[button_amount*4] = all_search_button_text[search_options_ind];
+            filtered_search_options[button_amount*4 + 1] = all_search_hover_desc[search_options_ind];
+            filtered_search_options[button_amount*4 + 2] = all_search_options_state[search_options_ind];
+            filtered_search_options[button_amount*4 + 3] = all_search_button_index[search_options_ind];
+            //update button_text and hover_desc
+            button_text[button_amount+1] = all_search_button_text[search_options_ind];
+            hover_desc[button_amount+1] = all_search_hover_desc[search_options_ind];
+            button_amount++;
+            button_text_ind++;
+            is_in_results = true;
+        }
+        if (hover_desc_ind < search_hover_desc_amount &&
+            all_search_hover_desc[search_options_ind] == hover_desc_search_results[hover_desc_ind] && 
+            hover_desc_search_results[hover_desc_ind] != 0)
+        {
+            // put hover_desc matches in different array to be appended at the end of results
+            if (!is_in_results)
+            {
+                hover_desc_matches[hover_desc_matches_ind*4] = all_search_button_text[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 1] = all_search_hover_desc[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 2] = all_search_options_state[search_options_ind];
+                hover_desc_matches[hover_desc_matches_ind*4 + 3] = all_search_button_index[search_options_ind];
+                hover_desc_matches_ind++;
+            }
+            hover_desc_ind++;
+        }
+        search_options_ind++;
+    }
+    //Append hover_desc_matches to results
+    for (var i = 0; i < hover_desc_matches_ind; i++)
+    {
+        filtered_search_options[button_amount*4] = hover_desc_matches[i*4];
+        filtered_search_options[button_amount*4 + 1] = hover_desc_matches[i*4 + 1];
+        filtered_search_options[button_amount*4 + 2] = hover_desc_matches[i*4 + 2];
+        filtered_search_options[button_amount*4 + 3] = hover_desc_matches[i*4 + 3];
+        //update button_text and hover_desc
+        button_text[button_amount+1] = hover_desc_matches[i*4];
+        hover_desc[button_amount+1] = hover_desc_matches[i*4 + 1];
+        button_amount++;
+    }
+    //increment button_amount to include search bar
+    button_amount++;
+
+    typing_search = true;
+    menu_desc = "Search through all available keucher mod options";
+    use_enumeration = false;
+    options_state = "searchoptions";
+}
+
+function store_all_searchable_mod_options() {
+    //Already stored in instance arrays, no need to redo
+    if (search_options_stored) 
+    {
+        return;
+    }
+    var total_button_amount = 0;
+    //List of all searchable options fetching function names (ADD NEW SEARCHABLE OPTIONS HERE)
+    var options_fetch_functions = 
+    [get_default_mod_options, get_timer_mod_options, get_practice_mode_mod_options, 
+    get_rng_settings_mod_options, get_debug_keybinds_mod_options, get_misc_keybinds_mod_options, 
+    get_misc_options_mod_options, get_game_flags_mod_optins, get_item_selector, 
+    get_warps_mod_options, get_ui_colors_options];
+    var number_fetch_functions = array_length(options_fetch_functions);
+    //Fetch all option buttons and place info in respective arrays
+    for (var i = 0; i < number_fetch_functions; i++) 
+    {
+        script_execute(options_fetch_functions[i]);
+        //SPECIAL CASE: Remove options search button from searchable buttons list (index 0 of default mod options)
+        array_copy(all_search_button_text, total_button_amount, button_text, (options_state == "default") ? 1 : 0, button_amount);
+        array_copy(all_search_hover_desc, total_button_amount, hover_desc, (options_state == "default") ? 1 : 0, button_amount);
+        for (var button_index = 0; button_index < button_amount; button_index++)
+        {
+            all_search_options_state[total_button_amount + button_index] = options_state;
+            all_search_button_index[total_button_amount + button_index] = button_index;
+        }
+        total_button_amount += button_amount;
+    }
+    search_options_stored = true;
 }
 
 /* Proper way to close the mod options */
