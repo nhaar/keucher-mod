@@ -35,3 +35,7 @@ global.thisdamage = 0
 
 // max damage calculated this round
 global.maxdamage = 0
+
+#if CH3 || CH4
+// real number of turns in chapters 3 and 4, just attackse divided by 13 unless something explodes
+global.attacksereal = 0

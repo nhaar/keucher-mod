@@ -62,6 +62,7 @@ function set_crit_patterns ()
 /*
 Update the crit practice stats at the end of each turn based on player's performance
 */
+#if CH1 || CH2
 function update_end_turn_crit_stats()
 {
     if (global.ambyu_practice)
@@ -87,7 +88,35 @@ function update_end_turn_crit_stats()
         global.attackse++
     }
 }
-
+#elsif CH3 || CH4
+function update_end_turn_crit_stats()
+{
+    if (global.ambyu_practice)
+    {
+        global.attackse++;
+        global.attacksereal = global.attackse div 13;
+        
+        if ((global.attackse % 13) == 0)
+        {
+            if (global.thisdamage == global.maxdamage && global.maxdamage != 0)
+            {
+                global.streak += 1;
+                global.success += 1;
+            }
+            else
+            {
+                global.streak = 0;
+            }
+            
+            if (global.maxstreak < global.streak)
+                global.maxstreak = global.streak;
+            
+            global.thisdamage = 0;
+            global.maxdamage = 0;
+        }
+    }
+}
+#endif
 function toggle_crit_practice(on)
 {
     if (on)
