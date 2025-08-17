@@ -7,6 +7,10 @@ if (true)
 if (!i_ex(obj_placeholderenemy))
 #elsif CH2
 if (!i_ex(obj_omawaroid_enemy))
+#elsif CH3
+if (!i_ex(obj_shadowman_enemy))
+#elsif CH4
+if (!i_ex(obj_guei_enemy))
 #endif
 {
     global.ambyu_practice = false
