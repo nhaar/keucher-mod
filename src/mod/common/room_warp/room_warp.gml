@@ -23,35 +23,3 @@ function init_room_names()
     }
     global.room_names = room_names
 }
-
-/* Search across room names by a substring */
-function search_room_by_substring(substring)
-{
-    if (substring == "")
-    {
-        return global.room_names;
-    }
-
-    var results
-    var size = array_length(global.room_names)
-    found = 0
-    for (var i = 0; i < size; i++)
-    {
-        var current_room = global.room_names[i]
-        pos = string_pos(substring, current_room)
-        if (pos > 0)
-        {
-            results[found] = current_room
-            found++
-        }
-    }
-
-    if (found == 0)
-    {
-        return create_array()
-    }
-    else
-    {
-        return results
-    }
-}
