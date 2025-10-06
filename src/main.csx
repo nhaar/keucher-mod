@@ -19,9 +19,9 @@ class KeucherModLoader : UMPLoader
 
     public override bool AcceptFile(string filePath)
     {
-        var isChapterSelect = filePath.StartsWith("chapter_select");
+        var isChapterSelect = filePath.Contains("chapter_select\\");
         // chapter select is isolated
-        if (DeltaruneVersion.ChapterSelect == Version)
+        if (Version == DeltaruneVersion.ChapterSelect)
         {
             return isChapterSelect;
         }
@@ -34,7 +34,6 @@ class KeucherModLoader : UMPLoader
         var isChapter = chapterMatch.Success;
         var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
         var isRange = false;
-
 
         var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)(\+|)");
         if (minifiedChapterMatch.Success)
@@ -117,7 +116,7 @@ class KeucherModLoader : UMPLoader
         }
         else if (fileName == "crit_practice_init")
         {
-            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] {}, new string[] {}));
+            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] { "shadowman_enemy" }, new string[] { "guei_enemy" }));
         }
         else
         {
@@ -131,7 +130,6 @@ class KeucherModLoader : UMPLoader
     {
         Version = version;
     }
-
 
     public DeltaruneVersion Version { get; set; }
 
@@ -228,47 +226,23 @@ void UpdateKrisRoom (DeltaruneVersion version)
     {
         return;
     }
-    // sprite for kris' room in both chapter
-    int[] dayTextures = version switch
-    {
-        DeltaruneVersion.Chapter1 => new[] { 102 },
-        DeltaruneVersion.Chapter2 => new[] { 232 },
-        DeltaruneVersion.Chapter3 => new[] { 2731 },
-        DeltaruneVersion.Chapter4 => new[] { 436 },
-        _ => throw new NotImplementedException()
-    };
-    int[] nightTextures = version switch
-    {
-        DeltaruneVersion.Chapter1 => new[] { 103 },
-        DeltaruneVersion.Chapter2 => new[] { 233 },
-        DeltaruneVersion.Chapter3 => new[] { 2732 },
-        DeltaruneVersion.Chapter4 => new[] { 437 },
-        _ => throw new NotImplementedException()
-    };
-    foreach (int texture in dayTextures)
-    {
-        ReplacePageItemTexture($"PageItem {texture}", "kris_room.png");
-    }
-    foreach (int texture in nightTextures)
-    {
-        // sprite for kris' room at night in both chapters
-        ReplacePageItemTexture($"PageItem {texture}", "dark_kris_room.png");
-    }
-
+    // replace sprite for kris's room (day and night)
+    ReplacePageItemTexture(Data.Sprites.ByName("bg_myroom").Textures[0].Texture.Name.Content, "kris_room.png");
+    ReplacePageItemTexture(Data.Sprites.ByName("bg_myroom_dark").Textures[0].Texture.Name.Content, "dark_kris_room.png");
 }
 
 /// <summary>
 /// Adds Frisk to the static on the TV
 /// </summary>
 /// <param name="version"></param>
-void UpdateTvStatic(DeltaruneVersion version)
+void UpdateTvStatic (DeltaruneVersion version)
 {
     if (version == DeltaruneVersion.Chapter2)
     {
-        var pageItemIds = new[] { 2897, 2898, 2896, 2895 };
-        for (int i = 0; i < pageItemIds.Length; i++)
+        var sprite = Data.Sprites.ByName("spr_cutscene_32_tv_static_smile");
+        for (int i = 0; i < sprite.Textures.Count; i++)
         {
-            var pageItem = Data.TexturePageItems.ByName($"PageItem {pageItemIds[i]}");
+            var pageItem = Data.TexturePageItems.ByName(sprite.Textures[i].Texture.Name.Content);
             // the static smile images used match the size of the static but not of the
             // original static smile
             pageItem.SourceWidth = 29;

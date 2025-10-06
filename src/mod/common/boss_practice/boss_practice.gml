@@ -123,6 +123,10 @@ function start_boss_practice()
             obj_boss_practice.turn_text[1] = "Rimshot (Random Variant 2)";
             obj_boss_practice.turn_text[2] = "Rimshot (Random Variant 3)";
             obj_boss_practice.turn_text[3] = "Rimshot (Random Variant 4)";
+            obj_boss_practice.turn_text[4] = "Smash Cut 1";
+            obj_boss_practice.turn_text[5] = "Smash Cut 2";
+            obj_boss_practice.turn_text[6] = "All Star Cast";
+            break;
 #endif
 #if CH4
         case obj_jackenstein_enemy:
