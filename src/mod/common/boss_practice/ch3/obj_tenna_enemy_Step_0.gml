@@ -15,6 +15,15 @@ if (global.bossPractice)
         case 3:
             myattackchoice = 2;
             break;
+                
+        case 4:
+        case 5:
+            myattackchoice = 1;
+            break;
+                
+        case 6:
+            myattackchoice = 0;
+            break;
     }
 }
 /// END

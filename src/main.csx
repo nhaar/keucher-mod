@@ -116,7 +116,7 @@ class KeucherModLoader : UMPLoader
         }
         else if (fileName == "crit_practice_init")
         {
-            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] {}, new string[] {}));
+            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] { "shadowman_enemy" }, new string[] { "guei_enemy" }));
         }
         else
         {
