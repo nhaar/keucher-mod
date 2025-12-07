@@ -27,7 +27,9 @@ function save_json(path, data)
     var file = file_text_open_write(path)
     file_text_write_string(file, json_encode(copy_map))
     file_text_close(file)
-    ossafe_savedata_save()
+
+    if (os_type == os_switch || os_type == os_switch2)
+        switch_save_data_commit()
 }
 
 function create_json_with_pairs()

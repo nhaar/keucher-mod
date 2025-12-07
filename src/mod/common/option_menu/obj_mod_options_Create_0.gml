@@ -1,5 +1,9 @@
 /// IMPORT
 
+first_frame = false
+surw = surface_get_width(application_surface)
+surh = surface_get_height(application_surface)
+
 button_amount = 0
 
 // rooms are what take up most of it

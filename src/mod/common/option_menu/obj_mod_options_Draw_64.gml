@@ -3,8 +3,30 @@
 draw_set_font(fnt_main)
 draw_set_color(c_white)
 
-real_mouse_x = device_mouse_x_to_gui(0)
-real_mouse_y = device_mouse_y_to_gui(0)
+if (!first_frame)
+{
+    // move the mouse to the middle of the screen
+    // this doesn't work if you put it in create, it has to be in separate frames
+    window_mouse_set(surw / 2, surh / 2)
+    real_mouse_x = surw / 2
+    real_mouse_y = surh / 2
+    first_frame = true
+}
+else
+{
+    real_mouse_x = window_mouse_get_x()
+    real_mouse_y = window_mouse_get_y()
+    
+    if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+    {
+        real_mouse_x += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislh) * 20)
+        real_mouse_y += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislv) * 20)
+    }
+    
+    real_mouse_x = clamp(real_mouse_x, 0, surw)
+    real_mouse_y = clamp(real_mouse_y, 0, surh)
+    window_mouse_set(real_mouse_x, real_mouse_y)
+}
 
 view_width = get_gui_width();
 view_height = get_gui_height();
@@ -266,6 +288,10 @@ for (var i = 0; i < button_amount; i++)
                             // ui colors
                             case 10:
                                 get_ui_colors_options();
+                                break;
+                            // chapter switch
+                            case 11:
+                                get_chapter_switch_options();
                                 break;
                         }
                         break
@@ -741,6 +767,9 @@ for (var i = 0; i < button_amount; i++)
                     case "uicolors":
                         current_ui_element = i
                         get_color_picker_options()
+                        break
+                    case "chapterswitch":
+                        scr_chapterswitch(real(string_digits(global.other_chapters[i])))
                         break
                     case "colorpicker":
                         switch (i)
