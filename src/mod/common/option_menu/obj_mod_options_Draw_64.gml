@@ -2,31 +2,49 @@
 
 draw_set_font(fnt_main)
 draw_set_color(c_white)
+var lh = 0;
+var lv = 0;
+var sw = surface_get_width(application_surface);
+var sh = surface_get_height(application_surface);
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
 
-if (!first_frame)
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
 {
-    // move the mouse to the middle of the screen
-    // this doesn't work if you put it in create, it has to be in separate frames
-    window_mouse_set(surw / 2, surh / 2)
-    real_mouse_x = surw / 2
-    real_mouse_y = surh / 2
-    first_frame = true
+    lh = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislh) * 20;
+    lv = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislv) * 20;
+}
+
+if (lh != 0 || lv != 0)
+{
+    controller_used = true;
+}
+else if (mx != last_mouse_x || my != last_mouse_y)
+{
+    if (controller_used)
+    {
+        controller_offset_x = 0;
+        controller_offset_y = 0;
+    }
+    
+    controller_used = false;
+}
+
+if (controller_used)
+{
+    real_mouse_x = clamp(real_mouse_x + lh, 0, sw);
+    real_mouse_y = clamp(real_mouse_y + lv, 0, sh);
+    controller_offset_x = clamp(controller_offset_x + lh, -sw, sw);
+    controller_offset_y = clamp(controller_offset_y + lv, -sh, sh);
 }
 else
 {
-    real_mouse_x = window_mouse_get_x()
-    real_mouse_y = window_mouse_get_y()
-    
-    if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
-    {
-        real_mouse_x += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislh) * 20)
-        real_mouse_y += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislv) * 20)
-    }
-    
-    real_mouse_x = clamp(real_mouse_x, 0, surw)
-    real_mouse_y = clamp(real_mouse_y, 0, surh)
-    window_mouse_set(real_mouse_x, real_mouse_y)
+    real_mouse_x = mx + controller_offset_x;
+    real_mouse_y = my + controller_offset_y;
 }
+
+last_mouse_x = mx;
+last_mouse_y = my;
 
 view_width = get_gui_width();
 view_height = get_gui_height();

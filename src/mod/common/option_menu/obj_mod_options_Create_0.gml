@@ -1,8 +1,12 @@
 /// IMPORT
 
-first_frame = false
-surw = surface_get_width(application_surface)
-surh = surface_get_height(application_surface)
+real_mouse_x = 0;
+real_mouse_y = 0;
+last_mouse_x = 0;
+last_mouse_y = 0;
+controller_offset_x = 0;
+controller_offset_y = 0;
+controller_used = false;
 
 button_amount = 0
 
