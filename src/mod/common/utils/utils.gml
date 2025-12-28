@@ -188,7 +188,6 @@ function get_gui_height()
 
 function get_mouse_sprite()
 {
-    // for some reason ch1 crashes if you don't use asset_get_index on this
 #if CHS
     return asset_get_index("spr_heart")
 #else
