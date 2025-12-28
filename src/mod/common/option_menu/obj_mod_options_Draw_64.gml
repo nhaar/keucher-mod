@@ -95,6 +95,20 @@ if (mouse_wheel_down())
     scroll_ypos += mouse_wheel_delta;
 }
 
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+{
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padu))
+    {
+        scroll_ypos -= mouse_wheel_delta;
+    }
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padd))
+    {
+        scroll_ypos += mouse_wheel_delta;
+    }
+    
+    scroll_ypos += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axisrv) * mouse_wheel_delta);
+}
+
 scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
 min_y = visible_min_y - buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
