@@ -182,7 +182,7 @@ void BuildMod (DeltaruneVersion version)
 
     loader.Load();
 
-    SetupChapterOneBattleRoom(version);
+    SetupChapterOne(version);
 
     UpdateKrisRoom(version);
 
@@ -256,7 +256,7 @@ void UpdateTvStatic (DeltaruneVersion version)
     }
 }
 
-void SetupChapterOneBattleRoom (DeltaruneVersion version)
+void SetupChapterOne (DeltaruneVersion version)
 {
     if (version != DeltaruneVersion.Chapter1)
     {
@@ -282,4 +282,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
         string objectName = (string)objects[i];
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
+
+    // add the maus cursor sprite
+    RunUMTScript(Path.Combine(spritesDir, "ImportGraphics/ImportGraphics.csx"));
 }

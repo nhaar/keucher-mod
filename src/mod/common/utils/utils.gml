@@ -157,16 +157,13 @@ function get_range_array(start_number, end_number)
 /* Returns 0 if chapter select */
 function get_current_chapter()
 {
-#if CH1
-    return 1;
-#elsif CH2
-    return 2;
-#elsif CH3
-    return 3;
-#elsif CH4
-    return 4;
-#else
+#if CHS
     return 0;
+#else
+    if (!variable_global_exists("chapter"))
+        return 0;
+    else
+        return global.chapter;
 #endif
 }
 
@@ -191,11 +188,10 @@ function get_gui_height()
 
 function get_mouse_sprite()
 {
-#if CH2 || CH3 || CH4
-    return spr_maus_cursor
-#elsif CHS
-    return spr_heart
-#elsif CH1
-    return spr_face_sans0
+    // for some reason ch1 crashes if you don't use asset_get_index on this
+#if CHS
+    return asset_get_index("spr_heart")
+#else
+    return asset_get_index("spr_maus_cursor")
 #endif
 }

@@ -101,14 +101,15 @@ scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
 scroll_end_y = scroll_ypos + scroll_height
+var kb_key = ossafe_keyboard_key()
 
 // setting new value for keybind
 if setting_keybind
 {
     // wait until something is pressed
-    if (keyboard_key != 0)
+    if (kb_key != 0)
     {
-        var target_key = keyboard_key
+        var target_key = kb_key
 
         if (setting_debug)
         {
@@ -146,10 +147,10 @@ if setting_keybind
 // this block takes care of when you are typing room name for room warp
 else if typing_room
 {
-    if (keyboard_key != 0)
+    if (kb_key != 0)
     {
         key_current_cooldown++;
-        if (keyboard_key == pressing_room_query)
+        if (kb_key == pressing_room_query)
         {
             if (key_current_cooldown > KEY_COOLDOWN)
             {
@@ -158,11 +159,11 @@ else if typing_room
         }
         else
         {
-            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
-            var is_underscore = keyboard_key == 189;
-            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
+            var is_letter = kb_key >= ord("A") && kb_key <= ord("Z");
+            var is_underscore = kb_key == 189;
+            var is_digits = kb_key >= ord("0") && kb_key <= ord("9");
             var shift_press = keyboard_check(vk_shift);
-            pressing_room_query = keyboard_key; // avoid multiple registers
+            pressing_room_query = kb_key; // avoid multiple registers
             if (is_letter || (is_underscore && shift_press) || is_digits)
             {
     
@@ -174,12 +175,12 @@ else if typing_room
                 else
                 {
                     // supporting lower and upper case
-                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                    char_pressed = chr(kb_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
                 }
                 room_query += char_pressed;
                 get_room_warp_mod_options();
             }
-            else if (keyboard_key == 8)
+            else if (kb_key == 8)
             {
                 room_query = keyboard_check(vk_control) ?
                     "" :
@@ -192,14 +193,14 @@ else if typing_room
     else
     {
         key_current_cooldown = 0;
-        pressing_room_query = keyboard_key
+        pressing_room_query = kb_key
     }
 }
 
 // dragging scroll
 if (scroll_dragging)
 {
-    if (mouse_check_button_released(mb_left))
+    if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
     {
         scroll_dragging = false
     }
@@ -211,7 +212,7 @@ if (scroll_dragging)
 // if can initiate dragging scroll
 if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
 {
-    if (mouse_check_button_pressed(mb_left))
+    if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
     {
         scroll_dragging = true
         scroll_dragging_y = real_mouse_y
@@ -236,15 +237,14 @@ for (var i = 0; i < button_amount; i++)
     // if mouse is over button
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-        
-        if (mouse_check_button_pressed(mb_left))
+        if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
         {
             button_state[i] = "press"
         }
         // handle clicking button
         else if (button_state[i] == "press")
         {
-            if (mouse_check_button_released(mb_left))
+            if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
             {
                 button_state[i] = "hover"
                 switch (options_state)
