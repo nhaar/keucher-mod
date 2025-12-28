@@ -176,7 +176,9 @@ function update_doors_visibility(is_visible)
 {
     var doors = create_array
     (
-        obj_doorAny,
+        #if !CH1
+            obj_doorAny,
+        #endif
         obj_doorA,
         obj_doorB,
         obj_doorC,
