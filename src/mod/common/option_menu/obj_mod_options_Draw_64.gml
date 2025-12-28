@@ -149,44 +149,52 @@ else if typing_room
 {
     if (kb_key != 0)
     {
-        key_current_cooldown++;
-        if (kb_key == pressing_room_query)
+        if (global.is_console)
         {
-            if (key_current_cooldown > KEY_COOLDOWN)
-            {
-                pressing_room_query = 0;
-            }
+            room_query = get_string("Type to search for a room by its name", "");
+            get_room_warp_mod_options();
         }
         else
         {
-            var is_letter = kb_key >= ord("A") && kb_key <= ord("Z");
-            var is_underscore = kb_key == 189;
-            var is_digits = kb_key >= ord("0") && kb_key <= ord("9");
-            var shift_press = keyboard_check(vk_shift);
-            pressing_room_query = kb_key; // avoid multiple registers
-            if (is_letter || (is_underscore && shift_press) || is_digits)
+            key_current_cooldown++;
+            if (kb_key == pressing_room_query)
             {
-    
-                var char_pressed = ""
-                if (is_underscore)
+                if (key_current_cooldown > KEY_COOLDOWN)
                 {
-                    char_pressed = "_"
+                    pressing_room_query = 0;
                 }
-                else
-                {
-                    // supporting lower and upper case
-                    char_pressed = chr(kb_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
-                }
-                room_query += char_pressed;
-                get_room_warp_mod_options();
             }
-            else if (kb_key == 8)
+            else
             {
-                room_query = keyboard_check(vk_control) ?
-                    "" :
-                    string_copy(room_query, 1, string_length(room_query) - 1)
+                var is_letter = kb_key >= ord("A") && kb_key <= ord("Z");
+                var is_underscore = kb_key == 189;
+                var is_digits = kb_key >= ord("0") && kb_key <= ord("9");
+                var shift_press = keyboard_check(vk_shift);
+                pressing_room_query = kb_key; // avoid multiple registers
+                if (is_letter || (is_underscore && shift_press) || is_digits)
+                {
+        
+                    var char_pressed = ""
+                    if (is_underscore)
+                    {
+                        char_pressed = "_"
+                    }
+                    else
+                    {
+                        // supporting lower and upper case
+                        char_pressed = chr(kb_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                    }
+                    room_query += char_pressed;
+                    get_room_warp_mod_options();
+                }
+                else if (kb_key == 8)
+                {
+                    room_query = keyboard_check(vk_control) ?
+                        "" :
+                        string_copy(room_query, 1, string_length(room_query) - 1)
 
-                get_room_warp_mod_options()
+                    get_room_warp_mod_options()
+                }
             }
         }
     }
