@@ -50,7 +50,7 @@ function draw_boundary_boxes()
         if i_ex(mainchara)
         {
             // signal wrong warp state in ch2+
-            if (global.chapter > 2 && mainchara.roomenterfreezeend == 0)
+            if (global.chapter >= 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
