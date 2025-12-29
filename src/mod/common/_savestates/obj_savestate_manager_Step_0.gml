@@ -15,7 +15,7 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
     save_game_info = {};
     var sound_ids = variable_struct_get_names(playing_sounds);
     
-    for (var i = 0; i < array_length(sound_ids); i++)
+    for (i = 0; i < array_length(sound_ids); i++)
     {
         var snd = sound_ids[i];
         var snd_info = variable_struct_get(playing_sounds, snd);
@@ -25,7 +25,7 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
     
     var audio = {};
     
-    for (var i = 0; i < array_length(sound_ids); i++)
+    for (i = 0; i < array_length(sound_ids); i++)
     {
         var snd = sound_ids[i];
         var asset = asset_get_index(audio_get_name(snd));
@@ -41,11 +41,11 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
         variable_struct_set(audio, snd, snd_info);
     }
     
-    audio_pause_all();
     variable_struct_set(save_game_info, "audio", audio);
     var call_laters = [];
+    var i = array_length(known_call_laters) - 1;
     
-    for (var i = array_length(known_call_laters) - 1; i >= 0; i--)
+    while (i >= 0)
     {
         var info = known_call_laters[i];
         
@@ -66,9 +66,11 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
             save_info.callback = encode_data_type(save_info.callback);
             array_push(call_laters, save_info);
         }
+        
+        i--;
     }
     
     save_game_info.call_laters = call_laters;
     save_step = 1;
-    debug_msg = "Created savestate in slot #" + string(savestate_num);
+    debug_msg = "Created savestate in slot #" + string(savestate_num) + ". Press any key to unpause";
 }

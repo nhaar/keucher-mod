@@ -6,6 +6,7 @@ if (instance_number(obj_savestate_manager) > 1)
     exit;
 }
 
+pause_surf_buffer = -1;
 savestate_num = 0;
 load_game_info = {};
 save_game_info = {};
@@ -26,6 +27,7 @@ ds_max_id =
 };
 need_pause = false;
 pause = false;
+pause_surf = -1;
 save_step = 0;
 loaded = false;
 imported_sprite_start = 0;

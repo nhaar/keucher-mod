@@ -5,7 +5,7 @@ if (in_debug == undefined && variable_global_exists("debug"))
 
 var sound_ids = variable_struct_get_names(playing_sounds);
 
-for (var i = 0; i < array_length(sound_ids); i++)
+for (i = 0; i < array_length(sound_ids); i++)
 {
     var snd = sound_ids[i];
     var snd_info = variable_struct_get(playing_sounds, snd);
@@ -19,7 +19,7 @@ for (var i = 0; i < array_length(sound_ids); i++)
     }
 }
 
-for (var i = ord("0"); i <= ord("9"); i++)
+for (i = ord("0"); i <= ord("9"); i++)
 {
     if (keyboard_check_pressed(i))
     {
@@ -45,7 +45,7 @@ if (pressed_active_debug_keybind("load_savestate"))
         exit;
     }
     
-    debug_msg = "Loaded savestate slot #" + string(savestate_num);
+    debug_msg = "Loaded savestate in slot #" + string(savestate_num) + ". Press any key to unpause";
     json_string = buffer_read(save_buffer, buffer_string);
     buffer_delete(save_buffer);
     load_game_info = json_parse(json_string);
@@ -69,7 +69,7 @@ if (directory_exists(save_dir))
 var instances = {};
 var sprites = {};
 
-for (var i = imported_sprite_start; sprite_exists(i); i++)
+for (i = imported_sprite_start; sprite_exists(i); i++)
 {
     sprite_save_strip(i, save_dir + "Sprites/" + sprite_get_name(i) + ".png");
     var sprite_info = {};
@@ -84,7 +84,7 @@ var builtin_inst_vars = ["id", "visible", "solid", "persistent", "depth", "layer
 reversed_known_ids = {};
 var original_inst_ids = variable_struct_get_names(known_ids);
 
-for (var i = 0; i < array_length(original_inst_ids); i++)
+for (i = 0; i < array_length(original_inst_ids); i++)
 {
     var orig_inst_id = original_inst_ids[i];
     variable_struct_set(reversed_known_ids, variable_struct_get(known_ids, orig_inst_id), orig_inst_id);
@@ -106,7 +106,7 @@ with (all)
     other.add_inst_vars_to_struct(id, builtin_inst_vars, variables);
     var alarm_val = array_create(12);
     
-    for (var i = 0; i < 12; i++)
+    for (i = 0; i < 12; i++)
         alarm_val[i] = alarm[i];
     
     variables.alarm = other.encode_data_type(alarm_val);
@@ -115,9 +115,9 @@ with (all)
 
 save_game_info.instances = instances;
 var globals = {};
-var all_globals = variable_instance_get_names(global);
+var all_globals = variable_instance_get_names(-5);
 
-for (var i = 0; i < array_length(all_globals); i++)
+for (i = 0; i < array_length(all_globals); i++)
 {
     var name = all_globals[i];
     
@@ -150,7 +150,7 @@ camera.yborder = camera_get_view_border_y(cur_camera);
 save_game_info.camera = camera;
 var ds_lists = [];
 
-for (var i = 0; i <= ds_max_id.list; i++)
+for (i = 0; i <= ds_max_id.list; i++)
 {
     if (!ds_exists(i, ds_type_list))
     {
@@ -167,11 +167,14 @@ for (var i = 0; i <= ds_max_id.list; i++)
     }
 }
 
-for (var i = array_length(ds_lists) - 1; i >= 0; i--)
+var i = array_length(ds_lists) - 1;
+
+while (i >= 0)
 {
     if (ds_lists[i].value == -1)
     {
         array_delete(ds_lists, i, 1);
+        i--;
     }
     else
     {
@@ -181,7 +184,7 @@ for (var i = array_length(ds_lists) - 1; i >= 0; i--)
 
 var ds_maps = [];
 
-for (var i = 0; i <= ds_max_id.map; i++)
+for (i = 0; i <= ds_max_id.map; i++)
 {
     if (!ds_exists(i, ds_type_map))
     {
@@ -203,11 +206,14 @@ for (var i = 0; i <= ds_max_id.map; i++)
     }
 }
 
-for (var i = array_length(ds_maps) - 1; i >= 0; i--)
+i = array_length(ds_maps) - 1;
+
+while (i >= 0)
 {
     if (ds_maps[i].value == -1)
     {
         array_delete(ds_maps, i, 1);
+        i--;
     }
     else
     {
@@ -223,7 +229,7 @@ save_game_info.ds =
 var layers = {};
 var layer_ids = layer_get_all();
 
-for (var i = 0; i < array_length(layer_ids); i++)
+for (i = 0; i < array_length(layer_ids); i++)
 {
     variable_struct_set(layers, layer_get_name(layer_ids[i]), 
     {
@@ -249,7 +255,5 @@ if (file_id != -1)
     file_text_close(file_id);
 }
 
-if (os_type == os_switch || os_type == os_switch2)
-    switch_save_data_commit();
-
+instance_deactivate_all(true);
 save_step = 2;
