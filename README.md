@@ -30,8 +30,9 @@ See the [wiki](https://github.com/nhaar/keucher-mod/wiki) for how to contribute
 
 # Credits
 
-This repository started on version 4 of Keucher Mod which is based on version 3, which was primarily done by Keucher, with added help from OceanBagel
+This repository started on version 4 of Keucher Mod which is based on version 3, which was primarily done by Keucher, with added help from OceanBagel.
+
 Contributors:
 - YZA
 - NERS
-- Spinyspinr (savestates)
+- Spinyspinr (savestates).
