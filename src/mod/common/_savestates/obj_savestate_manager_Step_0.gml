@@ -72,5 +72,5 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
     
     save_game_info.call_laters = call_laters;
     save_step = 1;
-    debug_msg = "Created savestate in slot #" + string(savestate_num) + ". Press any key to unpause";
+    debug_msg = "Created savestate in slot #" + string(savestate_num);
 }

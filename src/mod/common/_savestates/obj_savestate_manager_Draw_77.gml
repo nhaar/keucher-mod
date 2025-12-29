@@ -42,7 +42,7 @@ if (save_step > 0 || loaded)
     pause_surf_buffer = buffer_create(window_width * window_height * 4, buffer_fixed, 1);
     buffer_get_surface(pause_surf_buffer, pause_surf, 0);
 }
-else if (pause && keyboard_check_pressed(vk_anykey))
+else if (pause)
 {
     pause = false;
     instance_activate_all();

@@ -19,11 +19,12 @@ for (i = 0; i < array_length(sound_ids); i++)
     }
 }
 
-for (i = ord("0"); i <= ord("9"); i++)
+for (i = 0; i <= 9; i++)
 {
-    if (keyboard_check_pressed(i))
+    // 0-9, numpad 0-9, numpad 5 with num lock on
+    if (keyboard_check_pressed(i + 48) || keyboard_check_pressed(i + 96) || (i == 5 && keyboard_check_pressed(12)))
     {
-        savestate_num = i - 48;
+        savestate_num = i;
         msg_opacity = 3;
         debug_msg = "Selected savestate slot #" + string(savestate_num);
     }
@@ -45,7 +46,7 @@ if (pressed_active_debug_keybind("load_savestate"))
         exit;
     }
     
-    debug_msg = "Loaded savestate in slot #" + string(savestate_num) + ". Press any key to unpause";
+    debug_msg = "Loaded savestate in slot #" + string(savestate_num);
     json_string = buffer_read(save_buffer, buffer_string);
     buffer_delete(save_buffer);
     load_game_info = json_parse(json_string);
