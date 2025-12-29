@@ -255,5 +255,8 @@ if (file_id != -1)
     file_text_close(file_id);
 }
 
+if (os_type == os_switch || os_type == os_switch2)
+    switch_save_data_commit();
+
 instance_deactivate_all(true);
 save_step = 2;
