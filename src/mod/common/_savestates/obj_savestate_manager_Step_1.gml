@@ -19,14 +19,17 @@ for (i = 0; i < array_length(sound_ids); i++)
     }
 }
 
-for (i = 0; i <= 9; i++)
+if (global.debug_keybinds_on)
 {
-    // 0-9, numpad 0-9, numpad 5 with num lock on
-    if (keyboard_check_pressed(i + 48) || keyboard_check_pressed(i + 96) || (i == 5 && keyboard_check_pressed(12)))
+    for (i = 0; i <= 9; i++)
     {
-        savestate_num = i;
-        msg_opacity = 3;
-        debug_msg = "Selected savestate slot #" + string(savestate_num);
+        // 0-9, numpad 0-9, numpad 5 with num lock on
+        if (keyboard_check_pressed(i + 48) || keyboard_check_pressed(i + 96) || (i == 5 && keyboard_check_pressed(12)))
+        {
+            savestate_num = i;
+            msg_opacity = 3;
+            debug_msg = "Selected savestate slot #" + string(savestate_num);
+        }
     }
 }
 
