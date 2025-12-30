@@ -1,6 +1,6 @@
 /// IMPORT
 
-var save_dir = game_save_id + "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/";
+var save_dir = "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/";
 
 if (pressed_active_debug_keybind("store_savestate") && !loaded)
 {

@@ -33,7 +33,7 @@ for (i = 0; i <= 9; i++)
 if (!variable_global_exists("chapter"))
     exit;
 
-var save_dir = game_save_id + "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/";
+var save_dir = "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/";
 
 if (pressed_active_debug_keybind("load_savestate"))
 {

@@ -11,7 +11,7 @@ var sprites = load_game_info.sprites;
 var ds = load_game_info.ds;
 var layers = load_game_info.layers;
 var call_laters = load_game_info.call_laters;
-var sprite_folder = game_save_id + "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/Sprites/";
+var sprite_folder = "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/Sprites/";
 known_sprites = {};
 var imported_sprite_ids = [];
 
