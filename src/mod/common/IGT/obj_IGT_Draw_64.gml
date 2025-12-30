@@ -9,8 +9,6 @@ yy = 0
 draw_set_font(fnt_main)
 draw_set_color(c_white)
 
-var current_frame_time = get_timer()
-
 // split segment on room
 if (get_timer_mode() == "segment" && get_segment_room_status())
 {

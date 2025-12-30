@@ -6,7 +6,9 @@ var updated_already = false
 if (!read_config_value("timer_on"))
     return;
 
-var current_frame_time = get_timer()
+// increment by the amount of microseconds between frames
+// this is an instance variable because it should be saved in savestates
+current_frame_time += delta_time
 
 // warn player when max splits reached
 if (split_times[19] != -2)
