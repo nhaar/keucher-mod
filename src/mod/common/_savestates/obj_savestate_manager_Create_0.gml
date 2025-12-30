@@ -348,6 +348,9 @@ function set_globals(arg0, arg1 = false)
         var info = variable_struct_get(arg0, name);
         variable_global_set(name, decode_var_info(info, arg1));
     }
+
+    global.config = scr_84_load_map_json(global.config_path);
+    global.presets = scr_84_load_map_json(global.presets_json);
 }
 
 function unpause_audio_from_load()

@@ -247,6 +247,4 @@ for (var i = 0; i < array_length(layer_names); i++)
 
 set_globals(globals, true);
 known_call_laters = call_laters;
-global.config = scr_84_load_map_json(global.config_path);
-global.presets = scr_84_load_map_json(global.presets_json);
 audio_pause_all();
