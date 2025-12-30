@@ -193,6 +193,19 @@ function ds_map_create_logged()
     return map;
 }
 
+function json_decode_logged(arg0)
+{
+    var decoded_map = json_decode(arg0);
+    
+    with (obj_savestate_manager)
+    {
+        if (ds_max_id.map < decoded_map)
+            ds_max_id.map = decoded_map;
+    }
+    
+    return decoded_map;
+}
+
 function sprite_get_texture_logged(arg0, arg1)
 {
     var texture = sprite_get_texture(arg0, arg1);

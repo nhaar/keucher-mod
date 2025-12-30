@@ -37,15 +37,15 @@ var save_dir = "Savestates/Chapter " + string(global.chapter) + "/" + string(sav
 
 if (pressed_active_debug_keybind("load_savestate"))
 {
-    save_buffer = buffer_load(save_dir + "data.json");
     msg_opacity = 3;
     
-    if (save_buffer == -1)
+    if (!file_exists(save_dir + "data.json"))
     {
         debug_msg = "Could not find a valid savestate in slot #" + string(savestate_num);
         exit;
     }
     
+    save_buffer = buffer_load(save_dir + "data.json");
     debug_msg = "Loaded savestate in slot #" + string(savestate_num);
     json_string = buffer_read(save_buffer, buffer_string);
     buffer_delete(save_buffer);

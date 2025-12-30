@@ -6,6 +6,7 @@ if (instance_number(obj_savestate_manager) > 1)
     exit;
 }
 
+persistent = true;
 pause_surf_buffer = -1;
 savestate_num = 0;
 load_game_info = {};

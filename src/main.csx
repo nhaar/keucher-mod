@@ -212,9 +212,23 @@ void BuildMod (DeltaruneVersion version)
             importGroup.QueueFindReplace(code, "call_later(", "call_later_logged(", true);
             importGroup.QueueFindReplace(code, "ds_list_create(", "ds_list_create_logged(", true);
             importGroup.QueueFindReplace(code, "ds_map_create(", "ds_map_create_logged(", true);
+            importGroup.QueueFindReplace(code, "json_decode(", "json_decode_logged(", true);
             importGroup.QueueFindReplace(code, "sprite_get_texture(", "sprite_get_texture_logged(", true);
         }
         importGroup.Import();
+
+        // add the savestate manager as the very first object loaded
+        UndertalePointerList<UndertaleRoom.GameObject> roomGameObjects = Data.GeneralInfo.RoomOrder.First().Resource.GameObjects;
+        if (!roomGameObjects.Any(inst => inst.ObjectDefinition.Name?.Content == "obj_savestate_manager"))
+        {
+            roomGameObjects.Insert(0, new UndertaleRoom.GameObject()
+            {
+                InstanceID = Data.GeneralInfo.LastObj++,
+                ObjectDefinition = Data.GameObjects.ByName("obj_savestate_manager"),
+                X = 0,
+                Y = 0
+            });
+        }
     }
     
     DisableAllSyncBindings();

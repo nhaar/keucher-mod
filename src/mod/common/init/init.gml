@@ -17,7 +17,6 @@ function mod_init()
     var omnipresent_instances = create_array
     (
         obj_IGT,
-        obj_savestate_manager,
         obj_omnipresent,
         obj_options_watcher,
         obj_temp_messager
