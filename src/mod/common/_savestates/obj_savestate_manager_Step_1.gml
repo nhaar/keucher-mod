@@ -19,7 +19,7 @@ for (i = 0; i < array_length(sound_ids); i++)
     }
 }
 
-if (global.debug_keybinds_on)
+if (variable_global_exists("debug_keybinds_on") && global.debug_keybinds_on)
 {
     for (i = 0; i <= 9; i++)
     {
