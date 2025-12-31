@@ -1,5 +1,7 @@
 /// IMPORT
 
+// versions of vanilla functions but adapted to work with the savestate mod
+
 function audio_play_sound_logged(arg0, arg1, arg2, arg3 = 1, arg4 = 0, arg5 = 1, arg6 = -1)
 {
     var sound_id = audio_play_sound(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
