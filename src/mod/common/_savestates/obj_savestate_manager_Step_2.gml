@@ -1,6 +1,6 @@
 /// IMPORT
 
-if (!loaded)
+if (!loaded || !variable_global_exists("chapter"))
     exit;
 
 var globals = load_game_info.globals;
