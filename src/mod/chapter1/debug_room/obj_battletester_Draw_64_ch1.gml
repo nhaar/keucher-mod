@@ -4,13 +4,13 @@
 setup_encounter = 0
 if (global.fighting == false)
 {
-    if keyboard_check_pressed(ord("1"))
+    if keyboard_check_pressed(ord("1")) || keyboard_check_pressed(vk_numpad1)
         global.encounterno--
-    if keyboard_check_pressed(ord("2"))
+    if keyboard_check_pressed(ord("2")) || keyboard_check_pressed(vk_numpad2)
         global.encounterno++
-    if keyboard_check_pressed(ord("3"))
+    if keyboard_check_pressed(ord("3")) || keyboard_check_pressed(vk_numpad3)
         global.encounterno -= 5
-    if keyboard_check_pressed(ord("4"))
+    if keyboard_check_pressed(ord("4")) || keyboard_check_pressed(vk_numpad4)
         global.encounterno += 5
 }
 global.encounterno = clamp(global.encounterno, encountermin, encountermax)
@@ -20,26 +20,26 @@ if instance_exists(chaseenemy)
 }
 if (global.fighting == false)
 {
-    if keyboard_check_pressed(ord("5"))
+    if keyboard_check_pressed(ord("5")) || keyboard_check_pressed(vk_numpad5) || keyboard_check_pressed(12)
     {
         #Suffix("scr_losechar")()
         #Suffix("scr_getchar")(2)
         #Suffix("scr_getchar")(3)
     }
-    if keyboard_check_pressed(ord("6"))
+    if keyboard_check_pressed(ord("6")) || keyboard_check_pressed(vk_numpad6)
     {
         #Suffix("scr_losechar")()
         #Suffix("scr_getchar")(3)
         #Suffix("scr_getchar")(2)
     }
-    if keyboard_check_pressed(ord("7"))
+    if keyboard_check_pressed(ord("7")) || keyboard_check_pressed(vk_numpad7)
         #Suffix("scr_losechar")()
-    if keyboard_check_pressed(ord("8"))
+    if keyboard_check_pressed(ord("8")) || keyboard_check_pressed(vk_numpad8)
     {
         #Suffix("scr_losechar")()
         #Suffix("scr_getchar")(3)
     }
-    if keyboard_check_pressed(ord("9"))
+    if keyboard_check_pressed(ord("9")) || keyboard_check_pressed(vk_numpad9)
     {
         #Suffix("scr_losechar")()
         #Suffix("scr_getchar")(2)

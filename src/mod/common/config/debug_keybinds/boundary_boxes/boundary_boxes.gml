@@ -50,7 +50,7 @@ function draw_boundary_boxes()
         if i_ex(mainchara)
         {
             // signal wrong warp state in ch2+
-            if (global.chapter > 2 && mainchara.roomenterfreezeend == 0)
+            if (global.chapter >= 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
@@ -176,7 +176,9 @@ function update_doors_visibility(is_visible)
 {
     var doors = create_array
     (
-        obj_doorAny,
+        #if !CH1
+            obj_doorAny,
+        #endif
         obj_doorA,
         obj_doorB,
         obj_doorC,

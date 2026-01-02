@@ -1,5 +1,13 @@
 /// IMPORT
 
+real_mouse_x = 0;
+real_mouse_y = 0;
+last_mouse_x = 0;
+last_mouse_y = 0;
+controller_offset_x = 0;
+controller_offset_y = 0;
+controller_used = false;
+
 button_amount = 0
 
 // rooms are what take up most of it

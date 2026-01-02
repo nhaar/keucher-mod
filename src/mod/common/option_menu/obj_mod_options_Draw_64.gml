@@ -2,9 +2,49 @@
 
 draw_set_font(fnt_main)
 draw_set_color(c_white)
+var lh = 0;
+var lv = 0;
+var sw = surface_get_width(application_surface);
+var sh = surface_get_height(application_surface);
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
 
-real_mouse_x = device_mouse_x_to_gui(0)
-real_mouse_y = device_mouse_y_to_gui(0)
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+{
+    lh = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislh) * 20;
+    lv = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislv) * 20;
+}
+
+if (lh != 0 || lv != 0)
+{
+    controller_used = true;
+}
+else if (mx != last_mouse_x || my != last_mouse_y)
+{
+    if (controller_used)
+    {
+        controller_offset_x = 0;
+        controller_offset_y = 0;
+    }
+    
+    controller_used = false;
+}
+
+if (controller_used)
+{
+    real_mouse_x = clamp(real_mouse_x + lh, 0, sw);
+    real_mouse_y = clamp(real_mouse_y + lv, 0, sh);
+    controller_offset_x = clamp(controller_offset_x + lh, -sw, sw);
+    controller_offset_y = clamp(controller_offset_y + lv, -sh, sh);
+}
+else
+{
+    real_mouse_x = mx + controller_offset_x;
+    real_mouse_y = my + controller_offset_y;
+}
+
+last_mouse_x = mx;
+last_mouse_y = my;
 
 view_width = get_gui_width();
 view_height = get_gui_height();
@@ -55,20 +95,35 @@ if (mouse_wheel_down())
     scroll_ypos += mouse_wheel_delta;
 }
 
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+{
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padu))
+    {
+        scroll_ypos -= mouse_wheel_delta;
+    }
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padd))
+    {
+        scroll_ypos += mouse_wheel_delta;
+    }
+    
+    scroll_ypos += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axisrv) * mouse_wheel_delta);
+}
+
 scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
 min_y = visible_min_y - buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
 scroll_end_y = scroll_ypos + scroll_height
+var kb_key = ossafe_keyboard_key()
 
 // setting new value for keybind
 if setting_keybind
 {
     // wait until something is pressed
-    if (keyboard_key != 0)
+    if (kb_key != 0)
     {
-        var target_key = keyboard_key
+        var target_key = kb_key
 
         if (setting_debug)
         {
@@ -106,60 +161,68 @@ if setting_keybind
 // this block takes care of when you are typing room name for room warp
 else if typing_room
 {
-    if (keyboard_key != 0)
+    if (kb_key != 0)
     {
-        key_current_cooldown++;
-        if (keyboard_key == pressing_room_query)
+        if (global.is_console)
         {
-            if (key_current_cooldown > KEY_COOLDOWN)
-            {
-                pressing_room_query = 0;
-            }
+            room_query = get_string("Type to search for a room by its name", "");
+            get_room_warp_mod_options();
         }
         else
         {
-            var is_letter = keyboard_key >= ord("A") && keyboard_key <= ord("Z");
-            var is_underscore = keyboard_key == 189;
-            var is_digits = keyboard_key >= ord("0") && keyboard_key <= ord("9");
-            var shift_press = keyboard_check(vk_shift);
-            pressing_room_query = keyboard_key; // avoid multiple registers
-            if (is_letter || (is_underscore && shift_press) || is_digits)
+            key_current_cooldown++;
+            if (kb_key == pressing_room_query)
             {
-    
-                var char_pressed = ""
-                if (is_underscore)
+                if (key_current_cooldown > KEY_COOLDOWN)
                 {
-                    char_pressed = "_"
+                    pressing_room_query = 0;
                 }
-                else
-                {
-                    // supporting lower and upper case
-                    char_pressed = chr(keyboard_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
-                }
-                room_query += char_pressed;
-                get_room_warp_mod_options();
             }
-            else if (keyboard_key == 8)
+            else
             {
-                room_query = keyboard_check(vk_control) ?
-                    "" :
-                    string_copy(room_query, 1, string_length(room_query) - 1)
+                var is_letter = kb_key >= ord("A") && kb_key <= ord("Z");
+                var is_underscore = kb_key == 189;
+                var is_digits = kb_key >= ord("0") && kb_key <= ord("9");
+                var shift_press = keyboard_check(vk_shift);
+                pressing_room_query = kb_key; // avoid multiple registers
+                if (is_letter || (is_underscore && shift_press) || is_digits)
+                {
+        
+                    var char_pressed = ""
+                    if (is_underscore)
+                    {
+                        char_pressed = "_"
+                    }
+                    else
+                    {
+                        // supporting lower and upper case
+                        char_pressed = chr(kb_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
+                    }
+                    room_query += char_pressed;
+                    get_room_warp_mod_options();
+                }
+                else if (kb_key == 8)
+                {
+                    room_query = keyboard_check(vk_control) ?
+                        "" :
+                        string_copy(room_query, 1, string_length(room_query) - 1)
 
-                get_room_warp_mod_options()
+                    get_room_warp_mod_options()
+                }
             }
         }
     }
     else
     {
         key_current_cooldown = 0;
-        pressing_room_query = keyboard_key
+        pressing_room_query = kb_key
     }
 }
 
 // dragging scroll
 if (scroll_dragging)
 {
-    if (mouse_check_button_released(mb_left))
+    if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
     {
         scroll_dragging = false
     }
@@ -171,7 +234,7 @@ if (scroll_dragging)
 // if can initiate dragging scroll
 if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
 {
-    if (mouse_check_button_pressed(mb_left))
+    if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
     {
         scroll_dragging = true
         scroll_dragging_y = real_mouse_y
@@ -196,15 +259,14 @@ for (var i = 0; i < button_amount; i++)
     // if mouse is over button
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-        
-        if (mouse_check_button_pressed(mb_left))
+        if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
         {
             button_state[i] = "press"
         }
         // handle clicking button
         else if (button_state[i] == "press")
         {
-            if (mouse_check_button_released(mb_left))
+            if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
             {
                 button_state[i] = "hover"
                 switch (options_state)
@@ -266,6 +328,10 @@ for (var i = 0; i < button_amount; i++)
                             // ui colors
                             case 10:
                                 get_ui_colors_options();
+                                break;
+                            // chapter switch
+                            case 11:
+                                get_chapter_switch_options();
                                 break;
                         }
                         break
@@ -741,6 +807,9 @@ for (var i = 0; i < button_amount; i++)
                     case "uicolors":
                         current_ui_element = i
                         get_color_picker_options()
+                        break
+                    case "chapterswitch":
+                        scr_chapterswitch(real(string_digits(global.other_chapters[i])))
                         break
                     case "colorpicker":
                         switch (i)

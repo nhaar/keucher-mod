@@ -18,7 +18,6 @@ function mod_init()
     (
         obj_IGT,
         obj_omnipresent,
-        obj_gamemaker_savestate_handler,
         obj_options_watcher,
         obj_temp_messager
     )

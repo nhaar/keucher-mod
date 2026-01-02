@@ -88,3 +88,5 @@ global.final_time = 0
 init_timer_mode();
 
 contimer = 0;
+
+current_frame_time = 0;

@@ -5,11 +5,16 @@ using ImageMagick;
 using System.Linq;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using UndertaleModLib.Util;
 
 // paths
 string mainDir = Path.GetDirectoryName(ScriptPath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
+
+SyncBinding("Strings, Variables, Functions", true);
+UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data);
 
 class KeucherModLoader : UMPLoader
 {
@@ -173,20 +178,60 @@ class KeucherModLoader : UMPLoader
 
 void BuildMod (DeltaruneVersion version)
 {
-    // changing save folder
+    // changing save folder (pc)
     Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");
 
     CreateNoClipSprite(version);
 
     KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
 
-    loader.Load();
-
-    SetupChapterOneBattleRoom(version);
+    SetupChapterOne(version);
 
     UpdateKrisRoom(version);
 
     UpdateTvStatic(version);
+
+    loader.Load();
+
+    if (version != DeltaruneVersion.ChapterSelect)
+    {
+        // replace with logged functions for savestates
+        List<UndertaleCode> toDump = Data.Code.Where(c => c.ParentEntry is null).ToList();
+        foreach (UndertaleCode code in toDump)
+        {
+            if (code is null || code.Name.Content == "gml_GlobalScript_logged_functions")
+                continue;
+
+            importGroup.QueueFindReplace(code, "audio_play_sound(", "audio_play_sound_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_stop_sound(", "audio_stop_sound_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_play_sound_at(", "audio_play_sound_at_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_create_stream(", "audio_create_stream_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_destroy_stream(", "audio_destroy_stream_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_sound_gain(", "audio_sound_gain_logged(", true);
+            importGroup.QueueFindReplace(code, "audio_sound_pitch(", "audio_sound_pitch_logged(", true);
+            importGroup.QueueFindReplace(code, "call_later(", "call_later_logged(", true);
+            importGroup.QueueFindReplace(code, "ds_list_create(", "ds_list_create_logged(", true);
+            importGroup.QueueFindReplace(code, "ds_map_create(", "ds_map_create_logged(", true);
+            importGroup.QueueFindReplace(code, "json_decode(", "json_decode_logged(", true);
+            importGroup.QueueFindReplace(code, "sprite_get_texture(", "sprite_get_texture_logged(", true);
+        }
+        importGroup.Import();
+
+        // add the savestate manager as the very first object loaded
+        UndertalePointerList<UndertaleRoom.GameObject> roomGameObjects = Data.GeneralInfo.RoomOrder.First().Resource.GameObjects;
+        if (!roomGameObjects.Any(inst => inst.ObjectDefinition.Name?.Content == "obj_savestate_manager"))
+        {
+            roomGameObjects.Insert(0, new UndertaleRoom.GameObject()
+            {
+                InstanceID = Data.GeneralInfo.LastObj++,
+                ObjectDefinition = Data.GameObjects.ByName("obj_savestate_manager"),
+                X = 0,
+                Y = 0
+            });
+        }
+    }
+    
+    DisableAllSyncBindings();
 }
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)
@@ -256,7 +301,7 @@ void UpdateTvStatic (DeltaruneVersion version)
     }
 }
 
-void SetupChapterOneBattleRoom (DeltaruneVersion version)
+void SetupChapterOne (DeltaruneVersion version)
 {
     if (version != DeltaruneVersion.Chapter1)
     {
@@ -282,4 +327,7 @@ void SetupChapterOneBattleRoom (DeltaruneVersion version)
         string objectName = (string)objects[i];
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
+
+    // add the maus cursor sprite
+    RunUMTScript(Path.Combine(spritesDir, "ImportGraphics/ImportGraphics.csx"));
 }

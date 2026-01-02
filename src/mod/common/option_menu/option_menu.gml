@@ -178,7 +178,8 @@ function get_default_mod_options()
         "Game Data", "Item giver, plot warper, party selector",
         "Room Warps", "Allows teleporting to rooms (current room: " + room_get_name(room) + ")",
         "Saves", "Allows quickly loading savefiles that you have saved\nRequires some external setup (Click to learn)",
-        "UI Colors", "Change the color of the UI (User Interface) elements of this menu"
+        "UI Colors", "Change the color of the UI (User Interface) elements of this menu",
+        "Switch Chapters", "Instantly launch another chapter"
     );
 
     menu_desc = "Welcome to the Keucher Mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
@@ -787,4 +788,23 @@ function get_misc_options_mod_options()
     menu_desc = "Click on each option to change their availability from ON (always), OFF (never)\nDEBUG (if using debug mode)";
     use_enumeration = true;
     options_state = "miscoptions";
+}
+
+function get_chapter_switch_options()
+{
+    if (!variable_global_exists("other_chapters"))
+    {
+        global.other_chapters = [];
+
+        for (var i = 1; i <= 4; i++)
+        {
+            if (global.chapter != i)
+                global.other_chapters[array_length(global.other_chapters)] = "Chapter " + string(i);
+        }
+    }
+
+    script_execute_ext(get_buttons_from_array, global.other_chapters);
+    menu_desc = "Choose the chapter you would like to launch";
+    use_enumeration = false;
+    options_state = "chapterswitch";
 }
