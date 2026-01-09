@@ -122,3 +122,18 @@ function check_mouse_gamepad_released(mb_key, gp_key)
 
     return false;
 }
+
+// this checks if the button is actively held instead of pressed or released. a bit confusing
+function check_mouse_gamepad_hold(mb_key, gp_key)
+{
+    if (device_mouse_check_button(0,mb_key))
+        return true;
+
+    if (instance_exists(obj_gamecontroller))
+    {
+        if (obj_gamecontroller.gamepad_active && gamepad_button_check(obj_gamecontroller.gamepad_id, gp_key))
+            return true;
+    }
+    
+     return false;
+}
