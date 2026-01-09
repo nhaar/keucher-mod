@@ -88,12 +88,12 @@ function get_ui_colors_options()
     get_buttons_from_array(
         "Background Color",
         "Text Color",
+        "Screen Border Color",
         "Button Color",
-        "Border Color",
         "Button Hover Color",
         "Button Press Color",
         "Button Highlight Color",
-        "Scrollbar"
+        "Scrollbar Color"
     );
 
     menu_desc = "Choose the interface element you would like to change the color of";
@@ -107,11 +107,14 @@ Get options for picking a color
 function get_color_picker_options()
 {
     get_buttons_from_array(
-        "Get color from RGB",
-        "Get color from HEX value"
+        "Choose color from RGB",
+        "Choose color from HEX value",
+        " ",
+        " ",
+        " "
     );
 
-    menu_desc = "Pick the method for selecting the color"
+    menu_desc = "Choose method of color selection or use the sliders to change the RGB directly"
     use_enumeration = false;
     options_state = "colorpicker";
 }
@@ -807,4 +810,47 @@ function get_chapter_switch_options()
     menu_desc = "Choose the chapter you would like to launch";
     use_enumeration = false;
     options_state = "chapterswitch";
+}
+
+function get_ui_color(argument0)
+{
+    var element = argument0;
+    var ui_name = "";
+    
+    switch (element)
+    {
+        case 0:
+            ui_name = "background";
+            break;
+        
+        case 1:
+            ui_name = "text";
+            break;
+        
+        case 2:
+            ui_name = "border";
+            break;
+        
+        case 3:
+            ui_name = "button";
+            break;
+        
+        case 4:
+            ui_name = "button-hover";
+            break;
+        
+        case 5:
+            ui_name = "button-press";
+            break;
+        
+        case 6:
+            ui_name = "button-highlight";
+            break;
+        
+        case 7:
+            ui_name = "scrollbar";
+            break;
+    }
+    
+    return read_config_value(ui_name + "color");
 }
