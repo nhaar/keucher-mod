@@ -84,7 +84,7 @@ for (i = imported_sprite_start; sprite_exists(i); i++)
 }
 
 save_game_info.sprites = sprites;
-var builtin_inst_vars = ["id", "visible", "solid", "persistent", "depth", "layer", "on_ui_layer", "alarm", "direction", "friction", "gravity", "gravity_direction", "hspeed", "vspeed", "xstart", "ystart", "x", "y", "xprevious", "yprevious", "object_index", "sprite_index", "image_alpha", "image_angle", "image_blend", "image_index", "image_speed", "image_xscale", "image_yscale", "mask_index", "path_position", "path_positionprevious", "path_speed", "path_scale", "path_orientation", "path_endaction", "timeline_index", "timeline_running", "timeline_speed", "timeline_position", "timeline_loop", "drawn_by_sequence"];
+var builtin_inst_vars = ["id", "visible", "solid", "persistent", "depth", "layer", "on_ui_layer", "alarm", "direction", "friction", "gravity", "gravity_direction", "hspeed", "vspeed", "xstart", "ystart", "x", "y", "xprevious", "yprevious", "object_index", "sprite_index", "image_alpha", "image_angle", "image_blend", "image_index", "image_speed", "image_xscale", "image_yscale", "mask_index", "path_position", "path_positionprevious", "path_speed", "path_scale", "path_orientation", "path_endaction", "timeline_index", "timeline_running", "timeline_speed", "timeline_position", "timeline_loop", "drawn_by_sequence", "path_index"];
 reversed_known_ids = {};
 var original_inst_ids = variable_struct_get_names(known_ids);
 
@@ -245,6 +245,7 @@ for (i = 0; i < array_length(layer_ids); i++)
 }
 
 save_game_info.layers = layers;
+save_game_info.paths = known_paths;
 var json_string = json_stringify(save_game_info, false);
 var buffer_size = string_byte_length(json_string) + 1;
 var save_buffer = buffer_create(buffer_size, buffer_fixed, 1);

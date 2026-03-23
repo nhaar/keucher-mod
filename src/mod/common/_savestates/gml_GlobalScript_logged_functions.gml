@@ -223,3 +223,18 @@ function sprite_get_texture_logged(arg0, arg1)
     
     return texture;
 }
+
+function path_start_logged(arg0, arg1, arg2, arg3)
+{
+    with (obj_savestate_manager)
+    {
+        variable_struct_set(known_paths, other.id, 
+        {
+            startx: other.x,
+            starty: other.y,
+            absolute: arg3
+        });
+    }
+    
+    return path_start(arg0, arg1, arg2, arg3);
+}

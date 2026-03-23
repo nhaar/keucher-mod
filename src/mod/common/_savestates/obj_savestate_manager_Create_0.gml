@@ -20,6 +20,7 @@ known_audio = {};
 known_textures = {};
 reversed_known_ids = {};
 known_sprites = {};
+known_paths = {};
 known_call_laters = [];
 ds_max_id = 
 {

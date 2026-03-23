@@ -10,6 +10,7 @@ var camera = load_game_info.camera;
 var sprites = load_game_info.sprites;
 var ds = load_game_info.ds;
 var layers = load_game_info.layers;
+var paths = load_game_info.paths;
 var call_laters = load_game_info.call_laters;
 var sprite_folder = "Savestates/Chapter " + string(global.chapter) + "/" + string(savestate_num) + "/Sprites/";
 known_sprites = {};
@@ -124,7 +125,7 @@ for (var i = 0; i < array_length(inst_ids); i++)
         continue;
     
     var new_inst = variable_struct_get(known_ids, old_inst);
-    var readonly_vars = ["object_index", "layer", "id"];
+    var readonly_vars = ["object_index", "layer", "id", "path_index", "path_speed", "path_endaction", "path_position"];
     var vars = variable_struct_get(instances, old_inst);
     var var_names = variable_struct_get_names(vars);
     
@@ -151,6 +152,22 @@ for (var i = 0; i < array_length(inst_ids); i++)
     
     if (vars.layer.value != -1)
         new_inst.layer = layer_get_id(vars.layer.value);
+    if (vars.path_index.value != -1)
+    {
+        var path_info = variable_struct_get(paths, old_inst);
+        
+        with (new_inst)
+        {
+            var finalx = x;
+            var finaly = y;
+            x = path_info.startx;
+            y = path_info.starty;
+            path_start_logged(vars.path_index.value, vars.path_speed.value, vars.path_endaction.value, path_info.absolute);
+            x = finalx;
+            y = finaly;
+            path_position = vars.path_position.value;
+        }
+    }
 }
 
 var cur_camera = view_camera[0];
