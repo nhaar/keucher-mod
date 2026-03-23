@@ -98,6 +98,17 @@ function encode_data_type(arg0)
                         return formatted_struct;
                     }
                 }
+
+                var const_func = instanceof(value);
+                if (!array_contains_manual(["struct", "instance", undefined], const_func))
+                {
+                    return 
+                    {
+                        type: "constructor",
+                        value: formatted_struct,
+                        const_func: asset_get_index(const_func)
+                    };
+                }
                 
                 value = formatted_struct;
             }
@@ -220,7 +231,12 @@ function decode_var_info(arg0, arg1 = true)
             break;
         
         case "struct":
+        case "constructor":
             var struct = {};
+            
+            if (type == "constructor")
+                struct = new arg0.const_func();
+            
             var names = variable_struct_get_names(value);
             
             for (var i = 0; i < array_length(names); i++)
