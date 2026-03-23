@@ -276,30 +276,9 @@ for (var i = 0; i < button_amount; i++)
                         break;
                     
                     case 2:
-                        red = (real_mouse_x - 10) * 0.44
-                        
-                        if (red > 255)
-                            red = 255;
-                        
-                        set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
-                        break;
-                    
                     case 3:
-                        green = (real_mouse_x - 10) * 0.44
-                        
-                        if (green > 255)
-                            green = 255
-                        
-                        set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
-                        break;
-                    
                     case 4:
-                        blue = (real_mouse_x - 10) * 0.44
-                        
-                        if (blue > 255)
-                            blue = 255
-
-                        set_ui_color(current_ui_element, make_colour_rgb(red, green, blue))
+                        update_color_from_slides(red, green, blue, i - 2);
                         break;
                 }
             }

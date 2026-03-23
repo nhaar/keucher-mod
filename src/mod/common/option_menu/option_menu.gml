@@ -854,3 +854,20 @@ function get_ui_color(argument0)
     
     return read_config_value(ui_name + "color");
 }
+
+/* Args: red, blue, green, then index signal which color is updated (0-2) */
+function update_color_from_slides()
+{
+    if (argument_count != 4) {
+        return undefined;
+    }
+    var index = argument[3];
+    var new_color = (real_mouse_x - 10) * 0.44;
+    if (new_color > 255)
+    {
+        new_color = 255;
+    }
+    argument[index] = new_color;
+    
+    set_ui_color(current_ui_element, make_colour_rgb(argument[0], argument[1], argument[2]));
+}
