@@ -871,3 +871,13 @@ function update_color_from_slides()
     
     set_ui_color(current_ui_element, make_colour_rgb(argument[0], argument[1], argument[2]));
 }
+
+function get_button_start_y(index)
+{
+    return min_y + padding + index * (button_height + padding);
+}
+
+function get_button_end_y(index)
+{
+    return min_y + padding + button_height + index * (button_height + padding);
+}

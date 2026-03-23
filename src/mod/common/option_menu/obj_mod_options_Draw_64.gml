@@ -249,8 +249,8 @@ draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = min_y + padding + i * (button_height + padding)
-    button_end_y = min_y + padding + button_height + i * (button_height + padding)
+    button_start_y = get_button_start_y(i);
+    button_end_y = get_button_end_y(i);
 
     if (button_start_y > visible_max_y || button_end_y < visible_min_y)
     {
@@ -970,7 +970,7 @@ for (var i = 0; i < button_amount; i++)
     var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
     draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i])
 }
-// actually drawing the RGB sliders and display this could maybe be drawn somewhere else
+// drawing the RGB sliders in the color picker
 if (options_state == "colorpicker")
 {
     red = color_get_red(get_ui_color(current_ui_element));
@@ -979,20 +979,26 @@ if (options_state == "colorpicker")
     draw_text_transformed(50, 300, "Red Value:     " + string(red), 2, 2, 0);
     draw_text_transformed(50, 330, "Green Value: " + string(green), 2, 2, 0);
     draw_text_transformed(50, 360, "Blue Value:   " + string(blue), 2, 2, 0);
+
+    // rectangle with color sample
     draw_set_color(get_ui_color(current_ui_element));
     draw_rectangle(400, 275, 550, 425, false);
-    draw_set_color(c_maroon);
-    draw_rectangle(button_start_x, button_start_y - (button_height * 2) - (padding * 2), button_end_x, button_end_y - (button_height * 2) - (padding * 2), false);
-    draw_set_color(c_red);
-    draw_rectangle(button_start_x, button_start_y - (button_height * 2) - (padding * 2), clamp(red * 2.42, 10, 615), button_end_y - (button_height * 2) - (padding * 2), false);
-    draw_set_color(c_green);
-    draw_rectangle(button_start_x, button_start_y - button_height - padding, button_end_x, button_end_y - button_height - padding, false);
-    draw_set_color(c_lime);
-    draw_rectangle(button_start_x, button_start_y - button_height - padding, clamp(green * 2.42, 10, 615), button_end_y - button_height - padding, false);
-    draw_set_color(c_navy);
-    draw_rectangle(button_start_x, button_start_y, button_end_x, button_end_y, false);
-    draw_set_color(c_blue);
-    draw_rectangle(button_start_x, button_start_y, clamp(blue * 2.42, 10, 615), button_end_y, false);
+
+    // rectangles for the picker: brighter color representing value and darker color as placeholder
+    var colors = [red, green, blue];
+    var dark_colors = [c_maroon, c_green, c_navy];
+    var filled_colors = [c_red, c_lime, c_blue];
+
+    for (var i = 0; i < 3; i++)
+    {
+        var button_index = i + 2;
+    
+        draw_set_color(dark_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), button_end_x, get_button_end_y(button_index), false);
+
+        draw_set_color(filled_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), clamp(colors[i] * (button_end_x - button_start_x) / 255, button_start_x, button_end_x), get_button_end_y(button_index), false);
+    }
 }
 
 // menu description rendering
