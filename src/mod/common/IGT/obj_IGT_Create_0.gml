@@ -90,3 +90,9 @@ init_timer_mode();
 contimer = 0;
 
 current_frame_time = 0;
+
+// control variables for the battle timer
+start_battle_timer = false;
+end_battle_timer = false;
+start_battle_turn = false;
+end_battle_turn = false;
