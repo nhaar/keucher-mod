@@ -879,31 +879,10 @@ for (var i = 0; i < button_amount; i++)
                                     set_ui_color(current_ui_element, color)
                                 }
                                 break
-                            case 2: // red slider
-                                red = (real_mouse_x - 10) * 0.44;
-                                
-                                if (red > 255)
-                                    red = 255;
-                                
-                                set_ui_color(current_ui_element, make_colour_rgb(red, green, blue));
-                                break;
-                            
-                            case 3: // green slider
-                                green = (real_mouse_x - 10) * 0.44;
-                                
-                                if (green > 255)
-                                    green = 255;
-                                
-                                set_ui_color(current_ui_element, make_colour_rgb(red, green, blue));
-                                break;
-                            
-                            case 4: // blue slider
-                                blue = (real_mouse_x - 10) * 0.44;
-                                
-                                if (blue > 255)
-                                    blue = 255;
-
-                                set_ui_color(current_ui_element, make_colour_rgb(red, green, blue));
+                            case 2:
+                            case 3:
+                            case 4:
+                                update_color_from_slides(red, green, blue, i - 2);
                                 break;
 
                         }
