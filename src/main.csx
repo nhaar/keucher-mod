@@ -185,7 +185,6 @@ void BuildMod (DeltaruneVersion version)
 
     KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
 
-    SetupChapterOne(version);
 
     UpdateKrisRoom(version);
 
@@ -193,6 +192,7 @@ void BuildMod (DeltaruneVersion version)
 
     loader.Load();
 
+    SetupChapterOne(version);
     if (version != DeltaruneVersion.ChapterSelect)
     {
         // replace with logged functions for savestates

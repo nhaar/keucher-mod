@@ -1,0 +1,3 @@
+/// IMPORT
+
+event_inherited();
