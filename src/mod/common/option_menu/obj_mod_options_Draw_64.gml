@@ -249,8 +249,8 @@ draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = min_y + padding + i * (button_height + padding)
-    button_end_y = min_y + padding + button_height + i * (button_height + padding)
+    button_start_y = get_button_start_y(i);
+    button_end_y = get_button_end_y(i);
 
     if (button_start_y > visible_max_y || button_end_y < visible_min_y)
     {
@@ -259,9 +259,29 @@ for (var i = 0; i < button_amount; i++)
     // if mouse is over button
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-        if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
+        if (check_mouse_gamepad_hold(mb_left, global.input_g[4]))
         {
             button_state[i] = "press"
+                        
+            if (options_state == "colorpicker")
+            {
+                red = color_get_red(get_ui_color(current_ui_element))
+                green = color_get_green(get_ui_color(current_ui_element))
+                blue = color_get_blue(get_ui_color(current_ui_element))
+
+                switch (i)
+                {
+                    case 0:
+                    case 1:
+                        break;
+                    
+                    case 2:
+                    case 3:
+                    case 4:
+                        update_color_from_slides(red, green, blue, i - 2);
+                        break;
+                }
+            }
         }
         // handle clicking button
         else if (button_state[i] == "press")
@@ -812,6 +832,9 @@ for (var i = 0; i < button_amount; i++)
                         scr_chapterswitch(real(string_digits(global.other_chapters[i])))
                         break
                     case "colorpicker":
+                        red = color_get_red(get_ui_color(current_ui_element))
+                        green = color_get_green(get_ui_color(current_ui_element))
+                        blue = color_get_blue(get_ui_color(current_ui_element))
                         switch (i)
                         {
                             case 0: // rgb
@@ -856,6 +879,11 @@ for (var i = 0; i < button_amount; i++)
                                     set_ui_color(current_ui_element, color)
                                 }
                                 break
+                            case 2:
+                            case 3:
+                            case 4:
+                                update_color_from_slides(red, green, blue, i - 2);
+                                break;
 
                         }
                         break
@@ -941,6 +969,36 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(read_ui_color("text"))
     var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
     draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i])
+}
+// drawing the RGB sliders in the color picker
+if (options_state == "colorpicker")
+{
+    red = color_get_red(get_ui_color(current_ui_element));
+    green = color_get_green(get_ui_color(current_ui_element));
+    blue = color_get_blue(get_ui_color(current_ui_element));
+    draw_text_transformed(50, 300, "Red Value:     " + string(red), 2, 2, 0);
+    draw_text_transformed(50, 330, "Green Value: " + string(green), 2, 2, 0);
+    draw_text_transformed(50, 360, "Blue Value:   " + string(blue), 2, 2, 0);
+
+    // rectangle with color sample
+    draw_set_color(get_ui_color(current_ui_element));
+    draw_rectangle(400, 275, 550, 425, false);
+
+    // rectangles for the picker: brighter color representing value and darker color as placeholder
+    var colors = [red, green, blue];
+    var dark_colors = [c_maroon, c_green, c_navy];
+    var filled_colors = [c_red, c_lime, c_blue];
+
+    for (var i = 0; i < 3; i++)
+    {
+        var button_index = i + 2;
+    
+        draw_set_color(dark_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), button_end_x, get_button_end_y(button_index), false);
+
+        draw_set_color(filled_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), clamp(colors[i] * (button_end_x - button_start_x) / 255, button_start_x, button_end_x), get_button_end_y(button_index), false);
+    }
 }
 
 // menu description rendering
