@@ -13,6 +13,9 @@ function mod_init()
 
     // variable keeps track if emulating the OS pause
     global.is_pause_emulating = false;
+    
+    // crash prevention
+    global.mizzle_cycle = 0;
 
     var omnipresent_instances = create_array
     (
