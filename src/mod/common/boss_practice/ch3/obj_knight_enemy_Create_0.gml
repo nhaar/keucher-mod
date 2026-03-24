@@ -1,5 +1,9 @@
 /// PATCH
 
+/// PREPEND
+start_boss_practice()
+/// END
+
 /// APPEND
 // this array is indexed by global.bossTurn, and each element is an array of 4 elements:
 // [myattackchoice, difficulty, obj_growtangle.maxxscale, obj_growtangle.maxyscale]
