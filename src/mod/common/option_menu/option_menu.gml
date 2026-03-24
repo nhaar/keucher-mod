@@ -797,6 +797,7 @@ function get_chapter_switch_options()
 {
 #if DEMO
     menu_desc = "Chapter Switch is not available in DEMO";
+    get_buttons_from_array();
 #else
     if (!variable_global_exists("other_chapters"))
     {
