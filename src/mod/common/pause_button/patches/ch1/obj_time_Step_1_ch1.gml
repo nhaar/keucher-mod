@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if DEMO
 /// REPLACE
 if (global.is_console && os_is_paused())
 /// CODE

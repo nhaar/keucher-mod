@@ -788,7 +788,7 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "snowgrave_plot":
-#if CH2
+#if CH2 || DEMO
                         if (instance_exists(obj_mainchara) && global.chapter == 2)
                         {
                             set_snowgrave_plot(i + 1);

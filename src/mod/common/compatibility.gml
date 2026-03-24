@@ -137,3 +137,15 @@ function check_mouse_gamepad_hold(mb_key, gp_key)
     
      return false;
 }
+
+#if DEMO
+function starts_with_string(str, start)
+{
+    return string_pos(start, str) == 1;
+}
+
+function is_whitespace(char)
+{
+    return char == " " || char == "\t" || char == "\r" || char == "\n" || char == "\f" || char == "\v";
+}
+#endif

@@ -10,7 +10,7 @@ function plotwarp(__warp)
     
     switch __warp
     {
-#if CH1
+#if CH1 || DEMO
         case "ch1_wake_up":
             global.flag[100] = 0
             global.flag[201] = 0
@@ -142,7 +142,7 @@ function plotwarp(__warp)
             room_goto(#Suffix("room_cc_kingbattle"))
             break
 #endif
-#if CH2
+#if CH2 || DEMO
         case "post_arcade":
             global.plot[34] = 1
             global.plot[333] = 0

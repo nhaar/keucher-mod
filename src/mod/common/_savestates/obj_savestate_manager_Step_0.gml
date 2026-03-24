@@ -64,7 +64,9 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
         }
         else
         {
+#if !DEMO
             call_cancel(info.id);
+#endif
             var save_info = copy_struct(info);
             save_info.callback = encode_data_type(save_info.callback);
             array_push(call_laters, save_info);

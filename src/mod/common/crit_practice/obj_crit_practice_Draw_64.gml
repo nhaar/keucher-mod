@@ -1,7 +1,7 @@
 /// IMPORT
 
 // drawing crit stats, because it counts turn ending 13 times chapters 3 and 4 need a different display
-#if CH1 || CH2
+#if CH1 || CH2 || DEMO
 if global.ambyu_practice
 {
     xx = view_wport - 5

@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if DEMO
 
 /// REPLACE
             game_change("rom:/chapter" + chapstring + "_switch/", parameters);

@@ -1,4 +1,4 @@
-/// FUNCTIONS .ignore if !CH2
+/// FUNCTIONS .ignore if !CH2 && !DEMO
 
 function set_snowgrave_plot(plot)
 {

@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if DEMO
 
 // TODO - same as ch2. Possible merge?
 

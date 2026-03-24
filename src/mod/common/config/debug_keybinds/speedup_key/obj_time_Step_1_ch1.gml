@@ -1,4 +1,4 @@
-/// PATCH .ignore if DEMO
+/// PATCH .ignore if !DEMO
 // replaces vanilla speedup key with mod ones
 // after LTS, the speedup key was removed
 
