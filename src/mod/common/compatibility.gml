@@ -137,3 +137,12 @@ function check_mouse_gamepad_hold(mb_key, gp_key)
     
      return false;
 }
+
+function starts_with_string(str, start)
+{
+#if DEMO
+    return string_pos(start, str) == 1;
+#else
+    return string_starts_with(str, start);
+#endif
+}

@@ -9,7 +9,7 @@
         if (is_option_active("30tbps") || automash_timer == 0)
         {
 /// END
-#elsif CH2
+#elsif CH2 || DEMO
 /// REPLACE
         if (automash_timer == 0)
             automash_timer = 1;

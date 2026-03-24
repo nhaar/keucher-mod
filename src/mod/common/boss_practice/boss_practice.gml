@@ -26,7 +26,7 @@ function start_boss_practice()
 
     switch (object_index)
     {
-#if CH1
+#if CH1 || DEMO
         case #Suffix("obj_king_boss"):
         {
             obj_boss_practice.turn_text[0] = "Spades (Turn 1)"
@@ -63,7 +63,7 @@ function start_boss_practice()
             break
         }
 #endif
-#if CH2
+#if CH2 || DEMO
         case obj_spamton_neo_enemy:
         {
             obj_boss_practice.turn_text[0] = "Floating Heads"

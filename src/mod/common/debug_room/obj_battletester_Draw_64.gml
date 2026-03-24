@@ -2,7 +2,7 @@
 // make numpad keys work for these
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("1")))
 #elsif CH3
     if (sunkus_kb_check_pressed(49) || gamepad_button_check_pressed(0, gp_shoulderl))
@@ -14,7 +14,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("2")))
 #elsif CH3
     if (sunkus_kb_check_pressed(50) || gamepad_button_check_pressed(0, gp_shoulderr))
@@ -26,7 +26,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("3")))
 #else
     if (sunkus_kb_check_pressed(51))
@@ -36,7 +36,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("4")))
 #else
     if (sunkus_kb_check_pressed(52))
@@ -55,7 +55,7 @@
 #endif
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("6")))
 #elsif CH3
     if (sunkus_kb_check_pressed(54) || gamepad_button_check_pressed(0, gp_shoulderlb))
@@ -67,7 +67,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("7")))
 #elsif CH3
     if (sunkus_kb_check_pressed(55) || gamepad_button_check_pressed(0, gp_shoulderrb))
@@ -79,7 +79,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("8")))
 #else
     if (sunkus_kb_check_pressed(56))
@@ -89,7 +89,7 @@
 /// END
 
 /// REPLACE
-#if CH2
+#if CH2 || DEMO
     if (keyboard_check_pressed(ord("9")))
 #else
     if (sunkus_kb_check_pressed(57))

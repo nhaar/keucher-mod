@@ -125,7 +125,7 @@ for (i = 0; i < array_length(all_globals); i++)
 {
     var name = all_globals[i];
     
-    if (string_starts_with(name, "@@"))
+    if (starts_with_string(name, "@@"))
         continue;
     
     var value = variable_global_get(name);

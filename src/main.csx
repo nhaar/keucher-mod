@@ -24,6 +24,10 @@ class KeucherModLoader : UMPLoader
 
     public override bool AcceptFile(string filePath)
     {
+        if (filePath.Contains("demo\\") && Version != DeltaruneVersion.Demo)
+        {
+            return false;
+        }
         var isChapterSelect = filePath.Contains("chapter_select\\");
         // chapter select is isolated
         if (Version == DeltaruneVersion.ChapterSelect)
@@ -50,6 +54,7 @@ class KeucherModLoader : UMPLoader
         if (isRange)
         {
             if (
+                (Version == DeltaruneVersion.Demo && chapter > 2) ||
                 (Version == DeltaruneVersion.Chapter1 && chapter > 1) ||
                 (Version == DeltaruneVersion.Chapter2 && chapter > 2) ||
                 (Version == DeltaruneVersion.Chapter3 && chapter > 3) ||
@@ -62,8 +67,8 @@ class KeucherModLoader : UMPLoader
         else
         {
             if (
-                (chapter == 1 && Version != DeltaruneVersion.Chapter1) ||
-                (chapter == 2 && Version != DeltaruneVersion.Chapter2) ||
+                (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
+                (chapter == 2 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
                 (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
                 (chapter == 4 && Version != DeltaruneVersion.Chapter4)
             )
@@ -78,10 +83,10 @@ class KeucherModLoader : UMPLoader
     public override string[] Symbols => Version switch
     {
         // Symbols guide:
-        // CH1, CH2 -> This data.win CONTAINS the given chapter number
-        // CHS -> This data.win IS the chapter select LTS data.win
-        // DEMO -> This data.win is from the DEMO version, PRE-LTS versions
-        // SP -> This data.win is from the Survey Program version
+        // CH X -> full game data.win for chapter x
+        // CHS -> full game data.win for chapter select
+        // DEMO -> data.win for 1.15
+        DeltaruneVersion.Demo => new[] { "DEMO" },
         DeltaruneVersion.ChapterSelect => new[] { "CHS" },
         DeltaruneVersion.Chapter1 => new[] { "CH1" },
         DeltaruneVersion.Chapter2 => new[] { "CH2" },
@@ -113,20 +118,44 @@ class KeucherModLoader : UMPLoader
         {
             // if not DEMO, just remove the indicator.
             fileName = fileName.Substring(0, fileName.Length - suffixLength);
+            if (Version == DeltaruneVersion.Demo)
+            {
+                if (fileName.Contains("gml_Object"))
+                {
+                    // for objects, find the event index
+                    int index = -1;
+                    var events = new string[] { "PreCreate", "Create", "Step", "Other", "Draw", "Collision", "Alarm" };
+                    var foundEvent = "";
+                    foreach (var ev in events)
+                    {
+                        index = fileName.IndexOf(ev);
+                        if (index > -1)
+                        {
+                            foundEvent = ev;
+                            break;
+                        }
+                    }
+
+                    // to place before the _ before the event name
+                    index -= 1;
+                    var fileNameCh1 = fileName.Substring(0, index) + ch1Suffix + fileName.Substring(index, fileName.Length - index);
+                    if (foundEvent == "Collision")
+                    {
+                        // collision names end with another object's name, thus need to suffix too
+                        fileNameCh1 += ch1Suffix;
+                    }
+                    names.Add(fileNameCh1);
+                    return names.ToArray();
+                }
+                else
+                {
+                    names.Add(fileName + ch1Suffix);
+                    return names.ToArray();
+                }
+            }
         }
 
-        if (fileName == "boss_init")
-        {
-            names.AddRange(GetObjectsCreate(new[] { "king_boss", "joker" }, new[] { "queen_enemy", "spamton_neo_enemy" }, new [] { "knight_enemy", "tenna_enemy" }, new [] { "jackenstein_enemy", "titan_enemy", "hammer_of_justice_enemy" }));
-        }
-        else if (fileName == "crit_practice_init")
-        {
-            names.AddRange(GetObjectsCreate(new[] { "placeholderenemy" }, new[] { "omawaroid_enemy" }, new string[] { "shadowman_enemy" }, new string[] { "guei_enemy" }));
-        }
-        else
-        {
-            names.Add(fileName);
-        }
+        names.Add(fileName);
     
         return names.ToArray();
     }
@@ -138,40 +167,12 @@ class KeucherModLoader : UMPLoader
 
     public DeltaruneVersion Version { get; set; }
 
-    List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects, string[] ch3Objects, string[] ch4Objects)
-    {
-        string[] objects = null;
-        if (Version == DeltaruneVersion.ChapterSelect)
-        {
-            objects = new string[] { };
-        }
-        else
-         if (Version == DeltaruneVersion.Chapter1)
-        {
-            objects = ch1Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter2)
-        {
-            objects = ch2Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter3)
-        {
-            objects = ch3Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter4)
-        {
-            objects = ch4Objects;
-        }
-        else
-        {
-            throw new Exception("Unknown version");
-        }
-
-        return objects.Select(s => $"gml_Object_obj_{s}_Create_0").ToList();
-    }
-
     public string Suffix(string name)
     {
+        if (Version == DeltaruneVersion.Demo)
+        {
+            return name + "_ch1";
+        }
         return name;
     }
 }
@@ -199,7 +200,7 @@ void BuildMod (DeltaruneVersion version)
         List<UndertaleCode> toDump = Data.Code.Where(c => c.ParentEntry is null).ToList();
         foreach (UndertaleCode code in toDump)
         {
-            if (code is null || code.Name.Content == "gml_GlobalScript_logged_functions")
+            if (code is null || code.Name.Content == "gml_GlobalScript_logged_functions" || code.Name.Content == "gml_GlobalScript_call_later")
                 continue;
 
             importGroup.QueueFindReplace(code, "audio_play_sound(", "audio_play_sound_logged(", true);
@@ -304,13 +305,17 @@ void UpdateTvStatic (DeltaruneVersion version)
 
 void SetupChapterOne (DeltaruneVersion version)
 {
-    if (version != DeltaruneVersion.Chapter1)
+    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.Demo)
     {
         return;
     }
 
     // setting up the battle room for chapter 1
     var roomName = "room_battletest";
+    if (version == DeltaruneVersion.Demo)
+    {
+        roomName += "_ch1";
+    }
     var battleroomCh1 = Data.Rooms.ByName(roomName);
     battleroomCh1.Width = 640;
     battleroomCh1.Height = 480;
@@ -326,6 +331,10 @@ void SetupChapterOne (DeltaruneVersion version)
     for (int i = 0; i < objects.Length; i+= 3)
     {
         string objectName = (string)objects[i];
+        if (version == DeltaruneVersion.Demo)
+        {
+            objectName += "_ch1";
+        }
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
 

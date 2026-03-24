@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH .ignore if !CH2 && !DEMO
 
 // Add roaring skip with ENTER in debug mode
 // (it is already sort of in vanilla we are just enabling)
