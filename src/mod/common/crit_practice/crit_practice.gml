@@ -130,8 +130,3 @@ function toggle_crit_practice(on)
         global.ambyu_practice = false
     }
 }
-
-function toggle_pattern_mode(on)
-{
-    global.random_pattern = on;
-}

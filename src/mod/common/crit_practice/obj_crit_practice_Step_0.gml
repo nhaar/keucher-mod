@@ -36,3 +36,8 @@ if (pressed_other_keybind("next_crit_pattern") || pressed_other_keybind("previou
     global.triple_pattern = abs(global.crit_pattern) % array_length(global.triple_patterns)
     global.double_pattern = abs(global.crit_pattern) % array_length(global.double_patterns)
 }
+
+if (pressed_other_keybind("pattern_mode"))
+{
+    pattern_mode = !pattern_mode;
+}
