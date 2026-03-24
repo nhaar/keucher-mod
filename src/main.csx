@@ -24,6 +24,10 @@ class KeucherModLoader : UMPLoader
 
     public override bool AcceptFile(string filePath)
     {
+        if (filePath.Contains("demo\\") && Version != DeltaruneVersion.Demo)
+        {
+            return false;
+        }
         var isChapterSelect = filePath.Contains("chapter_select\\");
         // chapter select is isolated
         if (Version == DeltaruneVersion.ChapterSelect)
