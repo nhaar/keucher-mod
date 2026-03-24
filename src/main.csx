@@ -167,41 +167,6 @@ class KeucherModLoader : UMPLoader
 
     public DeltaruneVersion Version { get; set; }
 
-    List<string> GetObjectsCreate (string[] ch1Objects, string[] ch2Objects, string[] ch3Objects, string[] ch4Objects)
-    {
-        string[] objects = null;
-        if (Version == DeltaruneVersion.ChapterSelect)
-        {
-            objects = new string[] { };
-        }
-        else if (Version == DeltaruneVersion.Chapter1)
-        {
-            objects = ch1Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter2)
-        {
-            objects = ch2Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter3)
-        {
-            objects = ch3Objects;
-        }
-        else if (Version == DeltaruneVersion.Chapter4)
-        {
-            objects = ch4Objects;
-        }
-        else if (Version == DeltaruneVersion.Demo)
-        {
-            objects = (ch1Objects.Select(obj => obj + "_ch1")).Concat(ch2Objects).ToArray();
-        }
-        else
-        {
-            throw new Exception("Unknown version");
-        }
-
-        return objects.Select(s => $"gml_Object_obj_{s}_Create_0").ToList();
-    }
-
     public string Suffix(string name)
     {
         if (Version == DeltaruneVersion.Demo)
