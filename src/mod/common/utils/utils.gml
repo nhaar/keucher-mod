@@ -54,7 +54,11 @@ For compatibility for DEMO objects which end in CH1
 */
 function get_object_implicit_chapter (object)
 {
-    return asset_get_index(object)
+#if DEMO
+    return asset_get_index(object + (global.chapter == 1 ? "_ch1" : ""));
+#else
+    return asset_get_index(object);
+#endif
 }
 
 /*
@@ -171,6 +175,8 @@ function loaded_savefile()
 {
 #if CHS
     return false;
+#elsif DEMO
+    return instance_exists(obj_mainchara_ch1) || instance_exists(obj_mainchara);
 #else
     return instance_exists(obj_mainchara)
 #endif

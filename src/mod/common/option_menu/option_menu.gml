@@ -795,6 +795,9 @@ function get_misc_options_mod_options()
 
 function get_chapter_switch_options()
 {
+#if DEMO
+    menu_desc = "Chapter Switch is not available in DEMO";
+#else
     if (!variable_global_exists("other_chapters"))
     {
         global.other_chapters = [];
@@ -808,6 +811,7 @@ function get_chapter_switch_options()
 
     script_execute_ext(get_buttons_from_array, global.other_chapters);
     menu_desc = "Choose the chapter you would like to launch";
+#endif
     use_enumeration = false;
     options_state = "chapterswitch";
 }
