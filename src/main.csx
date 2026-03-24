@@ -351,13 +351,17 @@ void UpdateTvStatic (DeltaruneVersion version)
 
 void SetupChapterOne (DeltaruneVersion version)
 {
-    if (version != DeltaruneVersion.Chapter1)
+    if (version != DeltaruneVersion.Chapter1 && version != DeltaruneVersion.Demo)
     {
         return;
     }
 
     // setting up the battle room for chapter 1
     var roomName = "room_battletest";
+    if (version == DeltaruneVersion.Demo)
+    {
+        roomName += "_ch1";
+    }
     var battleroomCh1 = Data.Rooms.ByName(roomName);
     battleroomCh1.Width = 640;
     battleroomCh1.Height = 480;
@@ -373,6 +377,10 @@ void SetupChapterOne (DeltaruneVersion version)
     for (int i = 0; i < objects.Length; i+= 3)
     {
         string objectName = (string)objects[i];
+        if (version == DeltaruneVersion.Demo)
+        {
+            objectName += "_ch1";
+        }
         AddObjectToRoom(battleroomCh1, objectName, (int)objects[i + 1], (int)objects[i + 2]);
     }
 
