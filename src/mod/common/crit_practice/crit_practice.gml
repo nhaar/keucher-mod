@@ -62,7 +62,7 @@ function set_crit_patterns ()
 /*
 Update the crit practice stats at the end of each turn based on player's performance
 */
-#if CH1 || CH2
+#if CH1 || CH2 || DEMO
 function update_end_turn_crit_stats()
 {
     if (global.ambyu_practice)
@@ -129,9 +129,4 @@ function toggle_crit_practice(on)
     {
         global.ambyu_practice = false
     }
-}
-
-function toggle_pattern_mode(on)
-{
-    global.random_pattern = on;
 }

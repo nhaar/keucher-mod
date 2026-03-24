@@ -27,8 +27,9 @@ global.triple_pattern = 0
 // the number of the current double team pattern
 global.double_pattern = 0
 
-// should be `1` if the patterns are random (normal) and `0` if they are fixed
-global.random_pattern = 1
+
+// pattern mode has the patterns being set 
+pattern_mode = false;
 
 // total damage per round
 global.thisdamage = 0

@@ -151,6 +151,7 @@ function audio_sound_pitch_logged(arg0, arg1)
 
 function call_later_logged(arg0, arg1, arg2, arg3 = false)
 {
+#if !DEMO
     var call_id = call_later(arg0, arg1, arg2, arg3);
     
     with (obj_savestate_manager)
@@ -167,6 +168,7 @@ function call_later_logged(arg0, arg1, arg2, arg3 = false)
     }
     
     return call_id;
+#endif
 }
 
 function ds_list_create_logged()

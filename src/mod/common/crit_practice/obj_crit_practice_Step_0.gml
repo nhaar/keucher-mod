@@ -11,6 +11,11 @@ if (!i_ex(obj_omawaroid_enemy))
 if (!i_ex(obj_shadowman_enemy))
 #elsif CH4
 if (!i_ex(obj_guei_enemy))
+#elsif DEMO
+if (
+    (global.chapter == 1 && (!i_ex(obj_placeholderenemy_ch1))) ||
+    (global.chapter == 2 && (!i_ex(obj_omawaroid_enemy)))
+)
 #endif
 {
     global.ambyu_practice = false
@@ -30,4 +35,9 @@ if (pressed_other_keybind("next_crit_pattern") || pressed_other_keybind("previou
     }
     global.triple_pattern = abs(global.crit_pattern) % array_length(global.triple_patterns)
     global.double_pattern = abs(global.crit_pattern) % array_length(global.double_patterns)
+}
+
+if (pressed_other_keybind("pattern_mode"))
+{
+    pattern_mode = !pattern_mode;
 }

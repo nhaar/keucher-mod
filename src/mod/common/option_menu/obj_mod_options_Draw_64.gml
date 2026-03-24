@@ -788,7 +788,7 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "snowgrave_plot":
-#if CH2
+#if CH2 || DEMO
                         if (instance_exists(obj_mainchara) && global.chapter == 2)
                         {
                             set_snowgrave_plot(i + 1);
@@ -906,6 +906,15 @@ for (var i = 0; i < button_amount; i++)
                                 close_mod_options();
 #if CHS
                                 show_message("Pick a chapter first!")           
+#elsif DEMO
+                                if (global.chapter == 1)
+                                {
+                                    scr_load_ch1(file_to_load);
+                                }
+                                else
+                                {
+                                    scr_load(file_to_load);
+                                }
 #else
                                 scr_load(file_to_load)
 #endif

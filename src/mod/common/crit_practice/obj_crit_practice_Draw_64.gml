@@ -1,14 +1,14 @@
 /// IMPORT
 
 // drawing crit stats, because it counts turn ending 13 times chapters 3 and 4 need a different display
-#if CH1 || CH2
+#if CH1 || CH2 || DEMO
 if global.ambyu_practice
 {
     xx = view_wport - 5
     yy = view_hport - 28
     draw_set_font(fnt_main)
     draw_set_color(c_yellow)
-    if global.random_pattern
+    if (!pattern_mode)
     {
         percentage = floor(global.success / global.attackse * 100)
         crit_percentage = floor(global.individual_success / global.single_hits * 100)
@@ -37,7 +37,7 @@ if (global.ambyu_practice)
     draw_set_font(fnt_main)
     draw_set_color(c_yellow)
     
-    if (global.random_pattern)
+    if (!pattern_mode)
     {
         percentage = floor((global.success / global.attacksereal) * 100)
         crit_percentage = floor((global.individual_success / global.single_hits) * 100)

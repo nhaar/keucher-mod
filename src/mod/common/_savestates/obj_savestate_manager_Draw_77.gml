@@ -60,7 +60,9 @@ else if (pause)
     {
         var call_info = known_call_laters[i];
         array_delete(known_call_laters, i, 1);
+#if !DEMO
         call_later_logged(call_info.period, call_info.unit, call_info.callback, call_info.loop);
+#endif
         i--;
     }
 }

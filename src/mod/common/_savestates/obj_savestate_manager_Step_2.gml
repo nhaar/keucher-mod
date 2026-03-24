@@ -60,7 +60,7 @@ known_ids = {};
 var inst_ids = variable_struct_get_names(instances);
 array_sort(inst_ids, function(arg0, arg1)
 {
-    return real(string_trim(arg0, ["ref "])) - real(string_trim(arg1, ["ref "]));
+    return real(trim_string(arg0, ["ref "])) - real(trim_string(arg1, ["ref "]));
 });
 
 for (var i = 0; i < array_length(inst_ids); i++)
@@ -177,7 +177,7 @@ camera_set_view_speed(cur_camera, camera.xspeed, camera.yspeed);
 camera_set_view_border(cur_camera, camera.xborder, camera.yborder);
 camera_set_view_angle(cur_camera, camera.angle);
 
-if (string_starts_with(camera.target, "ref "))
+if (starts_with_string(camera.target, "ref "))
 {
     var target = real(string_delete(camera.target, 1, string_length("ref ")));
     
@@ -248,10 +248,10 @@ for (var i = 0; i < array_length(maps_to_destroy); i++)
 
 if (game_get_speed(gamespeed_fps) != globals.game_speed)
     game_set_speed(globals.game_speed, gamespeed_fps);
-
+#if !DEMO
 for (var i = 0; i < array_length(known_call_laters); i++)
     call_cancel(known_call_laters[i].id);
-
+#endif
 for (var i = 0; i < array_length(call_laters); i++)
 {
     var info = call_laters[i];

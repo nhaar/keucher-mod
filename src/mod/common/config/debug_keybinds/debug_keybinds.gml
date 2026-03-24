@@ -254,7 +254,7 @@ function check_battle_keybinds()
     }
     if pressed_active_debug_keybind("instant_win")
     {
-#if CH2
+#if CH2 || DEMO
         if (instance_exists(o_boxingqueen))
         {
             with (o_boxingqueen)

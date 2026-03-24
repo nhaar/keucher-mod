@@ -2,6 +2,7 @@
 
 enum DeltaruneVersion
 {
+    Demo,
     ChapterSelect,
     Chapter1,
     Chapter2,

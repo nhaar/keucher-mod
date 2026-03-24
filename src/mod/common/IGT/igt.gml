@@ -235,10 +235,14 @@ function reset_battle_display()
 /* Function ensures compatibility with ch1 rooms outside DEMO */
 function parse_room_name(instruction)
 {
+#if DEMO
+    return instruction;
+#else
     var parsed = instruction;
     if (string_pos("ch1", instruction) > 0)
     {
         parsed = string_copy(instruction, 1, string_length(instruction) - 4);
     }
     return parsed;
+#endif
 }
