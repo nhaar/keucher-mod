@@ -68,7 +68,7 @@ class KeucherModLoader : UMPLoader
         {
             if (
                 (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
-                (chapter == 2 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
+                (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo)) ||
                 (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
                 (chapter == 4 && Version != DeltaruneVersion.Chapter4)
             )
