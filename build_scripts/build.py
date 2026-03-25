@@ -3,7 +3,7 @@ import os
 import re
 from pathlib import Path
 
-from paths import UTMT, FLIPS, CHAPTERS
+from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, DEMO_115
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
@@ -24,16 +24,18 @@ def build_version(data_win_path: str, script_name: str, version_name: str):
   data_win_output_path = os.path.join(DIST_PATH, f"data_{version_name}.win")
   script_path = os.path.join(SCRIPT_PATH, script_name + '.csx')
   subprocess.run([UTMT, "load", data_win_path, "-s", script_path, "-o", data_win_output_path])
-  subprocess.run([FLIPS, "-c", "--bps", data_win_path, data_win_output_path, os.path.join(DIST_PATH, f"{version_name}_keucher-{VERSION}.bps")])
+  subprocess.run([FLIPS, "-c", "--bps", data_win_path, data_win_output_path, os.path.join(DIST_PATH, f"{version_name}.bps")])
 
-def build_chapter_version(chapter: int, version: str):
-  build_version(CHAPTERS[str(chapter)], f'Chapter{chapter}', f'chapter{chapter}_v{version}')
+def build_full_release(chapter_paths, deltarune_version: str):
+  for (version_name, script_name, ch) in [
+    ('_select', 'ChapterSelect', '0'),
+    *[(str(ch), 'Chapter' + str(ch), str(ch)) for ch in range(1, 5)]
+    ]:
+    build_version(chapter_paths[ch], script_name, f'v{deltarune_version}-chapter{version_name}')
 
-def build_chapter_select(version: str):
-  build_version(CHAPTERS['0'], f'ChapterSelect', f'chapter_select_v{version}')
+def build_demo(path, deltarune_version: str):
+  build_version(path, 'Demo', f'v{deltarune_version}-demo')
 
-build_chapter_select('17')
-build_chapter_version(1, '1.40')
-build_chapter_version(2, '1.46')
-build_chapter_version(3, '98')
-build_chapter_version(4, '98')
+build_demo(DEMO_115, '1.15')
+build_full_release(CHAPTERS_104, '1.04')
+build_full_release(CHAPTERS_105, '1.05')
