@@ -12,6 +12,7 @@
 !/build_scripts/build.py
 !/build_scripts/paths-template.py
 !/build_scripts/patcher.bat
+!/build_scripts/readme.txt
 
 # build files
 /dist

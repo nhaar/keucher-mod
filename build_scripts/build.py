@@ -8,6 +8,7 @@ from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, DEMO_115
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
+BUILD_SCRIPTS = os.path.join(DIST_PATH, '..', 'build_scripts')
 FINAL_PATH = os.path.join(DIST_PATH, 'final')
 PATCH_FILES = os.path.join(FINAL_PATH, 'patch_files')
 
@@ -53,6 +54,10 @@ build_full_release(CHAPTERS_105, '1.05')
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
 shutil.copy2(
-  os.path.join(DIST_PATH, '..', 'build_scripts', 'patcher.bat'),
+  os.path.join(BUILD_SCRIPTS, 'patcher.bat'),
   os.path.join(FINAL_PATH, 'Keucher Mod Patcher.bat')
+)
+shutil.copy2(
+  os.path.join(BUILD_SCRIPTS, 'readme.txt'),
+  os.path.join(FINAL_PATH, '_READ ME.txt')
 )
