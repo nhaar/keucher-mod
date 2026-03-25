@@ -440,7 +440,7 @@ function get_practice_mode_mod_options()
     var tady_state = global.tadytext_mode ? "ON" : "OFF";
 
     get_buttons_from_pair_array(
-        "Boss Practice [" + boss_state + "]", "In this mode, you can practice each attack from the following bosses: King, Jevil, Queen, Spamton NEO\nCheck \"Other Keybinds\" for the keybinds",
+        "Boss Practice [" + boss_state + "]", "In this mode, you can practice each attack from some important fights\nCheck \"Other Keybinds\" for the keybinds",
         "Crit Practice [" + crit_state + "]", "When fighting the first monster in the battle room, you can practice crits\nCheck \"Other Keybinds\" for the keybinds and \"Room Warps\" for battle room",
         "Rouxls Practice [" + rouxls_state + "]", "Chooses the Rouxls house pattern\nCheck \"Other Keybinds\" for the keybinds",
         "TadyText Practice [" + tady_state + "]", "Displays information for TadyText\nPlease check the README for information on this mode as it is complex",

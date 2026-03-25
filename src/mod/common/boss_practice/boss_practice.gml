@@ -11,6 +11,13 @@ function allow_only_kris (char_number)
     return char_number == 0;
 }
 
+#if CH4
+function is_double_guei()
+{
+    return global.monstertype[0] == 62 && global.monstertype[0] == global.monstertype[1] && global.monstertype[2] == 0;
+}
+#endif
+
 /*
 Initiates boss_practice in boss
 */
@@ -129,6 +136,14 @@ function start_boss_practice()
             break;
 #endif
 #if CH4
+        case obj_guei_enemy:
+            obj_boss_practice.turn_text = [
+                "Double Flame",
+                "Double Diamonds",
+                "Flame, Diamonds",
+                "Diamonds, Flame"
+            ];
+            break;
         case obj_jackenstein_enemy:
             obj_boss_practice.turn_text[0] = "Turn 1";
             obj_boss_practice.turn_text[1] = "Turn 2";
