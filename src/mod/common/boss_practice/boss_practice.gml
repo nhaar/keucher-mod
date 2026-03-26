@@ -124,6 +124,7 @@ function start_boss_practice()
             obj_boss_practice.turn_text[9] = "Rotating Slash (Phase 2)";
             obj_boss_practice.turn_text[10] = "Rotating Slash (With sans attack)";
             obj_boss_practice.turn_text[11] = "Ultimate Attack";
+            obj_boss_practice.turn_text[12] = "Screen Splitting (Phase 3)";
             break;
         case obj_tenna_enemy:
             obj_boss_practice.turn_text[0] = "Rimshot (Random Variant 1)";

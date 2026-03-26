@@ -66,4 +66,9 @@ attack_practice_variables[11, 0] = 9;
 attack_practice_variables[11, 1] = 0;
 attack_practice_variables[11, 2] = 2;
 attack_practice_variables[11, 3] = 2;
+
+attack_practice_variables[12, 0] = 2;
+attack_practice_variables[12, 1] = 3;
+attack_practice_variables[12, 2] = 2;
+attack_practice_variables[12, 3] = 2;
 /// END
