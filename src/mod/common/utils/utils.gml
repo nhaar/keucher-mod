@@ -103,11 +103,27 @@ function hex_to_color(hex)
     return make_colour_rgb(red, green, blue);
 }
 
-/*
-Trim whitespace from the start and end of string
-*/
-function trim_string(str)
+function remove_substr(str, substr)
 {
+    var trimmed = str;
+    var substr_len = string_length(substr);
+    for (var pos = string_pos(substr, trimmed); pos != 0; pos = string_pos(substr, trimmed))
+    {
+        trimmed = string_copy(trimmed, 1, pos - 1) + string_copy(trimmed, pos + substr_len, string_length(trimmed) - (pos + substr_len) + 1);
+    }
+    return trimmed;
+}
+
+/*
+Reimplementation of string_trim from newer versions of gamemaker
+*/
+function trim_string()
+{
+    if (argument_count < 0 || argument_count > 2)
+    {
+        return;
+    }
+    var str = argument0;
     var trim = " \n\r\t\v\f"
     var l = 1
     while (string_pos(string_char_at(str, l), trim)) {
@@ -117,7 +133,17 @@ function trim_string(str)
     while (string_pos(string_char_at(str, r), trim)) {
         r--
     }
-    return string_copy(str, l, r - l + 1)
+    var trimmed = string_copy(str, l, r - l + 1);
+    
+    if (argument_count == 2)
+    {
+        var substrs = argument1;
+        for (var i = 0; i < array_length(substrs); i++)
+        {
+            trimmed = remove_substr(trimmed, substrs[i]);
+        }
+    }
+    return trimmed;    
 }
 
 /* Given a directory, get an array that lists all the files and directories within */
