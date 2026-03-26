@@ -46,6 +46,7 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
     
     variable_struct_set(save_game_info, "audio", audio);
     var call_laters = [];
+#if !DEMO
     var i = array_length(known_call_laters) - 1;
     
     while (i >= 0)
@@ -64,9 +65,7 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
         }
         else
         {
-#if !DEMO
             call_cancel(info.id);
-#endif
             var save_info = copy_struct(info);
             save_info.callback = encode_data_type(save_info.callback);
             array_push(call_laters, save_info);
@@ -74,6 +73,7 @@ if (pressed_active_debug_keybind("store_savestate") && !loaded)
         
         i--;
     }
+#endif
     
     save_game_info.call_laters = call_laters;
     save_step = 1;

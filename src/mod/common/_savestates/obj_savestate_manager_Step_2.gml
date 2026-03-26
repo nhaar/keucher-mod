@@ -251,13 +251,13 @@ if (game_get_speed(gamespeed_fps) != globals.game_speed)
 #if !DEMO
 for (var i = 0; i < array_length(known_call_laters); i++)
     call_cancel(known_call_laters[i].id);
+    for (var i = 0; i < array_length(call_laters); i++)
+    {
+        var info = call_laters[i];
+        info.callback = decode_var_info(info.callback);
+    }
+    
 #endif
-for (var i = 0; i < array_length(call_laters); i++)
-{
-    var info = call_laters[i];
-    info.callback = decode_var_info(info.callback);
-}
-
 for (var i = 0; i < array_length(layer_names); i++)
 {
     var layer_info = variable_struct_get(layers, layer_names[i]);

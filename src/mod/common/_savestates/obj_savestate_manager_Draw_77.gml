@@ -54,17 +54,17 @@ else if (pause)
         buffer_delete(pause_surf_buffer);
     
     unpause_audio_from_load();
+#if !DEMO
     var i = array_length(known_call_laters) - 1;
     
     while (i >= 0)
     {
         var call_info = known_call_laters[i];
         array_delete(known_call_laters, i, 1);
-#if !DEMO
         call_later_logged(call_info.period, call_info.unit, call_info.callback, call_info.loop);
-#endif
         i--;
     }
+#endif
 }
 
 gpu_set_blendenable(true);
