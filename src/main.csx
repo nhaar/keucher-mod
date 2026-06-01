@@ -13,7 +13,6 @@ string mainDir = Path.GetDirectoryName(ScriptPath);
 string modDir = Path.Combine(mainDir, "mod");
 string spritesDir = Path.Combine(modDir, "sprites");
 
-SyncBinding("Strings, Variables, Functions", true);
 UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data);
 
 class KeucherModLoader : UMPLoader
@@ -232,8 +231,6 @@ void BuildMod (DeltaruneVersion version)
             });
         }
     }
-    
-    DisableAllSyncBindings();
 }
 
 void AddObjectToRoom (UndertaleRoom room, string objName, int x, int y)

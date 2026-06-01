@@ -1,19 +1,19 @@
 /// PATCH
 
 /// REPLACE
-    if (sunkus_kb_check_pressed(83))
+    if (sunkus_kb_check_pressed(ord("S")))
         instance_create(0, 0, obj_savemenu);
     
-    if (sunkus_kb_check_pressed(70))
+    if (sunkus_kb_check_pressed(ord("F")))
         room_speed = 58;
     
-    if (sunkus_kb_check_pressed(76))
+    if (sunkus_kb_check_pressed(ord("L")))
         scr_load();
     
-    if (sunkus_kb_check_pressed(82) && sunkus_kb_check(8))
+    if (sunkus_kb_check_pressed(ord("R")) && sunkus_kb_check(vk_backspace))
         game_restart_true();
     
-    if (sunkus_kb_check_pressed(82))
+    if (sunkus_kb_check_pressed(ord("R")))
     {
         room_restart();
         global.interact = 0;
