@@ -38,6 +38,8 @@ in_debug = undefined;
 while (sprite_exists(imported_sprite_start))
     imported_sprite_start++;
 
+highest_known_import_spr_id = imported_sprite_start - 1;
+
 function encode_data_type(arg0)
 {
     var value = arg0;

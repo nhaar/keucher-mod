@@ -215,6 +215,7 @@ void BuildMod (DeltaruneVersion version)
             importGroup.QueueFindReplace(code, "json_decode(", "json_decode_logged(", true);
             importGroup.QueueFindReplace(code, "sprite_get_texture(", "sprite_get_texture_logged(", true);
             importGroup.QueueFindReplace(code, "path_start(", "path_start_logged(", true);
+            importGroup.QueueFindReplace(code, "sprite_create_from_surface(", "sprite_create_from_surface_logged(", true);
         }
         importGroup.Import();
 

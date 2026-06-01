@@ -240,3 +240,13 @@ function path_start_logged(arg0, arg1, arg2, arg3)
     
     return path_start(arg0, arg1, arg2, arg3);
 }
+
+function sprite_create_from_surface_logged(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+{
+    var sprite = sprite_create_from_surface(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    
+    with (obj_savestate_manager)
+        highest_known_import_spr_id = max(sprite, highest_known_import_spr_id);
+    
+    return sprite;
+}

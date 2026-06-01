@@ -73,8 +73,11 @@ if (directory_exists(save_dir))
 var instances = {};
 var sprites = {};
 
-for (i = imported_sprite_start; sprite_exists(i); i++)
+for (i = imported_sprite_start; sprite_exists(i) || i <= highest_known_import_spr_id; i++)
 {
+    if (!sprite_exists(i))
+        continue;
+    
     sprite_save_strip(i, save_dir + "Sprites/" + sprite_get_name(i) + ".png");
     var sprite_info = {};
     sprite_info.x = sprite_get_xoffset(i);
