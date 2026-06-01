@@ -4,7 +4,7 @@ import os
 import re
 from pathlib import Path
 
-from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, DEMO_115
+from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, CHAPTERS_102, DEMO_115
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
@@ -48,8 +48,9 @@ def build_demo(path, deltarune_version: str):
   build_version(path, 'Demo', f'v{deltarune_version}-demo')
 
 build_demo(DEMO_115, '1.15')
+build_full_release(CHAPTERS_102, '1.02')
 build_full_release(CHAPTERS_104, '1.04')
-build_full_release(CHAPTERS_105, '1.05')
+build_full_release(CHAPTERS_105, '1.05-beta')
 
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
