@@ -23,11 +23,17 @@ class KeucherModLoader : UMPLoader
 
     public override bool AcceptFile(string filePath)
     {
+        if (filePath.Contains("mod_version.gml"))
+        {
+            return true;
+        }
+
         if (filePath.Contains("demo\\") && Version != DeltaruneVersion.Demo)
         {
             return false;
         }
-        var isChapterSelect = filePath.Contains("chapter_select\\") || filePath.Contains("mod_version.gml");
+
+        var isChapterSelect = filePath.Contains("chapter_select\\");
         // chapter select is isolated
         if (Version == DeltaruneVersion.ChapterSelect)
         {
