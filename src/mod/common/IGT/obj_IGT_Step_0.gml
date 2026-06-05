@@ -22,6 +22,21 @@ if (previous_room != room)
     previous_room = room
 }
 
+// board room updating
+#if CH3
+if (i_ex(obj_board_camera))
+{
+    if (obj_board_camera.con != 0)
+        board_transition_state = 1;
+    
+    if (obj_board_camera.con == 0 && board_transition_state == 1)
+    {
+        update_transition_time(current_frame_time);
+        updated_already = true;
+        board_transition_state = 0;
+    }
+}
+#endif
 // battle updating, if in rooom & battle mode, toggle transition when fight ends or starts
 if ((get_timer_mode() == "segment" && get_segment_battle_status()) && global.fighting != battle_started)
 {
