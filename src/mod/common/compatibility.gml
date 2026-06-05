@@ -97,7 +97,7 @@ function ossafe_keyboard_key()
 
 function check_mouse_gamepad_pressed(mb_key, gp_key)
 {
-    if (device_mouse_check_button_pressed(0, mb_key))
+    if (mouse_check_button_pressed(mb_key))
         return true;
 
     if (instance_exists(obj_gamecontroller))
@@ -111,7 +111,7 @@ function check_mouse_gamepad_pressed(mb_key, gp_key)
 
 function check_mouse_gamepad_released(mb_key, gp_key)
 {
-    if (device_mouse_check_button_released(0, mb_key))
+    if (mouse_check_button_released(mb_key))
         return true;
 
     if (instance_exists(obj_gamecontroller))
@@ -126,7 +126,7 @@ function check_mouse_gamepad_released(mb_key, gp_key)
 // this checks if the button is actively held instead of pressed or released. a bit confusing
 function check_mouse_gamepad_hold(mb_key, gp_key)
 {
-    if (device_mouse_check_button(0,mb_key))
+    if (mouse_check_button(mb_key))
         return true;
 
     if (instance_exists(obj_gamecontroller))

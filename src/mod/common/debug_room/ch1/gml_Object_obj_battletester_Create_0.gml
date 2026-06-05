@@ -13,5 +13,3 @@ global.encounterno = clamp(global.encounterno, encountermin, encountermax);
 
 if (instance_exists(obj_chaseenemy))
     obj_chaseenemy.radius = 2;
-
-global.flag[34] = 0;

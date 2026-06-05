@@ -27,7 +27,7 @@ class KeucherModLoader : UMPLoader
         {
             return false;
         }
-        var isChapterSelect = filePath.Contains("chapter_select\\");
+        var isChapterSelect = filePath.Contains("chapter_select\\") || filePath.Contains("mod_version.gml");
         // chapter select is isolated
         if (Version == DeltaruneVersion.ChapterSelect)
         {
@@ -91,6 +91,9 @@ class KeucherModLoader : UMPLoader
         DeltaruneVersion.Chapter2 => new[] { "CH2" },
         DeltaruneVersion.Chapter3 => new[] { "CH3" },
         DeltaruneVersion.Chapter4 => new[] { "CH4" },
+        DeltaruneVersion.Chapter5 => new[] { "CH5" },
+        DeltaruneVersion.Chapter6 => new[] { "CH6" },
+        DeltaruneVersion.Chapter7 => new[] { "CH7" },
         _ => throw new NotImplementedException()
     };
 
@@ -174,6 +177,11 @@ class KeucherModLoader : UMPLoader
         }
         return name;
     }
+
+    public enum DR
+    {
+        MaxChapter = 4
+    }
 }
 
 void BuildMod (DeltaruneVersion version)
@@ -184,7 +192,6 @@ void BuildMod (DeltaruneVersion version)
     CreateNoClipSprite(version);
 
     KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
-
 
     UpdateKrisRoom(version);
 
