@@ -81,7 +81,7 @@ if ((start_time == 0 || start_time == time_lock_value) && get_timer_mode() != "s
 var main_timer = get_timer_mode() == "segment" ? text : conText;
 
 draw_set_halign(fa_right)
-draw_text(xx - 10, yy + 5, main_timer)
+draw_text_outline(xx - 10, yy + 5, main_timer)
 draw_set_halign(fa_left)
 
 
@@ -92,14 +92,14 @@ if (get_timer_mode() == "battle" || get_timer_mode() == "splits")
     for (var i = 0; i < 20; i++)
     {
         draw_set_halign(fa_right)
-        draw_text(xx - 10, yy + 17, text)
+        draw_text_outline(xx - 10, yy + 17, text)
         if (splittext[i] != "")
-            draw_text(xx - 10, yy + 34 + i * 12, splittext[i])
+            draw_text_outline(xx - 10, yy + 34 + i * 12, splittext[i])
             draw_set_halign(fa_left)
         }
     draw_set_halign(fa_right)
     if (get_timer_mode() == "battle")
-        draw_text
+        draw_text_outline
         (
             xx - 10, yy + 51 + turn_count * 12,
             string(global.grazeSubtracted / 30) + "s (" + string(global.grazeSubtracted) + "f)"
@@ -107,14 +107,14 @@ if (get_timer_mode() == "battle" || get_timer_mode() == "splits")
     else
     {
         var height = get_timer_mode() == "splits" ? segment_split_number : 0
-        draw_text(xx - 10, yy + 51 + height * 12, string(attempt_count))
+        draw_text_outline(xx - 10, yy + 51 + height * 12, string(attempt_count))
     }
     draw_set_halign(fa_left)
 }
 else
 {
     // draw_set_halign(fa_right)
-    // draw_text(xx - 10, yy + 17, text)
-    // draw_text(xx - 10, yy + 34, string(attempt_count))
+    // draw_text_outline(xx - 10, yy + 17, text)
+    // draw_text_outline(xx - 10, yy + 34, string(attempt_count))
     // draw_set_halign(fa_left)
 }

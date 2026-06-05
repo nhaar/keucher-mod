@@ -97,3 +97,23 @@
 /// CODE
     if (keyboard_check_pressed(ord("9")) || keyboard_check_pressed(vk_numpad9))
 /// END
+
+#if !DEMO && !CH2 && !CH3
+/// REPLACE
+    if (sunkus_kb_check_pressed(ord("0")))
+    {
+        scr_losechar();
+        scr_getchar(2);
+        scr_itemget(1);
+    }
+/// CODE
+// For some reason 0 gives you Susie and a Darker Candy even though it's not mentioned anywhere and it's annoying, so, removed it
+/// END
+
+/// REPLACE
+draw_text(0, 455, string_hash_to_newline("6: full party. 7:kris only. 8:kris and ralsei"));
+/// CODE
+// You can use 9 to get Susie but again it's not mentioned
+draw_text(0, 455, string_hash_to_newline("6: full party. 7:kris only. 8:kris and ralsei. 9: kris + susie"));
+/// END
+#endif

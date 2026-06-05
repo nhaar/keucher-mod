@@ -803,7 +803,7 @@ function get_chapter_switch_options()
     {
         global.other_chapters = [];
 
-        for (var i = 1; i <= 4; i++)
+        for (var i = 1; i <= #DR.MaxChapter; i++)
         {
             if (global.chapter != i)
                 global.other_chapters[array_length(global.other_chapters)] = "Chapter " + string(i);

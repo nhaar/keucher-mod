@@ -27,5 +27,7 @@
 /// REPLACE
                     game_change("../chapter" + chapstring + "_mac", parameters);
 /// CODE
-                    game_change("../chapter" + chapstring + "_mac", "-game game_keucher.ios" + parameters);
+                    var chapter_length = string_length("chapter" + string(global.chapter) + "_mac/");
+                    var new_working_directory = string_copy(working_directory, 1, string_length(working_directory) - chapter_length);
+                    game_change("../chapter" + chapstring + "_mac", "-game \"" + new_working_directory + "chapter" + chapstring + "_mac/game_keucher.ios\"" + parameters);
 /// END

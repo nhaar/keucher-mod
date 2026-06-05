@@ -54,6 +54,26 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
         pause >nul
         exit /b
     )
+) else if /i "%hash%" == "B5EF0EEC9554C491777D6C4E93E0DF76" (
+    echo Patching Chapter Select v1.02...
+    patch_files\flips.exe --apply patch_files\v1.02-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
+    if errorlevel 1 (
+        echo Press any key to exit...
+        pause >nul
+        exit /b
+    )
+
+    CALL CheckChapters
+
+    for %%C in (1 2 3 4) do (
+        echo Patching Chapter %%C v1.02...
+        patch_files\flips.exe --apply patch_files\v1.02-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
+        if errorlevel 1 (
+            echo Press any key to exit...
+            pause >nul
+            exit /b
+        )
+    )
 ) else if /i "%hash%" == "9D1FEA9DE81219EA7304F32F1AE7A878" (
     echo Patching Chapter Select v1.04...
     patch_files\flips.exe --apply patch_files\v1.04-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
