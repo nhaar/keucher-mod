@@ -26,6 +26,11 @@ segment_start_room = -1;
 // the time the timer started
 start_time = 0;
 
+// ch3 board transition state
+#if CH3
+board_transition_state = 0;
+#endif
+
 // the time the last transition took place
 last_transition_time = 0;
 
