@@ -26,12 +26,21 @@ if (variable_global_exists("debug_keybinds_on") && global.debug_keybinds_on)
         // 0-9, numpad 0-9, numpad 5 with num lock on
         if (keyboard_check_pressed(i + 48) || keyboard_check_pressed(i + 96) || (i == 5 && keyboard_check_pressed(12)))
         {
-            savestate_num = i;
+            savestate_num = savestate_page * 10 + i;
             msg_opacity = 3;
             debug_msg = "Selected savestate slot #" + string(savestate_num);
         }
     }
+    var prev = pressed_active_debug_keybind("prevpage_savestate");
+    var next = pressed_active_debug_keybind("nextpage_savestate"); 
+    if (prev || next)
+    {
+        savestate_page = next ? savestate_page + 1 : max(0, savestate_page - 1);
+        msg_opacity = 3;
+        debug_msg = "Moved to savestate page #" + string(savestate_page);
+    }
 }
+
 
 if (!variable_global_exists("chapter"))
     exit;

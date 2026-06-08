@@ -34,6 +34,7 @@ save_step = 0;
 loaded = false;
 imported_sprite_start = 0;
 in_debug = undefined;
+savestate_page = 0;
 
 while (sprite_exists(imported_sprite_start))
     imported_sprite_start++;

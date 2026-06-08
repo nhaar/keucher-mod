@@ -9,6 +9,8 @@ function get_debug_keybinds()
         "restart_room",
         "store_savestate",
         "load_savestate",
+        "nextpage_savestate",
+        "prevpage_savestate",
         "speedup",
         "slowdown",
         "gif",
@@ -39,6 +41,8 @@ function get_debug_keybind_default(name)
         case "restart_room": return ord("R");
         case "store_savestate": return ord("Q");
         case "load_savestate": return ord("E");
+        case "nextpage_savestate": return ord("P");
+        case "prevpage_savestate": return ord("O");
         case "speedup": return ord("À");
         case "slowdown": return vk_backspace;
         case "gif": return ord("G");
@@ -71,6 +75,8 @@ function get_debug_keybind_descriptive_name(name)
         case "restart_room": return "Restart Room";
         case "store_savestate": return "Store Savestate";
         case "load_savestate": return "Load Savestate";
+        case "nextpage_savestate": return "Previous page of savestates";
+        case "prevpage_savestate": return "Next page of savestates";
         case "speedup": return "Speedup";
         case "slowdown": return "Slowdown";
         case "gif": return "Record GIF";
@@ -108,6 +114,10 @@ function get_debug_keybind_description(name)
             return "When pressed, you will save the current state as a savestate\nYou may change the savestate slot by pressing the numbers";
         case "load_savestate":
             return "When pressed, you will load the current selected savestate slot\nSavestates don't always work! The game may break, specially in battles";
+        case "nextpage_savestate":
+            return "When pressed, will navigate to the previous page of savestates";
+        case "prevpage_savestate":
+            return "When pressed, will navigate to the next page of savestates";
         case "speedup":
             return "When pressed, the game will speed up by 5x of normal speed";
         case "slowdown":
