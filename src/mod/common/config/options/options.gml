@@ -4,6 +4,7 @@
 function get_options()
 {
     return create_array(
+        "30tbps",
         "mercy_percentage_ch1",
         "hp_display",
         "doorwarp_indicator",
@@ -19,6 +20,8 @@ function get_option_default(name)
 {
     switch (name)
     {
+        case "30tbps":
+            return true;
         case "mercy_percentage_ch1":
             return "debug";
         case "hp_display":
@@ -45,6 +48,8 @@ function get_option_button_text(name)
 {
     switch (name)
     {
+        case "30tbps":
+            return "30 TBPS Mod";
         case "mercy_percentage_ch1":
             return "Mercy Percentages in Chapter 1";
         case "hp_display":
@@ -71,6 +76,8 @@ function get_option_button_desc(name)
 {
     switch (name)
     {
+        case "30tbps":
+            return "The Wrist Protector will run at 30 TBPS, just like the 30 TBPS mod";
         case "mercy_percentage_ch1":
             return "In Chapter 1, mercy percentages don't normally show\nWith this, they will display";
         case "hp_display":

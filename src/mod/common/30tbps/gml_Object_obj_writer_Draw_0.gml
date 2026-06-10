@@ -1,0 +1,60 @@
+/// PATCH
+
+#if CH1
+/// REPLACE
+        if (automash_timer == 0)
+        {
+/// CODE
+        // Removes the condition entirely. Can't change the whole block to remove automash_timer entirely for some reason, the CLI just hates it
+        if (is_option_active("30tbps") || automash_timer == 0)
+        {
+/// END
+#elsif CH2 || DEMO
+/// REPLACE
+        if (automash_timer == 0)
+            automash_timer = 1;
+        else
+            automash_timer = 0;
+        
+        if (automash_timer == 0)
+            button1 = 1;
+        
+        if (automash_timer == 1)
+            button2 = 1;
+/// CODE
+        if (automash_timer == 0)
+            automash_timer = 1;
+        else
+            automash_timer = 0;
+        
+        if (is_option_active("30tbps") || automash_timer == 0)
+            button1 = 1;
+        
+        if (is_option_active("30tbps") || automash_timer == 1)
+            button2 = 1;
+/// END
+#else
+/// REPLACE
+            if (automash_timer == 0)
+                automash_timer = 1;
+            else
+                automash_timer = 0;
+            
+            if (automash_timer == 0)
+                button1 = 1;
+            
+            if (automash_timer == 1)
+                button2 = 1;
+/// CODE
+            if (automash_timer == 0)
+                automash_timer = 1;
+            else
+                automash_timer = 0;
+            
+            if (is_option_active("30tbps") || automash_timer == 0)
+                button1 = 1;
+            
+            if (is_option_active("30tbps") || automash_timer == 1)
+                button2 = 1;
+/// END
+#endif

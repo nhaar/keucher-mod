@@ -50,7 +50,7 @@ function draw_boundary_boxes()
         if i_ex(mainchara)
         {
             // signal wrong warp state in ch2+
-            if (global.chapter > 2 && mainchara.roomenterfreezeend == 0)
+            if (global.chapter >= 2 && mainchara.roomenterfreezeend == 0)
             {
                 draw_set_color(c_red)
             }
@@ -176,21 +176,23 @@ function update_doors_visibility(is_visible)
 {
     var doors = create_array
     (
-        obj_doorAny,
-        obj_doorA,
-        obj_doorB,
-        obj_doorC,
-        obj_doorD,
-        obj_doorA_musfade,
-        obj_doorB_musfade,
-        obj_doorC_musfade,
-        obj_doorD_musfade,
-        obj_doorE,
-        obj_doorF,
-        obj_doorX,
-        obj_doorW,
-        obj_doorX_musfade,
-        obj_doorw_musfade
+        #if !CH1
+            obj_doorAny,
+        #endif
+        get_object_implicit_chapter("obj_doorA"),
+        get_object_implicit_chapter("obj_doorB"),
+        get_object_implicit_chapter("obj_doorC"),
+        get_object_implicit_chapter("obj_doorD"),
+        get_object_implicit_chapter("obj_doorA_musfade"),
+        get_object_implicit_chapter("obj_doorB_musfade"),
+        get_object_implicit_chapter("obj_doorC_musfade"),
+        get_object_implicit_chapter("obj_doorD_musfade"),
+        get_object_implicit_chapter("obj_doorE"),
+        get_object_implicit_chapter("obj_doorF"),
+        get_object_implicit_chapter("obj_doorX"),
+        get_object_implicit_chapter("obj_doorW"),
+        get_object_implicit_chapter("obj_doorX_musfade"),
+        get_object_implicit_chapter("obj_doorw_musfade")
     )
     update_objects_visibility(doors, is_visible)
 }
@@ -204,12 +206,12 @@ function update_walls_visibility(is_visible)
 {
     var walls = create_array
     (
-        obj_sur_dark,
-        obj_sur,
-        obj_sul,
-        obj_sdr,
-        obj_sdl_dark,
-        obj_sdl
+        get_object_implicit_chapter("obj_sur_dark"),
+        get_object_implicit_chapter("obj_sur"),
+        get_object_implicit_chapter("obj_sul"),
+        get_object_implicit_chapter("obj_sdr"),
+        get_object_implicit_chapter("obj_sdl_dark"),
+        get_object_implicit_chapter("obj_sdl")
     )
     update_objects_visibility(walls, is_visible)   
 }

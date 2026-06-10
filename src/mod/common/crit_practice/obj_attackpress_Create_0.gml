@@ -15,7 +15,7 @@
 // if 1, always the same
 if (bolttotal != 1)
 {
-    if (i_ex(obj_crit_practice) && !global.random_pattern)
+    if (i_ex(obj_crit_practice) && obj_crit_practice.pattern_mode)
     {
         var pattern_array = bolttotal == 2 ? global.double_patterns : global.triple_patterns
         for (i = 0; i < bolttotal; i += 1)

@@ -14,13 +14,62 @@ function get_character_code(char)
     }
 }
 
+function losechar_any_chapter()
+{
+#if DEMO
+    if (global.chapter == 1)
+    {
+        scr_losechar_ch1();
+    }
+    else
+    {
+        scr_losechar();
+    }
+#else
+    scr_losechar();
+#endif
+}
+
+function getchar_any_chapter(char)
+{
+#if DEMO
+    if (global.chapter == 1)
+    {
+        scr_getchar_ch1(char);
+    }
+    else
+    {
+        scr_getchar(char);
+    }
+#else
+    scr_getchar(char);
+#endif
+}
+
+function makecaterpillar_any_chapter(arg0, arg1, arg2, arg3)
+{
+#if DEMO
+    if (global.chapter == 1)
+    {
+        scr_makecaterpillar_ch1(arg0, arg1, arg2, arg3);
+    }
+    else
+    {
+        scr_makecaterpillar(arg0, arg1, arg2, arg3);
+    }
+#else
+    scr_makecaterpillar(arg0, arg1, arg2, arg3);
+#endif
+}
+
 /* Party is an array of strings containing the character names: "susie", "ralsei", "noelle", "berdly", "starwalker" */
 function build_party_from_options(party)
 {
     //destryoing previous party
 #if !CHS
-    scr_losechar();
+    losechar_any_chapter();
     var caterpillar = get_object_implicit_chapter("obj_caterpillarchara")
+    var mainchara = get_object_implicit_chapter("obj_mainchara");
     if instance_exists(caterpillar)
     {
         instance_destroy(caterpillar)
@@ -34,7 +83,7 @@ function build_party_from_options(party)
         {
             continue;
         }
-        scr_getchar(party_member);
+        getchar_any_chapter(party_member);
     }
     for (var i = 0; i < party_size; i++)
     {
@@ -69,7 +118,7 @@ function build_party_from_options(party)
         }
         if (!is_undefined(height))
         {
-            scr_makecaterpillar(obj_mainchara.x, obj_mainchara.y - height, party_member, i);
+            makecaterpillar_any_chapter(mainchara.x, mainchara.y - height, party_member, i);
         }
     }
 #endif

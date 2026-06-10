@@ -1,7 +1,7 @@
 /// IMPORT
 
 // initialize vanilla variables to avoid crashes
-#if CHS
+#if CHS || DEMO
 global.chapter = 0
 #elsif CH1
 global.chapter = 1
@@ -25,6 +25,11 @@ segment_start_room = -1;
 
 // the time the timer started
 start_time = 0;
+
+// ch3 board transition state
+#if CH3
+board_transition_state = 0;
+#endif
 
 // the time the last transition took place
 last_transition_time = 0;
@@ -88,3 +93,11 @@ global.final_time = 0
 init_timer_mode();
 
 contimer = 0;
+
+current_frame_time = 0;
+
+// control variables for the battle timer
+start_battle_timer = false;
+end_battle_timer = false;
+start_battle_turn = false;
+end_battle_turn = false;

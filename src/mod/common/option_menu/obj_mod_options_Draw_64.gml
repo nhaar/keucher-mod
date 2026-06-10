@@ -2,9 +2,49 @@
 
 draw_set_font(fnt_main)
 draw_set_color(c_white)
+var lh = 0;
+var lv = 0;
+var sw = surface_get_width(application_surface);
+var sh = surface_get_height(application_surface);
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
 
-real_mouse_x = device_mouse_x_to_gui(0)
-real_mouse_y = device_mouse_y_to_gui(0)
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+{
+    lh = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislh) * 20;
+    lv = gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axislv) * 20;
+}
+
+if (lh != 0 || lv != 0)
+{
+    controller_used = true;
+}
+else if (mx != last_mouse_x || my != last_mouse_y)
+{
+    if (controller_used)
+    {
+        controller_offset_x = 0;
+        controller_offset_y = 0;
+    }
+    
+    controller_used = false;
+}
+
+if (controller_used)
+{
+    real_mouse_x = clamp(real_mouse_x + lh, 0, sw);
+    real_mouse_y = clamp(real_mouse_y + lv, 0, sh);
+    controller_offset_x = clamp(controller_offset_x + lh, -sw, sw);
+    controller_offset_y = clamp(controller_offset_y + lv, -sh, sh);
+}
+else
+{
+    real_mouse_x = mx + controller_offset_x;
+    real_mouse_y = my + controller_offset_y;
+}
+
+last_mouse_x = mx;
+last_mouse_y = my;
 
 view_width = get_gui_width();
 view_height = get_gui_height();
@@ -55,20 +95,35 @@ if (mouse_wheel_down())
     scroll_ypos += mouse_wheel_delta;
 }
 
+if (instance_exists(obj_gamecontroller) && obj_gamecontroller.gamepad_active)
+{
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padu))
+    {
+        scroll_ypos -= mouse_wheel_delta;
+    }
+    if (gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_padd))
+    {
+        scroll_ypos += mouse_wheel_delta;
+    }
+    
+    scroll_ypos += (gamepad_axis_value(obj_gamecontroller.gamepad_id, gp_axisrv) * mouse_wheel_delta);
+}
+
 scroll_ypos = clamp(scroll_ypos, visible_min_y, visible_max_y - scroll_height)
 min_y = visible_min_y - buttons_delta_y / buttons_visible_delta_y * (scroll_ypos - visible_min_y) 
 scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
 scroll_end_y = scroll_ypos + scroll_height
+var kb_key = ossafe_keyboard_key()
 
 // setting new value for keybind
 if setting_keybind
 {
     // wait until something is pressed
-    if (keyboard_key != 0)
+    if (kb_key != 0)
     {
-        var target_key = keyboard_key
+        var target_key = kb_key
 
         if (setting_debug)
         {
@@ -122,7 +177,7 @@ else if typing_search
 // dragging scroll
 if (scroll_dragging)
 {
-    if (mouse_check_button_released(mb_left))
+    if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
     {
         scroll_dragging = false
     }
@@ -134,7 +189,7 @@ if (scroll_dragging)
 // if can initiate dragging scroll
 if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y)
 {
-    if (mouse_check_button_pressed(mb_left))
+    if (check_mouse_gamepad_pressed(mb_left, global.input_g[4]))
     {
         scroll_dragging = true
         scroll_dragging_y = real_mouse_y
@@ -149,8 +204,8 @@ draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false
 
 for (var i = 0; i < button_amount; i++)
 {
-    button_start_y = min_y + padding + i * (button_height + padding)
-    button_end_y = min_y + padding + button_height + i * (button_height + padding)
+    button_start_y = get_button_start_y(i);
+    button_end_y = get_button_end_y(i);
 
     if (button_start_y > visible_max_y || button_end_y < visible_min_y)
     {
@@ -159,15 +214,34 @@ for (var i = 0; i < button_amount; i++)
     // if mouse is over button
     if point_in_rectangle(real_mouse_x, real_mouse_y, button_start_x, button_start_y, button_end_x, button_end_y)
     {
-
-        if (mouse_check_button_pressed(mb_left))
+        if (check_mouse_gamepad_hold(mb_left, global.input_g[4]))
         {
             button_state[i] = "press"
+                        
+            if (options_state == "colorpicker")
+            {
+                red = color_get_red(get_ui_color(current_ui_element))
+                green = color_get_green(get_ui_color(current_ui_element))
+                blue = color_get_blue(get_ui_color(current_ui_element))
+
+                switch (i)
+                {
+                    case 0:
+                    case 1:
+                        break;
+                    
+                    case 2:
+                    case 3:
+                    case 4:
+                        update_color_from_slides(red, green, blue, i - 2);
+                        break;
+                }
+            }
         }
         // handle clicking button
         else if (button_state[i] == "press")
         {
-            if (mouse_check_button_released(mb_left))
+            if (check_mouse_gamepad_released(mb_left, global.input_g[4]))
             {
                 button_state[i] = "hover";
                 var button_index = i;
@@ -243,6 +317,10 @@ for (var i = 0; i < button_amount; i++)
                             // ui colors
                             case 11:
                                 get_ui_colors_options();
+                                break;
+                            // chapter switch
+                            case 11:
+                                get_chapter_switch_options();
                                 break;
                         }
                         break
@@ -679,7 +757,7 @@ for (var i = 0; i < button_amount; i++)
                         }
                         break;
                     case "snowgrave_plot":
-#if CH2
+#if CH2 || DEMO
                         if (instance_exists(obj_mainchara) && global.chapter == 2)
                         {
                             set_snowgrave_plot(button_index + 1);
@@ -719,8 +797,14 @@ for (var i = 0; i < button_amount; i++)
                         current_ui_element = button_index
                         get_color_picker_options()
                         break
+                    case "chapterswitch":
+                        scr_chapterswitch(real(string_digits(global.other_chapters[i])))
+                        break
                     case "colorpicker":
-                        switch (button_index)
+                        red = color_get_red(get_ui_color(current_ui_element))
+                        green = color_get_green(get_ui_color(current_ui_element))
+                        blue = color_get_blue(get_ui_color(current_ui_element))
+                        switch (i)
                         {
                             case 0: // rgb
                                 red = get_integer("Enter red value (0 - 255)", "")
@@ -764,6 +848,11 @@ for (var i = 0; i < button_amount; i++)
                                     set_ui_color(current_ui_element, color)
                                 }
                                 break
+                            case 2:
+                            case 3:
+                            case 4:
+                                update_color_from_slides(red, green, blue, i - 2);
+                                break;
 
                         }
                         break
@@ -785,7 +874,16 @@ for (var i = 0; i < button_amount; i++)
                                 var file_to_load = get_save_dir(true) + cur_dir + "/" + string_copy(clicked_value, 1, file_pos - 2);
                                 close_mod_options();
 #if CHS
-                                show_message("Pick a chapter first!");
+                                show_message("Pick a chapter first!")           
+#elsif DEMO
+                                if (global.chapter == 1)
+                                {
+                                    scr_load_ch1(file_to_load);
+                                }
+                                else
+                                {
+                                    scr_load(file_to_load);
+                                }
 #else
                                 scr_load(file_to_load);
 #endif
@@ -849,6 +947,36 @@ for (var i = 0; i < button_amount; i++)
     draw_set_color(read_ui_color("text"));
     var enumeration_text = use_enumeration ? string(i + 1) + " - " : "";
     draw_text(button_start_x + 5, button_start_y + 5, enumeration_text + button_text[i]);
+}
+// drawing the RGB sliders in the color picker
+if (options_state == "colorpicker")
+{
+    red = color_get_red(get_ui_color(current_ui_element));
+    green = color_get_green(get_ui_color(current_ui_element));
+    blue = color_get_blue(get_ui_color(current_ui_element));
+    draw_text_transformed(50, 300, "Red Value:     " + string(red), 2, 2, 0);
+    draw_text_transformed(50, 330, "Green Value: " + string(green), 2, 2, 0);
+    draw_text_transformed(50, 360, "Blue Value:   " + string(blue), 2, 2, 0);
+
+    // rectangle with color sample
+    draw_set_color(get_ui_color(current_ui_element));
+    draw_rectangle(400, 275, 550, 425, false);
+
+    // rectangles for the picker: brighter color representing value and darker color as placeholder
+    var colors = [red, green, blue];
+    var dark_colors = [c_maroon, c_green, c_navy];
+    var filled_colors = [c_red, c_lime, c_blue];
+
+    for (var i = 0; i < 3; i++)
+    {
+        var button_index = i + 2;
+    
+        draw_set_color(dark_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), button_end_x, get_button_end_y(button_index), false);
+
+        draw_set_color(filled_colors[i]);
+        draw_rectangle(button_start_x, get_button_start_y(button_index), clamp(colors[i] * (button_end_x - button_start_x) / 255, button_start_x, button_end_x), get_button_end_y(button_index), false);
+    }
 }
 
 // menu description rendering

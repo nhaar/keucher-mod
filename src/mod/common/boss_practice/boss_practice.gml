@@ -11,6 +11,13 @@ function allow_only_kris (char_number)
     return char_number == 0;
 }
 
+#if CH4
+function is_double_guei()
+{
+    return global.monstertype[0] == 62 && global.monstertype[0] == global.monstertype[1] && global.monstertype[2] == 0;
+}
+#endif
+
 /*
 Initiates boss_practice in boss
 */
@@ -26,7 +33,7 @@ function start_boss_practice()
 
     switch (object_index)
     {
-#if CH1
+#if CH1 || DEMO
         case #Suffix("obj_king_boss"):
         {
             obj_boss_practice.turn_text[0] = "Spades (Turn 1)"
@@ -63,7 +70,7 @@ function start_boss_practice()
             break
         }
 #endif
-#if CH2
+#if CH2 || DEMO
         case obj_spamton_neo_enemy:
         {
             obj_boss_practice.turn_text[0] = "Floating Heads"
@@ -117,14 +124,29 @@ function start_boss_practice()
             obj_boss_practice.turn_text[9] = "Rotating Slash (Phase 2)";
             obj_boss_practice.turn_text[10] = "Rotating Slash (With sans attack)";
             obj_boss_practice.turn_text[11] = "Ultimate Attack";
+            obj_boss_practice.turn_text[12] = "Stars (Phase 3)";
+            obj_boss_practice.turn_text[13] = "Screen Splitting (Phase 3)";
+            obj_boss_practice.turn_text[14] = "Swords (Phase 3)";
             break;
         case obj_tenna_enemy:
             obj_boss_practice.turn_text[0] = "Rimshot (Random Variant 1)";
             obj_boss_practice.turn_text[1] = "Rimshot (Random Variant 2)";
             obj_boss_practice.turn_text[2] = "Rimshot (Random Variant 3)";
             obj_boss_practice.turn_text[3] = "Rimshot (Random Variant 4)";
+            obj_boss_practice.turn_text[4] = "Smash Cut 1";
+            obj_boss_practice.turn_text[5] = "Smash Cut 2";
+            obj_boss_practice.turn_text[6] = "All Star Cast";
+            break;
 #endif
 #if CH4
+        case obj_guei_enemy:
+            obj_boss_practice.turn_text = [
+                "Double Flame",
+                "Double Diamonds",
+                "Flame, Diamonds",
+                "Diamonds, Flame"
+            ];
+            break;
         case obj_jackenstein_enemy:
             obj_boss_practice.turn_text[0] = "Turn 1";
             obj_boss_practice.turn_text[1] = "Turn 2";
@@ -137,6 +159,43 @@ function start_boss_practice()
             obj_boss_practice.turn_text[8] = "Turn 9";
             obj_boss_practice.turn_text[9] = "Turn 10";
             obj_boss_practice.turn_text[10] = "Turn 11";
+            break;
+
+        case obj_titan_enemy:
+            obj_boss_practice.turn_text[0] = "Swarm 1";
+            obj_boss_practice.turn_text[1] = "Worms 1";
+            obj_boss_practice.turn_text[2] = "Hands 1";
+            obj_boss_practice.turn_text[3] = "Big Shot 1";
+            obj_boss_practice.turn_text[4] = "Worms 2";
+            obj_boss_practice.turn_text[5] = "Hands 2";
+            obj_boss_practice.turn_text[6] = "Swarm 2";
+            obj_boss_practice.turn_text[7] = "Big Shot 2;";
+            obj_boss_practice.turn_text[8] = "Worms 3";
+            obj_boss_practice.turn_text[9] = "Swarm 3";
+            obj_boss_practice.turn_text[10] = "Laser";
+            obj_boss_practice.turn_text[11] = "Big Shot 3;";
+            break;
+        
+        case obj_hammer_of_justice_enemy:
+            obj_boss_practice.turn_text[0] = "Turn 1";
+            obj_boss_practice.turn_text[1] = "Turn 2";
+            obj_boss_practice.turn_text[2] = "Turn 3";
+            obj_boss_practice.turn_text[3] = "Turn 4";
+            obj_boss_practice.turn_text[4] = "Turn 5";
+            obj_boss_practice.turn_text[5] = "Shell";
+            obj_boss_practice.turn_text[6] = "Hammers";
+            obj_boss_practice.turn_text[7] = "Turn 8";
+            obj_boss_practice.turn_text[8] = "Turn 9";
+            obj_boss_practice.turn_text[9] = "Turn 10";
+            obj_boss_practice.turn_text[10] = "Turn 11";
+            obj_boss_practice.turn_text[11] = "Turn 12";
+            obj_boss_practice.turn_text[12] = "Final Attack";
+            obj_boss_practice.turn_text[13] = "Turn 14";
+            obj_boss_practice.turn_text[14] = "Turn 15";
+            obj_boss_practice.turn_text[15] = "Turn 16";
+            obj_boss_practice.turn_text[16] = "Turn 17";
+            obj_boss_practice.turn_text[17] = "Turn 18";
+            obj_boss_practice.turn_text[18] = "Turn 19";
             break;
 #endif
     }

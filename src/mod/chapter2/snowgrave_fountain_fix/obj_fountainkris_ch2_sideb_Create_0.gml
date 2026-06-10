@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH .ignore if !CH2 && !DEMO
 
 // keeping some debug features only found in darkcontroller
 

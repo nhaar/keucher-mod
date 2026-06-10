@@ -74,3 +74,75 @@ function scr_isphase(arg0)
     return __isphase;
 }
 #endif
+
+/* console compatibility */
+
+// keyboard_key doesn't work
+function ossafe_keyboard_key()
+{
+    if (!keyboard_check(vk_anykey))
+        return vk_nokey;
+
+    if (!global.is_console)
+        return keyboard_key;
+
+    for (var i = 2; i < 256; i++)
+    {
+        if (keyboard_check(i))
+            return i;
+    }
+
+    return vk_nokey;
+}
+
+function check_mouse_gamepad_pressed(mb_key, gp_key)
+{
+    if (mouse_check_button_pressed(mb_key))
+        return true;
+
+    if (instance_exists(obj_gamecontroller))
+    {
+        if (obj_gamecontroller.gamepad_active && gamepad_button_check_pressed(obj_gamecontroller.gamepad_id, gp_key))
+            return true;
+    }
+
+    return false;
+}
+
+function check_mouse_gamepad_released(mb_key, gp_key)
+{
+    if (mouse_check_button_released(mb_key))
+        return true;
+
+    if (instance_exists(obj_gamecontroller))
+    {
+        if (obj_gamecontroller.gamepad_active && gamepad_button_check_released(obj_gamecontroller.gamepad_id, gp_key))
+            return true;
+    }
+
+    return false;
+}
+
+// this checks if the button is actively held instead of pressed or released. a bit confusing
+function check_mouse_gamepad_hold(mb_key, gp_key)
+{
+    if (mouse_check_button(mb_key))
+        return true;
+
+    if (instance_exists(obj_gamecontroller))
+    {
+        if (obj_gamecontroller.gamepad_active && gamepad_button_check(obj_gamecontroller.gamepad_id, gp_key))
+            return true;
+    }
+    
+     return false;
+}
+
+function starts_with_string(str, start)
+{
+#if DEMO
+    return string_pos(start, str) == 1;
+#else
+    return string_starts_with(str, start);
+#endif
+}

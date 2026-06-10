@@ -54,7 +54,11 @@ For compatibility for DEMO objects which end in CH1
 */
 function get_object_implicit_chapter (object)
 {
-    return asset_get_index(object)
+#if DEMO
+    return asset_get_index(object + (global.chapter == 1 ? "_ch1" : ""));
+#else
+    return asset_get_index(object);
+#endif
 }
 
 /*
@@ -99,11 +103,27 @@ function hex_to_color(hex)
     return make_colour_rgb(red, green, blue);
 }
 
-/*
-Trim whitespace from the start and end of string
-*/
-function trim_string(str)
+function remove_substr(str, substr)
 {
+    var trimmed = str;
+    var substr_len = string_length(substr);
+    for (var pos = string_pos(substr, trimmed); pos != 0; pos = string_pos(substr, trimmed))
+    {
+        trimmed = string_copy(trimmed, 1, pos - 1) + string_copy(trimmed, pos + substr_len, string_length(trimmed) - (pos + substr_len) + 1);
+    }
+    return trimmed;
+}
+
+/*
+Reimplementation of string_trim from newer versions of gamemaker
+*/
+function trim_string()
+{
+    if (argument_count < 0 || argument_count > 2)
+    {
+        return;
+    }
+    var str = argument0;
     var trim = " \n\r\t\v\f"
     var l = 1
     while (string_pos(string_char_at(str, l), trim)) {
@@ -113,7 +133,17 @@ function trim_string(str)
     while (string_pos(string_char_at(str, r), trim)) {
         r--
     }
-    return string_copy(str, l, r - l + 1)
+    var trimmed = string_copy(str, l, r - l + 1);
+    
+    if (argument_count == 2)
+    {
+        var substrs = argument1;
+        for (var i = 0; i < array_length(substrs); i++)
+        {
+            trimmed = remove_substr(trimmed, substrs[i]);
+        }
+    }
+    return trimmed;    
 }
 
 /* Given a directory, get an array that lists all the files and directories within */
@@ -157,16 +187,13 @@ function get_range_array(start_number, end_number)
 /* Returns 0 if chapter select */
 function get_current_chapter()
 {
-#if CH1
-    return 1;
-#elsif CH2
-    return 2;
-#elsif CH3
-    return 3;
-#elsif CH4
-    return 4;
-#else
+#if CHS
     return 0;
+#else
+    if (!variable_global_exists("chapter"))
+        return 0;
+    else
+        return global.chapter;
 #endif
 }
 
@@ -174,6 +201,8 @@ function loaded_savefile()
 {
 #if CHS
     return false;
+#elsif DEMO
+    return instance_exists(obj_mainchara_ch1) || instance_exists(obj_mainchara);
 #else
     return instance_exists(obj_mainchara)
 #endif
@@ -191,12 +220,10 @@ function get_gui_height()
 
 function get_mouse_sprite()
 {
-#if CH2 || CH3 || CH4
-    return spr_maus_cursor
-#elsif CHS
-    return spr_heart
-#elsif CH1
-    return spr_face_sans0
+#if CHS
+    return asset_get_index("spr_heart")
+#else
+    return asset_get_index("spr_maus_cursor")
 #endif
 }
 

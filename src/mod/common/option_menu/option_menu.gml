@@ -88,12 +88,12 @@ function get_ui_colors_options()
     get_buttons_from_array(
         "Background Color",
         "Text Color",
+        "Screen Border Color",
         "Button Color",
-        "Border Color",
         "Button Hover Color",
         "Button Press Color",
         "Button Highlight Color",
-        "Scrollbar"
+        "Scrollbar Color"
     );
 
     menu_desc = "Choose the interface element you would like to change the color of";
@@ -107,11 +107,14 @@ Get options for picking a color
 function get_color_picker_options()
 {
     get_buttons_from_array(
-        "Get color from RGB",
-        "Get color from HEX value"
+        "Choose color from RGB",
+        "Choose color from HEX value",
+        " ",
+        " ",
+        " "
     );
 
-    menu_desc = "Pick the method for selecting the color"
+    menu_desc = "Choose method of color selection or use the sliders to change the RGB directly"
     use_enumeration = false;
     options_state = "colorpicker";
 }
@@ -179,7 +182,8 @@ function get_default_mod_options()
         "Game Data", "Item giver, plot warper, party selector",
         "Room Warps", "Allows teleporting to rooms (current room: " + room_get_name(room) + ")",
         "Saves", "Allows quickly loading savefiles that you have saved\nRequires some external setup (Click to learn)",
-        "UI Colors", "Change the color of the UI (User Interface) elements of this menu"
+        "UI Colors", "Change the color of the UI (User Interface) elements of this menu",
+        "Switch Chapters", "Instantly launch another chapter"
     );
 
     menu_desc = "Welcome to the Keucher Mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
@@ -437,7 +441,7 @@ function get_practice_mode_mod_options()
     var tady_state = global.tadytext_mode ? "ON" : "OFF";
 
     get_buttons_from_pair_array(
-        "Boss Practice [" + boss_state + "]", "In this mode, you can practice each attack from the following bosses: King, Jevil, Queen, Spamton NEO\nCheck \"Other Keybinds\" for the keybinds",
+        "Boss Practice [" + boss_state + "]", "In this mode, you can practice each attack from some important fights\nCheck \"Other Keybinds\" for the keybinds",
         "Crit Practice [" + crit_state + "]", "When fighting the first monster in the battle room, you can practice crits\nCheck \"Other Keybinds\" for the keybinds and \"Room Warps\" for battle room",
         "Rouxls Practice [" + rouxls_state + "]", "Chooses the Rouxls house pattern\nCheck \"Other Keybinds\" for the keybinds",
         "TadyText Practice [" + tady_state + "]", "Displays information for TadyText\nPlease check the README for information on this mode as it is complex",
@@ -952,4 +956,98 @@ function get_misc_options_mod_options()
     menu_desc = "Click on each option to change their availability from ON (always), OFF (never)\nDEBUG (if using debug mode)";
     use_enumeration = true;
     options_state = "miscoptions";
+}
+
+function get_chapter_switch_options()
+{
+#if DEMO
+    menu_desc = "Chapter Switch is not available in DEMO";
+    get_buttons_from_array();
+#else
+    if (!variable_global_exists("other_chapters"))
+    {
+        global.other_chapters = [];
+
+        for (var i = 1; i <= #DR.MaxChapter; i++)
+        {
+            if (global.chapter != i)
+                global.other_chapters[array_length(global.other_chapters)] = "Chapter " + string(i);
+        }
+    }
+
+    script_execute_ext(get_buttons_from_array, global.other_chapters);
+    menu_desc = "Choose the chapter you would like to launch";
+#endif
+    use_enumeration = false;
+    options_state = "chapterswitch";
+}
+
+function get_ui_color(argument0)
+{
+    var element = argument0;
+    var ui_name = "";
+    
+    switch (element)
+    {
+        case 0:
+            ui_name = "background";
+            break;
+        
+        case 1:
+            ui_name = "text";
+            break;
+        
+        case 2:
+            ui_name = "border";
+            break;
+        
+        case 3:
+            ui_name = "button";
+            break;
+        
+        case 4:
+            ui_name = "button-hover";
+            break;
+        
+        case 5:
+            ui_name = "button-press";
+            break;
+        
+        case 6:
+            ui_name = "button-highlight";
+            break;
+        
+        case 7:
+            ui_name = "scrollbar";
+            break;
+    }
+    
+    return read_config_value(ui_name + "color");
+}
+
+/* Args: red, blue, green, then index signal which color is updated (0-2) */
+function update_color_from_slides()
+{
+    if (argument_count != 4) {
+        return undefined;
+    }
+    var index = argument[3];
+    var new_color = (real_mouse_x - 10) * 0.44;
+    if (new_color > 255)
+    {
+        new_color = 255;
+    }
+    argument[index] = new_color;
+    
+    set_ui_color(current_ui_element, make_colour_rgb(argument[0], argument[1], argument[2]));
+}
+
+function get_button_start_y(index)
+{
+    return min_y + padding + index * (button_height + padding);
+}
+
+function get_button_end_y(index)
+{
+    return min_y + padding + button_height + index * (button_height + padding);
 }

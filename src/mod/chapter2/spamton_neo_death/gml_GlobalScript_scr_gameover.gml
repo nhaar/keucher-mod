@@ -1,4 +1,4 @@
-/// PATCH .ignore if !CH2
+/// PATCH .ignore if !CH2 && !DEMO
 
 // set a limit to the flag so that spamton NEO attacks don't change with too many deaths
 /// REPLACE

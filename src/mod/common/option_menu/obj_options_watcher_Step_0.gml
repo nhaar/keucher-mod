@@ -3,7 +3,7 @@
 // mod options!
 if
 (
-    mouse_check_button_pressed(mb_right)
+    check_mouse_gamepad_pressed(mb_right, gp_start)
 #if !CHS
     && !i_ex(obj_debug_xy)
 #endif
