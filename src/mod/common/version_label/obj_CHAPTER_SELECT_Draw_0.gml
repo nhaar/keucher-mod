@@ -1,7 +1,7 @@
 /// PATCH .ignore if !DEMO
 
 /// PREPEND
-if (spr_aftereffect == 0)
+if (chaptertoload_temp < 1 && spr_aftereffect == 0)
 {
     var base_y = 426;
     draw_set_alpha(1);
