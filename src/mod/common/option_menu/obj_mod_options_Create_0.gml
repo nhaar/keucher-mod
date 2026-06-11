@@ -35,6 +35,27 @@ hover_desc[INIT_BUTTON_AMOUNT] = "";
 // variable that tracks the current option menu
 options_state = "default"
 
+
+// these variables index all buttons that can be searched
+// the same index in the other arrays will give: what the button desc is, what state it triggers and what index it has
+all_search_button_text[INIT_BUTTON_AMOUNT] = 0;
+all_search_hover_desc[INIT_BUTTON_AMOUNT] = "";
+all_search_options_state[INIT_BUTTON_AMOUNT] = "";
+all_search_button_index[INIT_BUTTON_AMOUNT] = 0;
+search_options_stored = false;
+/* Stores all filtered options in groups of 4 
+* Encoding for index:
+* mod 4 == 0 - Button Text
+* mod 4 == 1 - Hover Description
+* mod 4 == 2 - Options State
+* mod 4 == 3 - Button Index
+*/
+filtered_search_options[4*INIT_BUTTON_AMOUNT] = 0;
+
+typing_search = false;
+search_query = "";
+previous_search_query = "";
+
 scroll_ypos = 0
 scroll_dragging = false
 scroll_dragging_y = 0
@@ -62,11 +83,11 @@ current_ui_element = undefined
 // check if are in the room warp options (search for key inputs)
 typing_room = false;
 room_query = "";
-pressing_room_query = false;
+pressed_key = 0;
 
 // how long between frames we have been pressing the same key
 key_current_cooldown = 0;
-KEY_COOLDOWN = 60;
+KEY_COOLDOWN = 15;
 
 // save progress for when scrolling such that there is
 // a constant distance between top of scroll bar and mouse pos
