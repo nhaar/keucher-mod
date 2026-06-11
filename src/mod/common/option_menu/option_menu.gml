@@ -825,9 +825,13 @@ function get_searchable_mod_options()
 {
     store_all_searchable_mod_options();
     //get search results
+
+    // all button texts that fit search query (0 == unused)
     var button_text_search_results = filter_array_by_substring(search_query, all_search_button_text, false);
-    var search_button_text_amount = array_length(button_text_search_results);
+    // all hover texts where the hover description fits the search query
     var hover_desc_search_results = filter_array_by_substring(search_query, all_search_hover_desc, false);
+
+    var search_button_text_amount = array_length(button_text_search_results);
     var search_hover_desc_amount = array_length(hover_desc_search_results);
     var search_options_amount = array_length(all_search_button_text);
     //store results details in filtered_search_options
@@ -919,12 +923,15 @@ function store_all_searchable_mod_options() {
         //SPECIAL CASE: Remove options search button from searchable buttons list (index 0 of default mod options)
         array_copy(all_search_button_text, total_button_amount, button_text, (options_state == "default") ? 1 : 0, button_amount);
         array_copy(all_search_hover_desc, total_button_amount, hover_desc, (options_state == "default") ? 1 : 0, button_amount);
-        for (var button_index = 0; button_index < button_amount; button_index++)
+        var start_index = (options_state == "default") ? 1 : 0;
+        var effective_amount = button_amount - start_index;
+
+        for (var button_index = start_index; button_index < button_amount; button_index++)
         {
-            all_search_options_state[total_button_amount + button_index] = options_state;
-            all_search_button_index[total_button_amount + button_index] = button_index;
+            all_search_options_state[total_button_amount + button_index - start_index] = options_state;
+            all_search_button_index[total_button_amount + button_index - start_index] = button_index;
         }
-        total_button_amount += button_amount;
+        total_button_amount += effective_amount;
     }
     search_options_stored = true;
 }
