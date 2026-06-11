@@ -35,19 +35,21 @@ hover_desc[INIT_BUTTON_AMOUNT] = "";
 // variable that tracks the current option menu
 options_state = "default"
 
-/* Stores all searchable options 
-* Encoding:
-* 1 - Button Text
-* 2 - Hover Description
-* 3 - Options State
-* 4 - Button Index
-*/
+
+// these variables index all buttons that can be searched
+// the same index in the other arrays will give: what the button desc is, what state it triggers and what index it has
 all_search_button_text[INIT_BUTTON_AMOUNT] = 0;
 all_search_hover_desc[INIT_BUTTON_AMOUNT] = "";
 all_search_options_state[INIT_BUTTON_AMOUNT] = "";
 all_search_button_index[INIT_BUTTON_AMOUNT] = 0;
-// all_search_options[4*INIT_BUTTON_AMOUNT] = 0;
 search_options_stored = false;
+/* Stores all filtered options in groups of 4 
+* Encoding for index:
+* mod 4 == 0 - Button Text
+* mod 4 == 1 - Hover Description
+* mod 4 == 2 - Options State
+* mod 4 == 3 - Button Index
+*/
 filtered_search_options[4*INIT_BUTTON_AMOUNT] = 0;
 
 typing_search = false;
