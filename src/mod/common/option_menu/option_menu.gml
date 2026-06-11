@@ -757,10 +757,19 @@ function get_room_warp_mod_options()
         hover_desc[i] = "";
     }
 
+    if (!typing_room)
+    {
+        begin_process_typing();
+    }
     typing_room = true;
     menu_desc = "Type to search for a room by its name";
     use_enumeration = false;
     options_state = "room_warp";
+}
+
+function begin_process_typing()
+{
+    keyboard_string = "";
 }
 
 function process_typing_keyboard(current_query) 
@@ -774,49 +783,8 @@ function process_typing_keyboard(current_query)
         }
         else
         {
-            key_current_cooldown++;
-            if (kb_key == pressing_room_query)
-            {
-                if (key_current_cooldown > KEY_COOLDOWN)
-                {
-                    pressing_room_query = 0;
-                }
-            }
-            else
-            {
-                var is_letter = kb_key >= ord("A") && kb_key <= ord("Z");
-                var is_underscore = kb_key == 189;
-                var is_digits = kb_key >= ord("0") && kb_key <= ord("9");
-                var shift_press = keyboard_check(vk_shift);
-                pressing_room_query = kb_key; // avoid multiple registers
-                if (is_letter || (is_underscore && shift_press) || is_digits)
-                {
-        
-                    var char_pressed = ""
-                    if (is_underscore)
-                    {
-                        char_pressed = "_"
-                    }
-                    else
-                    {
-                        // supporting lower and upper case
-                        char_pressed = chr(kb_key + (((shift_press && is_letter) || !is_letter) ? 0 : 32));
-                    }
-                    current_query += char_pressed;
-                }
-                else if (kb_key == 8)
-                {
-                    current_query = keyboard_check(vk_control) ?
-                        "" :
-                        string_copy(current_query, 1, string_length(current_query) - 1)
-                }
-            }
+            current_query = keyboard_string
         }
-    }
-    else
-    {
-        key_current_cooldown = 0;
-        pressing_room_query = kb_key
     }
     return current_query
 }
@@ -896,6 +864,10 @@ function get_searchable_mod_options()
     //increment button_amount to include search bar
     button_amount++;
 
+    if (!typing_search)
+    {
+        begin_process_typing();
+    }
     typing_search = true;
     menu_desc = "Search through all available keucher mod options";
     use_enumeration = false;

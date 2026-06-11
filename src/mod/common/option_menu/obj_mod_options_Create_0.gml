@@ -83,11 +83,6 @@ current_ui_element = undefined
 // check if are in the room warp options (search for key inputs)
 typing_room = false;
 room_query = "";
-pressed_key = 0;
-
-// how long between frames we have been pressing the same key
-key_current_cooldown = 0;
-KEY_COOLDOWN = 15;
 
 // save progress for when scrolling such that there is
 // a constant distance between top of scroll bar and mouse pos
