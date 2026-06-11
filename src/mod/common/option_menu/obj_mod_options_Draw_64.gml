@@ -115,7 +115,7 @@ scroll_start_x = button_end_x + 5
 scroll_start_y = scroll_ypos
 scroll_end_x = view_width
 scroll_end_y = scroll_ypos + scroll_height
-var kb_key = ossafe_keyboard_key()
+kb_key = ossafe_keyboard_key()
 
 // setting new value for keybind
 if setting_keybind
