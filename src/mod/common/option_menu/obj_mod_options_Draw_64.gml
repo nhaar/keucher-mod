@@ -319,7 +319,7 @@ for (var i = 0; i < button_amount; i++)
                                 get_ui_colors_options();
                                 break;
                             // chapter switch
-                            case 11:
+                            case 12:
                                 get_chapter_switch_options();
                                 break;
                         }
