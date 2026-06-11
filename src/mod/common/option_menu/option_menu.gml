@@ -902,9 +902,10 @@ function get_searchable_mod_options()
     options_state = "searchoptions";
 }
 
-function store_all_searchable_mod_options() {
+function store_all_searchable_mod_options(force) {
     //Already stored in instance arrays, no need to redo
-    if (search_options_stored) 
+    // forced is used to ovewrite a previous index
+    if (!force && search_options_stored) 
     {
         return;
     }

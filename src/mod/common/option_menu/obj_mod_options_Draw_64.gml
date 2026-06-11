@@ -202,6 +202,14 @@ if point_in_rectangle(real_mouse_x, real_mouse_y, scroll_start_x, scroll_start_y
 draw_set_color(read_ui_color("scrollbar"))
 draw_rectangle(scroll_start_x, scroll_start_y, scroll_end_x, scroll_end_y, false)
 
+// this is for search query
+// when clicking in a button this is the option state that is initially set
+// IF the option state is not the same after carrying out the button specific logic
+// then it means that the button we clicked is a button that moves you to a specific submenu
+// but otherwise, it means that the button DOES not need to change the submenu, so this variable is used to track what type of button it is
+// it is "" if there is no dearch query button clicking going on
+expected_option = ""
+
 for (var i = 0; i < button_amount; i++)
 {
     button_start_y = get_button_start_y(i);
@@ -250,6 +258,7 @@ for (var i = 0; i < button_amount; i++)
                 {
                     scroll_ypos = 0;
                     options_state = filtered_search_options[(i-1)*4 + 2];
+                    expected_option = options_state;
                     button_index = filtered_search_options[(i-1)*4 + 3];
                     typing_search = false;
                 }
@@ -909,6 +918,12 @@ for (var i = 0; i < button_amount; i++)
                         set_option_value(name, state);
                         get_misc_options_mod_options();
                         break;
+                }
+                if (expected_option != "" && options_state == expected_option)
+                {
+                    store_all_searchable_mod_options(true);
+                    get_searchable_mod_options();
+                    expected_option = "";
                 }
             }
         }
