@@ -23,6 +23,14 @@ CHAPTERS_102 = {
   '4': r""
 }
 
+SWITCH_104 = {
+  '0': r"",
+  '1': r"",
+  '2': r"",
+  '3': r"",
+  '4': r""
+}
+
 DEMO_115 = r""
 
 # Path to the UTMT CLI .exe

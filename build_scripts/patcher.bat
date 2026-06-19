@@ -114,6 +114,11 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
             exit /b
         )
     )
+) else (
+    echo MsgBox "Error! This data.win is not supported", vbOKOnly+vbInformation, "Error" > %temp%\error.vbs
+    cscript //nologo %temp%\error.vbs
+    del %temp%\error.vbs
+    exit /b
 )
 
 set "doneVBS=%TEMP%\keucher_patcher_done.vbs"

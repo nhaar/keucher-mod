@@ -4,7 +4,7 @@ import os
 import re
 from pathlib import Path
 
-from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, CHAPTERS_102, DEMO_115
+from paths import UTMT, FLIPS, CHAPTERS_104, CHAPTERS_105, CHAPTERS_102, DEMO_115, SWITCH_104
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
@@ -51,12 +51,17 @@ build_demo(DEMO_115, '1.15')
 build_full_release(CHAPTERS_102, '1.02')
 build_full_release(CHAPTERS_104, '1.04')
 build_full_release(CHAPTERS_105, '1.05-beta')
+build_full_release(SWITCH_104, '1.04-switch')
 
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
 shutil.copy2(
   os.path.join(BUILD_SCRIPTS, 'patcher.bat'),
-  os.path.join(FINAL_PATH, 'Keucher Mod Patcher.bat')
+  os.path.join(FINAL_PATH, 'Keucher Mod Patcher (PC).bat')
+)
+shutil.copy2(
+  os.path.join(BUILD_SCRIPTS, 'patcher_switch.bat'),
+  os.path.join(FINAL_PATH, 'Keucher Mod Patcher (Switch).bat')
 )
 shutil.copy2(
   os.path.join(BUILD_SCRIPTS, 'readme.txt'),
