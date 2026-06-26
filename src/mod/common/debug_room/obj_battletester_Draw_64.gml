@@ -1,4 +1,4 @@
-/// PATCH .ignore if CH1
+/// PATCH .ignore if CH1 || CH5
 // make numpad keys work for these
 
 /// REPLACE

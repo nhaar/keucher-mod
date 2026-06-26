@@ -63,7 +63,8 @@ class KeucherModLoader : UMPLoader
                 (Version == DeltaruneVersion.Chapter1 && chapter > 1) ||
                 (Version == DeltaruneVersion.Chapter2 && chapter > 2) ||
                 (Version == DeltaruneVersion.Chapter3 && chapter > 3) ||
-                (Version == DeltaruneVersion.Chapter4 && chapter > 4)
+                (Version == DeltaruneVersion.Chapter4 && chapter > 4) ||
+                (Version == DeltaruneVersion.Chapter5 && chapter > 5)
             )
             {
                 return false;
@@ -75,7 +76,8 @@ class KeucherModLoader : UMPLoader
                 (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
                 (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo)) ||
                 (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
-                (chapter == 4 && Version != DeltaruneVersion.Chapter4)
+                (chapter == 4 && Version != DeltaruneVersion.Chapter4) ||
+                (chapter == 5 && Version != DeltaruneVersion.Chapter5)
             )
             {
                 return false;
@@ -186,7 +188,7 @@ class KeucherModLoader : UMPLoader
 
     public enum DR
     {
-        MaxChapter = 4
+        MaxChapter = 5
     }
 }
 

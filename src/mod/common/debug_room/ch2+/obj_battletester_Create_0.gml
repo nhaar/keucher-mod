@@ -1,4 +1,4 @@
-/// PATCH .ignore if DEMO
+/// PATCH .ignore if DEMO || CH5
 
 /// REPLACE
 global.flag[34] = 0;

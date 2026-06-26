@@ -19,6 +19,10 @@ function get_weapon_ids()
     {
         return concat_arrays(get_range_array(1, 26), get_range_array(50, 54));
     }
+    else if (ch == 5)
+    {
+        return concat_arrays(get_range_array(1, 26), concat_arrays(get_range_array(30, 37), get_range_array(50, 54)));
+    }
 
     return create_array();
 }
@@ -53,6 +57,16 @@ function get_weapon_name(weapon_id)
         case 24: return "ToxicAxe";
         case 25: return "FlexScarf";
         case 26: return "BlackShard";
+
+        case 30: return "WoodBlade2";
+        case 31: return "Thatchet";
+        case 32: return "BlueShoes";
+        case 33: return "AquaKnife";
+        case 34: return "FloweryScarf";
+        case 35: return "BrokenScarf";
+        case 36: return "GildedRose";
+        case 37: return "MistleWP";
+
         case 50: return "JingleBlade";
         case 51: return "ScarfMark";
         case 52: return "JusticeAxe";
@@ -80,7 +94,10 @@ function get_armor_ids()
     {
         return concat_arrays(get_range_array(1, 27), get_range_array(50, 54));
     }
-
+    else if (ch == 5)
+    {
+        return concat_arrays(get_range_array(1, 27), concat_arrays(get_range_array(30, 38), get_range_array(50, 54)));
+    }
     return create_array();
 }
 
@@ -115,6 +132,15 @@ function get_armor_name(armor_id)
         case 25: return "GingerGuard";
         case 26: return "BlueRibbon";
         case 27: return "TennaTie";
+        case 30: return "MonarchRBN";
+        case 31: return "TrueTie";
+        case 32: return "DogWidow";
+        case 33: return "RedRibbon";
+        case 34: return "NetskieHat";
+        case 35: return "SethSpecs";
+        case 36: return "YellowHat";
+        case 37: return "O.Glove";
+        case 38: return "GreenApron";
         case 50: return "Waferguard";
         case 51: return "MysticBand";
         case 52: return "PowerBand";
@@ -142,7 +168,10 @@ function get_consumable_ids()
     {
         return concat_arrays(get_range_array(1, 39), get_range_array(60, 63));
     }
-
+    else if (ch == 5)
+    {
+        return concat_arrays(get_range_array(1, 43), get_range_array(60, 70));
+    }
     return create_array();
 }
 
@@ -189,10 +218,21 @@ function get_consumable_name(consumable_id)
         case 37: return "TVSlop";
         case 38: return "ExecBuffet";
         case 39: return "DeluxeDinner";
+        case 40: return "PunchBowl";
+        case 41: return "Flavigne";
+        case 42: return "GreenTea";
+        case 43: return "OrangeJuice";
         case 60: return "AncientSweet";
         case 61: return "Rhapsotea";
         case 62: return "Scarlixir";
         case 63: return "BitterTear";
+        case 64: return "Schadenbrot";
+        case 65: return "DeluxeDinner";
+        case 66: return "S.POTION";
+        case 67: return "Raw Moon";
+        case 68: return "Phanta";
+        case 69: return "FlowerySoda";
+        case 70: return "Shikacola";
     }
 }
 
