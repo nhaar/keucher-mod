@@ -10,3 +10,9 @@
         (global.chapter * 10000) - (room_battletest - 1)
     );
 /// END
+
+/// REPLACE
+new scr_room(room_animexampletest, 50093), new scr_room(rm_blank, 50094), new scr_room(room_climbtest, 50095)
+/// CODE
+new scr_room(room_animexampletest, 50093), new scr_room(room_climbtest, 50095)
+/// END
