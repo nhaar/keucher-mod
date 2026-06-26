@@ -45,42 +45,63 @@ class KeucherModLoader : UMPLoader
         }
 
         var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
-        var isChapter = chapterMatch.Success;
-        var chapter = isChapter ? int.Parse(chapterMatch.Groups[1].Value) : 0;
-        var isRange = false;
 
-        var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)(\+|)");
-        if (minifiedChapterMatch.Success)
+        int actualVersion = 0;
+        switch (Version)
         {
-            isRange = minifiedChapterMatch.Groups[2].Value == "+";
-            chapter = int.Parse(minifiedChapterMatch.Groups[1].Value);
+            case DeltaruneVersion.Chapter1:
+                actualVersion = 1;
+                break;
+            case DeltaruneVersion.Chapter2:
+                actualVersion = 2;
+                break;
+            case DeltaruneVersion.Chapter3:
+                actualVersion = 3;
+                break;
+            case DeltaruneVersion.Chapter4:
+                actualVersion = 4;
+                break;
+            case DeltaruneVersion.Chapter5:
+                actualVersion = 5;
+                break;
         }
 
-        if (isRange)
+        if (chapterMatch.Success)
         {
-            if (
-                (Version == DeltaruneVersion.Demo && chapter > 2) ||
-                (Version == DeltaruneVersion.Chapter1 && chapter > 1) ||
-                (Version == DeltaruneVersion.Chapter2 && chapter > 2) ||
-                (Version == DeltaruneVersion.Chapter3 && chapter > 3) ||
-                (Version == DeltaruneVersion.Chapter4 && chapter > 4) ||
-                (Version == DeltaruneVersion.Chapter5 && chapter > 5)
-            )
+            if (int.Parse(chapterMatch.Groups[1].Value) != actualVersion)
+            {
+                return false;
+            }
+        }
+
+        var openRangeMatch = Regex.Match(filePath, @"ch(\d+)\+");
+        if (openRangeMatch.Success)
+        {
+            if (actualVersion < int.Parse(openRangeMatch.Groups[1].Value))
             {
                 return false;
             }
         }
         else
         {
-            if (
-                (chapter == 1 && (Version != DeltaruneVersion.Chapter1 && Version != DeltaruneVersion.Demo)) ||
-                (chapter == 2 && (Version != DeltaruneVersion.Chapter2 && Version != DeltaruneVersion.Demo)) ||
-                (chapter == 3 && Version != DeltaruneVersion.Chapter3) ||
-                (chapter == 4 && Version != DeltaruneVersion.Chapter4) ||
-                (chapter == 5 && Version != DeltaruneVersion.Chapter5)
-            )
+            var closedRangeMatch = Regex.Match(filePath, @"ch(\d+)\-(\d+)");
+            if (closedRangeMatch.Success)
             {
-                return false;
+                if (actualVersion < int.Parse(closedRangeMatch.Groups[1].Value) || actualVersion > int.Parse(closedRangeMatch.Groups[2].Value))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)");
+                if (minifiedChapterMatch.Success)
+                {
+                    if (actualVersion != int.Parse(minifiedChapterMatch.Groups[1].Value))
+                    {
+                        return false;
+                    }
+                }
             }
         }
 

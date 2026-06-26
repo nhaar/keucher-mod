@@ -1,5 +1,7 @@
 /// PATCH
 
+// making the text easier to see
+
 /// REPLACE 
         draw_set_font(fnt_main);
         draw_set_halign(fa_center);
