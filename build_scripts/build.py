@@ -45,12 +45,12 @@ def build_full_release(chapter_paths, deltarune_version: str):
     build_version(chapter_paths[ch], script_name, f'v{deltarune_version}-chapter{version_name}')
 
 def build_demo(path, deltarune_version: str):
-  build_version(path, 'Demo', f'v{deltarune_version}-demo')
+  build_version(path, 'Demo', f'{deltarune_version}-demo')
 
-build_demo(DEMO_115, '1.15')
-build_full_release(CHAPTERS_102, '1.02')
-build_full_release(SWITCH_104, '1.04-switch')
-build_full_release(CH5_LATEST, 'ch5latest')
+build_demo(DEMO_115, 'v1.15')
+build_full_release(CHAPTERS_102, 'v1.02')
+build_full_release(SWITCH_104, 'v1.04-switch')
+build_full_release(CH5_LATEST, 'ch5_latest')
 
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
