@@ -37,20 +37,20 @@ def build_version(data_win_path: str, script_name: str, version_name: str):
   subprocess.run([UTMT, "load", data_win_path, "-s", script_path, "-o", data_win_output_path])
   subprocess.run([FLIPS, "-c", "--bps", data_win_path, data_win_output_path, os.path.join(PATCH_FILES, f"{version_name}.bps")])
 
-def build_full_release(chapter_paths, deltarune_version: str):
+def build_full_release(chapter_paths, deltarune_version: str, chapters: int):
   for (version_name, script_name, ch) in [
     ('_select', 'ChapterSelect', '0'),
-    *[(str(ch), 'Chapter' + str(ch), str(ch)) for ch in range(1, 5)]
+    *[(str(ch), 'Chapter' + str(ch), str(ch)) for ch in range(1, chapters + 1)]
     ]:
-    build_version(chapter_paths[ch], script_name, f'v{deltarune_version}-chapter{version_name}')
+    build_version(chapter_paths[ch], script_name, f'{deltarune_version}-chapter{version_name}')
 
 def build_demo(path, deltarune_version: str):
   build_version(path, 'Demo', f'{deltarune_version}-demo')
 
 build_demo(DEMO_115, 'v1.15')
-build_full_release(CHAPTERS_102, 'v1.02')
-build_full_release(SWITCH_104, 'v1.04-switch')
-build_full_release(CH5_LATEST, 'ch5_latest')
+build_full_release(CHAPTERS_102, 'v1.02', 4)
+build_full_release(SWITCH_104, 'v1.04-switch', 4)
+build_full_release(CH5_LATEST, 'ch5_latest', 5)
 
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
