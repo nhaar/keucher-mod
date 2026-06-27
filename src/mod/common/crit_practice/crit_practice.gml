@@ -88,7 +88,7 @@ function update_end_turn_crit_stats()
         global.attackse++
     }
 }
-#elsif CH3 || CH4
+#elsif CH3 || CH4 || CH5
 function update_end_turn_crit_stats()
 {
     if (global.ambyu_practice)

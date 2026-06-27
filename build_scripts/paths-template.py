@@ -1,26 +1,19 @@
 # Path to the chapters data.wins (0 is chapter select)
-CHAPTERS_104 = {
-  '0': r"",
-  '1': r"",
-  '2': r"",
-  '3': r"",
-  '4': r""
-}
-
-CHAPTERS_105 = {
-  '0': r"",
-  '1': r"",
-  '2': r"",
-  '3': r"",
-  '4': r""
-}
-
 CHAPTERS_102 = {
   '0': r"",
   '1': r"",
   '2': r"",
   '3': r"",
   '4': r""
+}
+
+CH5_LATEST = {
+  '0': r"",
+  '1': r"",
+  '2': r"",
+  '3': r"",
+  '4': r"",
+  '5': r""
 }
 
 SWITCH_104 = {

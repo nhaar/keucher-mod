@@ -198,6 +198,11 @@ function start_boss_practice()
             obj_boss_practice.turn_text[18] = "Turn 19";
             break;
 #endif
+#if CH5
+         case obj_flowery_enemy:
+            break;
+        
+#endif
     }
 
     obj_boss_practice.maxturn = array_length(obj_boss_practice.turn_text) - 1
