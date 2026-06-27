@@ -63,7 +63,7 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
         exit /b
     )
 
-    CALL CheckChapters
+    CALL CheckChapters4
 
     for %%C in (1 2 3 4) do (
         echo Patching Chapter %%C v1.02...
@@ -74,40 +74,20 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
             exit /b
         )
     )
-) else if /i "%hash%" == "9D1FEA9DE81219EA7304F32F1AE7A878" (
-    echo Patching Chapter Select v1.04...
-    patch_files\flips.exe --apply patch_files\v1.04-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
+) else if /i "%hash%" == "0A448A89C32C802A138621A39CED69DB" (
+    echo Patching Chapter Select for latest CH5 release...
+    patch_files\flips.exe --apply patch_files\ch5_latest-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul
         exit /b
     )
 
-    CALL CheckChapters
+    CALL CheckChapters5
 
-    for %%C in (1 2 3 4) do (
-        echo Patching Chapter %%C v1.04...
-        patch_files\flips.exe --apply patch_files\v1.04-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
-        if errorlevel 1 (
-            echo Press any key to exit...
-            pause >nul
-            exit /b
-        )
-    )
-) else if /i "%hash%" == "5D3E158DBE6888FBF24471019FBDE3C9" (
-    echo Patching Chapter Select v1.05 Beta...
-    patch_files\flips.exe --apply patch_files\v1.05-beta-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
-    if errorlevel 1 (
-        echo Press any key to exit...
-        pause >nul
-        exit /b
-    )
-
-    CALL CheckChapters
-
-    for %%C in (1 2 3 4) do (
-        echo Patching Chapter %%C v1.05 Beta...
-        patch_files\flips.exe --apply patch_files\v1.05-beta-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
+    for %%C in (1 2 3 4 5) do (
+        echo Patching Chapter %%C for latest CH5 release...
+        patch_files\flips.exe --apply patch_files\ch5_latest-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
         if errorlevel 1 (
             echo Press any key to exit...
             pause >nul
@@ -115,7 +95,7 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
         )
     )
 ) else (
-    echo MsgBox "Error! This data.win is not supported", vbOKOnly+vbInformation, "Error" > %temp%\error.vbs
+    echo MsgBox "Error! This data.win is not supported! If a new CH5 patch came out, please contact the mod managers to make a new patch", vbOKOnly+vbInformation, "Error" > %temp%\error.vbs
     cscript //nologo %temp%\error.vbs
     del %temp%\error.vbs
     exit /b
@@ -135,12 +115,28 @@ exit /b
 
 @REM functions
 
-:CheckChapters
+:CheckChapters4
     for %%C in (
         "%installDir%\chapter1_windows\data.win"
         "%installDir%\chapter2_windows\data.win"
         "%installDir%\chapter3_windows\data.win"
         "%installDir%\chapter4_windows\data.win"
+    ) do (
+        if not exist "%%~C" (
+            echo ERROR: Missing "%%~fxC"^^!
+            echo Press any key to exit...
+            pause >nul
+            exit /b
+        )
+    )
+
+:CheckChapters5
+    for %%C in (
+        "%installDir%\chapter1_windows\data.win"
+        "%installDir%\chapter2_windows\data.win"
+        "%installDir%\chapter3_windows\data.win"
+        "%installDir%\chapter4_windows\data.win"
+        "%installDir%\chapter5_windows\data.win"
     ) do (
         if not exist "%%~C" (
             echo ERROR: Missing "%%~fxC"^^!

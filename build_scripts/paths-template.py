@@ -7,7 +7,7 @@ CHAPTERS_102 = {
   '4': r""
 }
 
-CHAPTERS_22 = {
+CH5_LATEST = {
   '0': r"",
   '1': r"",
   '2': r"",
