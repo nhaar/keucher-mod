@@ -9,6 +9,7 @@ function get_debug_keybinds()
         "restart_room",
         "store_savestate",
         "load_savestate",
+        "show_savestates",
         "nextpage_savestate",
         "prevpage_savestate",
         "speedup",
@@ -41,6 +42,7 @@ function get_debug_keybind_default(name)
         case "restart_room": return ord("R");
         case "store_savestate": return ord("Q");
         case "load_savestate": return ord("E");
+        case "show_savestates": return vk_tab;
         case "nextpage_savestate": return ord("P");
         case "prevpage_savestate": return ord("O");
         case "speedup": return ord("À");
@@ -75,6 +77,7 @@ function get_debug_keybind_descriptive_name(name)
         case "restart_room": return "Restart Room";
         case "store_savestate": return "Store Savestate";
         case "load_savestate": return "Load Savestate";
+        case "show_savestates": return "Show Savestates";
         case "nextpage_savestate": return "Previous page of savestates";
         case "prevpage_savestate": return "Next page of savestates";
         case "speedup": return "Speedup";
@@ -114,6 +117,8 @@ function get_debug_keybind_description(name)
             return "When pressed, you will save the current state as a savestate\nYou may change the savestate slot by pressing the numbers";
         case "load_savestate":
             return "When pressed, you will load the current selected savestate slot\nSavestates don't always work! The game may break, specially in battles";
+        case "show_savestates":
+            return "When pressed, you can see all the savestates in the current page";
         case "nextpage_savestate":
             return "When pressed, will navigate to the previous page of savestates";
         case "prevpage_savestate":
@@ -230,6 +235,28 @@ function pressed_active_debug_keybind(name)
     }
     return state;
 }
+
+// check is a debug keybind is active and held
+function check_active_debug_keybind(name)
+{
+    if (!global.debug_keybinds_on)
+    {
+        return false;
+    }
+    var key = get_debug_keybind_key(name);
+    if (!keyboard_check(key))
+    {
+        return false;
+    }
+
+    var state = get_debug_keybind_state(name);
+    if (state == "debug")
+    {
+        return global.debug;
+    }
+    return state;
+}
+
 
 function get_default_keybinds_using_key(key)
 {

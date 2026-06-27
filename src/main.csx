@@ -1,5 +1,6 @@
 #load "ump\ump.csx"
 #load "enums.csx"
+#load "savestate.csx"
 
 using ImageMagick;
 using System.Linq;
@@ -213,7 +214,7 @@ class KeucherModLoader : UMPLoader
     }
 }
 
-void BuildMod (DeltaruneVersion version)
+async Task BuildMod (DeltaruneVersion version)
 {
     // changing save folder (pc)
     Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");
@@ -231,42 +232,7 @@ void BuildMod (DeltaruneVersion version)
     SetupChapterOne(version);
     if (version != DeltaruneVersion.ChapterSelect)
     {
-        // replace with logged functions for savestates
-        List<UndertaleCode> toDump = Data.Code.Where(c => c.ParentEntry is null).ToList();
-        foreach (UndertaleCode code in toDump)
-        {
-            if (code is null || code.Name.Content == "gml_GlobalScript_logged_functions" || code.Name.Content == "gml_GlobalScript_call_later")
-                continue;
-
-            importGroup.QueueFindReplace(code, "audio_play_sound(", "audio_play_sound_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_stop_sound(", "audio_stop_sound_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_play_sound_at(", "audio_play_sound_at_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_create_stream(", "audio_create_stream_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_destroy_stream(", "audio_destroy_stream_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_sound_gain(", "audio_sound_gain_logged(", true);
-            importGroup.QueueFindReplace(code, "audio_sound_pitch(", "audio_sound_pitch_logged(", true);
-            importGroup.QueueFindReplace(code, "call_later(", "call_later_logged(", true);
-            importGroup.QueueFindReplace(code, "ds_list_create(", "ds_list_create_logged(", true);
-            importGroup.QueueFindReplace(code, "ds_map_create(", "ds_map_create_logged(", true);
-            importGroup.QueueFindReplace(code, "json_decode(", "json_decode_logged(", true);
-            importGroup.QueueFindReplace(code, "sprite_get_texture(", "sprite_get_texture_logged(", true);
-            importGroup.QueueFindReplace(code, "path_start(", "path_start_logged(", true);
-            importGroup.QueueFindReplace(code, "sprite_create_from_surface(", "sprite_create_from_surface_logged(", true);
-        }
-        importGroup.Import();
-
-        // add the savestate manager as the very first object loaded
-        UndertalePointerList<UndertaleRoom.GameObject> roomGameObjects = Data.GeneralInfo.RoomOrder.First().Resource.GameObjects;
-        if (!roomGameObjects.Any(inst => inst.ObjectDefinition.Name?.Content == "obj_savestate_manager"))
-        {
-            roomGameObjects.Insert(0, new UndertaleRoom.GameObject()
-            {
-                InstanceID = Data.GeneralInfo.LastObj++,
-                ObjectDefinition = Data.GameObjects.ByName("obj_savestate_manager"),
-                X = 0,
-                Y = 0
-            });
-        }
+        SetupSavestateMod();
     }
 }
 

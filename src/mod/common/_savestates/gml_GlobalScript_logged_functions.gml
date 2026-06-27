@@ -16,7 +16,8 @@ function audio_play_sound_logged(arg0, arg1, arg2, arg3 = 1, arg4 = 0, arg5 = 1,
             snd_pitch: arg5,
             snd_gain: arg3,
             loop: arg2,
-            paused: false
+            paused: false,
+            position: arg4
         });
     }
     
@@ -43,10 +44,11 @@ function audio_play_sound_at_logged(arg0, arg1, arg2, arg3, arg4, arg5, arg6, ar
             asset_id: arg0,
             asset_gain: audio_sound_get_gain(arg0),
             asset_pitch: audio_sound_get_pitch(arg0),
-            snd_pitch: arg11,
-            snd_gain: arg9,
-            loop: arg7,
-            paused: false
+            snd_pitch: arg5,
+            snd_gain: arg3,
+            loop: arg2,
+            paused: false,
+            position: arg4
         });
     }
     
@@ -149,28 +151,6 @@ function audio_sound_pitch_logged(arg0, arg1)
     }
 }
 
-function call_later_logged(arg0, arg1, arg2, arg3 = false)
-{
-#if !DEMO
-    var call_id = call_later(arg0, arg1, arg2, arg3);
-    
-    with (obj_savestate_manager)
-    {
-        array_push(known_call_laters, 
-        {
-            period: arg0,
-            unit: arg1,
-            callback: arg2,
-            loop: arg3,
-            time: current_time,
-            id: call_id
-        });
-    }
-    
-    return call_id;
-#endif
-}
-
 function ds_list_create_logged()
 {
     var list = ds_list_create();
@@ -197,17 +177,17 @@ function ds_map_create_logged()
     return map;
 }
 
-function json_decode_logged(arg0)
+function ds_priority_create_logged()
 {
-    var decoded_map = json_decode(arg0);
+    var pqueue = ds_priority_create();
     
     with (obj_savestate_manager)
     {
-        if (ds_max_id.map < decoded_map)
-            ds_max_id.map = decoded_map;
+        if (ds_max_id.pqueue < pqueue)
+            ds_max_id.pqueue = pqueue;
     }
     
-    return decoded_map;
+    return pqueue;
 }
 
 function sprite_get_texture_logged(arg0, arg1)
@@ -224,6 +204,30 @@ function sprite_get_texture_logged(arg0, arg1)
     }
     
     return texture;
+}
+
+function call_later_logged(arg0, arg1, arg2, arg3 = false)
+{
+    var call_id = call_later(arg0, arg1, arg2, arg3);
+    
+    with (obj_savestate_manager)
+    {
+        var _period = arg0;
+        
+        if (arg1 == 0)
+            _period *= ceil(room_speed);
+        
+        array_push(known_call_laters, 
+        {
+            period: arg0,
+            callback: arg2,
+            loop: arg3,
+            frames_passed: 0,
+            id: call_id
+        });
+    }
+    
+    return call_id;
 }
 
 function path_start_logged(arg0, arg1, arg2, arg3)
@@ -244,6 +248,16 @@ function path_start_logged(arg0, arg1, arg2, arg3)
 function sprite_create_from_surface_logged(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 {
     var sprite = sprite_create_from_surface(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    
+    with (obj_savestate_manager)
+        highest_known_import_spr_id = max(sprite, highest_known_import_spr_id);
+    
+    return sprite;
+}
+
+function sprite_add_logged(arg0, arg1, arg2, arg3, arg4, arg5)
+{
+    var sprite = sprite_add(arg0, arg1, arg2, arg3, arg4, arg5);
     
     with (obj_savestate_manager)
         highest_known_import_spr_id = max(sprite, highest_known_import_spr_id);
