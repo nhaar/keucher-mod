@@ -2,10 +2,7 @@
 // flowery tempflags
 
 /// BEFORE
-global.tempflag[74]++;
+hold_it_objection = false;
 /// CODE
-
-if (scr_debug())
-    global.tempflag[74] = 0;
-
+global.tempflag[74] = 1;
 /// END
