@@ -214,7 +214,7 @@ class KeucherModLoader : UMPLoader
     }
 }
 
-async Task BuildMod (DeltaruneVersion version)
+void BuildMod (DeltaruneVersion version)
 {
     // changing save folder (pc)
     Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");

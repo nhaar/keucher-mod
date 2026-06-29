@@ -61,7 +61,7 @@ if not defined hash (
     exit /b
 )
 
-if NOT (/i "%hash%" == "42C2A1A83FE81AD836E8EEE3265EF8B1") (
+if NOT (/i "%hash%" == "9D3F84FC7179FEFC4A98F13D76BAFCE4") (
     echo MsgBox "Error! This game.win is not supported", vbOKOnly+vbInformation, "Error" > %temp%\error.vbs
     cscript //nologo %temp%\error.vbs
     del %temp%\error.vbs

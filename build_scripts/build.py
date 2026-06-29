@@ -4,7 +4,7 @@ import os
 import re
 from pathlib import Path
 
-from paths import UTMT, FLIPS, CHAPTERS_102, DEMO_115, SWITCH_104, CH5_LATEST
+from paths import UTMT, FLIPS, CHAPTERS_102, DEMO_115, SWITCH_106, CH5_LATEST
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
@@ -49,7 +49,7 @@ def build_demo(path, deltarune_version: str):
 
 build_demo(DEMO_115, 'v1.15')
 build_full_release(CHAPTERS_102, 'v1.02', 4)
-build_full_release(SWITCH_104, 'v1.04-switch', 4)
+build_full_release(SWITCH_106, 'v1.06-switch', 5)
 build_full_release(CH5_LATEST, 'ch5_latest', 5)
 
 # copying files over
