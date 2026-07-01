@@ -16,7 +16,7 @@ if (msg_opacity > 0)
     msg_opacity -= 0.05;
 }
 
-if (keyboard_check(vk_tab))
+if (variable_global_exists("debug_keybinds_on") && global.debug_keybinds_on && check_active_debug_keybind("show_savestates"))
 {
     draw_set_alpha(1);
     var full_message = "";
