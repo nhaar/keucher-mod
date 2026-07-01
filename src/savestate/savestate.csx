@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using UndertaleModLib.Util;
 using ImageMagick;
 
-void BuildSavestate()
+void BuildSavestate(string resourcePath)
 {
     EnsureDataLoaded();
-    string resourcePath = Path.Combine(Path.GetDirectoryName(ScriptPath), "savestate");
+    // string resourcePath = Path.Combine(Path.GetDirectoryName(ScriptPath), "savestate");
 
     UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data)
     {
@@ -80,8 +80,6 @@ void BuildSavestate()
         });
     }
     importGroup.Import();
-
-    ScriptMessage("Savestates imported! Use the 1-9 keys to change savestate slot, O to go to the previous savestate page, P to go to the next savestate page, Q to save a savestate, E to load a savestate, and Tab to view the rooms your savestates are in!");   
 }
 
 

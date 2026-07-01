@@ -216,6 +216,8 @@ class KeucherModLoader : UMPLoader
 
 void BuildMod (DeltaruneVersion version)
 {
+    var scriptPath = ScriptPath;
+
     // changing save folder (pc)
     Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");
 
@@ -232,7 +234,7 @@ void BuildMod (DeltaruneVersion version)
     SetupChapterOne(version);
     if (version != DeltaruneVersion.ChapterSelect)
     {
-        BuildSavestate();
+        BuildSavestate(Path.Combine(Path.GetDirectoryName(scriptPath), "savestate"));
     }
 }
 
