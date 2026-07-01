@@ -1,10 +1,5 @@
 # deltarune folder is left in src so ignoring everything except relevant files
-/src/*
-!/src/*.csx
-!/src/mod
-!/src/ump-config.json
-!/src/*.json
-!/src/assembly
+/src/ump
 
 # ignoring all build scripts except templates
 /build_scripts/*

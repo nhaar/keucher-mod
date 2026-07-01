@@ -1,6 +1,6 @@
 #load "ump\ump.csx"
 #load "enums.csx"
-#load "savestate.csx"
+#load "savestate\savestate.csx"
 
 using ImageMagick;
 using System.Linq;
@@ -232,7 +232,7 @@ void BuildMod (DeltaruneVersion version)
     SetupChapterOne(version);
     if (version != DeltaruneVersion.ChapterSelect)
     {
-        SetupSavestateMod();
+        BuildSavestate();
     }
 }
 
