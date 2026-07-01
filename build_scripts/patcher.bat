@@ -74,7 +74,7 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
             exit /b
         )
     )
-) else if /i "%hash%" == "359ADB2DB26D7E902F4C26B40E9B58AE" (
+) else if /i "%hash%" == "DDEDBBD10FF129B49C64DBEFAA763C6A" (
     echo Patching Chapter Select for latest CH5 release...
     patch_files\flips.exe --apply patch_files\ch5_latest-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
     if errorlevel 1 (
