@@ -200,6 +200,30 @@ function start_boss_practice()
 #endif
 #if CH5
          case obj_flowery_enemy:
+            obj_boss_practice.turn_text = [
+                "Jarona Easy",
+                "Jarona Medium",
+                "Jarona with Bullet(Med)",
+                "Jarona with Bullets(Hard)",
+                "Jarona with Orange",
+                "Chase Tutorial",
+                "Chase Open",
+                "Chase Closed",
+                "Chase Closed Hard",
+                "Chase Open (Random)",
+                "Chase With Bullets",
+                "Chase Blue Yellow",
+                "Dash Tutorial",
+                "Blue Chase",
+                "Fist Basic Easy",
+                "Fist Basic Med.",
+                "Fist Basic Hard",
+                "Boxes Easy",
+                "Boxes Medium",
+                "Aqua Knives",
+                "Rotating Stars",
+                "SUPER JARONA"
+            ];
             break;
         
 #endif
