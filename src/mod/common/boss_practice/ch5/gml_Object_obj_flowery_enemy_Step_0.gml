@@ -17,5 +17,11 @@ if (false)
 _pattern = "(N/A)";
 /// CODE
 pattern_test = boss_practice_patterns[global.bossTurn];
+/// END
+
+/// AFTER
+    if (scr_isphase("enemytalk") && talked == 0 && endcon == 0 && phasetransition_con == 0 && healingscenecon == 0 && flowery_blowkiss_scene_con == 0)
+    {
+/// CODE
 reset_graze_condition();
 /// END
