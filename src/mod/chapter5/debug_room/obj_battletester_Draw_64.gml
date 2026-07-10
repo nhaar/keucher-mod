@@ -41,12 +41,12 @@ if (global.fighting == false)
     if keyboard_check_pressed(ord("9")) || keyboard_check_pressed(vk_numpad9)
     {
         #Suffix("scr_losechar")()
-        #Suffix("scr_getchar")(4)
+        #Suffix("scr_getchar")(3)
     }
     draw_set_color(c_lime)
     #Suffix("scr_84_set_draw_font")("main")
     draw_text(0, 440, string_hash_to_newline(((((("Party:  " + string(global.charname[global.char[0]])) + " ") + string(global.charname[global.char[1]])) + " ") + string(global.charname[global.char[2]]))))
-    draw_text(0, 455, string_hash_to_newline("6: full party 7: kris only 8: kris + susie 9: kris + noelle"))
+    draw_text(0, 455, string_hash_to_newline("6: full party  7: kris only  8: kris + susie  9: kris + ralsei"))
 }
 if (global.fighting == false)
 {
