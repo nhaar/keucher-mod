@@ -203,6 +203,8 @@ function loaded_savefile()
     return false;
 #elsif DEMO
     return instance_exists(obj_mainchara_ch1) || instance_exists(obj_mainchara);
+#elsif CH5
+    return instance_exists(obj_mainchara) || instance_exists(obj_plat_player);
 #else
     return instance_exists(obj_mainchara)
 #endif
