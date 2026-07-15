@@ -53,11 +53,28 @@ if (global.mnfight == 2 && !turn_started)
     turn_started = true;
     start_battle_turn = true;
 }
+#if CH5
+else if (global.mnfight != 2 && turn_started && !i_ex(obj_plat_player))
+#else
 else if (global.mnfight != 2 && turn_started)
+#endif
 {
     turn_started = false;
     end_battle_turn = true;
 }
+
+#if CH5
+if (i_ex(obj_plat_barrier) && !turn_started)
+{
+    turn_started = true;
+    start_battle_timer = true;
+}
+else if (!i_ex(obj_plat_barrier) && turn_started)
+{
+    turn_started = false;
+    end_battle_timer = true;
+}
+#endif
 
 // updating thigns related to battle
 if (get_timer_mode() == "battle")
