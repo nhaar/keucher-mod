@@ -22,5 +22,5 @@ This repository started on version 4, and is based on the previous practice mod 
 Contributors:
 - YZA
 - NERS
-- Spinyspinr (savestates).
-- Green Ender
+- Spinyspinr (savestates)
+- Green Ender.
