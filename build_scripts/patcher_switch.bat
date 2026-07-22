@@ -3,7 +3,7 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-set "vbsFile=%TEMP%\sw_keucher_patcher_select_folder.vbs"
+set "vbsFile=%TEMP%\sw_practice_patcher_select_folder.vbs"
 
 > "%vbsFile%" (
     echo Set objShell = CreateObject^("Shell.Application"^)
@@ -20,10 +20,10 @@ if not defined installDir (
     exit /b
 )
 
-set "confirmVBS=%TEMP%\sw_keucher_patcher_confirm_patch.vbs"
+set "confirmVBS=%TEMP%\sw_practice_patcher_confirm_patch.vbs"
 
 > "%confirmVBS%" (
-    echo res = MsgBox^("This will attempt to patch the files named ""game.win""^! Make sure your vanilla game files are named as such. The modded files will be saved as ""game_keucher.win"". Proceed?", vbYesNo+vbQuestion, "Confirm Patching"^)
+    echo res = MsgBox^("This will attempt to patch the files named ""game.win""^! Make sure your vanilla game files are named as such. The modded files will be saved as ""game_practice.win"". Proceed?", vbYesNo+vbQuestion, "Confirm Patching"^)
     echo WScript.Echo res
 )
 
@@ -69,7 +69,7 @@ if NOT (/i "%hash%" == "9D3F84FC7179FEFC4A98F13D76BAFCE4") (
 )
 
 echo Patching Chapter Select v1.04...
-patch_files\flips.exe --apply patch_files\v1.04-switch-chapter_select.bps "%installDir%\game.win" "%installDir%\game_keucher.win"
+patch_files\flips.exe --apply patch_files\v1.04-switch-chapter_select.bps "%installDir%\game.win" "%installDir%\game_practice.win"
 if errorlevel 1 (
     echo Press any key to exit...
     pause >nul
@@ -78,7 +78,7 @@ if errorlevel 1 (
 
 for %%C in (1 2 3 4) do (
     echo Patching Chapter %%C v1.04...
-    patch_files\flips.exe --apply patch_files\v1.04-switch-chapter%%C.bps "%installDir%\chapter%%C_switch\game.win" "%installDir%\chapter%%C_switch\game_keucher.win"
+    patch_files\flips.exe --apply patch_files\v1.04-switch-chapter%%C.bps "%installDir%\chapter%%C_switch\game.win" "%installDir%\chapter%%C_switch\game_practice.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul
@@ -86,10 +86,10 @@ for %%C in (1 2 3 4) do (
     )
 )
 
-set "doneVBS=%TEMP%\sw_keucher_patcher_done.vbs"
+set "doneVBS=%TEMP%\sw_practice_patcher_done.vbs"
 
 > "%doneVBS%" (
-    echo msgBox "Keucher Mod applied^! All you have to do now is rename your vanilla Chapter Select game file to something else and rename the modded one to ""game.win"" to launch the mod.", vbOKOnly+vbInformation, "Patching Complete"
+    echo msgBox "FLB Practice Mod applied^! All you have to do now is rename your vanilla Chapter Select game file to something else and rename the modded one to ""game.win"" to launch the mod.", vbOKOnly+vbInformation, "Patching Complete"
 )
 
 cscript //nologo "%doneVBS%"

@@ -26,7 +26,7 @@ if (global.bossPractice)
     }
 
     // timer to display text
-    // TO-DO: turntext doesn't seem very necessary, ask Keucher why he did this
+    // TO-DO: turntext doesn't seem very necessary, one day I will change this Clueless
     if (turntext > 0)
     {
         turntext--

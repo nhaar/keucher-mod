@@ -56,11 +56,11 @@ build_full_release(CH5_LATEST, 'ch5_latest', 5)
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))
 shutil.copy2(
   os.path.join(BUILD_SCRIPTS, 'patcher.bat'),
-  os.path.join(FINAL_PATH, 'Keucher Mod Patcher (PC).bat')
+  os.path.join(FINAL_PATH, 'Practice Mod Patcher (PC).bat')
 )
 shutil.copy2(
   os.path.join(BUILD_SCRIPTS, 'patcher_switch.bat'),
-  os.path.join(FINAL_PATH, 'Keucher Mod Patcher (Switch).bat')
+  os.path.join(FINAL_PATH, 'Practice Mod Patcher (Switch).bat')
 )
 shutil.copy2(
   os.path.join(BUILD_SCRIPTS, 'readme.txt'),

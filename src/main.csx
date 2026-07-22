@@ -16,7 +16,7 @@ string spritesDir = Path.Combine(modDir, "sprites");
 
 UndertaleModLib.Compiler.CodeImportGroup importGroup = new(Data);
 
-class KeucherModLoader : UMPLoader
+class FlbModLoader : UMPLoader
 {
     public override string CodePath => "mod/";
 
@@ -191,7 +191,7 @@ class KeucherModLoader : UMPLoader
     
         return names.ToArray();
     }
-    public KeucherModLoader (UMPWrapper wrapper, DeltaruneVersion version)
+    public FlbModLoader (UMPWrapper wrapper, DeltaruneVersion version)
     : base (wrapper)
     {
         Version = version;
@@ -223,7 +223,7 @@ void BuildMod (DeltaruneVersion version)
 
     CreateNoClipSprite(version);
 
-    KeucherModLoader loader = new KeucherModLoader(UMP_WRAPPER, version);
+    FlbModLoader loader = new FlbModLoader(UMP_WRAPPER, version);
 
     UpdateKrisRoom(version);
 

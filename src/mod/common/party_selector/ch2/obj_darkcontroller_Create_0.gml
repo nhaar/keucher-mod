@@ -23,7 +23,7 @@ else
     global.lesbians = 0
 
 // I can't find the logic behind these two variables, and the whole logic that increments them
-// TO-DO check with Keucher wtf this is
+// TO-DO idk wtf this is
 berdlynumber = (global.krerdlyMode - 1)
 starwalkernumber = (global.theOriginal - 1)
 if (global.char[1] != 0)
@@ -54,7 +54,7 @@ if (global.lesbians == 1)
 global.charinstance[0] = obj_mainchara
 /// CODE
 // this part here is truly a mystery and I couldn't find a way to trigger this so I'm not sure it's even possible
-// TO-DO ask Keucher wtf this is
+// TO-DO idk wtf this is
 if (berdlynumber == 3 || starwalkernumber == 3)
 {
     berdlynumber++

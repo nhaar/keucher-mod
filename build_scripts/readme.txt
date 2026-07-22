@@ -1,7 +1,7 @@
-DELTARUNE Keucher Mod
+DELTARUNE FLB Practice Mod
 
 How to install:
-- For windows, you can simply run the .bat, and open the directory where your game is installed (requires all of your data.win to be vanilla). The mod will be saved as data_keucher.win. In order to enable the mod, you have to rename the vanilla file `data.win`, and rename `data_keucher.win` as `data.win`. And to undo, you have to do the opposite
+- For windows, you can simply run the .bat, and open the directory where your game is installed (requires all of your data.win to be vanilla). The mod will be saved as data_practice.win. In order to enable the mod, you have to rename the vanilla file `data.win`, and rename `data_practice.win` as `data.win`. And to undo, you have to do the opposite
 - For other OSes, you have to manually apply the patches. Choose the appropriate patches in patch_files, and use a patcher such as this one: https://www.marcrobledo.com/RomPatcher.js/
 
 How to use:

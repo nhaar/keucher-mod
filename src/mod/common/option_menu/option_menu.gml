@@ -171,7 +171,7 @@ function get_default_mod_options()
     var debug_state = global.debug ? "ON" : "OFF";
 
     get_buttons_from_pair_array(
-        "[SEARCH OPTIONS]: ", "Search through all keucher mod options available in this menu",
+        "[SEARCH OPTIONS]: ", "Search through all the mod options available in this menu",
         "Debug Mode [" + debug_state + "]", "Debug mode will enable some helpful features and the keybinds assigned to debug mode\nClick to turn on/off",
         "Timer", "The in-game timer is a helpful tool to automatically time how fast you go\nClick to configure it",
         "Practice Modes", "Click to check and activate various practice modes",
@@ -186,7 +186,7 @@ function get_default_mod_options()
         "Switch Chapters", "Instantly launch another chapter"
     );
 
-    menu_desc = "Welcome to the Keucher Mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
+    menu_desc = "Welcome to the mod OPTIONS\nClick on buttons to explore or change settings\nHover over the buttons to get a summary of what they do"
     use_enumeration = true;
     options_state = "default";
 }
@@ -869,7 +869,7 @@ function get_searchable_mod_options()
         begin_process_typing();
     }
     typing_search = true;
-    menu_desc = "Search through all available keucher mod options";
+    menu_desc = "Search through all available mod options";
     use_enumeration = false;
     options_state = "searchoptions";
 }

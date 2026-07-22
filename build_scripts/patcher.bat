@@ -3,7 +3,7 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-set "vbsFile=%TEMP%\keucher_patcher_select_folder.vbs"
+set "vbsFile=%TEMP%\practice_patcher_select_folder.vbs"
 
 > "%vbsFile%" (
     echo Set objShell = CreateObject^("Shell.Application"^)
@@ -20,10 +20,10 @@ if not defined installDir (
     exit /b
 )
 
-set "confirmVBS=%TEMP%\keucher_patcher_confirm_patch.vbs"
+set "confirmVBS=%TEMP%\practice_patcher_confirm_patch.vbs"
 
 > "%confirmVBS%" (
-    echo res = MsgBox^("This will attempt to patch the files named ""data.win""^! Make sure your vanilla data files are named as such. The modded files will be saved as ""data_keucher.win"". Proceed?", vbYesNo+vbQuestion, "Confirm Patching"^)
+    echo res = MsgBox^("This will attempt to patch the files named ""data.win""^! Make sure your vanilla data files are named as such. The modded files will be saved as ""data_practice.win"". Proceed?", vbYesNo+vbQuestion, "Confirm Patching"^)
     echo WScript.Echo res
 )
 
@@ -48,7 +48,7 @@ if not defined hash (
 
 if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
     echo Patching DEMO v1.15...
-    patch_files\flips.exe --apply patch_files\v1.15-demo.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
+    patch_files\flips.exe --apply patch_files\v1.15-demo.bps "%installDir%\data.win" "%installDir%\data_practice.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul
@@ -56,7 +56,7 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
     )
 ) else if /i "%hash%" == "B5EF0EEC9554C491777D6C4E93E0DF76" (
     echo Patching Chapter Select v1.02...
-    patch_files\flips.exe --apply patch_files\v1.02-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
+    patch_files\flips.exe --apply patch_files\v1.02-chapter_select.bps "%installDir%\data.win" "%installDir%\data_practice.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul
@@ -67,16 +67,16 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
 
     for %%C in (1 2 3 4) do (
         echo Patching Chapter %%C v1.02...
-        patch_files\flips.exe --apply patch_files\v1.02-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
+        patch_files\flips.exe --apply patch_files\v1.02-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_practice.win"
         if errorlevel 1 (
             echo Press any key to exit...
             pause >nul
             exit /b
         )
     )
-) else if /i "%hash%" == "DDEDBBD10FF129B49C64DBEFAA763C6A" (
+) else if /i "%hash%" == "1F00145D681F830F1249D9493BA8F579" (
     echo Patching Chapter Select for latest CH5 release...
-    patch_files\flips.exe --apply patch_files\ch5_latest-chapter_select.bps "%installDir%\data.win" "%installDir%\data_keucher.win"
+    patch_files\flips.exe --apply patch_files\ch5_latest-chapter_select.bps "%installDir%\data.win" "%installDir%\data_practice.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul
@@ -87,7 +87,7 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
 
     for %%C in (1 2 3 4 5) do (
         echo Patching Chapter %%C for latest CH5 release...
-        patch_files\flips.exe --apply patch_files\ch5_latest-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_keucher.win"
+        patch_files\flips.exe --apply patch_files\ch5_latest-chapter%%C.bps "%installDir%\chapter%%C_windows\data.win" "%installDir%\chapter%%C_windows\data_practice.win"
         if errorlevel 1 (
             echo Press any key to exit...
             pause >nul
@@ -101,10 +101,10 @@ if /i "%hash%" == "ED4568BAB864166BFD6322CEEB3FB544" (
     exit /b
 )
 
-set "doneVBS=%TEMP%\keucher_patcher_done.vbs"
+set "doneVBS=%TEMP%\practice_patcher_done.vbs"
 
 > "%doneVBS%" (
-    echo msgBox "Keucher Mod applied^! All you have to do now is rename your vanilla Chapter Select data file to something else and rename the modded one to ""data.win"" to launch the mod.", vbOKOnly+vbInformation, "Patching Complete"
+    echo msgBox "FLB Practice Mod applied^! All you have to do now is rename your vanilla Chapter Select data file to something else and rename the modded one to ""data.win"" to launch the mod.", vbOKOnly+vbInformation, "Patching Complete"
 )
 
 cscript //nologo "%doneVBS%"
