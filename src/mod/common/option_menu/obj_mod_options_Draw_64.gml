@@ -320,7 +320,7 @@ for (var i = 0; i < button_amount; i++)
                                 }
                                 else
                                 {
-                                    show_message("No saves folder detected!\n\nTo use custom saves, you can go to your DELTARUNE save folder, and inside \"keucher_mod_v5\" you can add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.\n\nIn windows, the FLB practice mod save folder is located in %localappdata%/DELTARUNE_keucher_mod");
+                                    show_message("No saves folder detected!\n\nTo use custom saves, you can go to your DELTARUNE save folder, and inside \"mod_options\" you can add a \"saves\" folder. There, you can add sub folders and saves in whichever way you wish to organize your savefiles.\n\nIn windows, the FLB practice mod save folder is located in %localappdata%/DELTARUNE_practice_mod");
                                 }
                                 break
                             // ui colors

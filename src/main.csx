@@ -219,7 +219,7 @@ void BuildMod (DeltaruneVersion version)
     var scriptPath = ScriptPath;
 
     // changing save folder (pc)
-    Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_keucher_mod");
+    Data.GeneralInfo.Name = Data.Strings.MakeString("DELTARUNE_practice_mod");
 
     CreateNoClipSprite(version);
 

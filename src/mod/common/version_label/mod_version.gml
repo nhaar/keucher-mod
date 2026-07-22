@@ -2,5 +2,5 @@
 
 function get_mod_version()
 {
-    return "5.10.7";
+    return "5.10.8";
 }
