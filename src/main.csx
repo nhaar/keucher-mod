@@ -276,7 +276,7 @@ void UpdateKrisRoom (DeltaruneVersion version)
         return;
     }
     // replace sprite for kris's room (day and night)
-    ReplacePageItemTexture(Data.Sprites.ByName("bg_myroom").Textures[0].Texture.Name.Content, "kris_room.png");
+    ReplacePageItemTexture(Data.Sprites.ByName("bg_myroom").Textures[0].Texture.Name.Content, version == DeltaruneVersion.Chapter5 ? "kris_room_ch5.png" : "kris_room.png");
     ReplacePageItemTexture(Data.Sprites.ByName("bg_myroom_dark").Textures[0].Texture.Name.Content, "dark_kris_room.png");
 }
 
