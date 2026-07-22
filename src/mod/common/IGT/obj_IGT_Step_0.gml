@@ -69,7 +69,7 @@ if (i_ex(obj_plat_barrier) && !turn_started)
     turn_started = true;
     start_battle_timer = true;
 }
-else if (!i_ex(obj_plat_barrier) && turn_started)
+else if (!i_ex(obj_plat_barrier) && turn_started && global.fighting == 0)
 {
     turn_started = false;
     end_battle_timer = true;
