@@ -29,9 +29,9 @@ class FlbModLoader : UMPLoader
             return true;
         }
 
-        if (filePath.Contains("demo\\") && Version != DeltaruneVersion.Demo)
+        if (filePath.Contains("demo\\") && Version == DeltaruneVersion.Demo)
         {
-            return false;
+            return true;
         }
 
         var isChapterSelect = filePath.Contains("chapter_select\\");
