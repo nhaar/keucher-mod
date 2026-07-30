@@ -59,7 +59,7 @@ void BuildSavestate(string resourcePath)
             code.Name.Content.EndsWith("_Other_4") || 
             code.Name.Content.EndsWith("_PreCreate_0")) || 
             code.Name.Content.EndsWith("_PreCreate"))
-            importGroup.QueuePrepend(code, "if (obj_savestate_manager.loading) exit;" + Environment.NewLine);
+            importGroup.QueuePrepend(code, "if (instance_exists(obj_savestate_manager) && obj_savestate_manager.loading) exit;" + Environment.NewLine);
     }
 
     AddEventFromResource(obj_savestate_manager, "gml_Object_obj_savestate_manager_Create_0", EventType.Create, resourcePath, importGroup);

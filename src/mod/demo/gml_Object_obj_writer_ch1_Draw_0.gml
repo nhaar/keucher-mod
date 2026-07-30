@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if !DEMO
 
 /// REPLACE
         if (automash_timer == 0)
