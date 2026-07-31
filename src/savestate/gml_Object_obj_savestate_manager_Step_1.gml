@@ -480,6 +480,10 @@ var buffer_size = string_byte_length(json_string) + 1;
 var save_buffer = buffer_create(buffer_size, buffer_fixed, 1);
 buffer_write(save_buffer, buffer_string, json_string);
 buffer_save(save_buffer, savestate_dir() + "data.json");
+
+if (os_type == os_switch || os_type == os_switch2)
+    switch_save_data_commit();
+
 buffer_delete(save_buffer);
 var file_id = file_text_open_write(savestate_dir() + "room.txt");
 
@@ -488,6 +492,9 @@ if (file_id != -1)
     file_text_write_string(file_id, string(room));
     file_text_close(file_id);
 }
+
+if (os_type == os_switch || os_type == os_switch2)
+    switch_save_data_commit();
 
 for (i = 0; i < array_length(sound_ids); i++)
 {

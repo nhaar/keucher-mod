@@ -16,7 +16,7 @@ CH5_LATEST = {
   '5': r""
 }
 
-SWITCH_108 = {
+SWITCH_LATEST = {
   '0': r"",
   '1': r"",
   '2': r"",
@@ -30,5 +30,5 @@ DEMO_115 = r""
 # Path to the UTMT CLI .exe
 UTMT = r""
 
-# Path to the  Floating IPS .exe
+# Path to the Floating IPS .exe
 FLIPS = r""
