@@ -45,21 +45,34 @@ void BuildSavestate(string resourcePath)
         ReplaceWithLoggedFunction(code, "sprite_create_from_surface", importGroup);
         ReplaceWithLoggedFunction(code, "sprite_add", importGroup);
 
+        ReplaceWithLoggedFunction(code, "surface_create", importGroup);
+
         ReplaceWithLoggedFunction(code, "path_start", importGroup);
+        ReplaceWithLoggedFunction(code, "path_add", importGroup);
         importGroup.QueueFindReplace(code, "path_delete(", "path_delete_safe(", true);
 
         ReplaceWithLoggedFunction(code, "json_decode", importGroup);
         ReplaceWithLoggedFunction(code, "call_later", importGroup);
 
-        // To stop PreCreate, Create, BeginStep, and Room Start events from happening while loading
+        ReplaceWithLoggedFunction(code, "mp_grid_create", importGroup);
+        ReplaceWithLoggedFunction(code, "mp_grid_destroy", importGroup);
+
+        ReplaceWithLoggedFunction(code, "instance_deactivate_all", importGroup);
+        ReplaceWithLoggedFunction(code, "instance_deactivate_object", importGroup);
+        ReplaceWithLoggedFunction(code, "instance_activate_all", importGroup);
+        ReplaceWithLoggedFunction(code, "instance_activate_object", importGroup);
+
+        // importGroup.QueueFindReplace(code, "game_restart()", "scr_chapterswitch(global.chapter)");
+
+        // To stop PreCreate, Create, BeginStep, and Other events from happening while loading
         // Mostly for instances that are a part of the room load. 
-        if (code.Name.Content.StartsWith("gml_Object_") && 
-            (code.Name.Content.EndsWith("_Create_0") || 
+        if ((code.Name.Content.StartsWith("gml_Object_") && 
+           (code.Name.Content.EndsWith("_Create_0") || 
             code.Name.Content.EndsWith("_Step_1") || 
-            code.Name.Content.EndsWith("_Other_4") || 
-            code.Name.Content.EndsWith("_PreCreate_0")) || 
+            code.Name.Content[..^1].EndsWith("_Other_") || 
+            code.Name.Content.EndsWith("_PreCreate_0"))) ||
             code.Name.Content.EndsWith("_PreCreate"))
-            importGroup.QueuePrepend(code, "if (instance_exists(obj_savestate_manager) && obj_savestate_manager.loading) exit;" + Environment.NewLine);
+            importGroup.QueuePrepend(code, "if (instance_exists(obj_savestate_manager) && obj_savestate_manager.loading && !array_contains_manual(obj_savestate_manager.EXEMPT_OBJECTS, object_index)) exit;" + Environment.NewLine);
     }
 
     AddEventFromResource(obj_savestate_manager, "gml_Object_obj_savestate_manager_Create_0", EventType.Create, resourcePath, importGroup);
@@ -82,15 +95,16 @@ void BuildSavestate(string resourcePath)
     importGroup.Import();
 }
 
-
 void ReplaceWithLoggedFunction(UndertaleCode code, string function, UndertaleModLib.Compiler.CodeImportGroup importGroup)
 {
     importGroup.QueueFindReplace(code, function + "(", function + "_logged(", true);
 }
+
 string ReadCodeEntryFromResource(string filename, string resourcePath)
 {
     return File.ReadAllText(Path.Combine(resourcePath, filename) + ".gml");
 }
+
 UndertaleCode CreateCodeEntryFromResource(string filename, string resourcePath, UndertaleModLib.Compiler.CodeImportGroup importGroup)
 {
     string code = ReadCodeEntryFromResource(filename, resourcePath);

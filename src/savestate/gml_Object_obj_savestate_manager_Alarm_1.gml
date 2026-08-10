@@ -22,8 +22,16 @@ var paths = load_game_info.paths;
 var emitters = load_game_info.emitters;
 var listener_info = load_game_info.listener;
 var sprite_folder = savestate_dir() + "Sprites/";
+var surface_folder = savestate_dir() + "Surfaces/";
 known_sprites = {};
-var imported_sprite_ids = [];
+
+for (i = runtime_sprite_start; sprite_exists(i) || i <= runtime_sprite_max_id; i++)
+{
+    if (!sprite_exists(i))
+        continue;
+    
+    sprite_delete(i);
+}
 
 if (directory_exists(sprite_folder))
 {
@@ -33,10 +41,9 @@ if (directory_exists(sprite_folder))
     {
         var sprite_name = filename_change_ext(filename_name(file_name), "");
         var sprite_info = variable_struct_get(sprites, sprite_name);
-        var sprite_id = sprite_add(sprite_folder + file_name, sprite_info.subimages, false, false, sprite_info.x, sprite_info.y);
+        var sprite_id = sprite_add_logged(sprite_folder + file_name, sprite_info.subimages, false, false, sprite_info.x, sprite_info.y);
         sprite_set_bbox(sprite_id, sprite_info.bbox_left, sprite_info.bbox_top, sprite_info.bbox_right, sprite_info.bbox_bottom);
         sprite_set_bbox_mode(sprite_id, sprite_info.bbox_mode);
-        array_push(imported_sprite_ids, sprite_id);
         variable_struct_set(known_sprites, sprite_name, sprite_id);
         file_name = file_find_next();
     }
@@ -44,18 +51,83 @@ if (directory_exists(sprite_folder))
     file_find_close();
 }
 
-if (array_length(imported_sprite_ids) > 0)
+known_surfaces = {};
+
+for (i = 1; surface_exists(i) || i <= surface_max_id; i++)
 {
-    imported_sprite_start = imported_sprite_ids[0];
+    if (!surface_exists(i))
+        continue;
     
-    for (i = 1; i < array_length(imported_sprite_ids); i++)
+    surface_free(i);
+}
+
+if (directory_exists(surface_folder))
+{
+    var file_name = file_find_first(surface_folder + "*.png", 0);
+    
+    while (file_name != "")
     {
-        if (imported_sprite_ids[i] < imported_sprite_start)
-            imported_sprite_start = imported_sprite_ids[i];
+        var surface_id = filename_change_ext(filename_name(file_name), "");
+        var surface_spr = sprite_add_logged(surface_folder + file_name, 0, false, false, 0, 0);
+        var surf = surface_create_logged(sprite_get_width(surface_spr), sprite_get_height(surface_spr));
+        surface_set_target(surf);
+        draw_clear_alpha(c_black, 0);
+        draw_sprite(surface_spr, 0, 0, 0);
+        surface_reset_target();
+        sprite_delete(surface_spr);
+        variable_struct_set(known_surfaces, surface_id, surf);
+        file_name = file_find_next();
+    }
+    
+    file_find_close();
+}
+
+known_runtime_paths = {};
+
+if (variable_struct_exists(load_game_info, "runtime_paths"))
+{
+    for (i = runtime_path_start; path_exists(i) || i <= runtime_path_max_id; i++)
+    {
+        if (!path_exists(i))
+            continue;
+        
+        path_delete(i);
+    }
+    
+    var runtime_paths = load_game_info.runtime_paths;
+    var runtime_path_names = variable_struct_get_names(runtime_paths);
+    
+    for (i = 0; i < array_length(runtime_path_names); i++)
+    {
+        var path_name = runtime_path_names[i];
+        var path_info = variable_struct_get(runtime_paths, path_name);
+        var path = path_add_logged();
+        path_set_closed(path, path_info.closed);
+        path_set_kind(path, path_info.kind);
+        path_set_precision(path, path_info.precision);
+        
+        for (var j = 0; j < array_length(path_info.points); j++)
+        {
+            var point_info = path_info.points[j];
+            path_add_point(path, point_info.x, point_info.y, point_info.speed);
+        }
+        
+        variable_struct_set(known_runtime_paths, path_name, path);
     }
 }
 
 var layer_names = variable_struct_get_names(layers);
+array_sort(layer_names, function(arg0, arg1)
+{
+    var layers = load_game_info.layers;
+    var cur_info = variable_struct_get(layers, arg0);
+    var next_info = variable_struct_get(layers, arg1);
+    
+    if (variable_struct_exists(cur_info, "order") && variable_struct_exists(next_info, "order"))
+        return cur_info.order - next_info.order;
+    
+    return -1;
+});
 var existing_layers = layer_get_all();
 
 for (i = 0; i < array_length(existing_layers); i++)
@@ -82,22 +154,10 @@ for (i = 0; i < array_length(layer_names); i++)
 
 known_ids = {};
 var inst_ids = variable_struct_get_names(instances);
-
-if (variable_struct_exists(load_game_info, "inst_order"))
+array_sort(inst_ids, function(arg0, arg1)
 {
-    array_sort(inst_ids, function(arg0, arg1)
-    {
-        var inst_order = load_game_info.inst_order;
-        return array_get_index_manual(inst_order, arg1) - array_get_index_manual(inst_order, arg0);
-    });
-}
-else
-{
-    array_sort(inst_ids, function(arg0, arg1)
-    {
-        return real(string_replace(arg1, "ref ", "")) - real(string_replace(arg0, "ref ", ""));
-    });
-}
+    return real(string_replace(arg0, "ref ", "")) - real(string_replace(arg1, "ref ", ""));
+});
 
 for (i = 0; i < array_length(inst_ids); i++)
 {
@@ -149,16 +209,34 @@ for (i = 0; i < array_length(emitters_to_free); i++)
 var audio_ids = variable_struct_get_names(audio);
 var snd_assets_to_modify = {};
 known_audio = {};
-var audio_info;
 
 for (i = 0; i < array_length(audio_ids); i++)
 {
     var audio_id = audio_ids[i];
-    audio_info = variable_struct_get(audio, audio_id);
+    var audio_info = variable_struct_get(audio, audio_id);
     var asset = audio_info.asset_id;
     
     if (typeof(asset) == "string")
-        asset = audio_create_stream_logged(working_directory + asset);
+    {
+        if (!file_exists(working_directory + asset))
+            continue;
+        
+        streams = variable_struct_get_names(external_audio_files);
+        
+        for (var j = 0; j < array_length(streams); j++)
+        {
+            var stream = streams[j];
+            
+            if (variable_struct_get(external_audio_files, stream) == (working_directory + asset))
+            {
+                asset = real(stream);
+                break;
+            }
+        }
+        
+        if (typeof(asset) == "string")
+            asset = audio_create_stream_logged(working_directory + asset);
+    }
     
     variable_struct_set(snd_assets_to_modify, asset, 
     {
@@ -176,13 +254,8 @@ for (i = 0; i < array_length(audio_ids); i++)
     else
         snd = audio_play_sound_logged(asset, audio_info.priority, audio_info.loop);
     
-    audio_sound_gain_logged(snd, audio_info.snd_gain, 0);
-    
-    if (audio_info.snd_gain_time != -1)
-        audio_sound_gain_logged(snd, audio_info.snd_gain_end, audio_info.snd_gain_time);
-    
-    audio_sound_set_track_position(snd, audio_info.position);
     audio_sound_pitch(snd, audio_info.snd_pitch);
+    audio_sound_gain_logged(snd, 0, 0);
     variable_struct_set(known_audio, audio_id, snd);
 }
 
@@ -196,7 +269,7 @@ for (i = 0; i < array_length(snd_assets); i++)
     audio_sound_gain_logged(asset, asset_info.gain, 0);
     
     if (asset_info.gain_time != -1)
-        audio_sound_gain_logged(asset, audio_info.gain_end, audio_info.gain_time);
+        audio_sound_gain_logged(asset, asset_info.gain_end, asset_info.gain_time);
 }
 
 audio_pause_all();
@@ -224,9 +297,18 @@ for (i = 0; i < array_length(layer_names); i++)
     if (layer_info.elements == "legacy_tiles")
         continue;
     
-    for (var j = 0; j < array_length(layer_info.elements); j++)
+    var reversed_elements = [];
+    var j = array_length(layer_info.elements) - 1;
+    
+    while (j >= 0)
     {
-        var element_info = layer_info.elements[j];
+        array_push(reversed_elements, layer_info.elements[j]);
+        j--;
+    }
+    
+    for (j = 0; j < array_length(reversed_elements); j++)
+    {
+        var element_info = reversed_elements[j];
         
         switch (element_info.type)
         {
@@ -326,33 +408,73 @@ for (i = 0; i < array_length(inst_ids); i++)
             var finaly = y;
             x = path_info.startx;
             y = path_info.starty;
-            path_start_logged(vars.path_index.value, vars.path_speed.value, vars.path_endaction.value, path_info.absolute);
+            path_start_logged(other.decode_data_type(vars.path_index), vars.path_speed.value, vars.path_endaction.value, path_info.absolute);
             x = finalx;
             y = finaly;
             path_position = vars.path_position.value;
         }
     }
+    
+    if (variable_struct_exists(load_game_info, "deactivated_insts") && array_contains_manual(load_game_info.deactivated_insts, old_inst))
+        instance_deactivate_object_logged(new_inst);
 }
 
-var cur_camera = view_camera[0];
-camera_set_view_pos(cur_camera, camera.x, camera.y);
-camera_set_view_size(cur_camera, camera.width, camera.height);
-camera_set_view_speed(cur_camera, camera.xspeed, camera.yspeed);
-camera_set_view_border(cur_camera, camera.xborder, camera.yborder);
-camera_set_view_angle(cur_camera, camera.angle);
-
-if (string_pos("ref ", camera.target) == 1)
+if (variable_struct_exists(load_game_info, "views"))
 {
-    var target = real(string_delete(camera.target, 1, string_length("ref ")));
-    
-    if (variable_struct_exists(known_ids, camera.target))
-        target = variable_struct_get(known_ids, camera.target);
-    
-    camera_set_view_target(cur_camera, target);
+    for (i = 0; i < array_length(load_game_info.views); i++)
+    {
+        var view_info = load_game_info.views[i];
+        view_enabled[i] = view_info.enabled;
+        view_visible[i] = view_info.visible;
+        view_xport[i] = view_info.xport;
+        view_yport[i] = view_info.yport;
+        view_wport[i] = view_info.wport;
+        view_hport[i] = view_info.hport;
+        
+        if (variable_struct_exists(known_surfaces, view_info.surface))
+            view_surface_id[i] = variable_struct_get(known_surfaces, view_info.surface);
+        else
+            view_surface_id[i] = -1;
+    }
 }
-else
+
+var all_cameras = [camera];
+
+if (variable_struct_exists(load_game_info, "other_cameras"))
 {
-    camera_set_view_target(cur_camera, -1);
+    for (i = 0; i < array_length(load_game_info.other_cameras); i++)
+        array_push(all_cameras, load_game_info.other_cameras[i]);
+}
+
+for (i = 0; i < array_length(all_cameras); i++)
+{
+    var cam_info = all_cameras[i];
+    var cur_cam = view_camera[i];
+    camera_set_view_pos(cur_cam, cam_info.x, cam_info.y);
+    camera_set_view_size(cur_cam, cam_info.width, cam_info.height);
+    camera_set_view_speed(cur_cam, cam_info.xspeed, cam_info.yspeed);
+    camera_set_view_border(cur_cam, cam_info.xborder, cam_info.yborder);
+    camera_set_view_angle(cur_cam, cam_info.angle);
+    
+    if (string_pos("ref ", cam_info.target) == 1)
+    {
+        var target;
+        
+        if (variable_struct_exists(known_ids, cam_info.target))
+            target = variable_struct_get(known_ids, cam_info.target);
+        else
+            target = real(string_replace(cam_info.target, "ref ", ""));
+        
+        camera_set_view_target(cur_cam, target);
+    }
+    else if (string_digits(cam_info.target) == cam_info.target)
+    {
+        camera_set_view_target(cur_cam, real(cam_info.target));
+    }
+    else
+    {
+        camera_set_view_target(cur_cam, -1);
+    }
 }
 
 if (game_get_speed(gamespeed_fps) != globals.game_speed)
@@ -369,132 +491,124 @@ while (i >= 0)
 }
 
 set_globals(globals, true);
-
-for (i = 0; i <= ds_max_id.list; i++)
+destroy_all_ds("list", 2, ds_list_destroy);
+destroy_all_ds("map", 1, ds_map_destroy);
+destroy_all_ds("pqueue", 6, ds_priority_destroy);
+populate_ds(ds.lists, 2, ds_list_create_logged, ds_list_destroy, function(arg0, arg1)
 {
-    if (ds_exists(i, ds_type_list))
-        ds_list_destroy(i);
-}
-
-for (i = 0; i <= ds_max_id.map; i++)
+    for (var i = 0; i < array_length(arg1); i++)
+        ds_list_set(arg0, i, arg1[i]);
+});
+populate_ds(ds.maps, 1, ds_map_create_logged, ds_map_destroy, function(arg0, arg1)
 {
-    if (ds_exists(i, ds_type_map))
-        ds_map_destroy(i);
-}
-
-for (i = 0; i <= ds_max_id.pqueue; i++)
-{
-    if (ds_exists(i, ds_type_priority))
-        ds_priority_destroy(i);
-}
-
-var ds_lists = ds.lists;
-var lists_to_destroy = [];
-
-for (i = 0; i < array_length(ds_lists); i++)
-{
-    var list_info = ds_lists[i];
-    var list = ds_list_create_logged();
+    var map_keys = variable_struct_get_names(arg1);
     
-    if (list_info.value == -1)
-    {
-        array_push(lists_to_destroy, list);
-    }
-    else
-    {
-        var list_val = decode_data_type(list_info);
-        
-        for (var j = 0; j < array_length(list_val); j++)
-            ds_list_set(list, j, list_val[j]);
-    }
-}
-
-for (i = 0; i < array_length(lists_to_destroy); i++)
+    for (var i = 0; i < array_length(map_keys); i++)
+        ds_map_set(arg0, map_keys[i], variable_struct_get(arg1, map_keys[i]));
+});
+populate_ds(ds.pqueues, 6, ds_priority_create_logged, ds_priority_destroy, function(arg0, arg1)
 {
-    if (ds_exists(i, ds_type_list))
-        ds_list_destroy(lists_to_destroy[i]);
-}
+    for (var i = 0; i < array_length(arg1); i++)
+    {
+        var item = arg1[i];
+        ds_priority_add(arg0, item.value, item.priority);
+    }
+});
 
-var ds_maps = ds.maps;
-var maps_to_destroy = [];
-
-for (i = 0; i < array_length(ds_maps); i++)
+if (variable_struct_exists(load_game_info, "mp_grids"))
 {
-    var map_info = ds_maps[i];
-    var map = ds_map_create_logged();
+    for (i = 0; i < array_length(known_mp_grids); i++)
+    {
+        if (known_mp_grids[i] != -1)
+            mp_grid_destroy_logged(i);
+    }
     
-    if (map_info.value == -1)
-    {
-        array_push(maps_to_destroy, map);
-    }
-    else
-    {
-        var map_val = decode_data_type(map_info);
-        var map_keys = variable_struct_get_names(map_val);
-        
-        for (var j = 0; j < array_length(map_keys); j++)
-            ds_map_set(map, map_keys[j], variable_struct_get(map_val, map_keys[j]));
-    }
-}
-
-for (i = 0; i < array_length(maps_to_destroy); i++)
-{
-    if (ds_exists(i, ds_type_map))
-        ds_map_destroy(maps_to_destroy[i]);
-}
-
-var ds_pqueues = ds.pqueues;
-var pqueues_to_destroy = [];
-
-for (i = 0; i < array_length(ds_pqueues); i++)
-{
-    var pqueue_info = ds_pqueues[i];
-    var pqueue = ds_priority_create_logged();
+    var mp_grids = load_game_info.mp_grids;
+    var mp_grids_to_destroy = [];
     
-    if (pqueue_info.value == -1)
+    for (i = 0; i < array_length(mp_grids); i++)
     {
-        array_push(pqueues_to_destroy, pqueue);
-    }
-    else
-    {
-        var pqueue_items = decode_data_type(pqueue_info);
+        var mp_grid_info = mp_grids[i];
         
-        for (var j = 0; j < array_length(pqueue_items); j++)
+        if (mp_grid_info == -1)
         {
-            var item = pqueue_items[j];
-            ds_priority_add(pqueue, item.value, item.priority);
+            var new_mp_grid = mp_grid_create_logged(0, 0, 1, 1, 1, 1);
+            array_push(mp_grids_to_destroy, new_mp_grid);
+        }
+        else
+        {
+            var new_mp_grid = mp_grid_create_logged(mp_grid_info.left, mp_grid_info.top, mp_grid_info.hcells, mp_grid_info.vcells, mp_grid_info.cellwidth, mp_grid_info.cellheight);
+            var cells = mp_grid_info.occupied_cells;
+            
+            for (var j = 0; j < array_length(cells); j++)
+            {
+                var cell_info = cells[j];
+                mp_grid_add_cell(new_mp_grid, cell_info.x, cell_info.y);
+            }
         }
     }
+    
+    for (i = 0; i < array_length(mp_grids_to_destroy); i++)
+        mp_grid_destroy_logged(mp_grids_to_destroy[i]);
 }
 
-for (i = 0; i < array_length(pqueues_to_destroy); i++)
+if (sprite_exists(asset_get_index("spr_numbersfontbig")))
 {
-    if (ds_exists(i, ds_type_priority))
-        ds_priority_destroy(pqueues_to_destroy[i]);
+    if (variable_global_exists("damagefont") && font_exists(global.damagefont))
+        font_delete(global.damagefont);
+    
+    global.damagefont = font_add_sprite_ext(spr_numbersfontbig, "0123456789", 20, 0);
 }
+
+if (sprite_exists(asset_get_index("spr_numbersfontbig_gold")))
+{
+    delete_global_font("damagefontgold");
+    global.damagefontgold = font_add_sprite_ext(spr_numbersfontbig_gold, "0123456789+-%/F$", 20, 0);
+}
+
+if (sprite_exists(asset_get_index("spr_numbersfontbig_pink")))
+{
+    delete_global_font("damagefontpink");
+    global.damagefontpink = font_add_sprite_ext(spr_numbersfontbig_pink, "0123456789+-%/P$", 20, 0);
+}
+
+if (sprite_exists(asset_get_index("spr_numbersfontsmall")))
+{
+    delete_global_font("hpfont");
+    global.hpfont = font_add_sprite_ext(spr_numbersfontsmall, "0123456789-+", 0, 2);
+}
+
+if (sprite_exists(asset_get_index("spr_tvlandfont")))
+{
+    delete_global_font("tvlandfont");
+    global.tvlandfont = font_add_sprite_ext(spr_tvlandfont, "ABCDEFGHIJKLMNOPQRSTUVWXYZ.?!:…abcdefghijklmnopqrstuvwxyz1234567890", 0, 1);
+}
+
+if (variable_struct_exists(load_game_info, "audio_master_gain"))
+    audio_master_gain(load_game_info.audio_master_gain);
 
 for (i = 0; i < array_length(audio_ids); i++)
 {
     var audio_id = audio_ids[i];
-    audio_info = variable_struct_get(audio, audio_id);
+    var audio_info = variable_struct_get(audio, audio_id);
     
-    if (!audio_info.paused)
-        audio_resume_sound(variable_struct_get(known_audio, audio_id));
+    if (variable_struct_exists(known_audio, audio_id))
+    {
+        var snd = variable_struct_get(known_audio, audio_id);
+        audio_sound_set_track_position(snd, audio_info.position);
+        audio_sound_gain_logged(snd, audio_info.snd_gain, 0);
+        
+        if (audio_info.snd_gain_time != -1)
+            audio_sound_gain_logged(snd, audio_info.snd_gain_end, audio_info.snd_gain_time);
+        
+        if (audio_info.paused)
+            audio_pause_sound(snd);
+        else
+            audio_resume_sound(snd);
+    }
 }
 
-if (sprite_exists(asset_get_index("spr_numbersfontbig")))
-    global.damagefont = font_add_sprite_ext(spr_numbersfontbig, "0123456789", 20, 0);
-
-if (sprite_exists(asset_get_index("spr_numbersfontbig_gold")))
-    global.damagefontgold = font_add_sprite_ext(spr_numbersfontbig_gold, "0123456789+-%/F$", 20, 0);
-
-if (sprite_exists(asset_get_index("spr_numbersfontbig_pink")))
-    global.damagefontpink = font_add_sprite_ext(spr_numbersfontbig_pink, "0123456789+-%/P$", 20, 0);
-
-if (sprite_exists(asset_get_index("spr_numbersfontsmall")))
-    global.hpfont = font_add_sprite_ext(spr_numbersfontsmall, "0123456789-+", 0, 2);
-
-if (sprite_exists(asset_get_index("spr_tvlandfont")))
-    global.tvlandfont = font_add_sprite_ext(spr_tvlandfont, "ABCDEFGHIJKLMNOPQRSTUVWXYZ.?!:…abcdefghijklmnopqrstuvwxyz1234567890", 0, 1);
-
 loading = false;
+
+if (variable_struct_exists(load_game_info, "randomizer_seed") && LOAD_SEED)
+    random_set_seed(load_game_info.randomizer_seed);

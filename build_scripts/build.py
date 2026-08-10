@@ -4,7 +4,7 @@ import os
 import re
 from pathlib import Path
 
-from paths import UTMT, FLIPS, CHAPTERS_102, DEMO_115, SWITCH_LATEST, CH5_LATEST
+from paths import UTMT, FLIPS, CHAPTERS_102, DEMO_115, SWITCH_LATEST, CH5_LATEST, MAC_LATEST
 
 DIST_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'dist')
 SCRIPT_PATH = os.path.join(Path(__file__).resolve().parent, '..', 'src')
@@ -51,6 +51,7 @@ build_demo(DEMO_115, 'v1.15')
 build_full_release(CHAPTERS_102, 'v1.02', 4)
 build_full_release(SWITCH_LATEST, 'latest-switch', 5)
 build_full_release(CH5_LATEST, 'ch5_latest', 5)
+build_full_release(MAC_LATEST, 'latest-mac', 5)
 
 # copying files over
 shutil.copy2(FLIPS, os.path.join(PATCH_FILES, 'flips.exe'))

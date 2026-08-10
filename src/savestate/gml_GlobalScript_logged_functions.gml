@@ -210,7 +210,7 @@ function sprite_create_from_surface_logged(arg0, arg1, arg2, arg3, arg4, arg5, a
     var sprite = sprite_create_from_surface(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
     
     with (obj_savestate_manager)
-        highest_known_import_spr_id = max(sprite, highest_known_import_spr_id);
+        runtime_sprite_max_id = max(sprite, runtime_sprite_max_id);
     
     return sprite;
 }
@@ -220,7 +220,7 @@ function sprite_add_logged(arg0, arg1, arg2, arg3, arg4, arg5)
     var sprite = sprite_add(arg0, arg1, arg2, arg3, arg4, arg5);
     
     with (obj_savestate_manager)
-        highest_known_import_spr_id = max(sprite, highest_known_import_spr_id);
+        runtime_sprite_max_id = max(sprite, runtime_sprite_max_id);
     
     return sprite;
 }
@@ -229,7 +229,7 @@ function path_start_logged(arg0, arg1, arg2, arg3)
 {
     with (obj_savestate_manager)
     {
-        variable_struct_set(known_paths, other.id, 
+        variable_struct_set(instance_path_info, other.id, 
         {
             startx: other.x,
             starty: other.y,
@@ -278,4 +278,107 @@ function call_later_logged(arg0, arg1, arg2, arg3 = false)
     }
     
     return call_id;
+}
+
+function path_add_logged()
+{
+    var path = path_add();
+    
+    with (obj_savestate_manager)
+        runtime_path_max_id = max(path, runtime_path_max_id);
+    
+    return path;
+}
+
+function surface_create_logged(arg0, arg1, arg2 = undefined)
+{
+    var surf;
+    
+    if (is_undefined(arg2))
+        surf = surface_create(arg0, arg1);
+    else
+        surf = surface_create(arg0, arg1, arg2);
+    
+    with (obj_savestate_manager)
+        surface_max_id = max(surf, surface_max_id);
+    
+    return surf;
+}
+
+function mp_grid_create_logged(arg0, arg1, arg2, arg3, arg4, arg5)
+{
+    var mp_grid = mp_grid_create(arg0, arg1, arg2, arg3, arg4, arg4);
+    
+    with (obj_savestate_manager)
+    {
+        known_mp_grids[mp_grid] = 
+        {
+            left: arg0,
+            top: arg1,
+            hcells: arg2,
+            vcells: arg3,
+            cellwidth: arg4,
+            cellheight: arg5
+        };
+    }
+    
+    return mp_grid;
+}
+
+function mp_grid_destroy_logged(arg0)
+{
+    with (obj_savestate_manager)
+    {
+        if ((arg0 + 1) == array_length(known_mp_grids))
+            array_delete(known_mp_grids, arg0, 1);
+        else
+            known_mp_grids[arg0] = -1;
+    }
+    
+    return mp_grid_destroy(arg0);
+}
+
+function instance_deactivate_all_logged(arg0)
+{
+    with (all)
+    {
+        if (arg0 && id == other.id)
+            continue;
+        
+        variable_struct_set(obj_savestate_manager.deactivated_insts, id, get_all_inst_info(id));
+    }
+    
+    return instance_deactivate_all(arg0);
+}
+
+function instance_deactivate_object_logged(arg0)
+{
+    with (arg0)
+        variable_struct_set(obj_savestate_manager.deactivated_insts, id, get_all_inst_info(arg0));
+    
+    return instance_deactivate_object(arg0);
+}
+
+function instance_activate_all_logged()
+{
+    with (obj_savestate_manager)
+        deactivated_insts = {};
+    
+    return instance_activate_all();
+}
+
+function instance_activate_object_logged(arg0)
+{
+    var deactivated_inst_ids = variable_struct_get_names(obj_savestate_manager.deactivated_insts);
+    
+    for (var i = 0; i < array_length(deactivated_inst_ids); i++)
+    {
+        var inst_id = deactivated_inst_ids[i];
+        var inst_info = variable_struct_get(obj_savestate_manager.deactivated_insts, inst_id);
+        
+        if ((object_exists(arg0) && inst_info.object_index == arg0) || (instance_exists(arg0) && inst_info.id == arg0))
+            variable_struct_remove(obj_savestate_manager.deactivated_insts, inst_id);
+    }
+    
+    return instance_activate_object(arg0);
 }

@@ -1,4 +1,4 @@
-# Path to the chapters data.wins (0 is chapter select)
+# Path to the chapters' data.wins / game.wins / game.ios-es (0 is chapter select)
 CHAPTERS_102 = {
   '0': r"",
   '1': r"",
@@ -17,6 +17,15 @@ CH5_LATEST = {
 }
 
 SWITCH_LATEST = {
+  '0': r"",
+  '1': r"",
+  '2': r"",
+  '3': r"",
+  '4': r"",
+  '5': r""
+}
+
+MAC_LATEST = {
   '0': r"",
   '1': r"",
   '2': r"",
