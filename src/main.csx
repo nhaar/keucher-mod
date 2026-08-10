@@ -208,11 +208,6 @@ class FlbModLoader : UMPLoader
         return name;
     }
 
-    public string MacSaveDirectory()
-    {
-        return "\"com.tobyfox.deltarune_practice_mod/\"";
-    }
-
     public enum DR
     {
         MaxChapter = 5
