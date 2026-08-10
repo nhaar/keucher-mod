@@ -24,7 +24,7 @@ if (variable_global_exists("debug_keybinds_on") && global.debug_keybinds_on && c
     for (var i = 0; i < 10; i++)
     {
         var _savestate_num = (savestate_page * 10) + i;
-        var _savestate_dir = ossafe_game_save_id() + "Savestates/" + game_display_name + "/" + string(_savestate_num);
+        var _savestate_dir = game_save_id + "Savestates/" + game_display_name + "/" + string(_savestate_num);
         var file_id = -1;
         
         if (directory_exists(_savestate_dir) && file_exists(_savestate_dir + "/room.txt"))

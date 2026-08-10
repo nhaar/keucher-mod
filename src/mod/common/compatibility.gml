@@ -1,19 +1,5 @@
 /// FUNCTIONS
 
-function ossafe_game_save_id()
-{
-    if (os_type == os_macosx)
-    {
-        var dir_length = string_length("com.tobyfox.deltarune/");
-        var game_save_id_back = string_copy(game_save_id, 1, string_length(game_save_id) - dir_length);
-        return game_save_id_back + #MacSaveDirectory();
-    }
-    else
-    {
-        return game_save_id;
-    }
-}
-
 #if CHS || CH1
 function i_ex(instance)
 {

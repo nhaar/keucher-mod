@@ -2,7 +2,7 @@
 
 function init_config()
 {
-    global.mod_dir = ossafe_game_save_id() + "mod_options";
+    global.mod_dir = game_save_id + "mod_options";
     global.config_path = global.mod_dir + "/config.json";
     var first_time = !directory_exists(global.mod_dir);
     if (first_time)

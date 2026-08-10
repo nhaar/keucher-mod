@@ -78,7 +78,7 @@ surface_max_id = 0;
 
 function savestate_dir()
 {
-    return ossafe_game_save_id() + "Savestates/" + game_display_name + "/" + string(savestate_num) + "/";
+    return game_save_id + "Savestates/" + game_display_name + "/" + string(savestate_num) + "/";
 }
 
 function get_precedence(arg0)
