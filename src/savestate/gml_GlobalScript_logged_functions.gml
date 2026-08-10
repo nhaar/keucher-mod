@@ -307,7 +307,7 @@ function surface_create_logged(arg0, arg1, arg2 = undefined)
 
 function mp_grid_create_logged(arg0, arg1, arg2, arg3, arg4, arg5)
 {
-    var mp_grid = mp_grid_create(arg0, arg1, arg2, arg3, arg4, arg4);
+    var mp_grid = mp_grid_create(arg0, arg1, arg2, arg3, arg4, arg5);
     
     with (obj_savestate_manager)
     {
