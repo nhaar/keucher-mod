@@ -64,6 +64,10 @@ void BuildSavestate(string resourcePath)
 
         // importGroup.QueueFindReplace(code, "game_restart()", "scr_chapterswitch(global.chapter)");
 
+        // Fix crashes related to 'console does not exist in the current context'
+        // They misspelled their own variable name...
+        importGroup.QueueFindReplace(code, "global.console", "global.is_console", true);
+
         // To stop PreCreate, Create, BeginStep, and Other events from happening while loading
         // Mostly for instances that are a part of the room load. 
         if ((code.Name.Content.StartsWith("gml_Object_") && 
