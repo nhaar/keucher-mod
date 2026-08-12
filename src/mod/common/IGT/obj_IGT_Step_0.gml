@@ -62,6 +62,9 @@ else if (global.mnfight != 2 && turn_started)
     turn_started = false;
     end_battle_turn = true;
 }
+// checks if the battle has ended
+if (end_battle_timer == false && global.fighting == 0 && battle_started)
+    end_battle_timer = true;
 
 #if CH5
 if (i_ex(obj_plat_barrier) && !turn_started)
