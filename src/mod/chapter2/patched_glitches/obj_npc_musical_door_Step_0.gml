@@ -1,4 +1,4 @@
-/// PATCH
+/// PATCH .ignore if DEMO
 
 /// AFTER
 if (con == 1)

@@ -5,9 +5,9 @@ var has_wrist_protector = global.flag[10] == 1;
 /// END
 
 
-/// AFTER
-        if (automash_timer == 0)
-        {
+/// BEFORE
+            button1 = 1;
+            button2 = 1;
 /// CODE
             is_auto_mashed = has_wrist_protector
 /// END
