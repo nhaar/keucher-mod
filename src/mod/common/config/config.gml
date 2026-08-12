@@ -2,9 +2,9 @@
 
 function init_config()
 {
-    global.mod_dir = "mod_options";
+    global.mod_dir = game_save_id + "mod_options";
     global.config_path = global.mod_dir + "/config.json";
-    var first_time = !directory_exists(working_directory + global.mod_dir);
+    var first_time = !directory_exists(global.mod_dir);
     if (first_time)
     {
         show_message(@"Welcome to the FLB Practice Mod!

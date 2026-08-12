@@ -3,7 +3,7 @@
 /// REPLACE
 if (pausing && !os_is_paused())
 /// CODE
-if (pausing && (!global.is_pause_emulating))
+if (pausing && (!global.is_pause_emulating || (global.is_console && !os_is_paused())))
 /// END
 
 /// AFTER

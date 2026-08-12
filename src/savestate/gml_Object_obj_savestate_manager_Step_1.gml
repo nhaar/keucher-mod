@@ -1,43 +1,38 @@
 update_audio_info();
 alarm[0] = 1;
 
-if (variable_global_exists("debug_keybinds_on") && global.debug_keybinds_on)
+if (!variable_global_exists("debug_keybinds_on") || !global.debug_keybinds_on)
+    exit;
+
+for (i = 0; i < 10; i++)
 {
-    for (i = 0; i < 10; i++)
+    if (keyboard_check_pressed(i + ord("0")) || keyboard_check_pressed(i + vk_numpad0) || (i == 5 && keyboard_check_pressed(12)))
     {
-        if (keyboard_check_pressed(i + ord("0")) || keyboard_check_pressed(i + vk_numpad0) || (i == 5 && keyboard_check_pressed(12)))
-        {
-            savestate_num = (savestate_page * 10) + i;
-            msg_opacity = 3;
-            debug_msg = "Selected savestate #" + string(savestate_num);
-        }
-    }
-    
-    var prev = pressed_active_debug_keybind("prevpage_savestate");
-    var next = pressed_active_debug_keybind("nextpage_savestate");
-    
-    if (prev || next)
-    {
-        savestate_page = next ? (savestate_page + 1) : max(0, savestate_page - 1);
-        savestate_num = next ? (savestate_num + 10) : max(0, savestate_num - 10);
+        savestate_num = (savestate_page * 10) + i;
         msg_opacity = 3;
-        debug_msg = "Moved to savestate page #" + string(savestate_page) + "\n(Selected savestate #" + string(savestate_num) + ")";
+        debug_msg = "Selected savestate #" + string(savestate_num);
     }
-    
-    if (pressed_active_debug_keybind("load_savestate"))
-    {
-        start_load();
-        exit;
-    }
-    
-    if (!pressed_active_debug_keybind("store_savestate"))
-        exit;
 }
-else
+
+var prev = pressed_active_debug_keybind("prevpage_savestate");
+var next = pressed_active_debug_keybind("nextpage_savestate");
+
+if (prev || next)
 {
+    savestate_page = next ? (savestate_page + 1) : max(0, savestate_page - 1);
+    savestate_num = next ? (savestate_num + 10) : max(0, savestate_num - 10);
+    msg_opacity = 3;
+    debug_msg = "Moved to savestate page #" + string(savestate_page) + "\n(Selected savestate #" + string(savestate_num) + ")";
+}
+
+if (pressed_active_debug_keybind("load_savestate"))
+{
+    start_load();
     exit;
 }
 
+if (!pressed_active_debug_keybind("store_savestate"))
+    exit;
 
 debug_msg = "Created savestate";
 msg_opacity = 3;
@@ -141,28 +136,69 @@ save_game_info.listener = audio_listener_info;
 if (directory_exists(savestate_dir()))
     directory_destroy(savestate_dir());
 
-var instances = {};
 var sprites = {};
 
-for (i = imported_sprite_start; sprite_exists(i) || i <= highest_known_import_spr_id; i++)
+for (i = runtime_sprite_start; sprite_exists(i) || i <= runtime_sprite_max_id; i++)
 {
     if (!sprite_exists(i))
         continue;
     
     sprite_save_strip(i, savestate_dir() + "Sprites/" + sprite_get_name(i) + ".png");
-    var sprite_info = {};
-    sprite_info.x = sprite_get_xoffset(i);
-    sprite_info.y = sprite_get_yoffset(i);
-    sprite_info.subimages = sprite_get_number(i);
-    sprite_info.bbox_mode = sprite_get_bbox_mode(i);
-    sprite_info.bbox_bottom = sprite_get_bbox_bottom(i);
-    sprite_info.bbox_right = sprite_get_bbox_right(i);
-    sprite_info.bbox_left = sprite_get_bbox_left(i);
-    sprite_info.bbox_top = sprite_get_bbox_top(i);
+    var sprite_info = 
+    {
+        x: sprite_get_xoffset(i),
+        y: sprite_get_yoffset(i),
+        subimages: sprite_get_number(i),
+        bbox_mode: sprite_get_bbox_mode(i),
+        bbox_bottom: sprite_get_bbox_bottom(i),
+        bbox_right: sprite_get_bbox_right(i),
+        bbox_left: sprite_get_bbox_left(i),
+        bbox_top: sprite_get_bbox_top(i)
+    };
     variable_struct_set(sprites, sprite_get_name(i), sprite_info);
 }
 
 save_game_info.sprites = sprites;
+var runtime_paths = {};
+
+for (i = runtime_path_start; path_exists(i) || i <= runtime_path_max_id; i++)
+{
+    if (!path_exists(i))
+        continue;
+    
+    var point_info = [];
+    var points_amt = path_get_number(i);
+    
+    for (var j = 0; j < points_amt; j++)
+    {
+        array_push(point_info, 
+        {
+            x: path_get_point_x(i, j),
+            y: path_get_point_y(i, j),
+            speed: path_get_point_speed(i, j)
+        });
+    }
+    
+    var path_info = 
+    {
+        closed: path_get_closed(i),
+        kind: path_get_kind(i),
+        precision: path_get_precision(i),
+        points: point_info
+    };
+    variable_struct_set(runtime_paths, path_get_name(i), path_info);
+}
+
+save_game_info.runtime_paths = runtime_paths;
+
+for (i = 1; surface_exists(i) || i <= surface_max_id; i++)
+{
+    if (!surface_exists(i))
+        continue;
+    
+    surface_save(i, savestate_dir() + "Surfaces/" + string(i) + ".png");
+}
+
 var layers = {};
 var layer_ids = layer_get_all();
 layer_element_map = {};
@@ -180,7 +216,8 @@ for (i = 0; i < array_length(layer_ids); i++)
         vspeed: layer_get_vspeed(layer),
         shader: layer_get_shader(layer),
         script_begin: encode_data_type(layer_get_script_begin(layer)),
-        script_end: encode_data_type(layer_get_script_end(layer))
+        script_end: encode_data_type(layer_get_script_end(layer)),
+        order: i
     };
     var layer_elements = layer_get_all_elements(layer);
     var stored_elements = [];
@@ -198,7 +235,7 @@ for (i = 0; i < array_length(layer_ids); i++)
                     type: "background",
                     id: element,
                     visible: layer_background_get_visible(element),
-                    sprite: encode_data_type(layer_background_get_sprite(element), false),
+                    sprite: encode_data_type(layer_background_get_sprite(element)),
                     htiled: layer_background_get_htiled(element),
                     vtiled: layer_background_get_vtiled(element),
                     stretch: layer_background_get_stretch(element),
@@ -217,7 +254,7 @@ for (i = 0; i < array_length(layer_ids); i++)
                 {
                     type: "sprite",
                     id: element,
-                    sprite: encode_data_type(layer_sprite_get_sprite(element), false),
+                    sprite: encode_data_type(layer_sprite_get_sprite(element)),
                     image_index: layer_sprite_get_index(element),
                     speed: layer_sprite_get_speed(element),
                     xscale: layer_sprite_get_xscale(element),
@@ -237,7 +274,7 @@ for (i = 0; i < array_length(layer_ids); i++)
                 {
                     type: "tilemap",
                     id: element,
-                    tileset: encode_data_type(tilemap_get_tileset(element), false),
+                    tileset: encode_data_type(tilemap_get_tileset(element)),
                     columns: tilemap_get_width(element),
                     rows: tilemap_get_height(element),
                     x: tilemap_get_x(element),
@@ -285,34 +322,32 @@ for (i = 0; i < array_length(layer_ids); i++)
 }
 
 save_game_info.layers = layers;
-var inst_order = [];
+var instances = {};
+var deactivated_inst_ids = variable_struct_get_names(deactivated_insts);
+
+for (i = 0; i < array_length(deactivated_inst_ids); i++)
+{
+    var inst_id = deactivated_inst_ids[i];
+    var inst_info = variable_struct_get(deactivated_insts, inst_id);
+    encode_inst_info(inst_id, inst_info, instances);
+}
 
 with (all)
 {
-    if (id == other.id)
+    if (id == other.id || array_contains_manual(other.EXEMPT_OBJECTS, object_index))
         continue;
     
-    var var_names = variable_instance_get_names(id);
-    var variables = {};
-    var id_str = string(id);
-    
-    if (!other.ref_type_exists)
-        id_str = "ref " + id_str;
-    
-    other.add_inst_vars_to_struct(id, var_names, variables);
-    other.add_inst_vars_to_struct(id, other.builtin_inst_vars, variables);
-    var alarm_val = array_create(12);
-    
-    for (i = 0; i < 12; i++)
-        alarm_val[i] = alarm[i];
-    
-    variables.alarm = other.encode_data_type(alarm_val, false);
-    array_push(inst_order, id_str);
-    variable_struct_set(instances, id_str, variables);
+    other.encode_inst_info(string(id), get_all_inst_info(id), instances);
+}
+
+if (!ref_type_exists)
+{
+    for (i = 0; i < array_length(deactivated_inst_ids); i++)
+        deactivated_inst_ids[i] = "ref " + deactivated_inst_ids[i];
 }
 
 save_game_info.instances = instances;
-save_game_info.inst_order = inst_order;
+save_game_info.deactivated_insts = deactivated_inst_ids;
 var globals = {};
 var all_globals = variable_instance_get_names(-5);
 
@@ -320,7 +355,7 @@ for (i = 0; i < array_length(all_globals); i++)
 {
     var name = all_globals[i];
     
-    if (string_pos("@@", name) == 1)
+    if (string_pos("@@", name) == 1 || array_contains_manual(EXEMPT_GLOBALS, name))
         continue;
     
     var value = variable_global_get(name);
@@ -328,137 +363,101 @@ for (i = 0; i < array_length(all_globals); i++)
     if (is_method(value) && script_exists(value))
         continue;
     
-    variable_struct_set(globals, name, encode_data_type(value, false));
+    variable_struct_set(globals, name, encode_data_type(value, get_precedence(name)));
 }
 
 globals.room = room;
 globals.game_speed = game_get_speed(gamespeed_fps);
 save_game_info.globals = globals;
-var camera = {};
-var cur_camera = view_camera[0];
-camera.x = camera_get_view_x(cur_camera);
-camera.y = camera_get_view_y(cur_camera);
-camera.width = camera_get_view_width(cur_camera);
-camera.height = camera_get_view_height(cur_camera);
-camera.xspeed = camera_get_view_speed_x(cur_camera);
-camera.yspeed = camera_get_view_speed_y(cur_camera);
-camera.angle = camera_get_view_angle(cur_camera);
-camera.target = string(camera_get_view_target(cur_camera));
-camera.xborder = camera_get_view_border_x(cur_camera);
-camera.yborder = camera_get_view_border_y(cur_camera);
-save_game_info.camera = camera;
-var ds_lists = [];
+var cameras = [];
+var views = [];
 
-for (i = 0; i <= ds_max_id.list; i++)
+for (i = 0; i < 8; i++)
 {
-    if (!ds_exists(i, ds_type_list))
-    {
-        ds_lists[i] = encode_data_type(-1);
-    }
-    else
-    {
-        var array = [];
-        
-        for (var j = 0; j < ds_list_size(i); j++)
-            array[j] = ds_list_find_value(i, j);
-        
-        ds_lists[i] = encode_data_type(array);
-    }
-}
-
-i = array_length(ds_lists) - 1;
-
-while (i >= 0)
-{
-    if (ds_lists[i].value != -1)
-        break;
+    var cam = view_camera[i];
+    var target = camera_get_view_target(cam);
     
-    array_delete(ds_lists, i, 1);
-    i--;
-}
-
-var ds_maps = [];
-
-for (i = 0; i <= ds_max_id.map; i++)
-{
-    if (!ds_exists(i, ds_type_map))
-    {
-        ds_maps[i] = encode_data_type(-1);
-    }
-    else
-    {
-        var struct = {};
-        var key = ds_map_find_first(i);
-        
-        while (!is_undefined(key))
-        {
-            var val = ds_map_find_value(i, key);
-            variable_struct_set(struct, key, val);
-            key = ds_map_find_next(i, key);
-        }
-        
-        ds_maps[i] = encode_data_type(struct);
-    }
-}
-
-i = array_length(ds_maps) - 1;
-
-while (i >= 0)
-{
-    if (ds_maps[i].value != -1)
-        break;
+    if (!ref_type_exists && instance_exists(target))
+        target = "ref " + string(target);
     
-    array_delete(ds_maps, i, 1);
-    i--;
-}
-
-var ds_pqueues = [];
-
-for (i = 0; i <= ds_max_id.pqueue; i++)
-{
-    if (!ds_exists(i, ds_type_priority))
+    array_push(cameras, 
     {
-        ds_pqueues[i] = encode_data_type(-1);
-    }
-    else
+        x: camera_get_view_x(cam),
+        y: camera_get_view_y(cam),
+        width: camera_get_view_width(cam),
+        height: camera_get_view_height(cam),
+        xspeed: camera_get_view_speed_x(cam),
+        yspeed: camera_get_view_speed_y(cam),
+        angle: camera_get_view_angle(cam),
+        target: string(target),
+        xborder: camera_get_view_border_x(cam),
+        yborder: camera_get_view_border_y(cam)
+    });
+    array_push(views, 
     {
-        var pqueue_items = [];
-        var pqueue_copy = ds_priority_create_logged();
-        ds_priority_copy(pqueue_copy, i);
-        
-        while (!ds_priority_empty(pqueue_copy))
-        {
-            var value = ds_priority_delete_max(pqueue_copy);
-            array_push(pqueue_items, 
-            {
-                value: value,
-                priority: ds_priority_find_priority(i, value)
-            });
-        }
-        
-        ds_pqueues[i] = encode_data_type(pqueue_items);
-        ds_priority_destroy(pqueue_copy);
-    }
+        enabled: view_enabled[i],
+        visible: view_visible[i],
+        xport: view_xport[i],
+        yport: view_yport[i],
+        wport: view_wport[i],
+        hport: view_hport[i],
+        surface: view_surface_id[i]
+    });
 }
 
-i = array_length(ds_pqueues) - 1;
+save_game_info.camera = cameras[0];
+var other_cameras = [];
 
-while (i >= 0)
-{
-    if (ds_pqueues[i].value != -1)
-        break;
-    
-    array_delete(ds_pqueues, i, 1);
-    i--;
-}
+for (i = 1; i < array_length(cameras); i++)
+    array_push(other_cameras, cameras[i]);
 
+save_game_info.other_cameras = other_cameras;
+save_game_info.views = views;
 save_game_info.ds = 
 {
-    lists: ds_lists,
-    maps: ds_maps,
-    pqueues: ds_pqueues
+    lists: get_ds_info("list", 2, ds_list_to_array),
+    maps: get_ds_info("map", 1, ds_map_to_struct),
+    pqueues: get_ds_info("pqueue", 6, ds_pqueue_to_json)
 };
-save_game_info.paths = known_paths;
+var mp_grid_info = [];
+
+for (i = 0; i < array_length(known_mp_grids); i++)
+{
+    var orig_info = known_mp_grids[i];
+    
+    if (orig_info == -1)
+    {
+        array_push(mp_grid_info, -1);
+    }
+    else
+    {
+        var new_info = copy_struct(orig_info);
+        var cell_info = [];
+        
+        for (var _x = 0; _x < new_info.hcells; _x++)
+        {
+            for (var _y = 0; _y < new_info.vcells; _y++)
+            {
+                var occupied = mp_grid_get_cell(i, _x, _y);
+                
+                if (occupied == 0)
+                    continue;
+                
+                array_push(cell_info, 
+                {
+                    x: _x,
+                    y: _y
+                });
+            }
+        }
+        
+        new_info.occupied_cells = cell_info;
+        array_push(mp_grid_info, new_info);
+    }
+}
+
+save_game_info.mp_grids = mp_grid_info;
+save_game_info.paths = instance_path_info;
 var call_laters = [];
 i = array_length(known_call_laters) - 1;
 
@@ -475,11 +474,17 @@ while (i >= 0)
 }
 
 save_game_info.call_laters = call_laters;
+save_game_info.audio_master_gain = audio_get_master_gain(0);
+save_game_info.randomizer_seed = random_get_seed();
 var json_string = json_stringify(save_game_info, false);
 var buffer_size = string_byte_length(json_string) + 1;
 var save_buffer = buffer_create(buffer_size, buffer_fixed, 1);
 buffer_write(save_buffer, buffer_string, json_string);
 buffer_save(save_buffer, savestate_dir() + "data.json");
+
+if (os_type == os_switch || os_type == os_switch2)
+    switch_save_data_commit();
+
 buffer_delete(save_buffer);
 var file_id = file_text_open_write(savestate_dir() + "room.txt");
 
@@ -487,6 +492,9 @@ if (file_id != -1)
 {
     file_text_write_string(file_id, string(room));
     file_text_close(file_id);
+
+    if (os_type == os_switch || os_type == os_switch2)
+        switch_save_data_commit();
 }
 
 for (i = 0; i < array_length(sound_ids); i++)

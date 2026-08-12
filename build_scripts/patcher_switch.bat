@@ -61,24 +61,24 @@ if not defined hash (
     exit /b
 )
 
-if NOT (/i "%hash%" == "9D3F84FC7179FEFC4A98F13D76BAFCE4") (
+if /i NOT "%hash%" == "A9CB9854581B7C018CFD9336DE1CB7CB" (
     echo MsgBox "Error! This game.win is not supported", vbOKOnly+vbInformation, "Error" > %temp%\error.vbs
     cscript //nologo %temp%\error.vbs
     del %temp%\error.vbs
     exit /b
 )
 
-echo Patching Chapter Select v1.04...
-patch_files\flips.exe --apply patch_files\v1.04-switch-chapter_select.bps "%installDir%\game.win" "%installDir%\game_practice.win"
+echo Patching Chapter Select for latest CH5 release...
+patch_files\flips.exe --apply patch_files\latest-switch-chapter_select.bps "%installDir%\game.win" "%installDir%\game_practice.win"
 if errorlevel 1 (
     echo Press any key to exit...
     pause >nul
     exit /b
 )
 
-for %%C in (1 2 3 4) do (
-    echo Patching Chapter %%C v1.04...
-    patch_files\flips.exe --apply patch_files\v1.04-switch-chapter%%C.bps "%installDir%\chapter%%C_switch\game.win" "%installDir%\chapter%%C_switch\game_practice.win"
+for %%C in (1 2 3 4 5) do (
+    echo Patching Chapter %%C for latest CH5 release...
+    patch_files\flips.exe --apply patch_files\latest-switch-chapter%%C.bps "%installDir%\chapter%%C_switch\game.win" "%installDir%\chapter%%C_switch\game_practice.win"
     if errorlevel 1 (
         echo Press any key to exit...
         pause >nul

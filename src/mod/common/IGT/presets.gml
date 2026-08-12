@@ -2,13 +2,16 @@
 
 function init_split_presets()
 {
-
     global.presets_json = global.mod_dir + "/presets.json";
+
     if (!file_exists(global.presets_json))
     {
         var file = file_text_open_write(global.presets_json);
         file_text_write_string(file, "{}");
         file_text_close(file);
+
+        if (os_type == os_switch || os_type == os_switch2)
+            switch_save_data_commit();
     }
 
     global.presets = scr_84_load_map_json(global.presets_json);
