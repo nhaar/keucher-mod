@@ -29,9 +29,9 @@ class FlbModLoader : UMPLoader
             return true;
         }
 
-        if (filePath.Contains("demo\\") && Version == DeltaruneVersion.Demo)
+        if (filePath.Contains("demo\\") && Version != DeltaruneVersion.Demo)
         {
-            return true;
+            return false;
         }
 
         var isChapterSelect = filePath.Contains("chapter_select\\");
@@ -45,9 +45,10 @@ class FlbModLoader : UMPLoader
             return false;
         }
 
-        var chapterMatch = Regex.Match(filePath, @"chapter(\d+)");
+        var chapterMatch = Regex.Match(filePath, @"chapter(\d+)\\");
 
         int actualVersion = 0;
+        bool isDemo = Version == DeltaruneVersion.Demo;
         switch (Version)
         {
             case DeltaruneVersion.Chapter1:
@@ -69,36 +70,57 @@ class FlbModLoader : UMPLoader
 
         if (chapterMatch.Success)
         {
-            if (int.Parse(chapterMatch.Groups[1].Value) != actualVersion)
+            int filter = int.Parse(chapterMatch.Groups[1].Value);
+            if (isDemo && filter > 2)
+            {
+                return false;
+            }
+            else if (!isDemo && filter != actualVersion)
             {
                 return false;
             }
         }
 
-        var openRangeMatch = Regex.Match(filePath, @"ch(\d+)\+");
+        var openRangeMatch = Regex.Match(filePath, @"ch(\d+)\+\\");
         if (openRangeMatch.Success)
         {
-            if (actualVersion < int.Parse(openRangeMatch.Groups[1].Value))
+            int range = int.Parse(openRangeMatch.Groups[1].Value);
+            if (isDemo && range > 2)
+            {
+                return false;
+            }
+            else if (!isDemo && actualVersion < range)
             {
                 return false;
             }
         }
         else
         {
-            var closedRangeMatch = Regex.Match(filePath, @"ch(\d+)\-(\d+)");
+            var closedRangeMatch = Regex.Match(filePath, @"ch(\d+)\-(\d+)\\");
             if (closedRangeMatch.Success)
             {
-                if (actualVersion < int.Parse(closedRangeMatch.Groups[1].Value) || actualVersion > int.Parse(closedRangeMatch.Groups[2].Value))
+                int lower = int.Parse(closedRangeMatch.Groups[1].Value);
+                int upper = int.Parse(closedRangeMatch.Groups[2].Value);
+                if (isDemo && lower > 2)
+                {
+                    return false;    
+                }
+                else if (!isDemo && (actualVersion < lower || actualVersion > upper))
                 {
                     return false;
                 }
             }
             else
             {
-                var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)");
+                var minifiedChapterMatch = Regex.Match(filePath, @"ch(\d+)\\");
                 if (minifiedChapterMatch.Success)
                 {
-                    if (actualVersion != int.Parse(minifiedChapterMatch.Groups[1].Value))
+                    int filter = int.Parse(minifiedChapterMatch.Groups[1].Value);
+                    if (isDemo && filter > 2)
+                    {
+                        return false;
+                    }
+                    else if (!isDemo && actualVersion != filter)
                     {
                         return false;
                     }

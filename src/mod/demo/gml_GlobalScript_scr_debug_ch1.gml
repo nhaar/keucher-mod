@@ -1,4 +1,4 @@
-/// IMPORT .ignore if !DEMO
+/// IMPORT
 
 function scr_debug_ch1()
 {

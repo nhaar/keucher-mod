@@ -1,4 +1,4 @@
-/// PATCH .ignore if !DEMO
+/// PATCH
 
 /// REPLACE
     global.debug = 0;
